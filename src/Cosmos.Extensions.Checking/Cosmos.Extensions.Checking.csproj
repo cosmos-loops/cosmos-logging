@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+    <Version>0.1.0-alpha1-10001</Version>
+    <Authors>AlexLEWIS</Authors>
+    <Company>AlexLEWIS</Company>
+    <Description>Checking extensions for Cosmos standard library</Description>
+    <PackageProjectUrl />
+    <RepositoryType>git</RepositoryType>
+    <RootNamespace>Cosmos</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cosmos.Extensions\Cosmos.Extensions.csproj" />
+    <ProjectReference Include="..\Cosmos\Cosmos.csproj" />
+  </ItemGroup>
+
+</Project>

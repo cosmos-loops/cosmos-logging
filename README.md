@@ -1,2 +1,5 @@
-# Cosmos.Core
-Cosmos.Core is a lightweight utility lib for dotnetcore, but right now, it CAN DO NOTHING yet...
+# Cosmos Standard Library
+
+* * *
+
+[MIT](https://mit-license.org/)
