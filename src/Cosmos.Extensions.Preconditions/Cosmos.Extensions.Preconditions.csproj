@@ -6,7 +6,7 @@
     <Version>0.1.0-alpha1-10001</Version>
     <Authors>AlexLEWIS</Authors>
     <Company>AlexLEWIS</Company>
-    <Description>Checking extensions for Cosmos standard library</Description>
+    <Description>Preconditions extensions for Cosmos standard library</Description>
     <PackageProjectUrl />
     <RepositoryType>git</RepositoryType>
     <RootNamespace>Cosmos</RootNamespace>

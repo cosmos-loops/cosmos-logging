@@ -11,7 +11,7 @@ dotnet pack src/Cosmos.Abstractions -c Release -o ../../packages
 dotnet pack src/Cosmos.Core -c Release -o ../../packages
 dotnet pack src/Cosmos -c Release -o ../../packages
 dotnet pack src/Cosmos.Extensions -c Release -o ../../packages
-dotnet pack src/Cosmos.Extensions.Checking -c Release -o ../../packages
+dotnet pack src/Cosmos.Extensions.Preconditions -c Release -o ../../packages
 dotnet pack src/Cosmos.Extensions.DateTime -c Release -o ../../packages
 
 for /R "packages" %%s in (*symbols.nupkg) do (

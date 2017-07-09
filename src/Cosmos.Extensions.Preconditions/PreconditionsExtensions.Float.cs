@@ -3,7 +3,7 @@
     /// <summary>
     /// Float arguments checking extensions
     /// </summary>
-    public static partial class ArgumentExtensions
+    public static partial class PreconditionsExtensions
     {
         /// <summary>
         /// 检查单精度浮点数是否超界
@@ -14,7 +14,7 @@
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
         public static void CheckOutOfRange(this float argument, float min, float max, string argumentName, string message = null)
-            => Arguments.IsNotOutOfRange(argument, min, max, argumentName, message);
+            => Preconditions.IsNotOutOfRange(argument, min, max, argumentName, message);
 
         /// <summary>
         /// 检查单精度浮点数是否超界
@@ -25,7 +25,7 @@
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
         public static void CheckOutOfRange(this float? argument, float min, float max, string argumentName, string message = null)
-            => Arguments.IsNotOutOfRange(argument, min, max, argumentName, message);
+            => Preconditions.IsNotOutOfRange(argument, min, max, argumentName, message);
 
         /// <summary>
         /// 检查浮点数是否为负
@@ -35,7 +35,7 @@
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
         public static void CheckNegative(this float argument, string argumentName, string message = null)
-            => Arguments.IsNotNegative(argument, argumentName, message);
+            => Preconditions.IsNotNegative(argument, argumentName, message);
 
         /// <summary>
         /// 检查浮点数是否为负
@@ -45,7 +45,7 @@
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
         public static void CheckNegative(this float? argument, string argumentName, string message = null)
-            => Arguments.IsNotNegative(argument, argumentName, message);
+            => Preconditions.IsNotNegative(argument, argumentName, message);
 
         /// <summary>
         /// 检查浮点数是否为负或为零
@@ -55,7 +55,7 @@
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
         public static void CheckNegativeOrZero(this float argument, string argumentName, string message = null)
-            => Arguments.IsNotNegativeOrZero(argument, argumentName, message);
+            => Preconditions.IsNotNegativeOrZero(argument, argumentName, message);
 
         /// <summary>
         /// 检查浮点数是否为负或为零
@@ -65,6 +65,6 @@
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
         public static void CheckNegativeOrZero(this float? argument, string argumentName, string message = null)
-            => Arguments.IsNotNegativeOrZero(argument, argumentName, message);
+            => Preconditions.IsNotNegativeOrZero(argument, argumentName, message);
     }
 }

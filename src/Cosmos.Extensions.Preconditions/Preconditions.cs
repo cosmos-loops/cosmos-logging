@@ -7,7 +7,7 @@ namespace Cosmos
     /// <summary>
     /// Arguments checking
     /// </summary>
-    public static partial class Arguments
+    public static partial class Preconditions
     {
         /// <summary>
         /// 检查对象是否为空

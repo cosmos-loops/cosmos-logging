@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.4
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos", "src\Cosmos\Cosmos.csproj", "{8FE469B4-1086-4708-8CF4-5CCF6645EB20}"
 EndProject
@@ -26,9 +26,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Test", "test\Cosmos.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Extensions", "src\Cosmos.Extensions\Cosmos.Extensions.csproj", "{519B9916-5BC9-4AEC-829A-F117BB559197}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Extensions.Checking", "src\Cosmos.Extensions.Checking\Cosmos.Extensions.Checking.csproj", "{FE7D73FB-104F-47CF-B243-8B571B120F5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Extensions.DateTime", "src\Cosmos.Extensions.DateTime\Cosmos.Extensions.DateTime.csproj", "{CB6A93EA-344E-4D4E-B268-4F0181BAC009}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Extensions.DateTime", "src\Cosmos.Extensions.DateTime\Cosmos.Extensions.DateTime.csproj", "{CB6A93EA-344E-4D4E-B268-4F0181BAC009}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Extensions.Preconditions", "src\Cosmos.Extensions.Preconditions\Cosmos.Extensions.Preconditions.csproj", "{85C2BF3F-F1A4-44DA-90E5-2B8328C8DB8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,14 +56,14 @@ Global
 		{519B9916-5BC9-4AEC-829A-F117BB559197}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{519B9916-5BC9-4AEC-829A-F117BB559197}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{519B9916-5BC9-4AEC-829A-F117BB559197}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE7D73FB-104F-47CF-B243-8B571B120F5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE7D73FB-104F-47CF-B243-8B571B120F5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE7D73FB-104F-47CF-B243-8B571B120F5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE7D73FB-104F-47CF-B243-8B571B120F5D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CB6A93EA-344E-4D4E-B268-4F0181BAC009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CB6A93EA-344E-4D4E-B268-4F0181BAC009}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB6A93EA-344E-4D4E-B268-4F0181BAC009}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB6A93EA-344E-4D4E-B268-4F0181BAC009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85C2BF3F-F1A4-44DA-90E5-2B8328C8DB8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85C2BF3F-F1A4-44DA-90E5-2B8328C8DB8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85C2BF3F-F1A4-44DA-90E5-2B8328C8DB8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85C2BF3F-F1A4-44DA-90E5-2B8328C8DB8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,7 +72,7 @@ Global
 		{8093E5B1-A628-40AC-9DA3-4923DF900937} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
 		{9B886790-9044-41CF-966A-17B5706329D9} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
 		{FEFFEF83-5011-490B-8E0D-9FBE516FCE7D} = {0F01E2EF-3398-47CB-B5CB-33AF122A1BC7}
-		{FE7D73FB-104F-47CF-B243-8B571B120F5D} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
 		{CB6A93EA-344E-4D4E-B268-4F0181BAC009} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
+		{85C2BF3F-F1A4-44DA-90E5-2B8328C8DB8F} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
 	EndGlobalSection
 EndGlobal

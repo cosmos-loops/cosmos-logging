@@ -6,7 +6,7 @@ namespace Cosmos
     /// <summary>
     /// Numeric arguments checking
     /// </summary>
-    public static partial class Arguments
+    public static partial class Preconditions
     {
         /// <summary>
         /// 检查整数是否为负

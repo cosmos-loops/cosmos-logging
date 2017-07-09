@@ -6,7 +6,7 @@ namespace Cosmos
     /// <summary>
     /// Argument checking extensions
     /// </summary>
-    public static partial class ArgumentExtensions
+    public static partial class PreconditionsExtensions
     {
         /// <summary>
         /// 检查 Guid 是否为空
@@ -14,7 +14,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         public static void CheckNull(this Guid argument, string argumentName)
-            => Arguments.IsNotEmpty(argument, argumentName);
+            => Preconditions.IsNotEmpty(argument, argumentName);
 
         /// <summary>
         /// 检查 Guid 是否为空
@@ -23,7 +23,7 @@ namespace Cosmos
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
         public static void CheckNull(this Guid? argument, string argumentName, string message = null)
-            => Arguments.IsNotNull(argument, argumentName, message);
+            => Preconditions.IsNotNull(argument, argumentName, message);
 
         /// <summary>
         /// 检查集合是否为空
@@ -32,7 +32,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         public static void CheckNull<T>(this ICollection<T> argument, string argumentName)
-            => Arguments.IsNotEmpty(argument, argumentName);
+            => Preconditions.IsNotEmpty(argument, argumentName);
 
         /// <summary>
         /// 检查键值对是否为空
@@ -57,6 +57,6 @@ namespace Cosmos
         /// <param name="argumentName">参数名</param>
         /// <param name="message">消息</param>
         public static void CheckNull(this object argument, string argumentName, string message = null)
-            => Arguments.IsNotNull(argument, argumentName, message);
+            => Preconditions.IsNotNull(argument, argumentName, message);
     }
 }

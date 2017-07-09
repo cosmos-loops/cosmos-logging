@@ -5,7 +5,7 @@ namespace Cosmos
     /// <summary>
     /// String arguments checking extensions
     /// </summary>
-    public static partial class ArgumentExtensions
+    public static partial class PreconditionsExtensions
     {
         /// <summary>
         /// 检查字符串是否为 null、String.Empty 或 Blank
@@ -28,7 +28,7 @@ namespace Cosmos
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
         public static void CheckBlank(this string argument, string argumentName, string message = null)
-            => Arguments.IsNotEmpty(argument, argumentName, message);
+            => Preconditions.IsNotEmpty(argument, argumentName, message);
 
         /// <summary>
         ///检查字符串长度是否超界
@@ -37,6 +37,6 @@ namespace Cosmos
         /// <param name="length"></param>
         /// <param name="argumentName"></param>
         public static void CheckOutOfLenth(this string argument, int length, string argumentName)
-            => Arguments.IsNotOutOfLength(argument, length, argumentName);
+            => Preconditions.IsNotOutOfLength(argument, length, argumentName);
     }
 }

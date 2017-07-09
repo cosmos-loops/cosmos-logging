@@ -6,7 +6,7 @@ namespace Cosmos
     /// <summary>
     /// DateTime arguments checking
     /// </summary>
-    public static partial class Arguments
+    public static partial class Preconditions
     {
         /// <summary>
         /// 检查时间是否合法
