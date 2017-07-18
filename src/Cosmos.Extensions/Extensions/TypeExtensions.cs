@@ -53,46 +53,6 @@ namespace Cosmos.Extensions
             => @object.TypeInfo().GetProperty(propertyName).GetValue(@object, null);
 
         /// <summary>
-        /// To judge the attribute exists or not
-        /// </summary>
-        /// <typeparam name="T">要检查的特性类型</typeparam>
-        /// <param name="memberInfo">要检查的类型成员</param>
-        /// <param name="inherit">是否从继承中查找</param>
-        /// <returns>是否存在</returns>
-        public static bool AttributeExists<T>(this MemberInfo memberInfo, bool inherit) where T : Attribute
-            => memberInfo.GetCustomAttributes(typeof(T), inherit).Any(m => (m as T) != null);
-
-        /// <summary>
-        /// To judge the attribute dosn't exist or not
-        /// </summary>
-        /// <typeparam name="T">要检查的特性类型</typeparam>
-        /// <param name="memberInfo">要检查的类型成员</param>
-        /// <param name="inherit">是否从继承中查找</param>
-        /// <returns>是否不存在</returns>
-        public static bool AttributeNotExists<T>(this MemberInfo memberInfo, bool inherit) where T : Attribute
-            => memberInfo.GetCustomAttributes(typeof(T), inherit).All(m => (m as T) == null);
-
-        /// <summary>
-        /// Get attributes from memberinfo
-        /// </summary>
-        /// <typeparam name="T">特性类型</typeparam>
-        /// <param name="memberInfo">类型类型成员</param>
-        /// <param name="inherit">是否从继承中查找</param>
-        /// <returns>存在返回第一个，不存在返回null</returns>
-        public static T GetAttribute<T>(this MemberInfo memberInfo, bool inherit) where T : Attribute
-            => memberInfo.GetCustomAttributes(typeof(T), inherit).SingleOrDefault() as T;
-
-        /// <summary>
-        /// Get attributes from memberinfo
-        /// </summary>
-        /// <typeparam name="T">特性类型</typeparam>
-        /// <param name="memberInfo">类型类型成员</param>
-        /// <param name="inherit">是否从继承中查找</param>
-        /// <returns>存在返回第一个，不存在返回 null</returns>
-        public static T[] GetAttributes<T>(this MemberInfo memberInfo, bool inherit) where T : Attribute
-            => memberInfo.GetCustomAttributes(typeof(T), inherit).Cast<T>().ToArray();
-
-        /// <summary>
         /// To compute signature
         /// </summary>
         /// <param name="typeinfo"></param>
@@ -132,41 +92,6 @@ namespace Cosmos.Extensions
         /// <param name="type"></param>
         /// <returns></returns>
         public static string ToComputeSignature(this Type type) => ToComputeSignature(type.TypeInfo());
-
-        /// <summary>
-        /// To compute signature
-        /// </summary>
-        /// <param name="method"></param>
-        /// <returns></returns>
-        public static string ToComputeSignature(this MethodInfo method)
-        {
-            var sb = new StringBuilder();
-            sb.Append(method.ReturnType.ToComputeSignature());
-            sb.Append(" ");
-            sb.Append(method.Name);
-            if (method.IsGenericMethod)
-            {
-                sb.Append("[");
-                var genericTypes = method.GetGenericArguments().ToTypeInfo().ToList();
-                for (var i = 0; i < genericTypes.Count(); i++)
-                {
-                    sb.Append(genericTypes[i].ToComputeSignature());
-                    if (i != genericTypes.Count() - 1)
-                        sb.Append(", ");
-                }
-                sb.Append("]");
-            }
-            sb.Append("(");
-            var parameters = method.GetParameters();
-            for (var i = 0; i < parameters.Length; i++)
-            {
-                sb.Append(parameters[i].ParameterType.ToComputeSignature());
-                if (i != parameters.Length - 1)
-                    sb.Append(", ");
-            }
-            sb.Append(")");
-            return sb.ToString();
-        }
 
         /// <summary>
         /// To judge the given type is assignable to the generic type or not
