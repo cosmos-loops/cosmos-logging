@@ -2,7 +2,7 @@
 
 namespace Cosmos
 {
-    public class DisposableAction : IDisposable
+    public sealed class DisposableAction : IDisposable
     {
         private readonly Action _action;
 
