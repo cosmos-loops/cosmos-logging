@@ -1,14 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\..\build\common.props" />
+
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
-    <Version>0.1.0-alpha1-10001</Version>
-    <Authors>AlexLEWIS</Authors>
-    <Company>AlexLEWIS</Company>
-    <Description>Abstractions for Cosmos standard library</Description>
-    <PackageProjectUrl />
-    <RepositoryType>git</RepositoryType>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <AssemblyName>Cosmos.Abstractions</AssemblyName>
+    <PackageId>Cosmos.Abstractions</PackageId>
+    <Description>Cosmos abstractions library</Description>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
 
 </Project>

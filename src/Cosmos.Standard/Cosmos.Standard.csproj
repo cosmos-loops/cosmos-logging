@@ -1,15 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\..\build\common.props" />
+
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
-    <Version>0.1.0-alpha1-10001</Version>
-    <Authors>AlexLEWIS</Authors>
-    <Company>AlexLEWIS</Company>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <AssemblyName>Cosmos.Standard</AssemblyName>
+    <PackageId>Cosmos.Standard</PackageId>
     <Description>Cosmos standard library</Description>
-    <PackageProjectUrl />
-    <RepositoryType>git</RepositoryType>
-    <RootNamespace>Cosmos</RootNamespace>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
 
   <ItemGroup>
