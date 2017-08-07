@@ -38,6 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{83D0F22B
 		build\version.props = build\version.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Extensions.Collections", "src\Cosmos.Extensions.Collections\Cosmos.Extensions.Collections.csproj", "{8EC2EF9D-CFD7-431F-A839-D3577A1137B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{0A2CA6C4-A168-460F-BD36-E2BAD2BCE353}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A2CA6C4-A168-460F-BD36-E2BAD2BCE353}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A2CA6C4-A168-460F-BD36-E2BAD2BCE353}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EC2EF9D-CFD7-431F-A839-D3577A1137B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EC2EF9D-CFD7-431F-A839-D3577A1137B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EC2EF9D-CFD7-431F-A839-D3577A1137B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EC2EF9D-CFD7-431F-A839-D3577A1137B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,5 +95,6 @@ Global
 		{CB6A93EA-344E-4D4E-B268-4F0181BAC009} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
 		{85C2BF3F-F1A4-44DA-90E5-2B8328C8DB8F} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
 		{83D0F22B-1ED1-4B88-A18F-DF8CC6385E1F} = {CF634BA0-51EE-4B4A-AB50-5DA72FCD3B6B}
+		{8EC2EF9D-CFD7-431F-A839-D3577A1137B3} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
 	EndGlobalSection
 EndGlobal
