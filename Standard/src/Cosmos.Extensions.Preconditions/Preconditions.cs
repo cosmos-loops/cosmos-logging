@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Cosmos.Extensions;
 
@@ -26,15 +27,45 @@ namespace Cosmos
         /// <summary>
         /// 检查集合是否为空
         /// </summary>
+        /// <param name="argument"></param>
+        /// <param name="argumentName"></param>
+        /// <param name="message"></param>
+        public static void IsNotNull(IEnumerable argument, string argumentName, string message = null)
+        {
+            if (Judgements.CollectionJudgement.IsNull(argument))
+            {
+                throw new ArgumentNullException(argumentName, message ?? $"{nameof(argument)} can not be null.");
+            }
+        }
+
+        /// <summary>
+        /// 检查集合是否为空
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotEmpty<T>(ICollection<T> argument, string argumentName, string message = null)
+        public static void IsNotEmpty(IEnumerable argument, string argumentName, string message = null)
         {
             if (Judgements.CollectionJudgement.IsNullOrEmpty(argument))
             {
                 throw new ArgumentNullException(argumentName, message ?? $"{nameof(argument)} can not be null or empty.");
+            }
+        }
+
+        /// <summary>
+        /// 检查集合至少包含多少个元素
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="argument"></param>
+        /// <param name="argumentName"></param>
+        /// <param name="number"></param>
+        /// <param name="message"></param>
+        public static void IsAtLeast<T>(ICollection<T> argument, string argumentName, int number, string message = null)
+        {
+            if (!Judgements.CollectionJudgement.ContainsAtLeast(argument, number))
+            {
+                throw new ArgumentOutOfRangeException(argumentName, message ?? $"{nameof(argument)} should has {number} items at least.");
             }
         }
 

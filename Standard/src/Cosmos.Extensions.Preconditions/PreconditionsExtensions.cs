@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Cosmos
@@ -13,8 +14,9 @@ namespace Cosmos
         /// </summary>
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
-        public static void CheckNull(this Guid argument, string argumentName)
-            => Preconditions.IsNotEmpty(argument, argumentName);
+        /// <param name="message"></param>
+        public static void CheckNull(this Guid argument, string argumentName, string message = null)
+            => Preconditions.IsNotEmpty(argument, argumentName, message);
 
         /// <summary>
         /// 检查 Guid 是否为空
@@ -28,11 +30,32 @@ namespace Cosmos
         /// <summary>
         /// 检查集合是否为空
         /// </summary>
+        /// <param name="argument"></param>
+        /// <param name="argumentName"></param>
+        /// <param name="message"></param>
+        public static void CheckNull(this IEnumerable argument, string argumentName, string message = null)
+            => Preconditions.IsNotNull(argument, argumentName, message);
+
+        /// <summary>
+        /// 检查集合是否为空
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
-        public static void CheckNull<T>(this ICollection<T> argument, string argumentName)
-            => Preconditions.IsNotEmpty(argument, argumentName);
+        /// <param name="message"></param>
+        public static void CheckNullOrEmpty(this IEnumerable argument, string argumentName, string message = null)
+            => Preconditions.IsNotEmpty(argument, argumentName, message);
+
+        /// <summary>
+        /// 检查集合内至少包含的项目数
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="argument"></param>
+        /// <param name="argumentName"></param>
+        /// <param name="number"></param>
+        /// <param name="message"></param>
+        public static void CheckAtLeast<T>(this ICollection<T> argument, string argumentName, int number, string message = null)
+            => Preconditions.IsAtLeast(argument, argumentName, number, message);
 
         /// <summary>
         /// 检查键值对是否为空

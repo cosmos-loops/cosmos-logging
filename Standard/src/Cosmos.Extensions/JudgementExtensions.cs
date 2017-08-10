@@ -225,6 +225,13 @@ namespace Cosmos
         /// <summary>
         /// 判断集合是否为空
         /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static bool IsNull(this IEnumerable source) => Judgements.CollectionJudgement.IsNull(source);
+
+        /// <summary>
+        /// 判断集合是否为空
+        /// </summary>
         /// <param name="source">要处理的集合</param>
         /// <returns>为空返回 True，不为空返回 False</returns>
         public static bool IsNullOrEmpty(this IEnumerable source) => Judgements.CollectionJudgement.IsNullOrEmpty(source);

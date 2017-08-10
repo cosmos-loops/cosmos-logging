@@ -10,6 +10,16 @@ namespace Cosmos.Judgements
     public static class CollectionJudgement
     {
         /// <summary>
+        /// To judge whether the collection is null or not
+        /// </summary>
+        /// <param name="coll"></param>
+        /// <returns></returns>
+        public static bool IsNull(IEnumerable coll)
+        {
+            return coll == null;
+        }
+
+        /// <summary>
         /// To judge whether the collection is null or empty
         /// </summary>
         /// <param name="coll"></param>
@@ -44,12 +54,7 @@ namespace Cosmos.Judgements
         /// <returns></returns>
         public static bool ContainsAtLeast<T>(ICollection<T> coll, int count)
         {
-            if (coll == null)
-            {
-                return false;
-            }
-
-            return (from t in coll.Take(count) select t).Count() == count;
+            return coll?.Count >= count;
         }
 
         /// <summary>
