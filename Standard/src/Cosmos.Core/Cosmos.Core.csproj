@@ -3,9 +3,6 @@
   <Import Project="..\..\build\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
-    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
     <AssemblyName>Cosmos.Core</AssemblyName>
     <PackageId>Cosmos.Core</PackageId>
     <Description>Cosmos core library</Description>
