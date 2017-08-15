@@ -1,15 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos", "src\Cosmos\Cosmos.csproj", "{8FE469B4-1086-4708-8CF4-5CCF6645EB20}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Abstractions", "src\Cosmos.Abstractions\Cosmos.Abstractions.csproj", "{8093E5B1-A628-40AC-9DA3-4923DF900937}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Core", "src\Cosmos.Core\Cosmos.Core.csproj", "{9B886790-9044-41CF-966A-17B5706329D9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CF634BA0-51EE-4B4A-AB50-5DA72FCD3B6B}"
 	ProjectSection(SolutionItems) = preProject
@@ -22,6 +16,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0F01E2EF-3398-47CB-B5CB-33AF122A1BC7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{83D0F22B-1ED1-4B88-A18F-DF8CC6385E1F}"
+	ProjectSection(SolutionItems) = preProject
+		build\common.props = build\common.props
+		build\version.props = build\version.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos", "src\Cosmos\Cosmos.csproj", "{8FE469B4-1086-4708-8CF4-5CCF6645EB20}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Abstractions", "src\Cosmos.Abstractions\Cosmos.Abstractions.csproj", "{8093E5B1-A628-40AC-9DA3-4923DF900937}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Core", "src\Cosmos.Core\Cosmos.Core.csproj", "{9B886790-9044-41CF-966A-17B5706329D9}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Test", "test\Cosmos.Test\Cosmos.Test.csproj", "{FEFFEF83-5011-490B-8E0D-9FBE516FCE7D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Extensions", "src\Cosmos.Extensions\Cosmos.Extensions.csproj", "{519B9916-5BC9-4AEC-829A-F117BB559197}"
@@ -32,13 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Extensions.Precondit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Standard", "src\Cosmos.Standard\Cosmos.Standard.csproj", "{0A2CA6C4-A168-460F-BD36-E2BAD2BCE353}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{83D0F22B-1ED1-4B88-A18F-DF8CC6385E1F}"
-	ProjectSection(SolutionItems) = preProject
-		build\common.props = build\common.props
-		build\version.props = build\version.props
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Extensions.Collections", "src\Cosmos.Extensions.Collections\Cosmos.Extensions.Collections.csproj", "{8EC2EF9D-CFD7-431F-A839-D3577A1137B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Extensions.Collections", "src\Cosmos.Extensions.Collections\Cosmos.Extensions.Collections.csproj", "{C3E14322-C935-4B3E-A7DA-0A027B4E57B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,15 +78,16 @@ Global
 		{0A2CA6C4-A168-460F-BD36-E2BAD2BCE353}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A2CA6C4-A168-460F-BD36-E2BAD2BCE353}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A2CA6C4-A168-460F-BD36-E2BAD2BCE353}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8EC2EF9D-CFD7-431F-A839-D3577A1137B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EC2EF9D-CFD7-431F-A839-D3577A1137B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EC2EF9D-CFD7-431F-A839-D3577A1137B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EC2EF9D-CFD7-431F-A839-D3577A1137B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E14322-C935-4B3E-A7DA-0A027B4E57B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E14322-C935-4B3E-A7DA-0A027B4E57B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E14322-C935-4B3E-A7DA-0A027B4E57B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E14322-C935-4B3E-A7DA-0A027B4E57B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{83D0F22B-1ED1-4B88-A18F-DF8CC6385E1F} = {CF634BA0-51EE-4B4A-AB50-5DA72FCD3B6B}
 		{8FE469B4-1086-4708-8CF4-5CCF6645EB20} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
 		{8093E5B1-A628-40AC-9DA3-4923DF900937} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
 		{9B886790-9044-41CF-966A-17B5706329D9} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
@@ -94,7 +95,9 @@ Global
 		{519B9916-5BC9-4AEC-829A-F117BB559197} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
 		{CB6A93EA-344E-4D4E-B268-4F0181BAC009} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
 		{85C2BF3F-F1A4-44DA-90E5-2B8328C8DB8F} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
-		{83D0F22B-1ED1-4B88-A18F-DF8CC6385E1F} = {CF634BA0-51EE-4B4A-AB50-5DA72FCD3B6B}
-		{8EC2EF9D-CFD7-431F-A839-D3577A1137B3} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
+		{C3E14322-C935-4B3E-A7DA-0A027B4E57B0} = {BDBDE50C-D11B-4B8B-8349-0B6681CC98FF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D68A6AF5-79FE-4679-AD20-67D6CFCF75B4}
 	EndGlobalSection
 EndGlobal
