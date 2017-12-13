@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cosmos.Abstractions.Verba
+namespace Cosmos.Verba.Time
 {
     /// <summary>
     /// Interface for time verba

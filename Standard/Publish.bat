@@ -8,8 +8,6 @@ for /R "nuget_pub" %%s in (*) do (
 )
 
 dotnet pack src/Cosmos -c Release -o ../../nuget_pub
-dotnet pack src/Cosmos.Core -c Release -o ../../nuget_pub
-dotnet pack src/Cosmos.Abstractions -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Extensions -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Extensions.DateTime -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Extensions.Collections -c Release -o ../../nuget_pub

@@ -17,9 +17,7 @@ namespace Cosmos.Judgements
         public static bool ContainsAtLeast<T>(IQueryable<T> query, int count)
         {
             if (query == null)
-            {
                 return false;
-            }
 
             return (from t in query.Take(count) select t).Count() >= count;
         }
@@ -34,17 +32,12 @@ namespace Cosmos.Judgements
         public static bool ContainsEqualCount<T>(IQueryable<T> query, IQueryable<T> targetQuery)
         {
             if (query == null && targetQuery == null)
-            {
                 return true;
-            }
 
             if (query == null || targetQuery == null)
-            {
                 return false;
-            }
 
             return query.Count().Equals(targetQuery.Count());
         }
-
     }
 }

@@ -96,7 +96,7 @@ namespace Cosmos.Judgements
         {
             var min = new DateTime(1900, 1, 1);
             var max = new DateTime(9999, 12, 31, 23, 59, 59, 999);
-            return (dt >= min) && (dt <= max);
+            return dt >= min && dt <= max;
         }
     }
 }

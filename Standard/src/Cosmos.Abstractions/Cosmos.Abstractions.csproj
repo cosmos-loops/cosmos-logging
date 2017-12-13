@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <Import Project="..\..\build\common.props" />
-
   <PropertyGroup>
     <AssemblyName>Cosmos.Abstractions</AssemblyName>
     <PackageId>Cosmos.Abstractions</PackageId>
@@ -10,5 +8,7 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
-
+  <ItemGroup>
+    <Folder Include="Verba" />
+  </ItemGroup>
 </Project>

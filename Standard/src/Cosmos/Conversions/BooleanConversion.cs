@@ -20,12 +20,8 @@ namespace Cosmos.Conversions
             }
 
             var boolean = GetBoolean(obj);
-            if (boolean.HasValue)
-            {
-                return boolean.Value;
-            }
 
-            return bool.TryParse(obj.ToString(), out bool ret) && ret;
+            return boolean ?? bool.TryParse(obj.ToString(), out var ret) && ret;
         }
 
         /// <summary>
@@ -41,12 +37,13 @@ namespace Cosmos.Conversions
             }
 
             var boolean = GetBoolean(obj);
+            
             if (boolean.HasValue)
             {
                 return boolean.Value;
             }
 
-            if (bool.TryParse(obj.ToString(), out bool ret))
+            if (bool.TryParse(obj.ToString(), out var ret))
             {
                 return ret;
             }

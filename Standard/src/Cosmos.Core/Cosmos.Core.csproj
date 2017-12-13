@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <Import Project="..\..\build\common.props" />
-
   <PropertyGroup>
     <AssemblyName>Cosmos.Core</AssemblyName>
     <PackageId>Cosmos.Core</PackageId>
@@ -11,9 +9,4 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <RootNamespace>Cosmos</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Cosmos.Abstractions\Cosmos.Abstractions.csproj" />
-  </ItemGroup>
-
 </Project>

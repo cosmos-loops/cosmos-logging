@@ -28,6 +28,12 @@ namespace Cosmos.Judgements
             return guid == null || IsNullOrEmpty(guid.Value);
         }
 
+
+        private static readonly Regex GuidSchema
+            = new Regex("^[A-Fa-f0-9]{32}$|" +
+                        "^({|\\()?[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}(}|\\))?$|" +
+                        "^({)?[0xA-Fa-f0-9]{3,10}(, {0,1}[0xA-Fa-f0-9]{3,6}){2},{0,1}({)([0xA-Fa-f0-9]{3,4}, {0,1}){7}[0xA-Fa-f0-9]{3,4}(}})$");
+
         /// <summary>
         /// To judge whether the string is <see cref="Guid"/> or not
         /// </summary>
@@ -38,11 +44,7 @@ namespace Cosmos.Judgements
             if (string.IsNullOrWhiteSpace(guidStr))
                 return false;
 
-            var format = new Regex("^[A-Fa-f0-9]{32}$|" +
-                                   "^({|\\()?[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}(}|\\))?$|" +
-                                   "^({)?[0xA-Fa-f0-9]{3,10}(, {0,1}[0xA-Fa-f0-9]{3,6}){2},{0,1}({)([0xA-Fa-f0-9]{3,4}, {0,1}){7}[0xA-Fa-f0-9]{3,4}(}})$");
-            var match = format.Match(guidStr);
-            return match.Success;
+            return GuidSchema.Match(guidStr).Success;
         }
     }
 }

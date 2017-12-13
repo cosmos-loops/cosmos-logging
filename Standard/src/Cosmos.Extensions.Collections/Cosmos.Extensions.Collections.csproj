@@ -1,7 +1,5 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\build\common.props" />
-
   <PropertyGroup>
     <AssemblyName>Cosmos.Extensions.Collections</AssemblyName>
     <PackageId>Cosmos.Extensions.Collections</PackageId>
@@ -11,9 +9,8 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <RootNamespace>Cosmos</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="DotNetCore.Collections.Paginable" Version="1.0.0-beta1-20170804" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.1" />
   </ItemGroup>
-
 </Project>

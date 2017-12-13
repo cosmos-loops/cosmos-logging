@@ -9,6 +9,8 @@ namespace Cosmos.Judgements
     /// </summary>
     public static class StringJudgement
     {
+        static StringJudgement() { }
+
         /// <summary>
         /// To judge whether the string starts with the specified strings
         /// </summary>
@@ -18,9 +20,7 @@ namespace Cosmos.Judgements
         public static bool StartWithThese(string str, params string[] values)
         {
             if (string.IsNullOrWhiteSpace(str) || values == null || values.Any(string.IsNullOrWhiteSpace))
-            {
                 return false;
-            }
 
             return values.Any(str.StartsWith);
         }
@@ -34,9 +34,7 @@ namespace Cosmos.Judgements
         public static bool StartWithThese(string str, ICollection<string> values)
         {
             if (string.IsNullOrWhiteSpace(str) || values == null || !values.Any())
-            {
                 return false;
-            }
 
             return StartWithThese(str, values.ToArray());
         }
@@ -50,9 +48,7 @@ namespace Cosmos.Judgements
         public static bool EndWithThese(string str, params string[] values)
         {
             if (string.IsNullOrWhiteSpace(str) || values == null || values.Any(string.IsNullOrWhiteSpace))
-            {
                 return false;
-            }
 
             return values.Any(str.EndsWith);
         }
@@ -66,14 +62,13 @@ namespace Cosmos.Judgements
         public static bool EndWithThese(string str, ICollection<string> values)
         {
             if (string.IsNullOrWhiteSpace(str) || values == null || !values.Any())
-            {
                 return false;
-            }
 
             return EndWithThese(str, values.ToArray());
         }
 
-        private static readonly Regex r_webUrlExpression = new Regex(@"(http|https)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", RegexOptions.Singleline | RegexOptions.Compiled);
+        private static readonly Regex WebUrlExpressionSchema
+            = new Regex(@"(http|https)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", RegexOptions.Singleline | RegexOptions.Compiled);
 
         /// <summary>
         /// To judge whether the string is web url or not
@@ -82,10 +77,11 @@ namespace Cosmos.Judgements
         /// <returns></returns>
         public static bool IsWebUrl(string str)
         {
-            return !string.IsNullOrWhiteSpace(str) && r_webUrlExpression.IsMatch(str);
+            return !string.IsNullOrWhiteSpace(str) && WebUrlExpressionSchema.IsMatch(str);
         }
 
-        private static readonly Regex r_emailExpression = new Regex(@"^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$", RegexOptions.Singleline | RegexOptions.Compiled);
+        private static readonly Regex EemailExpressionSchema
+            = new Regex(@"^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$", RegexOptions.Singleline | RegexOptions.Compiled);
 
         /// <summary>
         /// TO judge whether the string is email or not
@@ -94,7 +90,7 @@ namespace Cosmos.Judgements
         /// <returns></returns>
         public static bool IsEmail(string str)
         {
-            return !string.IsNullOrWhiteSpace(str) && r_emailExpression.IsMatch(str);
+            return !string.IsNullOrWhiteSpace(str) && EemailExpressionSchema.IsMatch(str);
         }
 
         /// <summary>

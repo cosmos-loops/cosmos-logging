@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <Import Project="..\..\build\common.props" />
-
   <PropertyGroup>
     <AssemblyName>Cosmos</AssemblyName>
     <PackageId>Cosmos</PackageId>
@@ -10,14 +8,10 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
-
   <ItemGroup>
+    <PackageReference Include="NETStandard.Library" Version="2.0.1" />
+    <PackageReference Include="AspectCore.Extensions.Reflection" Version="0.2.4" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
     <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\Cosmos.Abstractions\Cosmos.Abstractions.csproj" />
-    <ProjectReference Include="..\Cosmos.Core\Cosmos.Core.csproj" />
-  </ItemGroup>
-
 </Project>

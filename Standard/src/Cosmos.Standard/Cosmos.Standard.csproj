@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <Import Project="..\..\build\common.props" />
-
   <PropertyGroup>
     <AssemblyName>Cosmos.Standard</AssemblyName>
     <PackageId>Cosmos.Standard</PackageId>
@@ -10,12 +8,13 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Cosmos.Extensions.DateTime\Cosmos.Extensions.DateTime.csproj" />
     <ProjectReference Include="..\Cosmos.Extensions.Preconditions\Cosmos.Extensions.Preconditions.csproj" />
     <ProjectReference Include="..\Cosmos.Extensions\Cosmos.Extensions.csproj" />
     <ProjectReference Include="..\Cosmos\Cosmos.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="NETStandard.Library" Version="2.0.1" />
+  </ItemGroup>
 </Project>

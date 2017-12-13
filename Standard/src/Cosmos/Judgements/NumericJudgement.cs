@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static bool IsInt32(string str)
         {
-            return int.TryParse(str, out int i);
+            return int.TryParse(str, out _);
         }
 
         /// <summary>
@@ -22,7 +22,7 @@
         /// <returns></returns>
         public static bool IsNumeric(string str)
         {
-            return decimal.TryParse(str, out decimal d);
+            return decimal.TryParse(str, out _);
         }
 
         /// <summary>
@@ -96,6 +96,5 @@
         {
             return value >= left && value <= right;
         }
-
     }
 }

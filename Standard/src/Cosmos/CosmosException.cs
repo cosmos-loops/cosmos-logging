@@ -11,28 +11,16 @@ namespace Cosmos
         protected const long DEFAULT_EXTEND_ERROR_CODE = 1002;
 
         protected CosmosException()
-            : this(DEFAULT_ERROR_CODE, DEFAULT_ERROR_MESSAGE, EMPTY_FLAG)
-        {
-
-        }
+            : this(DEFAULT_ERROR_CODE, DEFAULT_ERROR_MESSAGE, EMPTY_FLAG) { }
 
         protected CosmosException(string errorMessage, Exception innerException = null)
-            : this(errorMessage, EMPTY_FLAG, innerException)
-        {
-
-        }
+            : this(errorMessage, EMPTY_FLAG, innerException) { }
 
         protected CosmosException(string errorMessage, string flag, Exception innerException = null)
-            : this(DEFAULT_EXTEND_ERROR_CODE, errorMessage, flag, innerException)
-        {
-
-        }
+            : this(DEFAULT_EXTEND_ERROR_CODE, errorMessage, flag, innerException) { }
 
         protected CosmosException(long errorCode, string errorMessage, Exception innerException = null)
-            : this(errorCode, errorMessage, EMPTY_FLAG, innerException)
-        {
-
-        }
+            : this(errorCode, errorMessage, EMPTY_FLAG, innerException) { }
 
         protected CosmosException(long errorCode, string errorMessage, string flag, Exception innerException = null)
             : base(errorMessage, innerException)

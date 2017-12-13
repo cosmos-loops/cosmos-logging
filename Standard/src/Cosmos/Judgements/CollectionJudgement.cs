@@ -27,9 +27,7 @@ namespace Cosmos.Judgements
         public static bool IsNullOrEmpty(IEnumerable coll)
         {
             if (coll == null)
-            {
                 return true;
-            }
 
             return !coll.Cast<object>().Any();
         }
@@ -67,16 +65,12 @@ namespace Cosmos.Judgements
         public static bool ContainsEqualCount<T>(ICollection<T> leftCcoll, ICollection<T> rightColl)
         {
             if (leftCcoll == null && rightColl == null)
-            {
                 return true;
-            }
 
             if (leftCcoll == null || rightColl == null)
-            {
                 return false;
-            }
 
-            return leftCcoll.Count().Equals(rightColl.Count());
+            return leftCcoll.Count.Equals(rightColl.Count);
         }
     }
 }
