@@ -1,0 +1,20 @@
+<Project>
+
+	<Import Project="version.props" />
+
+	<PropertyGroup Label="Build">
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Package">
+		<Product>Cosmos.Standard</Product>
+		<Authors>AlexLEWIS;dotnetcore;StarrySky;Cosmos</Authors>
+		<RepositoryUrl>https://github.com/CosmosProgramme/Cosmos.Standard</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/CosmosProgramme/Cosmos.Standard</PackageProjectUrl>
+		<PackageIconUrl />
+		<PackageLicenseUrl>https://github.com/CosmosProgramme/Cosmos.Standard/blob/master/LICENSE</PackageLicenseUrl>
+		<PackageTags>StarrySky;Cosmos;Standard;Framework</PackageTags>
+	</PropertyGroup>
+
+</Project>
