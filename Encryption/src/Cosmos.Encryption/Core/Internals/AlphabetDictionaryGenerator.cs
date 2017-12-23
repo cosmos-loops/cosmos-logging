@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cosmos.Encryption.Internals {
+namespace Cosmos.Encryption.Core.Internals {
     internal static class AlphabetDictionaryGenerator {
         private static Dictionary<char, int> AlphabetCache { get; }
 

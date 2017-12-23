@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Cosmos.Encryption.Algorithms.Abstractions;
-using Cosmos.Encryption.Internals;
+using Cosmos.Encryption.Abstractions;
+using Cosmos.Encryption.Core.Internals;
 
 namespace Cosmos.Encryption.Algorithms {
     /// <summary>

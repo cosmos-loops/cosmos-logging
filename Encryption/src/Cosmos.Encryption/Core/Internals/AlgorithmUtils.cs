@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Cosmos.Encryption.Internals {
+namespace Cosmos.Encryption.Core.Internals {
     /// <summary>
     /// Algorithm Utils
     /// Author: Omar-Salem

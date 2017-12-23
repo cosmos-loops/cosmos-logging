@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Cosmos.Encryption.Algorithms.Abstractions;
-using Cosmos.Encryption.Internals;
+using Cosmos.Encryption.Abstractions;
+using Cosmos.Encryption.Core.Internals;
 
 namespace Cosmos.Encryption.Algorithms {
     /// <summary>
@@ -103,7 +103,7 @@ namespace Cosmos.Encryption.Algorithms {
             var trimmed = message.Replace(" ", "");
             var sbStr = new StringBuilder();
 
-            for (int i = 0; i < trimmed.Length; i++) {
+            for (var i = 0; i < trimmed.Length; i++) {
                 sbStr.Append(trimmed[i]);
 
                 if (i < trimmed.Length - 1 && message[i] == message[i + 1]) //check if two consecutive letters are the same

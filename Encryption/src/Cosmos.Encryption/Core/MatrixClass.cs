@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cosmos.Encryption.Internals {
+namespace Cosmos.Encryption.Core {
     /// <summary>
     /// A copy from GitHub project:
     ///     https://github.com/Omar-Salem/Classical-Encryption-Techniques/blob/master/EncryptionAlgorithms/Entities/MatrixClass.cs#L83:20

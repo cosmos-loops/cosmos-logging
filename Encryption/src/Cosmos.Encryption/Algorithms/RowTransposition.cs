@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Cosmos.Encryption.Algorithms.Abstractions;
+using Cosmos.Encryption.Abstractions;
 
 namespace Cosmos.Encryption.Algorithms {
     /// <summary>
