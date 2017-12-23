@@ -13,7 +13,7 @@ namespace Cosmos.Encryption {
     ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Asymmetric/RSA.cs
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    public static class RSAEncryptProvicer {
+    public static class RSAEncryptionProvider {
         public static RSAKey CreateKey(RSAKeySizeTypes size = RSAKeySizeTypes.R2048, RSAKeyTypes keyType = RSAKeyTypes.XML) {
             using (var rsa = new RSACryptoServiceProvider((int) size)) {
                 var publicKey = keyType == RSAKeyTypes.JSON

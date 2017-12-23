@@ -2,7 +2,7 @@
 using System.Text;
 
 namespace Cosmos.Encryption {
-    public static class Base64EncryptProvicer {
+    public static class Base64ConvertProvider {
         /// <summary>
         /// Base64 encryption.
         /// Author: Seay Xu

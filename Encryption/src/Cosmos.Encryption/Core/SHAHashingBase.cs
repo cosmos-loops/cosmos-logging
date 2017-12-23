@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Cosmos.Encryption.Core {
     /// <summary>
-    /// Abstrace SHA encryption.
+    /// Abstrace SHAHashingBase encryption.
     /// Author: Seay Xu
-    ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Hash/SHA/SHA.cs
+    ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Hash/SHAHashingBase/SHAHashingBase.cs
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    public abstract class SHA {
+    public abstract class SHAHashingBase {
         /// <summary>
-        /// SHA encryption algoritm core.
+        /// SHAHashingBase encryption algoritm core.
         /// </summary>
         /// <param name="data"></param>
         /// <param name="encoding"></param>

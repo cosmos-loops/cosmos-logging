@@ -1,25 +1,26 @@
-﻿using System.Text;
+﻿using System.Security.Cryptography;
+using System.Text;
 using Cosmos.Encryption.Core;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Encryption {
     /// <summary>
-    /// Hash/HMACMD5 encryption.
+    /// Hash/HMACMD5 hashing provider.
     /// Author: Seay Xu
-    ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Hash/HMAC/HMACSHA256.cs
+    ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Hash/HMACHashingBase/HMACMD5.cs
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    public sealed class HMACSHA256EncryptProvicer : HMAC {
-        private HMACSHA256EncryptProvicer() { }
+    public sealed class HMACMD5HashingProvider : HMACHashingBase {
+        private HMACMD5HashingProvider() { }
 
         /// <summary>
-        /// HMACSHA256 encryption.
+        /// HMACMD5 encryption.
         /// </summary>
         /// <param name="data">The string to be encrypted,not null.</param>
         /// <param name="key">Encryption key,not null.</param>
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
         /// <returns>The encrypted string.</returns>
         public static string Encrypt(string data, string key, Encoding encoding = null) =>
-            Encrypt<System.Security.Cryptography.HMACSHA256>(data, key, encoding);
+            Encrypt<HMACMD5>(data, key, encoding);
     }
 }

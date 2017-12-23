@@ -11,8 +11,8 @@ namespace Cosmos.Encryption.Symmetric {
     /// Editor: AlexLEWIS
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    public sealed class AESEncryptProvicer : SymmetricEncyptionBase {
-        private AESEncryptProvicer() { }
+    public sealed class AESEncryptionProvider : SymmetricEncyptionBase {
+        private AESEncryptionProvider() { }
 
         /// <summary>
         /// Create an AES key.

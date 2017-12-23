@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Encryption {
     /// <summary>
-    /// Md5 encryption
+    /// Md5 hashing provider
     /// Author: Seay Xu
     ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Hash/MD5.cs
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    public static class MD5EncryptProvicer {
+    public static class MD5HashingProvider {
         /// <summary>
         /// MD5 encrypt mehtod,default encrypt string is 32 bits.
         /// </summary>
@@ -58,7 +59,7 @@ namespace Cosmos.Encryption {
             str => encoding => Convert.ToBase64String(PreencryptFunc()(str)(encoding));
 
         private static Func<string, Func<Encoding, byte[]>> PreencryptFunc() => str => encoding => {
-            using (var md5 = System.Security.Cryptography.MD5.Create()) {
+            using (var md5 = MD5.Create()) {
                 return md5.ComputeHash(encoding.GetBytes(str));
             }
         };
