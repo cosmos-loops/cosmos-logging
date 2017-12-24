@@ -3,6 +3,7 @@ using System.Text;
 
 namespace Cosmos.Encryption.Core.Internals {
     /// <summary>
+    /// Random string generator
     /// Author: Seay Xu
     ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Util/Util.cs
     /// Editor: AlexLEWIS

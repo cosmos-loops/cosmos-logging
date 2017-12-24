@@ -7,7 +7,7 @@ using Cosmos.Encryption.Core.Internals;
 namespace Cosmos.Encryption.Symmetric {
     /// <summary>
     /// Symmetric/DES encryption.
-    /// Author: Seay Xu
+    /// Reference: Seay Xu
     ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Symmetric/DES.cs
     /// </summary>
     // ReSharper disable once InconsistentNaming
@@ -42,7 +42,7 @@ namespace Cosmos.Encryption.Symmetric {
 
             if (string.IsNullOrEmpty(password)) {
                 throw new ArgumentNullException(nameof(password));
-            }
+            } 
 
             return EncryptCore<DESCryptoServiceProvider>(data, password, iv, salt, encoding, 64, 64);
         }

@@ -5,7 +5,7 @@ using Cosmos.Encryption.Core;
 namespace Cosmos.Encryption.Symmetric {
     /// <summary>
     /// Symmetric/TripleDES encryption.
-    /// Author: Seay Xu
+    /// Reference: Seay Xu
     ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Symmetric/TripleDES.cs
     /// </summary>
     // ReSharper disable once InconsistentNaming

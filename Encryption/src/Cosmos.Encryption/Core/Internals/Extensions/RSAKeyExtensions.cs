@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Cosmos.Encryption.Core.Internals.Extensions {
     /// <summary>
-    /// Author:myloveCc
+    /// Reference: myloveCc
     ///     https://github.com/myloveCc/NETCore.Encrypt/blob/master/src/NETCore.Encrypt/Extensions/Internal/RsaKeyExtensions.cs
     /// </summary>
     // ReSharper disable once InconsistentNaming

@@ -2,7 +2,8 @@
 
 namespace Cosmos.Encryption {
     /// <summary>
-    /// Author: myloveCc
+    /// RSA Key
+    /// Reference: myloveCc
     ///     https://github.com/myloveCc/NETCore.Encrypt/blob/master/src/NETCore.Encrypt/Internal/RSAKey.cs
     /// </summary>
     public class RSAKey {

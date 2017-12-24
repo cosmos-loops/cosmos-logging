@@ -9,8 +9,10 @@ using Cosmos.Encryption.Core.Internals.Extensions;
 namespace Cosmos.Encryption {
     /// <summary>
     /// Asymmetric/RSA encryption.
-    /// Author: Seay Xu
+    /// Reference: Seay Xu
     ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Asymmetric/RSA.cs
+    /// Reference: myloveCc
+    ///     https://github.com/myloveCc/NETCore.Encrypt/blob/master/src/NETCore.Encrypt/EncryptProvider.cs
     /// </summary>
     // ReSharper disable once InconsistentNaming
     public static class RSAEncryptionProvider {

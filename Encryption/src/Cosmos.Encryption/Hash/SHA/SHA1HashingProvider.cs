@@ -7,7 +7,7 @@ using Cosmos.Encryption.Core;
 namespace Cosmos.Encryption {
     /// <summary>
     /// Hash/SHA1 hashing provider.
-    /// Author: Seay Xu
+    /// Reference: Seay Xu
     ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Hash/SHAHashingBase/SHA1.cs
     /// </summary>
     // ReSharper disable once InconsistentNaming

@@ -6,8 +6,9 @@ using System.Text;
 namespace Cosmos.Encryption {
     /// <summary>
     /// Md5 hashing provider
-    /// Author: Seay Xu
+    /// Reference: Seay Xu
     ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Hash/MD5.cs
+    /// Editor: AlexLEWIS
     /// </summary>
     // ReSharper disable once InconsistentNaming
     public static class MD5HashingProvider {

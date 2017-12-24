@@ -7,6 +7,7 @@ namespace Cosmos.Encryption {
         /// Base64 encryption.
         /// Author: Seay Xu
         ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Base64.cs
+        /// Editor: AlexLEWIS
         /// </summary>
         /// <param name="data">The string to be encrypted,not null.</param>
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>

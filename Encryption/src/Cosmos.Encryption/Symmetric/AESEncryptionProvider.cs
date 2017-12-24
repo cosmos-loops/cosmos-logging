@@ -6,9 +6,8 @@ using Cosmos.Encryption.Core;
 namespace Cosmos.Encryption.Symmetric {
     /// <summary>
     /// Symmetric/AES encryption.
-    /// Author: Seay Xu
+    /// Reference: Seay Xu
     ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Symmetric/AES.cs
-    /// Editor: AlexLEWIS
     /// </summary>
     // ReSharper disable once InconsistentNaming
     public sealed class AESEncryptionProvider : SymmetricEncyptionBase {

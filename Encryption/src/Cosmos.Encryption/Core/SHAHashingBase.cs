@@ -5,8 +5,9 @@ using System.Text;
 namespace Cosmos.Encryption.Core {
     /// <summary>
     /// Abstrace SHAHashingBase encryption.
-    /// Author: Seay Xu
-    ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Hash/SHAHashingBase/SHAHashingBase.cs
+    /// Reference: Seay Xu
+    ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Hash/SHAHashingBase/SHA.cs
+    /// Editor: AlexLEWIS
     /// </summary>
     // ReSharper disable once InconsistentNaming
     public abstract class SHAHashingBase {

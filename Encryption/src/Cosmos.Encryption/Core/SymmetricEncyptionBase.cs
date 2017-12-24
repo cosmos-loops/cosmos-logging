@@ -5,8 +5,9 @@ using System.Text;
 namespace Cosmos.Encryption.Core {
     /// <summary>
     /// Abstrace Symmetric/SymmetricEncyptionBase encryption.
-    /// Author: Seay Xu
-    ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Symmetric/SymmetricEncyptionBase.cs
+    /// Reference: Seay Xu
+    ///     https://github.com/godsharp/GodSharp.Encryption/blob/master/src/GodSharp.Shared/Encryption/Symmetric/XES.cs
+    ///  Editor: AlexLEWIS
     /// </summary>
     // ReSharper disable once InconsistentNaming
     public abstract class SymmetricEncyptionBase {
