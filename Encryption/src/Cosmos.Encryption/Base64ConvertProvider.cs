@@ -12,7 +12,7 @@ namespace Cosmos.Encryption {
         /// <param name="data">The string to be encrypted,not null.</param>
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
         /// <returns>The encrypted string.</returns>
-        public static string Encrypt(string data, Encoding encoding = null) {
+        public static string Encode(string data, Encoding encoding = null) {
             if (data == null) {
                 throw new ArgumentNullException(nameof(data));
             }
@@ -30,7 +30,7 @@ namespace Cosmos.Encryption {
         /// <param name="data">The string to be decrypted,not null.</param>
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
         /// <returns>The decrypted string.</returns>
-        public static string Decrypt(string data, Encoding encoding = null) {
+        public static string Decode(string data, Encoding encoding = null) {
             if (data == null) {
                 throw new ArgumentNullException(nameof(data));
             }

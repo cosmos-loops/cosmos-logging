@@ -64,5 +64,16 @@ namespace Cosmos.Encryption {
                 return md5.ComputeHash(encoding.GetBytes(str));
             }
         };
+
+        /// <summary>
+        /// Verify 
+        /// </summary>
+        /// <param name="comparison"></param>
+        /// <param name="data">The string of encrypt.</param>
+        /// <param name="bits">Encrypt string bits number,only 16,32,64.</param>
+        /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
+        /// <returns></returns>
+        public static bool Verify(string comparison, string data, MD5BitTypes bits = MD5BitTypes.L32, Encoding encoding = null)
+            => comparison == Encrypt(data, bits, encoding);
     }
 }

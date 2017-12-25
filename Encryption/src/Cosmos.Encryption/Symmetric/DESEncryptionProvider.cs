@@ -4,7 +4,8 @@ using System.Text;
 using Cosmos.Encryption.Core;
 using Cosmos.Encryption.Core.Internals;
 
-namespace Cosmos.Encryption.Symmetric {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Encryption {
     /// <summary>
     /// Symmetric/DES encryption.
     /// Reference: Seay Xu
@@ -35,16 +36,17 @@ namespace Cosmos.Encryption.Symmetric {
             string password = null,
             string iv = null,
             string salt = null,
-            Encoding encoding = null) {
+            Encoding encoding = null,
+            CipherMode mode = CipherMode.ECB) {
             if (string.IsNullOrEmpty(data)) {
                 throw new ArgumentNullException(nameof(data));
             }
 
             if (string.IsNullOrEmpty(password)) {
                 throw new ArgumentNullException(nameof(password));
-            } 
+            }
 
-            return EncryptCore<DESCryptoServiceProvider>(data, password, iv, salt, encoding, 64, 64);
+            return EncryptCore<DESCryptoServiceProvider>(data, password, iv, salt, encoding, 64, 64, mode);
         }
 
         /// <summary>
@@ -61,8 +63,9 @@ namespace Cosmos.Encryption.Symmetric {
             string password = null,
             string iv = null,
             string salt = null,
-            Encoding encoding = null) {
-            return EncryptCore<DESCryptoServiceProvider>(data, password, iv, salt, encoding, 64, 64);
+            Encoding encoding = null,
+            CipherMode mode = CipherMode.ECB) {
+            return EncryptCore<DESCryptoServiceProvider>(data, password, iv, salt, encoding, 64, 64, mode);
         }
     }
 }

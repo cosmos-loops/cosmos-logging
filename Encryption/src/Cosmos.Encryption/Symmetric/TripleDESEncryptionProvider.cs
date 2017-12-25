@@ -2,7 +2,8 @@
 using System.Text;
 using Cosmos.Encryption.Core;
 
-namespace Cosmos.Encryption.Symmetric {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Encryption {
     /// <summary>
     /// Symmetric/TripleDES encryption.
     /// Reference: Seay Xu
@@ -28,10 +29,11 @@ namespace Cosmos.Encryption.Symmetric {
             string iv = null,
             string salt = null,
             Encoding encoding = null,
-            TripleDESKeySizeTypes keySize = TripleDESKeySizeTypes.L192) {
-            return EncryptCore<TripleDESCryptoServiceProvider>(data, password, iv, salt, encoding, (int) keySize, 64);
+            TripleDESKeySizeTypes keySize = TripleDESKeySizeTypes.L192,
+            CipherMode mode = CipherMode.ECB) {
+            return EncryptCore<TripleDESCryptoServiceProvider>(data, password, iv, salt, encoding, (int) keySize, 64, mode);
         }
-        
+
         /// <summary>
         /// TripleDES decryption.
         /// </summary>
@@ -48,8 +50,9 @@ namespace Cosmos.Encryption.Symmetric {
             string iv = null,
             string salt = null,
             Encoding encoding = null,
-            TripleDESKeySizeTypes keySize = TripleDESKeySizeTypes.L192) {
-            return EncryptCore<TripleDESCryptoServiceProvider>(data, password, iv, salt, encoding, (int) keySize, 64);
+            TripleDESKeySizeTypes keySize = TripleDESKeySizeTypes.L192,
+            CipherMode mode = CipherMode.ECB) {
+            return EncryptCore<TripleDESCryptoServiceProvider>(data, password, iv, salt, encoding, (int) keySize, 64, mode);
         }
     }
 }

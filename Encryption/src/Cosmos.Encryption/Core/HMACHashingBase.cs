@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using Cosmos.Encryption.Core.Internals.Extensions;
 
 namespace Cosmos.Encryption.Core {
     /// <summary>
@@ -34,7 +35,7 @@ namespace Cosmos.Encryption.Core {
 
             using (KeyedHashAlgorithm hash = new T()) {
                 hash.Key = encoding.GetBytes(key);
-                return Convert.ToBase64String(hash.ComputeHash(encoding.GetBytes(data)));
+                return hash.ComputeHash(encoding.GetBytes(data)).ToHexString();
             }
         }
     }

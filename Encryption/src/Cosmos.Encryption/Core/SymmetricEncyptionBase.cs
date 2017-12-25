@@ -34,7 +34,7 @@ namespace Cosmos.Encryption.Core {
         };
 
         protected static string EncryptCore<T>(string data, string pwd, string iv, string salt = null, Encoding encoding = null,
-            int keySize = 128, int blockSize = 128)
+            int keySize = 128, int blockSize = 128, CipherMode mode = CipherMode.ECB)
             where T : SymmetricAlgorithm, new() {
             if (string.IsNullOrEmpty(data)) {
                 throw new ArgumentNullException(nameof(data));
@@ -46,7 +46,7 @@ namespace Cosmos.Encryption.Core {
 
             byte[] encrypted;
             using (SymmetricAlgorithm cipher = new T()) {
-                cipher.Mode = CipherMode.ECB;
+                cipher.Mode = mode;
                 cipher.Key = ComputeRealValueFunc()(pwd)(salt)(encoding)(keySize);
                 cipher.KeySize = keySize;
                 if (!string.IsNullOrWhiteSpace(iv)) {
@@ -66,7 +66,7 @@ namespace Cosmos.Encryption.Core {
         }
 
         protected static string DecryptCore<T>(string data, string pwd, string iv, string salt = null, Encoding encoding = null,
-            int keySize = 128, int blockSize = 128)
+            int keySize = 128, int blockSize = 128, CipherMode mode = CipherMode.ECB)
             where T : SymmetricAlgorithm, new() {
             if (string.IsNullOrEmpty(data)) {
                 throw new ArgumentNullException(nameof(data));
@@ -78,7 +78,7 @@ namespace Cosmos.Encryption.Core {
 
             byte[] decrypted;
             using (SymmetricAlgorithm cipher = new T()) {
-                cipher.Mode = CipherMode.ECB;
+                cipher.Mode = mode;
                 cipher.Key = ComputeRealValueFunc()(pwd)(salt)(encoding)(keySize);
                 cipher.KeySize = keySize;
                 if (!string.IsNullOrWhiteSpace(iv)) {

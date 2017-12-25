@@ -3,7 +3,8 @@ using System.Security.Cryptography;
 using System.Text;
 using Cosmos.Encryption.Core;
 
-namespace Cosmos.Encryption.Symmetric {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Encryption {
     /// <summary>
     /// Symmetric/AES encryption.
     /// Reference: Seay Xu
@@ -37,6 +38,7 @@ namespace Cosmos.Encryption.Symmetric {
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
         /// <param name="salt">The key salt to use to derive the key.</param>
         /// <param name="iv">The initialization iv (IV) to use to derive the key.</param>
+        /// <param name="mode"></param>
         /// <returns>The encrypted string.</returns>
         public static string Encrypt(
             string data,
@@ -44,12 +46,13 @@ namespace Cosmos.Encryption.Symmetric {
             string iv = null,
             string salt = null,
             Encoding encoding = null,
-            AESKeySizeTypes keySize = AESKeySizeTypes.L256) {
+            AESKeySizeTypes keySize = AESKeySizeTypes.L256
+            , CipherMode mode = CipherMode.ECB) {
             if (string.IsNullOrEmpty(data)) {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            return EncryptCore<RijndaelManaged>(data, password, iv, salt, encoding, (int) keySize, 128);
+            return EncryptCore<RijndaelManaged>(data, password, iv, salt, encoding, (int) keySize, 128, mode);
         }
 
 
@@ -59,13 +62,14 @@ namespace Cosmos.Encryption.Symmetric {
         /// <param name="data">The string to be encrypted,not null.</param>
         /// <param name="key">your key.</param>
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
+        /// <param name="mode"></param>
         /// <returns></returns>
-        public static string Encrypt(string data, AESKey key, Encoding encoding = null) {
+        public static string Encrypt(string data, AESKey key, Encoding encoding = null, CipherMode mode = CipherMode.ECB) {
             if (key == null) {
                 throw new ArgumentNullException(nameof(key));
             }
 
-            return Encrypt(data, key.Key, key.IV, encoding: encoding, keySize: key.Size);
+            return Encrypt(data, key.Key, key.IV, encoding: encoding, keySize: key.Size, mode: mode);
         }
 
         /// <summary>
@@ -84,8 +88,9 @@ namespace Cosmos.Encryption.Symmetric {
             string iv = null,
             string salt = null,
             Encoding encoding = null,
-            AESKeySizeTypes keySize = AESKeySizeTypes.L256) {
-            return EncryptCore<RijndaelManaged>(data, password, iv, salt, encoding, (int) keySize, 128);
+            AESKeySizeTypes keySize = AESKeySizeTypes.L256,
+            CipherMode mode = CipherMode.ECB) {
+            return EncryptCore<RijndaelManaged>(data, password, iv, salt, encoding, (int) keySize, 128, mode);
         }
 
         /// <summary>
@@ -95,12 +100,12 @@ namespace Cosmos.Encryption.Symmetric {
         /// <param name="key">your key.</param>
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
         /// <returns></returns>
-        public static string Decrypt(string data, AESKey key, Encoding encoding = null) {
+        public static string Decrypt(string data, AESKey key, Encoding encoding = null, CipherMode mode = CipherMode.ECB) {
             if (key == null) {
                 throw new ArgumentNullException(nameof(key));
             }
 
-            return Decrypt(data, key.Key, key.IV, encoding: encoding, keySize: key.Size);
+            return Decrypt(data, key.Key, key.IV, encoding: encoding, keySize: key.Size, mode: mode);
         }
     }
 }
