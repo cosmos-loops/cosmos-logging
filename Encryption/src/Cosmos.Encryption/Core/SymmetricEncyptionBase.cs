@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -14,8 +16,12 @@ namespace Cosmos.Encryption.Core {
         /// <summary>
         /// 用于整理获得真实 key / iv 的方法
         /// </summary>
-        private static Func<string, Func<string, Func<Encoding, Func<int, byte[]>>>>
+        protected static Func<string, Func<string, Func<Encoding, Func<int, byte[]>>>>
             ComputeRealValueFunc() => originString => salt => encoding => size => {
+            if (string.IsNullOrWhiteSpace(originString)) {
+                return new byte[0];
+            }
+
             if (encoding == null) {
                 encoding = Encoding.UTF8;
             }
@@ -30,71 +36,37 @@ namespace Cosmos.Encryption.Core {
 
             var saltBytes = encoding.GetBytes(salt);
             var rfcOriginStringData = new Rfc2898DeriveBytes(encoding.GetBytes(originString), saltBytes, 1000);
-            return rfcOriginStringData.GetBytes(size);
+            return rfcOriginStringData.GetBytes(len);
         };
 
-        protected static string EncryptCore<T>(string data, string pwd, string iv, string salt = null, Encoding encoding = null,
-            int keySize = 128, int blockSize = 128, CipherMode mode = CipherMode.ECB)
-            where T : SymmetricAlgorithm, new() {
-            if (string.IsNullOrEmpty(data)) {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (encoding == null) {
-                encoding = Encoding.UTF8;
-            }
-
-            byte[] encrypted;
-            using (SymmetricAlgorithm cipher = new T()) {
-                cipher.Mode = mode;
-                cipher.Key = ComputeRealValueFunc()(pwd)(salt)(encoding)(keySize);
-                cipher.KeySize = keySize;
-                if (!string.IsNullOrWhiteSpace(iv)) {
-                    cipher.IV = ComputeRealValueFunc()(iv)(salt)(encoding)(blockSize);
-                    cipher.BlockSize = blockSize;
+        protected static byte[] NiceEncryptCore<TCryptoServiceProvider>(byte[] sourceBytes, byte[] keyBytes, byte[] ivBytes)
+            where TCryptoServiceProvider : SymmetricAlgorithm, new() {
+            using (var provider = new TCryptoServiceProvider()) {
+                provider.Key = keyBytes;
+                provider.IV = ivBytes;
+                using (MemoryStream ms = new MemoryStream()) {
+                    using (CryptoStream cs = new CryptoStream(ms, provider.CreateEncryptor(), CryptoStreamMode.Write)) {
+                        cs.Write(sourceBytes, 0, sourceBytes.Length);
+                        cs.FlushFinalBlock();
+                        return ms.ToArray();
+                    }
                 }
-
-                using (ICryptoTransform encryptor = cipher.CreateEncryptor()) {
-                    var valueBytes = encoding.GetBytes(data);
-                    encrypted = encryptor.TransformFinalBlock(valueBytes, 0, valueBytes.Length);
-                }
-
-                cipher.Clear();
             }
-
-            return Convert.ToBase64String(encrypted);
         }
 
-        protected static string DecryptCore<T>(string data, string pwd, string iv, string salt = null, Encoding encoding = null,
-            int keySize = 128, int blockSize = 128, CipherMode mode = CipherMode.ECB)
-            where T : SymmetricAlgorithm, new() {
-            if (string.IsNullOrEmpty(data)) {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (encoding == null) {
-                encoding = Encoding.UTF8;
-            }
-
-            byte[] decrypted;
-            using (SymmetricAlgorithm cipher = new T()) {
-                cipher.Mode = mode;
-                cipher.Key = ComputeRealValueFunc()(pwd)(salt)(encoding)(keySize);
-                cipher.KeySize = keySize;
-                if (!string.IsNullOrWhiteSpace(iv)) {
-                    cipher.IV = ComputeRealValueFunc()(iv)(salt)(encoding)(blockSize);
-                    cipher.BlockSize = blockSize;
+        protected static byte[] NiceDecryptCore<TCryptoServiceProvider>(byte[] encryptBytes, byte[] keyBytes, byte[] ivBytes)
+            where TCryptoServiceProvider : SymmetricAlgorithm, new() {
+            using (var provider = new TCryptoServiceProvider()) {
+                provider.Key = keyBytes;
+                provider.IV = ivBytes;
+                using (MemoryStream ms = new MemoryStream()) {
+                    using (CryptoStream cs = new CryptoStream(ms, provider.CreateDecryptor(), CryptoStreamMode.Write)) {
+                        cs.Write(encryptBytes, 0, encryptBytes.Length);
+                        cs.FlushFinalBlock();
+                        return ms.ToArray();
+                    }
                 }
-
-                using (ICryptoTransform decryptor = cipher.CreateDecryptor()) {
-                    var valueBytes = encoding.GetBytes(data);
-                    decrypted = decryptor.TransformFinalBlock(valueBytes, 0, valueBytes.Length);
-                }
-
-                cipher.Clear();
             }
-
-            return encoding.GetString(decrypted);
         }
     }
 }
