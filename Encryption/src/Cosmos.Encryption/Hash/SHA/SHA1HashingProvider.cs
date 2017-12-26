@@ -20,7 +20,7 @@ namespace Cosmos.Encryption {
         /// <param name="data">The string to be encrypted,not null.</param>
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
         /// <returns>The encrypted string.</returns>
-        public static string Encrypt(string data, Encoding encoding = null)
+        public static string Signature(string data, Encoding encoding = null)
             => Encrypt<SHA1CryptoServiceProvider>(data, encoding);
 
         /// <summary>
@@ -31,6 +31,6 @@ namespace Cosmos.Encryption {
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
         /// <returns></returns>
         public static bool Verify(string comparison, string data, Encoding encoding = null)
-            => comparison == Encrypt(data, encoding);
+            => comparison == Signature(data, encoding);
     }
 }

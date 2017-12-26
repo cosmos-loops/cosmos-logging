@@ -2,7 +2,7 @@
 using Cosmos.Encryption.Algorithms;
 using Xunit;
 
-namespace Cosmos.Encryption.Tests.Algorithms {
+namespace Cosmos.Encryption.NfxTests.Algorithms {
     public class MonoalphabeticTests {
         readonly IEncryptionAlgorithm _target = new Monoalphabetic();
 

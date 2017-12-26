@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Cosmos.Encryption.Tests.Asymmetric {
+namespace Cosmos.Encryption.NfxTests.Asymmetric {
     public class RsaTests {
         [Fact]
         public void EncryptDecrypt_R1024_XML_Test() {

@@ -19,7 +19,7 @@ namespace Cosmos.Encryption {
         /// <param name="bits">Encrypt string bits number,only 16,32,64.</param>
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
         /// <returns>Encrypt string.</returns>
-        public static string Encrypt(string data, MD5BitTypes bits = MD5BitTypes.L32, Encoding encoding = null) {
+        public static string Signature(string data, MD5BitTypes bits = MD5BitTypes.L32, Encoding encoding = null) {
             if (data == null) {
                 throw new ArgumentNullException(nameof(data));
             }
@@ -74,6 +74,6 @@ namespace Cosmos.Encryption {
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
         /// <returns></returns>
         public static bool Verify(string comparison, string data, MD5BitTypes bits = MD5BitTypes.L32, Encoding encoding = null)
-            => comparison == Encrypt(data, bits, encoding);
+            => comparison == Signature(data, bits, encoding);
     }
 }

@@ -1,7 +1,7 @@
 using System.Text;
 using Xunit;
 
-namespace Cosmos.Encryption.Tests {
+namespace Cosmos.Encryption.NfxTests {
     public class Base64Tests {
         [Fact]
         public void Base64EncodeTest() {
