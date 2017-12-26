@@ -4,6 +4,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Encryption", "src\Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FCC067FE-90F6-4E55-8169-7D6982B52A8A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FAB7E90F-6BA0-4305-96C1-B71EB1BBEEC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Encryption.Tests", "tests\Cosmos.Encryption.Tests\Cosmos.Encryption.Tests.csproj", "{A630520D-F1C3-46C4-92C7-3AB184A26105}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Encryption.NfxTests", "tests\Cosmos.Encryption.NfxTests\Cosmos.Encryption.NfxTests.csproj", "{F40BFB7E-049F-41E1-AEEA-CDDE1CE85417}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,8 +20,18 @@ Global
 		{27C23A57-2C63-4C51-A102-A20A7A4D2016}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27C23A57-2C63-4C51-A102-A20A7A4D2016}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27C23A57-2C63-4C51-A102-A20A7A4D2016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A630520D-F1C3-46C4-92C7-3AB184A26105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A630520D-F1C3-46C4-92C7-3AB184A26105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A630520D-F1C3-46C4-92C7-3AB184A26105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A630520D-F1C3-46C4-92C7-3AB184A26105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F40BFB7E-049F-41E1-AEEA-CDDE1CE85417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F40BFB7E-049F-41E1-AEEA-CDDE1CE85417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F40BFB7E-049F-41E1-AEEA-CDDE1CE85417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F40BFB7E-049F-41E1-AEEA-CDDE1CE85417}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{27C23A57-2C63-4C51-A102-A20A7A4D2016} = {FCC067FE-90F6-4E55-8169-7D6982B52A8A}
+		{A630520D-F1C3-46C4-92C7-3AB184A26105} = {FAB7E90F-6BA0-4305-96C1-B71EB1BBEEC3}
+		{F40BFB7E-049F-41E1-AEEA-CDDE1CE85417} = {FAB7E90F-6BA0-4305-96C1-B71EB1BBEEC3}
 	EndGlobalSection
 EndGlobal

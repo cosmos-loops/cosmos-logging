@@ -63,9 +63,14 @@
     <Compile Include="Asymmetric\RsaTests.cs" />
     <Compile Include="Base64Tests.cs" />
     <Compile Include="Hash\HmacTests.cs" />
+    <Compile Include="Hash\Md4Tests.cs" />
     <Compile Include="Hash\Md5Tests.cs" />
     <Compile Include="Hash\ShaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Symmetric\AesTests.cs" />
+    <Compile Include="Symmetric\DesTests.cs" />
+    <Compile Include="Symmetric\Rc4Tests.cs" />
+    <Compile Include="Symmetric\TripleDesTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Cosmos.Encryption\Cosmos.Encryption.csproj">
