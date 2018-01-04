@@ -21,7 +21,9 @@ namespace Cosmos.Encryption.Core.Internals {
             var builder = new StringBuilder();
 
             var b = new byte[4];
-            new System.Security.Cryptography.RNGCryptoServiceProvider().GetBytes(b);
+            using (var provider = new System.Security.Cryptography.RNGCryptoServiceProvider())
+                provider.GetBytes(b);
+
             var random = new Random(BitConverter.ToInt32(b, 0));
 
             for (var i = 0; i < bits; i++) {
