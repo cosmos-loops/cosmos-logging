@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EB80C43D-DCA2-4433-8297-0EFBF7AE5CF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging", "src\Cosmos.Logging\Cosmos.Logging.csproj", "{F04437BF-D39F-4ACF-BCDB-AC6ADF5C87C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RunsOn", "RunsOn", "{8AE15513-6404-45CF-9470-428BC2549593}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sinks", "Sinks", "{6ACA6868-2F37-44C9-BB92-0F235C5673FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F04437BF-D39F-4ACF-BCDB-AC6ADF5C87C3} = {EB80C43D-DCA2-4433-8297-0EFBF7AE5CF5}
+		{8AE15513-6404-45CF-9470-428BC2549593} = {EB80C43D-DCA2-4433-8297-0EFBF7AE5CF5}
+		{6ACA6868-2F37-44C9-BB92-0F235C5673FC} = {EB80C43D-DCA2-4433-8297-0EFBF7AE5CF5}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F04437BF-D39F-4ACF-BCDB-AC6ADF5C87C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F04437BF-D39F-4ACF-BCDB-AC6ADF5C87C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F04437BF-D39F-4ACF-BCDB-AC6ADF5C87C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F04437BF-D39F-4ACF-BCDB-AC6ADF5C87C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
