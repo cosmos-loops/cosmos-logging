@@ -7,14 +7,14 @@
 	</PropertyGroup>
 
 	<PropertyGroup Label="Package">
-		<Product>Cosmos.Standard</Product>
+		<Product>Cosmos.Encryption</Product>
 		<Authors>AlexLEWIS;dotnetcore;StarrySky;Cosmos</Authors>
-		<RepositoryUrl>https://github.com/CosmosProgramme/Cosmos.Standard</RepositoryUrl>
+		<RepositoryUrl>https://github.com/CosmosLoops/Cosmos/Encryption</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/CosmosProgramme/Cosmos.Standard</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/CosmosLoops/Cosmos/Encryption</PackageProjectUrl>
 		<PackageIconUrl />
-		<PackageLicenseUrl>https://github.com/CosmosProgramme/Cosmos.Standard/blob/master/LICENSE</PackageLicenseUrl>
-		<PackageTags>StarrySky;Cosmos;Standard;Framework</PackageTags>
+		<PackageLicenseUrl>https://github.com/CosmosLoops/Cosmos/blob/master/LICENSE</PackageLicenseUrl>
+		<PackageTags>StarrySky;Cosmos;Encryption</PackageTags>
 	</PropertyGroup>
 
 </Project>
