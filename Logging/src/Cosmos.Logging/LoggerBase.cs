@@ -8,8 +8,9 @@ namespace Cosmos.Logging {
     public abstract class LoggerBase : ILogger {
         private readonly ILogPayloadSender _logPayloadSender;
 
-        protected LoggerBase(LogEventLevel minimumLevel, string loggerName, LogEventSendMode sendMode, ILogPayloadSender logPayloadSender) {
+        protected LoggerBase(Type sourceType, LogEventLevel minimumLevel, string loggerName, LogEventSendMode sendMode, ILogPayloadSender logPayloadSender) {
             Name = loggerName;
+            TargetType = sourceType ?? typeof(object);
             MinimumLevel = minimumLevel;
             SendMode = sendMode;
             _logPayloadSender = logPayloadSender ?? throw new ArgumentNullException(nameof(logPayloadSender));
@@ -19,6 +20,7 @@ namespace Cosmos.Logging {
         }
 
         public string Name { get; }
+        public Type TargetType { get; }
         public LogEventLevel MinimumLevel { get; }
         public LogEventSendMode SendMode { get; }
 
