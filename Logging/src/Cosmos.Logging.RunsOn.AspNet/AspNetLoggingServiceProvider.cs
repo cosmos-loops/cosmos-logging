@@ -2,10 +2,10 @@
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.RunsOn.AspNet {
-    public class AspNetLoggerServiceProvider : ILoggingServiceProvider {
+    public class AspNetLoggingServiceProvider : ILoggingServiceProvider {
         private const string DEFAULT_LOGGER_NAME_PREFIX = "logger:CosmosLoops:roAspNet_";
 
-        public AspNetLoggerServiceProvider() { }
+        public AspNetLoggingServiceProvider() { }
 
         public ILogger GetLogger(LogEventSendMode mode = LogEventSendMode.Customize) {
             throw new NotImplementedException();

@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AspNetLogger.cs" />
-    <Compile Include="AspNetLoggerServiceProvider.cs" />
+    <Compile Include="AspNetLoggingServiceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

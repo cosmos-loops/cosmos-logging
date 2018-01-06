@@ -7,8 +7,7 @@ namespace Cosmos.Logging.Configuration {
         string Level { get; set; }
         string Name { get; set; }
 
-        List<ILogSinkSettings> Sinks { get; set; }
-
+        Dictionary<string, ILogSinkSettings> Sinks { get; set; }
         LogEventLevel GetMinimumLevel();
     }
 }
