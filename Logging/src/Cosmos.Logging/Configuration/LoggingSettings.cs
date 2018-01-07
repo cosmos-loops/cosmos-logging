@@ -4,7 +4,7 @@ using EnumsNET;
 
 namespace Cosmos.Logging.Configuration {
     public class LoggingSettings : ILoggerSettings {
-
+        
         private static LoggingSettings DefaultSetingsCache = new LoggingSettings();
         public static LoggingSettings Defaults => DefaultSetingsCache;
 
