@@ -43,7 +43,7 @@ namespace Cosmos.Logging.Configuration {
             return this;
         }
 
-        internal void UpdateSinkSettings() {
+        internal void ActiveSinkSettings() {
             _settings.Sinks?.Clear();
             _settings.Sinks = _sinkSettings;
         }

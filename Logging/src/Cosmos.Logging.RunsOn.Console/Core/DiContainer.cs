@@ -20,7 +20,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
 
         internal static void AllDone(ILogServiceCollection services) {
             if (services is ConsoleLogServiceCollection servicesImpl) {
-                servicesImpl.UpdateSinkSettings();
+                servicesImpl.ActiveSinkSettings();
                 servicesImpl.AddDependency(s => s.AddSingleton(Options.Create((LoggingSettings) servicesImpl.ExposeLogSettings())));
                 ServiceResolver = servicesImpl.ExposeServices().ToServiceContainer().Build();
             }
