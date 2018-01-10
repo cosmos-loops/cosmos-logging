@@ -1,7 +1,7 @@
 ﻿using Cosmos.Logging.RunsOn.Console.Core;
+using Cosmos.Logging.Settings;
 
-// ReSharper disable once CheckNamespace
-namespace Cosmos.Logging.Configuration {
+namespace Cosmos.Logging.RunsOn.Console.Settings {
     public static class FluentConfigurationExtensions {
         public static void AllDone(this ILogServiceCollection services) {
             DiContainer.AllDone(services);

@@ -2,9 +2,9 @@
 using Cosmos.Logging.Events;
 using EnumsNET;
 
-namespace Cosmos.Logging.Configuration {
+namespace Cosmos.Logging.Settings {
     public class LoggingSettings : ILoggerSettings {
-        
+
         private static LoggingSettings DefaultSetingsCache = new LoggingSettings();
         public static LoggingSettings Defaults => DefaultSetingsCache;
 

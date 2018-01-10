@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cosmos.Logging.Settings;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-// ReSharper disable once CheckNamespace
-namespace Cosmos.Logging.Configuration {
+namespace Cosmos.Logging.RunsOn.Console.Settings {
     public class ConsoleLogServiceCollection : ILogServiceCollection {
+        private LoggingConfigurationBuilder _configurationBuilder;
         private readonly IServiceCollection _serviceCollection;
         private ILoggerSettings _settings { get; set; }
-        internal readonly Dictionary<string, ILogSinkSettings> _sinkSettings;
+        private readonly Dictionary<string, ILogSinkSettings> _sinkSettings;
         private object _sinkUpdateLock = new object();
+        private Action<IConfigurationRoot> _originConfigAction;
 
         private ConsoleLogServiceCollection() { }
 
         internal ConsoleLogServiceCollection(IServiceCollection services) {
+            _configurationBuilder = new LoggingConfigurationBuilder();
             _serviceCollection = services;
             _settings = new LoggingSettings();
             _sinkSettings = new Dictionary<string, ILogSinkSettings>();
@@ -43,9 +47,27 @@ namespace Cosmos.Logging.Configuration {
             return this;
         }
 
+        public ILogServiceCollection AddOriginConfigAction(Action<IConfigurationRoot> configAction) {
+            if (configAction != null) {
+                _originConfigAction += configAction;
+            }
+
+            return this;
+        }
+
+        internal IConfigurationRoot ConfigurationRoot { get; private set; }
+
+        internal void BuildConfiguration() {
+            ConfigurationRoot = _configurationBuilder.Build();
+        }
+
         internal void ActiveSinkSettings() {
             _settings.Sinks?.Clear();
             _settings.Sinks = _sinkSettings;
+        }
+
+        internal void ActiveOriginConfiguration() {
+            _originConfigAction?.Invoke(ConfigurationRoot);
         }
     }
 }

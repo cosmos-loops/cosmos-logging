@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cosmos.Logging.Events;
 
-namespace Cosmos.Logging.Configuration {
+namespace Cosmos.Logging.Settings {
     public interface ILoggerSettings {
 
         string Level { get; set; }

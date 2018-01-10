@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Cosmos.Logging.Collectors;
-using Cosmos.Logging.Configuration;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 

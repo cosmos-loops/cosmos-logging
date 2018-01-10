@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using AspectCore.Injector;
-using Cosmos.Logging.Configuration;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.RunsOn.Console.Core;
+using Cosmos.Logging.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cosmos.Logging.RunsOn.Console {
@@ -22,62 +22,62 @@ namespace Cosmos.Logging.RunsOn.Console {
         
         public static ILogger GetLogger(LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger(mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger(mode);
         }
 
         public static ILogger GetLogger(string name, LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger(name, mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger(name, mode);
         }
 
         public static ILogger GetLogger(LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger(level, mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger(level, mode);
         }
 
         public static ILogger GetLogger(string name, LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger(name, level, mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger(name, level, mode);
         }
 
         public static ILogger GetLogger(Type type, LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger(type, mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger(type, mode);
         }
 
         public static ILogger GetLogger(Type type, string name, LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger(type, name, mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger(type, name, mode);
         }
 
         public static ILogger GetLogger(Type type, LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger(type, level, mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger(type, level, mode);
         }
 
         public static ILogger GetLogger(Type type, string name, LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger(type, name, level, mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger(type, name, level, mode);
         }
 
         public static ILogger GetLogger<T>(LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger<T>(mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger<T>(mode);
         }
 
         public static ILogger GetLogger<T>(string name, LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger<T>(name, mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger<T>(name, mode);
         }
 
         public static ILogger GetLogger<T>(LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger<T>(level, mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger<T>(level, mode);
         }
 
         public static ILogger GetLogger<T>(string name, LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
-            return provider == null ? EmptyLogger.Instance : provider.GetLogger<T>(name, level, mode);
+            return provider == null ? NullLogger.Instance : provider.GetLogger<T>(name, level, mode);
         }
     }
 }

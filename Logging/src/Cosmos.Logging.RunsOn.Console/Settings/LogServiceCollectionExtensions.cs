@@ -1,9 +1,8 @@
 ﻿using System;
-using Cosmos.Logging.RunsOn.Console;
+using Cosmos.Logging.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
-// ReSharper disable once CheckNamespace
-namespace Cosmos.Logging.Configuration {
+namespace Cosmos.Logging.RunsOn.Console.Settings {
     public static class LogServiceCollectionExtensions {
         public static ILogServiceCollection RunsOnConsole(this ILogServiceCollection services) {
             return services.RegisterToRunsOnConsole();

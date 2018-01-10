@@ -1,7 +1,8 @@
 ﻿using System;
 using AspectCore.Extensions.DependencyInjection;
 using AspectCore.Injector;
-using Cosmos.Logging.Configuration;
+using Cosmos.Logging.RunsOn.Console.Settings;
+using Cosmos.Logging.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -20,11 +21,12 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
 
         internal static void AllDone(ILogServiceCollection services) {
             if (services is ConsoleLogServiceCollection servicesImpl) {
+                servicesImpl.BuildConfiguration();
                 servicesImpl.ActiveSinkSettings();
+                servicesImpl.ActiveOriginConfiguration();
                 servicesImpl.AddDependency(s => s.AddSingleton(Options.Create((LoggingSettings) servicesImpl.ExposeLogSettings())));
                 ServiceResolver = servicesImpl.ExposeServices().ToServiceContainer().Build();
-            }
-            else {
+            } else {
                 throw new ArgumentException(nameof(services));
             }
         }

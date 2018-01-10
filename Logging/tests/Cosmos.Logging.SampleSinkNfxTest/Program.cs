@@ -1,6 +1,6 @@
 ﻿using System;
-using Cosmos.Logging.Configuration;
 using Cosmos.Logging.RunsOn.Console;
+using Cosmos.Logging.RunsOn.Console.Settings;
 using Cosmos.Logging.Sinks.SampleLogSink;
 
 namespace Cosmos.Logging.SampleSinkNfxTest {

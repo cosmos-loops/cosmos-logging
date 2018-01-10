@@ -1,20 +1,24 @@
 ﻿using System;
-using Cosmos.Logging.Configuration;
+using Cosmos.Logging.Events;
 using Cosmos.Logging.RunsOn.Console;
+using Cosmos.Logging.RunsOn.Console.Settings;
 using Cosmos.Logging.Sinks.SampleLogSink;
 
 namespace Cosmos.Logging.SampleSinkTest {
+
     class Program {
         static void Main(string[] args) {
 
             try {
                 LOGGER.Initialize().RunsOnConsole()
-                    .WriteToSampleLog()
+                    .WriteToSampleLog(s => s.Level = LogEventLevel.Error)
                     .AllDone();
 
-                var logger = LOGGER.GetLogger();
+                var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);
 
-                logger.Information("hello world!");
+                logger.Information("hello");
+                logger.Error("world");
+                logger.SubmitLogger();
 
                 Console.WriteLine("Hello World!");
             }

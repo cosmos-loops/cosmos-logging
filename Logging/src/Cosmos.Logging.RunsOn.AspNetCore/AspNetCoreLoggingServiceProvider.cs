@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cosmos.Logging.Collectors;
-using Cosmos.Logging.Configuration;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
