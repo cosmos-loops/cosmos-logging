@@ -11,24 +11,8 @@ namespace Cosmos.Logging.Sinks.NLog {
 
         public LoggingConfiguration OriginConfiguration { get; set; }
 
-        public void RemoveConfig() {
-            OriginConfigFilePath = string.Empty;
-            OriginConfigType = FileTypes.XML;
-        }
-
-        public void UseXmlConfig(string path) {
-            OriginConfigFilePath = path;
-            OriginConfigType = FileTypes.XML;
-        }
-
-        public void UseJsonConfig(string path) {
-            OriginConfigFilePath = path;
-            OriginConfigType = FileTypes.JSON;
-        }
-
         public void UseDefaultOriginConfigFilePath() => OriginConfigFilePath = "nlog.config";
-        internal string OriginConfigFilePath { get; set; }
-        internal FileTypes OriginConfigType { get; set; } = FileTypes.XML;
+        public string OriginConfigFilePath { get; set; }
 
         public void EnableUsingDefaultConfig() => DoesUsedDefaultConfig = true;
         public void DisableUsingDefaultConfig() => DoesUsedDefaultConfig = false;

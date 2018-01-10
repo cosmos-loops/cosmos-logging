@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cosmos.Logging.Settings\Cosmos.Logging.Settings.csproj">
+      <Project>{4c6268c5-0e0f-4249-8f03-2e01f6c24ece}</Project>
+      <Name>Cosmos.Logging.Settings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj">
       <Project>{f04437bf-d39f-4acf-bcdb-ac6adf5c87c3}</Project>
       <Name>Cosmos.Logging</Name>

@@ -82,6 +82,10 @@
       <Project>{7c120fad-1b05-4bb1-99d3-8b34fcd4a110}</Project>
       <Name>Cosmos.Logging.RunsOn.Console</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Cosmos.Logging.Settings\Cosmos.Logging.Settings.csproj">
+      <Project>{4c6268c5-0e0f-4249-8f03-2e01f6c24ece}</Project>
+      <Name>Cosmos.Logging.Settings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Cosmos.Logging.Sinks.SampleLogSink\Cosmos.Logging.Sinks.SampleLogSink.csproj">
       <Project>{c7370c02-38e5-44fd-9973-1ef68f901253}</Project>
       <Name>Cosmos.Logging.Sinks.SampleLogSink</Name>
