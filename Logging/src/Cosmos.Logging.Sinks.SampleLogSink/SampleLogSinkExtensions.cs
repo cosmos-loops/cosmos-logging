@@ -1,6 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Collectors;
-using Cosmos.Logging.Configuration;
+using Cosmos.Logging.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -10,10 +10,9 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
             return services.WriteToSampleLog((Action<SampleLogSinkSettings>) null);
         }
         
-        public static ILogServiceCollection WriteToSampleLog(this ILogServiceCollection services, Action<SampleLogSinkSettings> sinkSettingAct) {
-
+        public static ILogServiceCollection WriteToSampleLog(this ILogServiceCollection services, Action<SampleLogSinkSettings> settingAct) {
             var settings = new SampleLogSinkSettings();
-            sinkSettingAct?.Invoke(settings);
+            settingAct?.Invoke(settings);
             return services.WriteToSampleLog(settings);
         }
 
@@ -21,14 +20,14 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
             return services.WriteToSampleLog(Options.Create(settings));
         }
 
-        public static ILogServiceCollection WriteToSampleLog(this ILogServiceCollection service, IOptions<SampleLogSinkSettings> settings) {
-            service.AddSinkSettings(settings.Value);
-            service.AddDependency(s => {
+        public static ILogServiceCollection WriteToSampleLog(this ILogServiceCollection services, IOptions<SampleLogSinkSettings> settings) {
+            services.AddSinkSettings(settings.Value);
+            services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, SampleLogPayloadClient>();
                 s.AddScoped<ILogPayloadClientProvider, SampleLogPayloadClientProvider>();
                 s.AddSingleton(settings);
             });
-            return service;
+            return services;
         }
     }
 }

@@ -8,9 +8,12 @@ using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Sinks.SampleLogSink {
     public class SampleLogPayloadClient : ILogEventSink, ILogPayloadClient {
-        public SampleLogPayloadClient(string name, LogEventLevel? level) {
+        private readonly IFormatProvider _formatProvider;
+
+        public SampleLogPayloadClient(string name, LogEventLevel? level, IFormatProvider formatProvider = null) {
             Name = name;
             Level = level;
+            _formatProvider = formatProvider;
         }
 
         public string Name { get; set; }
@@ -22,7 +25,8 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
                 var ix = 0;
                 var count = legalityEvents.Count;
                 foreach (var logEvent in legalityEvents) {
-                    Console.WriteLine($"[{Name}{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(Level)}] {logEvent.MessageTemplate}");
+                    var message = logEvent.RenderMessage(_formatProvider);
+                    Console.WriteLine($"[{Name}{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(Level)}] {message}");
                 }
             }
 

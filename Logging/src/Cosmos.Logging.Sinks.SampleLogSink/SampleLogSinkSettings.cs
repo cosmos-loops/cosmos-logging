@@ -1,6 +1,6 @@
 ﻿using System;
-using Cosmos.Logging.Configuration;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Settings;
 
 namespace Cosmos.Logging.Sinks.SampleLogSink {
     public class SampleLogSinkSettings : ILogSinkSettings {
