@@ -9,5 +9,6 @@ namespace Cosmos.Logging.Settings {
         ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction);
         ILogServiceCollection AddSinkSettings<TSinkSettings>(TSinkSettings settings) where TSinkSettings : class, ILogSinkSettings, new();
         ILogServiceCollection AddOriginConfigAction(Action<IConfigurationRoot> configAction);
+        ILogServiceCollection ModifyConfigurationBuilder(Action<LoggingConfigurationBuilder> builderAct);
     }
 }

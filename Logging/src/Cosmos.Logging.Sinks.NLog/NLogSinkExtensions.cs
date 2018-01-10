@@ -34,10 +34,13 @@ namespace Cosmos.Logging.Sinks.NLog {
             } else if (settings.Value.DoesUsedDefaultConfig) {
                 services.AddOriginConfigAction(root => LogManager.Configuration = new DefaultLoggingConfiguration());
             } else if (!string.IsNullOrWhiteSpace(settings.Value.OriginConfigFilePath)) {
+                
                 services.AddOriginConfigAction(root => LogManager.Configuration = new XmlLoggingConfiguration(settings.Value.OriginConfigFilePath));
             }
 
             return services;
         }
+
+
     }
 }

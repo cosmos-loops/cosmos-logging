@@ -9,9 +9,16 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
         public string Name { get; set; } = $"ExceptionlessSink_{DateTime.Now.ToString("yyyyMMdd_HHmmssffff")}";
         public LogEventLevel? Level { get; set; }
 
-        public void RemoveFilePath() {
+        public void RemoveConfig() {
             OriginConfigFilePath = string.Empty;
             OriginConfigFileType = FileTypes.JSON;
+        }
+
+        public void UseAppSettings(string environmentName = "") {
+            if (string.IsNullOrWhiteSpace(environmentName))
+                UseJsonConfig("appsettings.json");
+            else
+                UseJsonConfig($"appsettings.{environmentName}.json");
         }
 
         public void UseJsonConfig(string path) {

@@ -55,6 +55,11 @@ namespace Cosmos.Logging.RunsOn.Console.Settings {
             return this;
         }
 
+        public ILogServiceCollection ModifyConfigurationBuilder(Action<LoggingConfigurationBuilder> builderAct) {
+            builderAct?.Invoke(_configurationBuilder);
+            return this;
+        }
+
         internal IConfigurationRoot ConfigurationRoot { get; private set; }
 
         internal void BuildConfiguration() {

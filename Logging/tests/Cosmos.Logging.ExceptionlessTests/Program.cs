@@ -6,14 +6,12 @@ using Cosmos.Logging.Settings;
 using Cosmos.Logging.Sinks.Exceptionless;
 using Exceptionless.Configuration;
 
-[assembly: Exceptionless("WRqoN9ksuzGoc1OlxOS2b8h726ztmevV0bWYcPFN", ServerUrl = "http://exceptionless.diantuyun.com")]
-
 namespace Cosmos.Logging.ExceptionlessTests {
     class Program {
         static void Main(string[] args) {
             try {
                 LOGGER.Initialize().RunsOnConsole()
-                    .WriteToExceptionless(s => s.UseJsonConfig("appsettings.json"))
+                    .WriteToExceptionless(s => s.UseXmlConfig("App.Config"))
                     .AllDone();
 
                 var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);
