@@ -32,6 +32,8 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
             if (!string.IsNullOrWhiteSpace(settings.Value.OriginConfigFilePath)) {
                 services.ModifyConfigurationBuilder(b => b.AddFile(settings.Value.OriginConfigFilePath, settings.Value.OriginConfigFileType));
                 services.AddOriginConfigAction(root => ExceptionlessClient.Default.Configuration.ReadFromConfiguration(root));
+            } else if (services.BeGivenConfigurationBuilder || services.BeGivenConfigurationRoot) {
+                services.AddOriginConfigAction(root => ExceptionlessClient.Default.Configuration.ReadFromConfiguration(root));
             }
 
             if (!string.IsNullOrWhiteSpace(settings.Value.ApiKey)) {

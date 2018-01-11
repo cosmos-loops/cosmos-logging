@@ -39,8 +39,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.Except
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.ExceptionlessTests", "tests\Cosmos.Logging.ExceptionlessTests\Cosmos.Logging.ExceptionlessTests.csproj", "{C9F1AC97-786A-47BF-9141-2D72654B1440}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Settings", "src\Cosmos.Logging.Settings\Cosmos.Logging.Settings.csproj", "{4C6268C5-0E0F-4249-8F03-2E01F6C24ECE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,10 +101,6 @@ Global
 		{C9F1AC97-786A-47BF-9141-2D72654B1440}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9F1AC97-786A-47BF-9141-2D72654B1440}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9F1AC97-786A-47BF-9141-2D72654B1440}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C6268C5-0E0F-4249-8F03-2E01F6C24ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C6268C5-0E0F-4249-8F03-2E01F6C24ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C6268C5-0E0F-4249-8F03-2E01F6C24ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C6268C5-0E0F-4249-8F03-2E01F6C24ECE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,7 +122,6 @@ Global
 		{23E7B66A-405E-4ECE-AB62-0F8B979BC477} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
 		{6863EEF0-2630-43E5-B3A1-465F1900720E} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
 		{C9F1AC97-786A-47BF-9141-2D72654B1440} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
-		{4C6268C5-0E0F-4249-8F03-2E01F6C24ECE} = {EB80C43D-DCA2-4433-8297-0EFBF7AE5CF5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7494AB0-4276-4102-B112-7BBE0329D263}

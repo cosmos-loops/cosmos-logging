@@ -1,16 +1,18 @@
 ﻿using System;
+using System.IO;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.RunsOn.Console;
 using Cosmos.Logging.RunsOn.Console.Settings;
 using Cosmos.Logging.Sinks.Log4Net;
+using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging.Log4NetSinkTest {
     class Program {
         static void Main(string[] args) {
             try {
-                //var config = GetNLogConfig();
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
 
-                LOGGER.Initialize().RunsOnConsole()
+                LOGGER.Initialize(builder).RunsOnConsole()
                     .WriteToLog4Net(s => s.UseDefaultOriginConfigFilePath())
                     .AllDone();
 

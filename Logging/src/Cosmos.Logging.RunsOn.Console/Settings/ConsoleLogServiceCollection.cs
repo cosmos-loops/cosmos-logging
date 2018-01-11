@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Cosmos.Logging.RunsOn.Console.Settings {
     public class ConsoleLogServiceCollection : ILogServiceCollection {
         private LoggingConfigurationBuilder _configurationBuilder;
+        private readonly bool _configurationBuilderLockedStatus;
         private readonly IServiceCollection _serviceCollection;
         private ILoggerSettings _settings { get; set; }
         private readonly Dictionary<string, ILogSinkSettings> _sinkSettings;
@@ -15,13 +16,32 @@ namespace Cosmos.Logging.RunsOn.Console.Settings {
 
         private ConsoleLogServiceCollection() { }
 
-        internal ConsoleLogServiceCollection(IServiceCollection services) {
-            _configurationBuilder = new LoggingConfigurationBuilder();
+        internal ConsoleLogServiceCollection(IServiceCollection services) : this(services, (IConfigurationBuilder) null) { }
+
+        internal ConsoleLogServiceCollection(IServiceCollection services, IConfigurationBuilder builder) {
+            _configurationBuilder = new LoggingConfigurationBuilder(builder);
+            _configurationBuilderLockedStatus = false;
             _serviceCollection = services;
             _settings = new LoggingSettings();
             _sinkSettings = new Dictionary<string, ILogSinkSettings>();
+
+            BeGivenConfigurationBuilder = _configurationBuilder.InitializedByGivenBuilder;
+            BeGivenConfigurationRoot = false;
         }
 
+        internal ConsoleLogServiceCollection(IServiceCollection services, IConfigurationRoot root) {
+            _configurationBuilder = new DisabledConfigurationBuilder(root);
+            _configurationBuilderLockedStatus = true;
+            _serviceCollection = services;
+            _settings = new LoggingSettings();
+            _sinkSettings = new Dictionary<string, ILogSinkSettings>();
+
+            BeGivenConfigurationBuilder = _configurationBuilder.InitializedByGivenBuilder;
+            BeGivenConfigurationRoot = true;
+        }
+
+        public bool BeGivenConfigurationBuilder { get; }
+        public bool BeGivenConfigurationRoot { get; }
         public IServiceCollection ExposeServices() => _serviceCollection;
 
         public ILoggerSettings ExposeLogSettings() => _settings;
@@ -56,7 +76,10 @@ namespace Cosmos.Logging.RunsOn.Console.Settings {
         }
 
         public ILogServiceCollection ModifyConfigurationBuilder(Action<LoggingConfigurationBuilder> builderAct) {
-            builderAct?.Invoke(_configurationBuilder);
+            if (!_configurationBuilderLockedStatus) {
+                builderAct?.Invoke(_configurationBuilder);
+            }
+
             return this;
         }
 

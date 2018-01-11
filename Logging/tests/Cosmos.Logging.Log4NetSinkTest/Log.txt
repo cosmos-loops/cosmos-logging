@@ -1,2 +1,0 @@
-2018-01-10 00:26:36,459 INFO [System.Object]: hello
-2018-01-10 00:26:36,475 ERROR[System.Object]: world

@@ -4,22 +4,31 @@ using AspectCore.Injector;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.RunsOn.Console.Core;
 using Cosmos.Logging.Settings;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cosmos.Logging.RunsOn.Console {
     public static class LOGGER {
         public static ILogServiceCollection Initialize() {
-            IServiceCollection services = new ServiceCollection();
-
-            services.AddScoped<ILoggingServiceProvider, ConsoleLoggingServiceProvider>();
-
-            return DiContainer.Initialize(services);
+            return Initialize((IConfigurationBuilder) null);
         }
 
-        public static IServiceProvider GetScopedServiceResolver() => DiContainer.GetScopedServiceResolver();
+        public static ILogServiceCollection Initialize(IConfigurationBuilder builder) {
+            IServiceCollection services = new ServiceCollection();
+            services.AddScoped<ILoggingServiceProvider, ConsoleLoggingServiceProvider>();
+            return IocContainer.Initialize(services, builder);
+        }
 
-        private static ILoggingServiceProvider TouchProvider() => DiContainer.GetServiceResolver().GetService<ILoggingServiceProvider>();
-        
+        public static ILogServiceCollection Initialize(IConfigurationRoot root) {
+            IServiceCollection services = new ServiceCollection();
+            services.AddScoped<ILoggingServiceProvider, ConsoleLoggingServiceProvider>();
+            return IocContainer.Initialize(services, root);
+        }
+
+        public static IServiceProvider GetScopedServiceResolver() => IocContainer.GetScopedServiceResolver();
+
+        private static ILoggingServiceProvider TouchProvider() => IocContainer.GetServiceResolver().GetService<ILoggingServiceProvider>();
+
         public static ILogger GetLogger(LogEventSendMode mode = LogEventSendMode.Customize) {
             var provider = TouchProvider();
             return provider == null ? NullLogger.Instance : provider.GetLogger(mode);

@@ -1,23 +1,31 @@
 ﻿using System;
+using System.IO;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.RunsOn.Console;
 using Cosmos.Logging.RunsOn.Console.Settings;
 using Cosmos.Logging.Settings;
 using Cosmos.Logging.Sinks.Exceptionless;
 using Exceptionless.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging.ExceptionlessTests {
     class Program {
         static void Main(string[] args) {
             try {
-                LOGGER.Initialize().RunsOnConsole()
-                    .WriteToExceptionless(s => s.UseXmlConfig("App.Config"))
+                //var configBuilder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                //    .AddXmlFile("App.Config", true, true);
+
+                var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                    .AddXmlFile("App.Config", true, true).Build();
+
+                LOGGER.Initialize(config).RunsOnConsole()
+                    .WriteToExceptionless()
                     .AllDone();
 
                 var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);
 
-                logger.Information("hello", ctx => ctx.ForExceptionless(h => h.AddTags("CosmosLogging")));
-                logger.Information("hello2", builder => builder.AddTags("CosmosLogging"));
+                logger.Information("测试1", ctx => ctx.ForExceptionless(h => h.AddTags("CosmosLogging")));
+                logger.Information("测试2", builder => builder.AddTags("CosmosLogging"));
                 logger.Error("world");
                 logger.SubmitLogger();
 
