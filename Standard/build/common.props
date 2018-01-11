@@ -9,11 +9,11 @@
 	<PropertyGroup Label="Package">
 		<Product>Cosmos.Standard</Product>
 		<Authors>AlexLEWIS;dotnetcore;StarrySky;Cosmos</Authors>
-		<RepositoryUrl>https://github.com/CosmosProgramme/Cosmos.Standard</RepositoryUrl>
+		<RepositoryUrl>https://github.com/CosmosLoops/Cosmos/Standard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/CosmosProgramme/Cosmos.Standard</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/CosmosLoops/Cosmos/Standard</PackageProjectUrl>
 		<PackageIconUrl />
-		<PackageLicenseUrl>https://github.com/CosmosProgramme/Cosmos.Standard/blob/master/LICENSE</PackageLicenseUrl>
+		<PackageLicenseUrl>https://github.com/CosmosLoops/Cosmos/Standard/blob/master/LICENSE</PackageLicenseUrl>
 		<PackageTags>StarrySky;Cosmos;Standard;Framework</PackageTags>
 	</PropertyGroup>
 
