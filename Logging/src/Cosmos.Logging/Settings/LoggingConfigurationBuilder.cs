@@ -7,11 +7,14 @@ namespace Cosmos.Logging.Settings {
     public class LoggingConfigurationBuilder {
         private IConfigurationBuilder ConfigurationBuilder { get; set; }
 
-        public LoggingConfigurationBuilder() {
-            ConfigurationBuilder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
+        public LoggingConfigurationBuilder(IConfigurationBuilder builder = null) {
+            ConfigurationBuilder = builder ?? new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
+            InitializedByGivenBuilder = builder != null;
         }
+        
+        public virtual bool InitializedByGivenBuilder { get; }
 
-        public LoggingConfigurationBuilder AddFile(string path, FileTypes fileType) {
+        public virtual LoggingConfigurationBuilder AddFile(string path, FileTypes fileType) {
             switch (fileType) {
                 case FileTypes.JSON:
                     ConfigurationBuilder.AddJsonFile(path, true, true);
@@ -32,10 +35,10 @@ namespace Cosmos.Logging.Settings {
             return this;
         }
 
-        public LoggingConfigurationBuilder AddJsonFile(string path) => AddFile(path, FileTypes.JSON);
-        public LoggingConfigurationBuilder AddXmlFile(string path) => AddFile(path, FileTypes.XML);
-        public LoggingConfigurationBuilder AddYamlFile(string path) => AddFile(path, FileTypes.YAML);
+        public virtual LoggingConfigurationBuilder AddJsonFile(string path) => AddFile(path, FileTypes.JSON);
+        public virtual LoggingConfigurationBuilder AddXmlFile(string path) => AddFile(path, FileTypes.XML);
+        public virtual LoggingConfigurationBuilder AddYamlFile(string path) => AddFile(path, FileTypes.YAML);
 
-        public IConfigurationRoot Build() => ConfigurationBuilder.Build();
+        public virtual IConfigurationRoot Build() => ConfigurationBuilder.Build();
     }
 }

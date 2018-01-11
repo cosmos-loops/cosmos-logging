@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cosmos.Logging.Settings {
     public interface ILogServiceCollection {
+        bool BeGivenConfigurationBuilder { get; }
+        bool BeGivenConfigurationRoot { get; }
         IServiceCollection ExposeServices();
         ILoggerSettings ExposeLogSettings();
         ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction);
