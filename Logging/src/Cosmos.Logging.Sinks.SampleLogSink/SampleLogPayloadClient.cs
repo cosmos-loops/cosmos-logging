@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Logging.Collectors;
@@ -25,8 +27,12 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
                 var ix = 0;
                 var count = legalityEvents.Count;
                 foreach (var logEvent in legalityEvents) {
-                    var message = logEvent.RenderMessage(_formatProvider);
-                    Console.WriteLine($"[{Name}{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(Level)}] {message}");
+                    var builder = new StringBuilder();
+                    using (var output = new StringWriter(builder, _formatProvider)) {
+                        logEvent.RenderMessage(output, _formatProvider);
+                    }
+
+                    Console.WriteLine($"[{Name}{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(Level)}] {builder}");
                 }
             }
 

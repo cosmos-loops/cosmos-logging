@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging {
     public abstract class LoggerBase : ILogger {
@@ -44,12 +45,17 @@ namespace Cosmos.Logging {
                 SendMode == LogEventSendMode.Manually;
         }
 
-
         public void Write(LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode, AdditionalOptContext context = null) {
             if (!IsEnabled(level)) return;
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
 
-            var logEvent = new LogEvent(DateTimeOffset.Now, level, messageTemplate, exception, sendMode, context);
+            var parser = new MessageTemplateParser(messageTemplate);
+
+            var template = parser.Parse();
+
+            var logEventContext = new LogEventContext {AdditionalOptContext = context};
+
+            var logEvent = new LogEvent(DateTimeOffset.Now, level, template, exception, sendMode, logEventContext);
 
             Dispatch(logEvent);
         }

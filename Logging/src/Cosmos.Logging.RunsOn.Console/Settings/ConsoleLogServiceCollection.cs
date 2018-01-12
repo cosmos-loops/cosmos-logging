@@ -21,7 +21,7 @@ namespace Cosmos.Logging.RunsOn.Console.Settings {
         internal ConsoleLogServiceCollection(IServiceCollection services, IConfigurationBuilder builder) {
             _configurationBuilder = new LoggingConfigurationBuilder(builder);
             _configurationBuilderLockedStatus = false;
-            _serviceCollection = services;
+            _serviceCollection = services ?? throw new ArgumentNullException(nameof(services));
             _settings = new LoggingSettings();
             _sinkSettings = new Dictionary<string, ILogSinkSettings>();
 
@@ -43,7 +43,6 @@ namespace Cosmos.Logging.RunsOn.Console.Settings {
         public bool BeGivenConfigurationBuilder { get; }
         public bool BeGivenConfigurationRoot { get; }
         public IServiceCollection ExposeServices() => _serviceCollection;
-
         public ILoggerSettings ExposeLogSettings() => _settings;
 
         public void ReplaceSettings<TLoggerSettings>(ILoggerSettings newSettings)

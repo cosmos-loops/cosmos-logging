@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Logging.Collectors;
@@ -26,29 +28,29 @@ namespace Cosmos.Logging.Sinks.Log4Net {
                 var logger = log4net.LogManager.GetLogger(payload.SourceType);
 
                 foreach (var logEvent in legalityEvents) {
-
-                    var message = logEvent.RenderMessage(_formatProvider);
-                    var exception = logEvent.Exception;
-
+                    var builder = new StringBuilder();
+                    using (var output = new StringWriter(builder, _formatProvider)) {
+                        logEvent.RenderMessage(output, _formatProvider);
+                    }
                     switch (logEvent.Level) {
                         case LogEventLevel.Verbose:
                         case LogEventLevel.Debug:
-                            logger.Debug(message, exception);
+                            logger.Debug(builder.ToString(), logEvent.Exception);
                             break;
                         case LogEventLevel.Information:
-                            logger.Info(message, exception);
+                            logger.Info(builder.ToString(), logEvent.Exception);
                             break;
                         case LogEventLevel.Warning:
-                            logger.Warn(message, exception);
+                            logger.Warn(builder.ToString(), logEvent.Exception);
                             break;
                         case LogEventLevel.Error:
-                            logger.Error(message, exception);
+                            logger.Error(builder.ToString(), logEvent.Exception);
                             break;
                         case LogEventLevel.Fatal:
-                            logger.Fatal(message, exception);
+                            logger.Fatal(builder.ToString(), logEvent.Exception);
                             break;
                         default:
-                            logger.Info(message, exception);
+                            logger.Info(builder.ToString(), logEvent.Exception);
                             break;
                     }
                 }

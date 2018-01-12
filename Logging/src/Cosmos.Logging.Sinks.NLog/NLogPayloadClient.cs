@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Logging.Collectors;
@@ -25,11 +27,14 @@ namespace Cosmos.Logging.Sinks.NLog {
                 var logger = global::NLog.LogManager.GetLogger(payload.Name, payload.SourceType);
 
                 foreach (var logEvent in legalityEvents) {
-                    var message = logEvent.RenderMessage(_formatProvider);
                     var exception = logEvent.Exception;
                     var level = LogLevelSwitcher.Switch(logEvent.Level);
-
-                    logger.Log(level, exception, message);
+                    var builder = new StringBuilder();
+                    using (var output = new StringWriter(builder, _formatProvider)) {
+                        logEvent.RenderMessage(output, _formatProvider);
+                    }
+                    
+                    logger.Log(level, exception, builder.ToString());
                 }
             }
 
