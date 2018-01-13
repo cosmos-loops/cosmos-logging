@@ -12,8 +12,8 @@ namespace Cosmos.Logging.CollaborativeTesting.NLogAndSampleLog {
                 //var config = GetNLogConfig();
 
                 LOGGER.Initialize().RunsOnConsole()
-                    .WriteToNLog(s => s.EnableUsingDefaultConfig())
-                    .WriteToSampleLog(s => {
+                    .UseNLog(s => s.EnableUsingDefaultConfig())
+                    .UseSampleLog(s => {
                         s.Name = "sampleSink_123";
                         s.Level = LogEventLevel.Debug;
                     })
@@ -24,6 +24,9 @@ namespace Cosmos.Logging.CollaborativeTesting.NLogAndSampleLog {
                 logger.Information("hello");
                 logger.Error("world");
                 logger.SubmitLogger();
+
+                var logger2 = LOGGER.GetLogger("sampleSink_123222");
+                logger2.Information("logger2 ---> {{alexLEWIS} }.}}..{}.{{}}");  
 
                 Console.WriteLine("Hello World!");
             }

@@ -11,7 +11,7 @@ namespace Cosmos.Logging.SampleSinkTest {
 
             try {
                 LOGGER.Initialize().RunsOnConsole()
-                    .WriteToSampleLog(s => s.Level = LogEventLevel.Error)
+                    .UseSampleLog(s => s.Level = LogEventLevel.Error)
                     .AllDone();
 
                 var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);

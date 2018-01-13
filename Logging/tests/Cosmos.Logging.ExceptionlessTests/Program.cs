@@ -19,7 +19,7 @@ namespace Cosmos.Logging.ExceptionlessTests {
                     .AddXmlFile("App.Config", true, true).Build();
 
                 LOGGER.Initialize(config).RunsOnConsole()
-                    .WriteToExceptionless()
+                    .UseExceptionless()
                     .AllDone();
 
                 var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);

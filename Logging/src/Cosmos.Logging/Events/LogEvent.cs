@@ -50,7 +50,7 @@ namespace Cosmos.Logging.Events {
             return MessageTemplate.Render(Properties, provider);
         }
 
-        #endregion     
+        #endregion
 
         #region Additional Operations
 
@@ -102,6 +102,8 @@ namespace Cosmos.Logging.Events {
         public void RemoveAllExtraProperties() {
             _extraMessageProperties.Clear();
         }
+
+        public IReadOnlyDictionary<string, ExtraMessageProperty> ExtraProperties => _extraMessageProperties;
 
         #endregion
 

@@ -13,7 +13,7 @@ namespace Cosmos.Logging.Log4NetSinkTest {
                 var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
 
                 LOGGER.Initialize(builder).RunsOnConsole()
-                    .WriteToLog4Net(s => s.UseDefaultOriginConfigFilePath())
+                    .UseLog4Net(s => s.UseDefaultOriginConfigFilePath())
                     .AllDone();
 
                 var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);

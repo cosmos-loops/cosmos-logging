@@ -8,21 +8,21 @@ using NLog.Config;
 
 namespace Cosmos.Logging.Sinks.NLog {
     public static class NLogSinkExtensions {
-        public static ILogServiceCollection WriteToNLog(this ILogServiceCollection services) {
-            return services.WriteToNLog((Action<NLogSinkSettings>) null);
+        public static ILogServiceCollection UseNLog(this ILogServiceCollection services) {
+            return services.UseNLog((Action<NLogSinkSettings>) null);
         }
 
-        public static ILogServiceCollection WriteToNLog(this ILogServiceCollection services, Action<NLogSinkSettings> settingAct) {
+        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, Action<NLogSinkSettings> settingAct) {
             var settings = new NLogSinkSettings();
             settingAct?.Invoke(settings);
-            return services.WriteToNLog(settings);
+            return services.UseNLog(settings);
         }
 
-        public static ILogServiceCollection WriteToNLog(this ILogServiceCollection services, NLogSinkSettings settings) {
-            return services.WriteToNLog(Options.Create(settings));
+        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, NLogSinkSettings settings) {
+            return services.UseNLog(Options.Create(settings));
         }
 
-        public static ILogServiceCollection WriteToNLog(this ILogServiceCollection services, IOptions<NLogSinkSettings> settings) {
+        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, IOptions<NLogSinkSettings> settings) {
             services.AddSinkSettings(settings.Value);
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, NLogPayloadClient>();

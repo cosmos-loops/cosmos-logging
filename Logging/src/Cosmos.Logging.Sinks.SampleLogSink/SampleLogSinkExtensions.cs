@@ -6,21 +6,21 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.SampleLogSink {
     public static class SampleLogSinkExtensions {
-        public static ILogServiceCollection WriteToSampleLog(this ILogServiceCollection services) {
-            return services.WriteToSampleLog((Action<SampleLogSinkSettings>) null);
+        public static ILogServiceCollection UseSampleLog(this ILogServiceCollection services) {
+            return services.UseSampleLog((Action<SampleLogSinkSettings>) null);
         }
         
-        public static ILogServiceCollection WriteToSampleLog(this ILogServiceCollection services, Action<SampleLogSinkSettings> settingAct) {
+        public static ILogServiceCollection UseSampleLog(this ILogServiceCollection services, Action<SampleLogSinkSettings> settingAct) {
             var settings = new SampleLogSinkSettings();
             settingAct?.Invoke(settings);
-            return services.WriteToSampleLog(settings);
+            return services.UseSampleLog(settings);
         }
 
-        public static ILogServiceCollection WriteToSampleLog(this ILogServiceCollection services, SampleLogSinkSettings settings) {
-            return services.WriteToSampleLog(Options.Create(settings));
+        public static ILogServiceCollection UseSampleLog(this ILogServiceCollection services, SampleLogSinkSettings settings) {
+            return services.UseSampleLog(Options.Create(settings));
         }
 
-        public static ILogServiceCollection WriteToSampleLog(this ILogServiceCollection services, IOptions<SampleLogSinkSettings> settings) {
+        public static ILogServiceCollection UseSampleLog(this ILogServiceCollection services, IOptions<SampleLogSinkSettings> settings) {
             services.AddSinkSettings(settings.Value);
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, SampleLogPayloadClient>();
