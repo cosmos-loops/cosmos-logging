@@ -57,6 +57,13 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
                             }
                         }
 
+                        foreach (var extra in logEvent.ExtraProperties) {
+                            var property = extra.Value;
+                            if (property != null) {
+                                builder.SetProperty(property.Name, property.Value);
+                            }
+                        }
+
                         builder.Submit();
                     }
                 }

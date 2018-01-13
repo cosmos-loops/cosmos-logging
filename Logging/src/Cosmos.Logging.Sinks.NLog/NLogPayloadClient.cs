@@ -29,12 +29,22 @@ namespace Cosmos.Logging.Sinks.NLog {
                 foreach (var logEvent in legalityEvents) {
                     var exception = logEvent.Exception;
                     var level = LogLevelSwitcher.Switch(logEvent.Level);
-                    var builder = new StringBuilder();
-                    using (var output = new StringWriter(builder, _formatProvider)) {
+                    var stringBuilder = new StringBuilder();
+                    using (var output = new StringWriter(stringBuilder, _formatProvider)) {
                         logEvent.RenderMessage(output, _formatProvider);
                     }
                     
-                    logger.Log(level, exception, builder.ToString());
+                    if (logEvent.ExtraProperties.Count > 0) {
+                        stringBuilder.AppendLine("Extra properties:");
+                        foreach (var extra in logEvent.ExtraProperties) {
+                            var property = extra.Value;
+                            if (property != null) {
+                                stringBuilder.AppendLine($"    {property}");
+                            }
+                        }
+                    }
+                    
+                    logger.Log(level, exception, stringBuilder.ToString());
                 }
             }
 

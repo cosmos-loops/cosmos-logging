@@ -28,29 +28,40 @@ namespace Cosmos.Logging.Sinks.Log4Net {
                 var logger = log4net.LogManager.GetLogger(payload.SourceType);
 
                 foreach (var logEvent in legalityEvents) {
-                    var builder = new StringBuilder();
-                    using (var output = new StringWriter(builder, _formatProvider)) {
+                    var stringBuilder = new StringBuilder();
+                    using (var output = new StringWriter(stringBuilder, _formatProvider)) {
                         logEvent.RenderMessage(output, _formatProvider);
                     }
+
+                    if (logEvent.ExtraProperties.Count > 0) {
+                        stringBuilder.AppendLine("Extra properties:");
+                        foreach (var extra in logEvent.ExtraProperties) {
+                            var property = extra.Value;
+                            if (property != null) {
+                                stringBuilder.AppendLine($"    {property}");
+                            }
+                        }
+                    }
+
                     switch (logEvent.Level) {
                         case LogEventLevel.Verbose:
                         case LogEventLevel.Debug:
-                            logger.Debug(builder.ToString(), logEvent.Exception);
+                            logger.Debug(stringBuilder.ToString(), logEvent.Exception);
                             break;
                         case LogEventLevel.Information:
-                            logger.Info(builder.ToString(), logEvent.Exception);
+                            logger.Info(stringBuilder.ToString(), logEvent.Exception);
                             break;
                         case LogEventLevel.Warning:
-                            logger.Warn(builder.ToString(), logEvent.Exception);
+                            logger.Warn(stringBuilder.ToString(), logEvent.Exception);
                             break;
                         case LogEventLevel.Error:
-                            logger.Error(builder.ToString(), logEvent.Exception);
+                            logger.Error(stringBuilder.ToString(), logEvent.Exception);
                             break;
                         case LogEventLevel.Fatal:
-                            logger.Fatal(builder.ToString(), logEvent.Exception);
+                            logger.Fatal(stringBuilder.ToString(), logEvent.Exception);
                             break;
                         default:
-                            logger.Info(builder.ToString(), logEvent.Exception);
+                            logger.Info(stringBuilder.ToString(), logEvent.Exception);
                             break;
                     }
                 }

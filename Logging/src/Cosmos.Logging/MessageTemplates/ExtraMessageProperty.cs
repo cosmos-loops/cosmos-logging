@@ -15,5 +15,9 @@ namespace Cosmos.Logging.MessageTemplates {
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
             if (value == null) throw new ArgumentNullException(nameof(value));
         }
+
+        public override string ToString() {
+            return $"{Name}: {Value.ToString()}";
+        }
     }
 }
