@@ -8,8 +8,8 @@ namespace Cosmos.Logging.MessageTemplates {
         public readonly int StartPosition;
         protected readonly string TokenString;
 
-        protected MessageTemplateToken(string originText, int index, int position)
-            : this(originText, originText.Substring(2, originText.Length - 4), index, position) { }
+        protected MessageTemplateToken(string originText, int index, int position, int fixOriginTextLength)
+            : this(originText, originText.Substring(2, originText.Length - fixOriginTextLength), index, position) { }
 
         protected MessageTemplateToken(string originText, string tokenString, int index, int position) {
             Index = index;
@@ -32,5 +32,9 @@ namespace Cosmos.Logging.MessageTemplates {
         }
         
         public abstract TokenRenderTypes TokenRenderType { get; }
+
+        public abstract string ToText();
+
+        public virtual string ToRawText() => RawText;
     }
 }

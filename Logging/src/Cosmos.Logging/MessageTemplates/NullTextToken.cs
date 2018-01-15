@@ -6,6 +6,6 @@
 
         public override string ToString() => RawText;
 
-        //todo 注意，此类的输出结果为完成输出 RawText
+        public override string ToText() => ToString();
     }
 }
