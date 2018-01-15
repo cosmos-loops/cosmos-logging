@@ -7,12 +7,14 @@ using Cosmos.Logging.Sinks.SampleLogSink;
 
 namespace Cosmos.Logging.CollaborativeTesting.NLogAndSampleLog {
     class Program {
+
+        static object SyncLock = new object();
+
         static void Main(string[] args) {
             try {
-                //var config = GetNLogConfig();
-
                 LOGGER.Initialize().RunsOnConsole()
-                    .UseNLog(s => s.EnableUsingDefaultConfig())
+                    //.UseNLog(s=>s.EnableUsingDefaultConfig())
+                    .UseNLog()
                     .UseSampleLog(s => {
                         s.Name = "sampleSink_123";
                         s.Level = LogEventLevel.Debug;
@@ -25,10 +27,6 @@ namespace Cosmos.Logging.CollaborativeTesting.NLogAndSampleLog {
                 logger.Error("world");
                 logger.SubmitLogger();
 
-                var logger2 = LOGGER.GetLogger("sampleSink_123222");
-                logger2.Information("logger2 ---> {{alexLEWIS} }.}}..{}.{{}}");  
-
-                Console.WriteLine("Hello World!");
             }
             catch (Exception e) {
                 Console.WriteLine(e.Message);

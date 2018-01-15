@@ -42,12 +42,11 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
                         }
                     }
 
-                    foreach (var token in logEvent.MessageTemplate.Tokens)
-                    {
+                    foreach (var token in logEvent.MessageTemplate.Tokens) {
                         Console.WriteLine($"token={token}, type={token.TokenRenderType}");
                     }
 
-                    Console.WriteLine($"[{payload.Name}{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(Level)}] {stringBuilder}");
+                    //Console.WriteLine($"[{payload.Name}{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(Level)}] {stringBuilder}");
                 }
             }
 

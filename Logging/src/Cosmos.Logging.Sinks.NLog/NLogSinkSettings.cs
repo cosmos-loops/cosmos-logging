@@ -16,6 +16,6 @@ namespace Cosmos.Logging.Sinks.NLog {
 
         public void EnableUsingDefaultConfig() => DoesUsedDefaultConfig = true;
         public void DisableUsingDefaultConfig() => DoesUsedDefaultConfig = false;
-        internal bool DoesUsedDefaultConfig { get; set; }
+        internal bool DoesUsedDefaultConfig { get; set; } = true;
     }
 }
