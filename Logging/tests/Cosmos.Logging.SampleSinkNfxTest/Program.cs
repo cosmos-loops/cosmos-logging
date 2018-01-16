@@ -14,7 +14,7 @@ namespace Cosmos.Logging.SampleSinkNfxTest {
 
                 var logger = LOGGER.GetLogger();
 
-                logger.Information("hello world!");
+                logger.LogInformation("hello world!");
 
                 Console.WriteLine("Hello World!");
             }

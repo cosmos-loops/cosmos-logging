@@ -23,55 +23,55 @@ namespace Cosmos.Logging {
 
         public void SubmitLogger() { }
 
-        public void Verbose(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogVerbose(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Verbose(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogVerbose(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Verbose(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogVerbose(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Verbose(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
+        public void LogVerbose(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
             LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Debug(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogDebug(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Debug(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogDebug(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Debug(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogDebug(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Debug(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogDebug(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Information(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogInformation(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Information(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogInformation(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Information(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogInformation(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Information(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
+        public void LogInformation(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
             LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Warning(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogWarning(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Warning(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogWarning(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Warning(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogWarning(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Warning(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
+        public void LogWarning(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
             LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Error(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogError(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Error(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogError(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Error(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogError(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Error(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogError(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Fatal(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogFatal(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Fatal(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogFatal(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Fatal(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogFatal(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) { }
 
-        public void Fatal(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
+        public void LogFatal(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct, LogEventSendMode mode = LogEventSendMode.Customize) { }
     }
 }

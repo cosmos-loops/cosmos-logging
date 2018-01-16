@@ -100,7 +100,7 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
 //                logger.Information("token test--> forerunner {$ErrorToken:ErrorFormat:ErrorParams");
                 
                 
-                logger.Information(@"
+                logger.LogInformation(@"
 
 Google、{{AWS}}和{@Azure}都已经发表了声明，
 “我们的云（基本上）已经打好了补丁，现在轮到你们为虚拟机操作系统打补丁了”。
