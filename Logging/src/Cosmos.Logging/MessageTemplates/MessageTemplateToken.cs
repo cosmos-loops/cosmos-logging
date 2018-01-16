@@ -4,6 +4,7 @@ namespace Cosmos.Logging.MessageTemplates {
     public abstract class MessageTemplateToken {
         public readonly string RawText;
         public readonly int Index;
+        public readonly int RawTokenLength;
         public readonly int TokenLength;
         public readonly int StartPosition;
         protected readonly string TokenString;
@@ -16,6 +17,7 @@ namespace Cosmos.Logging.MessageTemplates {
             RawText = originText;
             TokenString = tokenString;
             TokenLength = tokenString.Length;
+            RawTokenLength = originText.Length;
             StringBuilder = new StringBuilder(tokenString);
             StartPosition = position;
         }
@@ -36,5 +38,7 @@ namespace Cosmos.Logging.MessageTemplates {
         public abstract string ToText();
 
         public virtual string ToRawText() => RawText;
+
+        public abstract string Render();
     }
 }

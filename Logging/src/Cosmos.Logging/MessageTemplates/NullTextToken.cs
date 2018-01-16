@@ -7,5 +7,7 @@
         public override string ToString() => RawText;
 
         public override string ToText() => ToString();
+
+        public override string Render() => ToString();
     }
 }

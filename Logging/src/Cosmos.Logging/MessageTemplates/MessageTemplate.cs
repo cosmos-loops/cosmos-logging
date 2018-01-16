@@ -16,15 +16,12 @@ namespace Cosmos.Logging.MessageTemplates {
 
         public MessageTemplate(string messageTemplate, IEnumerable<MessageTemplateToken> tokens) {
             Text = messageTemplate ?? throw new ArgumentNullException(nameof(messageTemplate));
-            _tokens = tokens?.ToArray() ?? throw new ArgumentNullException(nameof(tokens));
-
-            var propertyTokens = GetPropertyTokensToArray<PropertyToken>(_tokens);
-            if (propertyTokens.Length > 0) {
-                //todo ...
-            }
+            _tokens = tokens?.OrderBy(o => o.Index).ToArray() ?? throw new ArgumentNullException(nameof(tokens));
         }
 
         public string Text { get; }
+
+        internal char[] TextArray => Text.ToCharArray();
 
         public IEnumerable<MessageTemplateToken> Tokens => _tokens;
 
@@ -44,17 +41,5 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         public override string ToString() => Text;
-
-        static TToken[] GetPropertyTokensToArray<TToken>(MessageTemplateToken[] tokens) where TToken : class {
-            var result = new List<TToken>();
-            foreach (var item in tokens) {
-                var token = item as TToken;
-                if (token != null) {
-                    result.Add(token);
-                }
-            }
-
-            return result.ToArray();
-        }
     }
 }

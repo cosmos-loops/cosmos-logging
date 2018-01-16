@@ -12,6 +12,8 @@
 
         public override string ToText() => ToString();
 
+        public override string Render() => ToString();
+        
         //todo 注意，输出的时候结构为：{tokenString}，也就是说两个大括号变成一个，此处用于大括号转义
     }
 }

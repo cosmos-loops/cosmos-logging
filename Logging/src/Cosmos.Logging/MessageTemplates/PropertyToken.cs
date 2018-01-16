@@ -11,9 +11,24 @@
             RawFormatText = formatOriginText;
             RawParamsText = paramsOriginText;
             ParamsFlagMode = paramsFlagMode;
+
+            Name = ClearUpName(RawText);
+            Format = ClearUpFormat(RawFormatText);
         }
 
         public PropertyTokenTypes TokenType { get; }
+
+        private static string ClearUpName(string rawText) {
+            return rawText;
+        }
+        
+        public string Name { get; }
+
+        private static string ClearUpFormat(string format) {
+            return format;
+        }
+
+        public string Format { get; }
 
         public override TokenRenderTypes TokenRenderType { get; } = TokenRenderTypes.AsProperty;
 
@@ -21,5 +36,11 @@
 
         //以下为临时性代码
         public override string ToString() => ToText();
+
+        public string ToString(string format) {
+            return ToText();
+        }
+
+        public override string Render() => ToString();
     }
 }
