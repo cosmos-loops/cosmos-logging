@@ -1,4 +1,5 @@
 ﻿using System;
+using Cosmos.Logging.RunsOn.Console.Core;
 using Cosmos.Logging.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,6 +24,10 @@ namespace Cosmos.Logging.RunsOn.Console.Settings {
             }
 
             return services.RegisterToRunsOnConsole();
+        }
+
+        public static void AllDone(this ILogServiceCollection services) {
+            IocContainer.AllDone(services);
         }
 
         private static ILogServiceCollection RegisterToRunsOnConsole(this ILogServiceCollection services) {
