@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Transactions;
 using Cosmos.Logging.Core.Extensions;
+using Cosmos.Logging.Renders;
 
 namespace Cosmos.Logging.MessageTemplates {
     internal static class MessageTemplateRenderer {
@@ -28,25 +30,22 @@ namespace Cosmos.Logging.MessageTemplates {
         private static StringBuilder RenderEngine(char[] chars, MessageTemplateToken[] tokens,
             IReadOnlyDictionary<string, MessagePropertyValue> properties, IFormatProvider formatProvider) {
             var stringBuilder = new StringBuilder();
-            var tokenCount = tokens.Length;
             var position = 0;
 
-            for (var current = 0; current < tokenCount; current++) {
+            for (var current = 0; current < tokens.Length; current++) {
                 var token = tokens[current];
                 if (token.StartPosition > position) {
                     stringBuilder.Append(chars.Read(position, token.StartPosition - position));
                 }
-                
-                if (token.TokenRenderType == TokenRenderTypes.AsProperty &&
-                    token is PropertyToken propertyToken) {
 
+                if (token.TokenRenderType == TokenRenderTypes.AsProperty && token is PropertyToken propertyToken) {
                     if (propertyToken.TokenType == PropertyTokenTypes.UserDefinedParameter &&
                         properties.TryGetValue(propertyToken.Name, out var property)) {
                         RenderPropertyTokenForUserDefinedParameter(propertyToken, property, stringBuilder, formatProvider);
                     } else if (propertyToken.TokenType == PropertyTokenTypes.PreferencesRender) {
-                        //todo 从预置渲染器中获得实例，进行渲染
+                        var render = GetPreferencesRender(propertyToken);
+                        RenderPropertyTokenForPreferencesRender(propertyToken, render, stringBuilder, formatProvider);
                     } else {
-                        //用户自定义属性转换失败，或预置渲染器获得失败，开始执行 Text 渲染
                         RenderTextTokenSlim(propertyToken, stringBuilder, formatProvider);
                     }
                 } else if (token is TextToken textToken) {
@@ -80,8 +79,18 @@ namespace Cosmos.Logging.MessageTemplates {
                 stringBuilder.Append(property.ToString(token.Format, formatProvider));
         }
 
-        private static void RenderPropertyTokenForPreferencesRender(PropertyToken token, StringBuilder stringBuilder,
-            IFormatProvider formatProvider = null) { }
+        private static void RenderPropertyTokenForPreferencesRender(PropertyToken token, IPreferencesRender render, StringBuilder stringBuilder,
+            IFormatProvider formatProvider = null) {
+            if (token == null || render == null || render.IsNull) return;
+            render.Render(token.FormatEvents, token.Params, stringBuilder, formatProvider);
+        }
 
+        private static IPreferencesRender GetPreferencesRender(PropertyToken token) {
+            if (token == null) return NullPreferencesRender.Instance;
+            var render = string.IsNullOrWhiteSpace(token.Prefix)
+                ? PreferencesRenderManager.GetRender(token.Name)
+                : PreferencesRenderManager.GetRender(token.Prefix, token.Name);
+            return render;
+        }
     }
 }

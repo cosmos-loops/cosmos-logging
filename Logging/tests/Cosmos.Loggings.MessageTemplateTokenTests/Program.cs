@@ -102,7 +102,7 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
                 
                 logger.LogInformation(@"
 
-Google、{{AWS}}和{@Azure}都已经发表了声明，
+Google、{{AWS}}和{@Azure}都已经发表了声明，{$ConsoleHelloWorld:jpr30w}，说道：
 “我们的云（基本上）已经打好了补丁，现在轮到你们为虚拟机操作系统打补丁了”。
 遗憾的是，对于为什么要同{时}对虚拟机管理程序和虚拟机操作系统打补丁，他们没有提供多少细节。
 安全研究人员Katie Moussouris援引了Robert O'Callahan博文中的一段话：{$Memeda ,

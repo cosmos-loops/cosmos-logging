@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Cosmos.Logging.MessageTemplates {
     public abstract class MessageTemplateToken {
@@ -8,6 +10,7 @@ namespace Cosmos.Logging.MessageTemplates {
         public readonly int TokenLength;
         public readonly int StartPosition;
         protected readonly string TokenString;
+
 
         protected MessageTemplateToken(string originText, int index, int position, int fixOriginTextLength)
             : this(originText, originText.Substring(2, originText.Length - fixOriginTextLength), index, position) { }
@@ -32,7 +35,7 @@ namespace Cosmos.Logging.MessageTemplates {
             StringBuilder.CopyTo(0, ret, 0, count);
             return ret;
         }
-        
+
         public abstract TokenRenderTypes TokenRenderType { get; }
 
         public abstract string ToText();
