@@ -55,7 +55,6 @@ namespace Cosmos.Logging.Formattings.Helpers {
         }
 
         public static Func<char, Func<int, Func<object, IFormatProvider, object>>> Format() => c => w => {
-            Console.WriteLine("开始Padding操作");
             if (c == 'l') return PaddingLeft(w);
             if (c == 'r') return PaddingRight(w);
             throw new ArgumentException("Undefined casing command");
