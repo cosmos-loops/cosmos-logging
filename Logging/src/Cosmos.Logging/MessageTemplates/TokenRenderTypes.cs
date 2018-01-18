@@ -2,6 +2,7 @@
     public enum TokenRenderTypes {
         AsText,
         AsRawText,
-        AsProperty
+        AsProperty,
+        AsPositionProperty,
     }
 }

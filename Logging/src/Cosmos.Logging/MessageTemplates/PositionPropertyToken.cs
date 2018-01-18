@@ -2,38 +2,33 @@
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.MessageTemplates {
-    public class PropertyToken : MessageTemplateToken {
+    public class PositionPropertyToken : MessageTemplateToken {
         public readonly string RawFormatText;
         public readonly string RawParamsText;
         private readonly int ParamsFlagMode;
-        private int prefixPointer = 0;
         public readonly List<FormatEvent> FormatEvents;
 
-        public PropertyToken(string originText, string formatOriginText, string paramsOriginText, int index, int position, PropertyTokenTypes type, int paramsFlagMode,
-            int fixOriginTextLength = 3)
-            : base(originText, index, position, fixOriginTextLength) {
+        public PositionPropertyToken(string originText, string formatOriginText, string paramsOriginText,
+            int index, int position, int paramsFlagMode, int fixOriginTextLength = 2)
+            : base(originText, index, position, 1, fixOriginTextLength) {
             FormatEvents = new List<FormatEvent>();
-            TokenType = type;
             RawFormatText = formatOriginText;
             RawParamsText = paramsOriginText;
             ParamsFlagMode = paramsFlagMode;
-            Prefix = MachiningForTokenPrefix(TokenString, out prefixPointer);
-            Name = MachiningForTokenName(TokenString, prefixPointer);
+            PositionParameterValue = MachiningForPositionValue(TokenString);
             Format = MachiningForFormat(RawFormatText, FormatEvents);
             Params = MachiningForParams(RawParamsText);
         }
 
-        public PropertyTokenTypes TokenType { get; }
+        public PropertyTokenTypes TokenType => PropertyTokenTypes.PositionProperty;
 
-        public string Prefix { get; }
-
-        public string Name { get; }
+        public int PositionParameterValue { get; }
 
         public string Format { get; }
 
         public string Params { get; }
 
-        public override TokenRenderTypes TokenRenderType { get; } = TokenRenderTypes.AsProperty;
+        public override TokenRenderTypes TokenRenderType { get; } = TokenRenderTypes.AsPositionProperty;
 
         public override string ToText() => $"{{{TokenString}}}, format={RawFormatText}, params={RawParamsText}";
 
@@ -43,15 +38,10 @@ namespace Cosmos.Logging.MessageTemplates {
 
         #region private methods
 
-        private static string MachiningForTokenPrefix(string rawText, out int position) {
-            var index = rawText.IndexOf('#');
-            position = index <= 0 ? 0 : index;
-            return index < 0 ? string.Empty : rawText.Substring(0, index);
-        }
-
-        private static string MachiningForTokenName(string rawText, int position) {
+        private static int MachiningForPositionValue(string rawText) {
             var colonIndex = rawText.IndexOf(':');
-            return colonIndex < 0 ? rawText.Substring(position, rawText.Length - position) : rawText.Substring(position, colonIndex - position);
+            var str = colonIndex < 0 ? rawText : rawText.Substring(0, colonIndex);
+            return int.TryParse(str, out var ret) ? ret : 0;
         }
 
         private static string MachiningForFormat(string format, IList<FormatEvent> formatEvents) {
@@ -69,4 +59,5 @@ namespace Cosmos.Logging.MessageTemplates {
         #endregion
 
     }
+
 }

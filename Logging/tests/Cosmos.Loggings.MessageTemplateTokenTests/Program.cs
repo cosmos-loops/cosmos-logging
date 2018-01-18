@@ -100,19 +100,30 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
 //                logger.Information("token test--> forerunner {$ErrorToken:ErrorFormat:ErrorParams");
                 
                 
-                logger.LogInformation(@"
-
-Google、{{AWS}}和{@Azure}都已经发表了声明，{$ConsoleHelloWorld:jpr30w}，说道：
-“我们的云（基本上）已经打好了补丁，现在轮到你们为虚拟机操作系统打补丁了”。
-遗憾的是，对于为什么要同{时}对虚拟机管理程序和虚拟机操作系统打补丁，他们没有提供多少细节。
-安全研究人员Katie Moussouris援引了Robert O'Callahan博文中的一段话：{$Memeda ,
-“对于CPU供应商和云供应商而言，重要的是准确地说明他们采取了什么防范措施，
-什么攻击他们无法防范以及他们期望下游客户负责解决哪些问题”。
-AWS在声明中明确表示，“我们会保障客户的实例不会受到来自其他实例的威胁”。
-这意味着，VM操作系统仍然需要打补丁来防止App之间的攻击或者对特定VM内核的攻击，
-来自{$Amazon:yyyyMMdd[ ]HH[:]mm[:]ss}的Richard Harvey对此进行了确认。
-
-");
+//                logger.LogInformation(@"
+//
+//Google、{{AWS}}和{@Azure}都已经发表了声明，{$ConsoleHelloWorld:jpr30w}，说道：
+//“我们的云（基本上）已经打好了补丁，现在轮到你们为虚拟机操作系统打补丁了”。
+//遗憾的是，对于为什么要同{时}对虚拟机管理程序和虚拟机操作系统打补丁，他们没有提供多少细节。
+//安全研究人员Katie Moussouris援引了Robert O'Callahan博文中的一段话：{$Memeda ,
+//“对于CPU供应商和云供应商而言，重要的是准确地说明他们采取了什么防范措施，
+//什么攻击他们无法防范以及他们期望下游客户负责解决哪些问题”。
+//AWS在声明中明确表示，“我们会保障客户的实例不会受到来自其他实例的威胁”。
+//这意味着，VM操作系统仍然需要打补丁来防止App之间的攻击或者对特定VM内核的攻击，
+//来自{$Amazon:yyyyMMdd[ ]HH[:]mm[:]ss}的Richard Harvey对此进行了确认。
+//
+//");
+                
+                logger.LogInformation("position test{10}");
+                logger.LogInformation("position test{10} ");
+                logger.LogInformation("position test{10:}");
+                logger.LogInformation("position test{10:} ");
+                logger.LogInformation("position test{10::}");
+                logger.LogInformation("position test{10::} ");
+                logger.LogInformation("position test{10:w}");
+                logger.LogInformation("position test{10:w:} ");
+                
+                Console.WriteLine("I'm live");
             }
             catch (Exception e) {
                 Console.WriteLine(e.Message);

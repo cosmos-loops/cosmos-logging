@@ -42,6 +42,21 @@ namespace Cosmos.Logging.MessageTemplates {
                             yield return ParsePreferencesRender();
                             break;
                         }
+
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9': {
+                            yield return ParsePositionProperty();
+                            break;
+                        }
+
                         default: {
                             Follow();
                             break;
@@ -103,6 +118,92 @@ namespace Cosmos.Logging.MessageTemplates {
                 }
 
                 return new NullTextToken(MergeSurplus(position), index++, position);
+            }
+
+            PositionPropertyToken ParsePositionProperty() {
+                var colon_counter = 0;
+                var formatString = string.Empty;
+                var paramsString = string.Empty;
+                var params_flag_mode = 0;
+                var fixOriginTextLength = 2;
+                var char_buffer = new char[3];
+                var char_buffer_pointer = 0;
+                while (position_offset < length) {
+                    if (Peek() == char.MinValue) break;
+                    if (IsNumber(Peek()) && colon_counter == 0 && char_buffer_pointer < 3) {
+                        char_buffer[char_buffer_pointer++] = Take();
+                        continue;
+                    }
+
+                    if (IsNumber(Peek()) && colon_counter == 0) {
+                        var start = position;
+                        var len = Offset();
+                        var rawText = Merge(start, len);
+                        fixOriginTextLength = 1;
+                        Follow();
+                        return TouchNull(rawText, start);
+                    }
+
+                    if (Peek() == '}') {
+                        Skip();
+                        var start = position;
+                        var len = Offset();
+                        var rawText = Merge(start, len);
+                        Follow();
+                        return Touch(rawText, start);
+                    }
+
+                    if (Peek() == ':') {
+                        if (Next() == '}' || Next() == ' ') {
+                            Skip(2);
+                            var start = position;
+                            var len = Offset();
+                            var rawText = Merge(start, len);
+                            Follow();
+                            return Touch(rawText, start);
+                        }
+
+                        switch (++colon_counter) {
+                            case 1: {
+                                Skip();
+                                formatString = SeparatePropertyRawFormatText(out params_flag_mode, out fixOriginTextLength, 2, 1);
+                                if (End()) {
+                                    return Touch(Merge(position, Offset()), position);
+                                }
+
+                                BackIfNecessary(1, 0, 1);
+                                break;
+                            }
+                            case 2: {
+                                Skip();
+                                paramsString = SeparatePropertyRawParamsText(out fixOriginTextLength, 2, 1);
+                                if (End()) {
+                                    return Touch(Merge(position, Offset()), position);
+                                }
+
+                                BackIfNecessary(1, 0, 1);
+                                break;
+                            }
+                        }
+
+                        continue;
+                    }
+
+                    Skip();
+                }
+
+                fixOriginTextLength = EndWithCloseIdentifier() ? 2 : 1;
+                return TouchNull(MergeSurplus(position), position);
+
+                PositionPropertyToken TouchNull(string raw, int start) {
+                    return new NullPositionPropertyToken(raw, formatString, paramsString, index++, start, params_flag_mode, fixOriginTextLength);
+                }
+
+                PositionPropertyToken Touch(string raw, int start) {
+                    return new PositionPropertyToken(raw, formatString, paramsString, index++, start, params_flag_mode, fixOriginTextLength);
+                }
+
+                bool IsNumber(char _c) => _c >= 48 && _c <= 57;
             }
 
             PropertyToken ParsePreferencesRender() {
@@ -244,10 +345,10 @@ namespace Cosmos.Logging.MessageTemplates {
                 }
             }
 
-            string SeparatePropertyRawFormatText(out int paramsFlagMode, out int fixOriginTextLength) {
+            string SeparatePropertyRawFormatText(out int paramsFlagMode, out int fixOriginTextLength, int df1 = 3, int df2 = 2) {
                 var start = position_offset;
                 paramsFlagMode = 0;
-                fixOriginTextLength = 3;
+                fixOriginTextLength = df1;
                 while (position_offset < length) {
                     if (Before() == '[' && Next() == ']') {
                         Skip(2);
@@ -264,13 +365,13 @@ namespace Cosmos.Logging.MessageTemplates {
                     Skip();
                 }
 
-                fixOriginTextLength = 2;
+                fixOriginTextLength = df2;
                 return Merge(start, position_offset - start);
             }
 
-            string SeparatePropertyRawParamsText(out int fixOriginTextLength) {
+            string SeparatePropertyRawParamsText(out int fixOriginTextLength, int df1 = 3, int df2 = 2) {
                 var start = position_offset;
-                fixOriginTextLength = 3;
+                fixOriginTextLength = df1;
                 while (position_offset < length) {
                     if (Before() == '[' && Next() == ']') {
                         Skip(2);
@@ -286,7 +387,7 @@ namespace Cosmos.Logging.MessageTemplates {
                     Skip();
                 }
 
-                fixOriginTextLength = 2;
+                fixOriginTextLength = df2;
                 return Merge(start, position_offset - start);
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Transactions;
@@ -11,13 +12,7 @@ namespace Cosmos.Logging.MessageTemplates {
     internal static class MessageTemplateRenderer {
         public static void Render(MessageTemplate messageTemplate, IReadOnlyDictionary<string, MessagePropertyValue> properties,
             TextWriter output, string format = null, IFormatProvider formatProvider = null) {
-
-            //todo 临时代码
-            //var stringBuilder = new StringBuilder(messageTemplate.ToString());
-
-
             var stringBuilder = RenderEngine(messageTemplate.TextArray, messageTemplate.TokenArray, properties, formatProvider);
-
             output.Write(ToBuffer(stringBuilder));
         }
 
@@ -48,6 +43,14 @@ namespace Cosmos.Logging.MessageTemplates {
                     } else {
                         RenderTextTokenSlim(propertyToken, stringBuilder, formatProvider);
                     }
+                } else if (token is PositionPropertyToken positionPropertyToken) {
+                    var propertyPosition = positionPropertyToken.PositionParameterValue;
+                    if (positionPropertyToken.TokenRenderType == TokenRenderTypes.AsPositionProperty &&
+                        TryGetMessageProperty(properties, propertyPosition, out var property)) {
+                        RenderPositionPropertyTokenForUserDefinedParameter(positionPropertyToken, property, stringBuilder, formatProvider);
+                    } else {
+                        RenderTextTokenSlim(positionPropertyToken, stringBuilder, formatProvider);
+                    }
                 } else if (token is TextToken textToken) {
                     RenderTextToken(textToken, stringBuilder, formatProvider);
                 } else {
@@ -65,18 +68,25 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         private static void RenderTextToken(TextToken token, StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
-            if (token.TokenRenderType == TokenRenderTypes.AsRawText || token.TokenRenderType == TokenRenderTypes.AsText)
-                stringBuilder.Append(token.Render());
+            stringBuilder.Append(token.Render());
         }
 
         private static void RenderTextTokenSlim(PropertyToken token, StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
             stringBuilder.Append(token.RawText);
         }
 
+        private static void RenderTextTokenSlim(PositionPropertyToken token, StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
+            stringBuilder.Append(token.RawText);
+        }
+
+        private static void RenderPositionPropertyTokenForUserDefinedParameter(PositionPropertyToken token, MessagePropertyValue property,
+            StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
+            stringBuilder.Append(property.ToString(token.FormatEvents, token.Params, formatProvider));
+        }
+
         private static void RenderPropertyTokenForUserDefinedParameter(PropertyToken token, MessagePropertyValue property, StringBuilder stringBuilder,
             IFormatProvider formatProvider = null) {
-            if (token.TokenRenderType == TokenRenderTypes.AsProperty)
-                stringBuilder.Append(property.ToString(token.Format, formatProvider));
+            stringBuilder.Append(property.ToString(token.FormatEvents, token.Params, formatProvider));
         }
 
         private static void RenderPropertyTokenForPreferencesRender(PropertyToken token, IPreferencesRender render, StringBuilder stringBuilder,
@@ -91,6 +101,12 @@ namespace Cosmos.Logging.MessageTemplates {
                 ? PreferencesRenderManager.GetRender(token.Name)
                 : PreferencesRenderManager.GetRender(token.Prefix, token.Name);
             return render;
+        }
+
+        private static bool TryGetMessageProperty(IReadOnlyDictionary<string, MessagePropertyValue> properties, int position, out MessagePropertyValue property) {
+            property = null;
+            if (properties == null || position < 0 || position >= properties.Count) return false;
+            return properties.TryGetValue(properties.Keys.ToArray()[position], out property);
         }
     }
 }
