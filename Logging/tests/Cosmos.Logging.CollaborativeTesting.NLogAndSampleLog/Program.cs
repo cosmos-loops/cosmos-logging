@@ -7,9 +7,6 @@ using Cosmos.Logging.Sinks.SampleLogSink;
 
 namespace Cosmos.Logging.CollaborativeTesting.NLogAndSampleLog {
     class Program {
-
-        static object SyncLock = new object();
-
         static void Main(string[] args) {
             try {
                 LOGGER.Initialize().RunsOnConsole()
