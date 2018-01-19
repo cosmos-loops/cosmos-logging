@@ -3,14 +3,9 @@ using System.Collections.Generic;
 
 namespace Cosmos.Logging.MessageTemplates {
     internal class MessageTemplateParser {
-        private readonly string _messageTemplate;
-
-        public MessageTemplateParser(string messageTemplate) {
-            _messageTemplate = messageTemplate ?? throw new ArgumentNullException(nameof(messageTemplate));
-        }
-
-        public MessageTemplate Parse() {
-            return new MessageTemplate(_messageTemplate, Tokenize(_messageTemplate));
+        public MessageTemplate Parse(string messageTemplate) {
+            if (messageTemplate == null) throw new ArgumentNullException(nameof(messageTemplate));
+            return new MessageTemplate(messageTemplate, Tokenize(messageTemplate));
         }
 
         static IEnumerable<MessageTemplateToken> Tokenize(string messageTemplate) {
@@ -53,7 +48,7 @@ namespace Cosmos.Logging.MessageTemplates {
                         case '7':
                         case '8':
                         case '9': {
-                            yield return ParsePositionProperty();
+                            yield return ParsePositionalProperty();
                             break;
                         }
 
@@ -120,7 +115,7 @@ namespace Cosmos.Logging.MessageTemplates {
                 return new NullTextToken(MergeSurplus(position), index++, position);
             }
 
-            PositionPropertyToken ParsePositionProperty() {
+            PositionalPropertyToken ParsePositionalProperty() {
                 var colon_counter = 0;
                 var formatString = string.Empty;
                 var paramsString = string.Empty;
@@ -195,12 +190,12 @@ namespace Cosmos.Logging.MessageTemplates {
                 fixOriginTextLength = EndWithCloseIdentifier() ? 2 : 1;
                 return TouchNull(MergeSurplus(position), position);
 
-                PositionPropertyToken TouchNull(string raw, int start) {
-                    return new NullPositionPropertyToken(raw, formatString, paramsString, index++, start, params_flag_mode, fixOriginTextLength);
+                PositionalPropertyToken TouchNull(string raw, int start) {
+                    return new NullPositionalPropertyToken(raw, formatString, paramsString, index++, start, params_flag_mode, fixOriginTextLength);
                 }
 
-                PositionPropertyToken Touch(string raw, int start) {
-                    return new PositionPropertyToken(raw, formatString, paramsString, index++, start, params_flag_mode, fixOriginTextLength);
+                PositionalPropertyToken Touch(string raw, int start) {
+                    return new PositionalPropertyToken(raw, formatString, paramsString, index++, start, params_flag_mode, fixOriginTextLength);
                 }
 
                 bool IsNumber(char _c) => _c >= 48 && _c <= 57;

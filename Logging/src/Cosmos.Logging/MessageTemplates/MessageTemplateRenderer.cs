@@ -43,7 +43,7 @@ namespace Cosmos.Logging.MessageTemplates {
                     } else {
                         RenderTextTokenSlim(propertyToken, stringBuilder, formatProvider);
                     }
-                } else if (token is PositionPropertyToken positionPropertyToken) {
+                } else if (token is PositionalPropertyToken positionPropertyToken) {
                     var propertyPosition = positionPropertyToken.PositionParameterValue;
                     if (positionPropertyToken.TokenRenderType == TokenRenderTypes.AsPositionProperty &&
                         TryGetMessageProperty(properties, propertyPosition, out var property)) {
@@ -75,11 +75,11 @@ namespace Cosmos.Logging.MessageTemplates {
             stringBuilder.Append(token.RawText);
         }
 
-        private static void RenderTextTokenSlim(PositionPropertyToken token, StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
+        private static void RenderTextTokenSlim(PositionalPropertyToken token, StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
             stringBuilder.Append(token.RawText);
         }
 
-        private static void RenderPositionPropertyTokenForUserDefinedParameter(PositionPropertyToken token, MessagePropertyValue property,
+        private static void RenderPositionPropertyTokenForUserDefinedParameter(PositionalPropertyToken token, MessagePropertyValue property,
             StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
             stringBuilder.Append(property.ToString(token.FormatEvents, token.Params, formatProvider));
         }

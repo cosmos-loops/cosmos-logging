@@ -2,13 +2,13 @@
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.MessageTemplates {
-    public class PositionPropertyToken : MessageTemplateToken {
+    public class PositionalPropertyToken : MessageTemplateToken {
         public readonly string RawFormatText;
         public readonly string RawParamsText;
         private readonly int ParamsFlagMode;
         public readonly List<FormatEvent> FormatEvents;
 
-        public PositionPropertyToken(string originText, string formatOriginText, string paramsOriginText,
+        public PositionalPropertyToken(string originText, string formatOriginText, string paramsOriginText,
             int index, int position, int paramsFlagMode, int fixOriginTextLength = 2)
             : base(originText, index, position, 1, fixOriginTextLength) {
             FormatEvents = new List<FormatEvent>();

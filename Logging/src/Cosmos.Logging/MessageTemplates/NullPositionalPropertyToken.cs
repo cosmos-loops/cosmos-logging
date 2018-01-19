@@ -1,7 +1,7 @@
 ﻿namespace Cosmos.Logging.MessageTemplates {
-    public class NullPositionPropertyToken : PositionPropertyToken {
+    public class NullPositionalPropertyToken : PositionalPropertyToken {
 
-        public NullPositionPropertyToken(string originText, string formatOriginText, string paramsOriginText,
+        public NullPositionalPropertyToken(string originText, string formatOriginText, string paramsOriginText,
             int index, int position, int paramsFlagMode, int fixOriginTextLength = 2)
             : base(originText, formatOriginText, paramsOriginText, index, position, paramsFlagMode, fixOriginTextLength) { }
 
