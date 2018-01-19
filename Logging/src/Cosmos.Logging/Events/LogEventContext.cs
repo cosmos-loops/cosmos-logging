@@ -5,5 +5,6 @@ namespace Cosmos.Logging.Events {
     public class LogEventContext {
         public AdditionalOptContext AdditionalOptContext { get; set; }
         public IEnumerable<MessageProperty> MessageProperties { get; set; }
+        public object[] MessageTemplateParameters { get; set; }
     }
 }
