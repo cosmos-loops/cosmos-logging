@@ -1,0 +1,20 @@
+﻿using System.Linq;
+using Cosmos.Logging.MessageTemplates;
+
+namespace Cosmos.Logging.Core.ObjectResolving.Rules {
+    internal class ByteArrayResolveRule : IScalarResolveRule {
+        private const int MAX_LENGTH_OF_ARRAY = 2 ^ 10;
+
+        public bool TryResolve(object value, out MessagePropertyValue result) {
+            if (value is byte[] valueBytes) {
+                result = valueBytes.Length <= MAX_LENGTH_OF_ARRAY
+                    ? new ScalarValue(valueBytes.ToArray())
+                    : new ScalarValue($"{valueBytes.Take(16).Select(_ => _.ToString("X2"))}...({valueBytes.Length} bytes)");
+                return true;
+            }
+
+            result = null;
+            return false;
+        }
+    }
+}
