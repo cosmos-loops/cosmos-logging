@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.ObjectResolving;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging {
-    public abstract class LoggerBase : ILogger {
+    public abstract partial class LoggerBase : ILogger {
         private readonly ILogPayloadSender _logPayloadSender;
+        private readonly MessageParameterProcessor _messageParameterProcessor;
 
         protected LoggerBase(Type sourceType, LogEventLevel minimumLevel, string loggerName, LogEventSendMode sendMode, ILogPayloadSender logPayloadSender) {
             Name = loggerName;
@@ -15,6 +19,7 @@ namespace Cosmos.Logging {
             MinimumLevel = minimumLevel;
             SendMode = sendMode;
             _logPayloadSender = logPayloadSender ?? throw new ArgumentNullException(nameof(logPayloadSender));
+            _messageParameterProcessor = MessageParameterProcessorCache.Get();
 
             AutomaticPayload = new LogPayload(sourceType, loggerName, Enumerable.Empty<LogEvent>());
             ManuallyPayload = new LogPayload(sourceType, loggerName, Enumerable.Empty<LogEvent>());
@@ -44,14 +49,22 @@ namespace Cosmos.Logging {
                 SendMode == LogEventSendMode.Manually;
         }
 
-
-        public void Write(LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode, AdditionalOptContext context = null) {
+        public void Write(LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode,
+            AdditionalOptContext context = null, params object[] messageTemplateParameters) {
             if (!IsEnabled(level)) return;
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
 
-            var logEvent = new LogEvent(DateTimeOffset.Now, level, messageTemplate, exception, sendMode, context);
+            _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters), out var parsedTemplate, out var parsedProperties);
+
+            var logEvent = new LogEvent(DateTimeOffset.Now, level, parsedTemplate, exception, sendMode, parsedProperties, context);
 
             Dispatch(logEvent);
+
+            object[] __as(object[] __paramObjs) {
+                if (__paramObjs != null && __paramObjs.GetType() != typeof(object[]))
+                    return new object[] {__paramObjs};
+                return __paramObjs;
+            }
         }
 
         public void Write(LogEvent logEvent) {
@@ -77,114 +90,6 @@ namespace Cosmos.Logging {
             var context = new AdditionalOptContext();
             additionalOptContextAct?.Invoke(context);
             return context;
-        }
-
-        public virtual void Verbose(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Verbose, null, messageTemplate, mode);
-        }
-
-        public virtual void Verbose(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Verbose, null, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
-        }
-
-        public virtual void Verbose(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Verbose, exception, messageTemplate, mode);
-        }
-
-        public virtual void Verbose(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Verbose, exception, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
-        }
-
-        public virtual void Debug(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Debug, null, messageTemplate, mode);
-        }
-
-        public virtual void Debug(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Debug, null, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
-        }
-
-        public virtual void Debug(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Debug, exception, messageTemplate, mode);
-        }
-
-        public virtual void Debug(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Debug, exception, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
-        }
-
-        public virtual void Information(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Information, null, messageTemplate, mode);
-        }
-
-        public virtual void Information(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Information, null, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
-        }
-
-        public virtual void Information(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Information, exception, messageTemplate, mode);
-        }
-
-        public virtual void Information(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Information, exception, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
-        }
-
-        public virtual void Warning(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Warning, null, messageTemplate, mode);
-        }
-
-        public virtual void Warning(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Warning, null, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
-        }
-
-        public virtual void Warning(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Warning, exception, messageTemplate, mode);
-        }
-
-        public virtual void Warning(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Warning, exception, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
-        }
-
-        public virtual void Error(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Error, null, messageTemplate, mode);
-        }
-
-        public virtual void Error(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Error, null, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
-        }
-
-        public virtual void Error(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Error, exception, messageTemplate, mode);
-        }
-
-        public virtual void Error(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Error, exception, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
-        }
-
-        public virtual void Fatal(string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Fatal, null, messageTemplate, mode);
-        }
-
-        public virtual void Fatal(string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Fatal, null, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
-        }
-
-        public virtual void Fatal(Exception exception, string messageTemplate, LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Fatal, exception, messageTemplate, mode);
-        }
-
-        public virtual void Fatal(Exception exception, string messageTemplate, Action<AdditionalOptContext> additionalOptContextAct,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
-            Write(LogEventLevel.Fatal, exception, messageTemplate, mode, TouchAdditionalOptContext(additionalOptContextAct));
         }
     }
 }

@@ -6,64 +6,64 @@ using Exceptionless;
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
     public static class LoggerExtensions {
-        public static void Verbose(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogVerbose(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Verbose(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogVerbose(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
 
-        public static void Verbose(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogVerbose(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Verbose(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogVerbose(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
 
-        public static void Debug(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogDebug(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Debug(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogDebug(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
 
-        public static void Debug(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogDebug(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Debug(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogDebug(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
 
-        public static void Information(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogInformation(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Information(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogInformation(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
 
-        public static void Information(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogInformation(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Information(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogInformation(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
 
-        public static void Warning(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogWarning(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Warning(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogWarning(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
 
-        public static void Warning(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogWarning(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Warning(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogWarning(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
 
-        public static void Error(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogError(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Error(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogError(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
 
-        public static void Error(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogError(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Error(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogError(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
 
-        public static void Fatal(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogFatal(this ILogger logger, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Fatal(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogFatal(messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
 
-        public static void Fatal(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
+        public static void LogFatal(this ILogger logger, Exception exception, string messageTemplate, Func<EventBuilder, EventBuilder> eventBuilderFunc,
             LogEventSendMode mode = LogEventSendMode.Customize) {
-            logger.Fatal(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
+            logger.LogFatal(exception, messageTemplate, ctx => ctx.ForExceptionless(eventBuilderFunc), mode);
         }
     }
 }

@@ -8,21 +8,21 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.Exceptionless {
     public static class ExceptionlessSinkExtensions {
-        public static ILogServiceCollection WriteToExceptionless(this ILogServiceCollection services) {
-            return services.WriteToExceptionless((Action<ExceptionlessSinkSettings>) null);
+        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services) {
+            return services.UseExceptionless((Action<ExceptionlessSinkSettings>) null);
         }
 
-        public static ILogServiceCollection WriteToExceptionless(this ILogServiceCollection services, Action<ExceptionlessSinkSettings> settingAct) {
+        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, Action<ExceptionlessSinkSettings> settingAct) {
             var settings = new ExceptionlessSinkSettings();
             settingAct?.Invoke(settings);
-            return services.WriteToExceptionless(settings);
+            return services.UseExceptionless(settings);
         }
 
-        public static ILogServiceCollection WriteToExceptionless(this ILogServiceCollection services, ExceptionlessSinkSettings settings) {
-            return services.WriteToExceptionless(Options.Create(settings));
+        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, ExceptionlessSinkSettings settings) {
+            return services.UseExceptionless(Options.Create(settings));
         }
 
-        public static ILogServiceCollection WriteToExceptionless(this ILogServiceCollection services, IOptions<ExceptionlessSinkSettings> settings) {
+        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, IOptions<ExceptionlessSinkSettings> settings) {
             services.AddSinkSettings(settings.Value);
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, ExceptionlessPayloadClient>();

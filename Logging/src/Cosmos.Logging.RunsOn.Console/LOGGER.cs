@@ -9,11 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cosmos.Logging.RunsOn.Console {
     public static class LOGGER {
-        public static ILogServiceCollection Initialize() {
-            return Initialize((IConfigurationBuilder) null);
-        }
-
-        public static ILogServiceCollection Initialize(IConfigurationBuilder builder) {
+        public static ILogServiceCollection Initialize(IConfigurationBuilder builder = null) {
             IServiceCollection services = new ServiceCollection();
             services.AddScoped<ILoggingServiceProvider, ConsoleLoggingServiceProvider>();
             return IocContainer.Initialize(services, builder);

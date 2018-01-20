@@ -6,7 +6,7 @@ namespace Cosmos.Logging.Core.Sinks {
     public static class LogEventSinkFilter {
         public static IEnumerable<LogEvent> Filter(IEnumerable<LogEvent> logEvents, LogEventLevel? level) {
             if (logEvents == null) return Enumerable.Empty<LogEvent>();
-            if (!level.HasValue) return logEvents;
+            if (!level.HasValue) return Enumerable.Empty<LogEvent>();
             var realLevel = level.Value;
             if (realLevel == LogEventLevel.Off) return Enumerable.Empty<LogEvent>();
             return FilterAfterChecking(logEvents, realLevel);

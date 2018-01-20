@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Logging.Collectors;
@@ -28,11 +30,14 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
                 var source = payload.SourceType.FullName;
                 using (var logger = ExceptionlessClient.Default) {
                     foreach (var logEvent in legalityEvents) {
-                        var message = logEvent.RenderMessage(_formatProvider);
                         var exception = logEvent.Exception;
                         var level = LogLevelSwitcher.Switch(logEvent.Level);
+                        var stringBuilder = new StringBuilder();
+                        using (var output = new StringWriter(stringBuilder, _formatProvider)) {
+                            logEvent.RenderMessage(output, _formatProvider);
+                        }
 
-                        var builder = logger.CreateLog(source, message, level);
+                        var builder = logger.CreateLog(source, stringBuilder.ToString(), level);
                         builder.Target.Date = logEvent.Timestamp;
 
                         if (level == LogLevel.Fatal) {
@@ -49,6 +54,13 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
                         foreach (var opt in legalityOpts) {
                             if (opt.GetOpt() is Func<EventBuilder, EventBuilder> eventBuilderFunc) {
                                 eventBuilderFunc.Invoke(builder);
+                            }
+                        }
+
+                        foreach (var extra in logEvent.ExtraProperties) {
+                            var property = extra.Value;
+                            if (property != null) {
+                                builder.SetProperty(property.Name, property.Value);
                             }
                         }
 

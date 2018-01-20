@@ -9,12 +9,12 @@ namespace Cosmos.Logging.SampleSinkNfxTest {
 
             try {
                 LOGGER.Initialize().RunsOnConsole()
-                    .WriteToSampleLog()
+                    .UseSampleLog()
                     .AllDone();
 
                 var logger = LOGGER.GetLogger();
 
-                logger.Information("hello world!");
+                logger.LogInformation("hello world!");
 
                 Console.WriteLine("Hello World!");
             }

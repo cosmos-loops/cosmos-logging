@@ -19,14 +19,14 @@ namespace Cosmos.Logging.ExceptionlessTests {
                     .AddXmlFile("App.Config", true, true).Build();
 
                 LOGGER.Initialize(config).RunsOnConsole()
-                    .WriteToExceptionless()
+                    .UseExceptionless()
                     .AllDone();
 
                 var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);
 
-                logger.Information("测试1", ctx => ctx.ForExceptionless(h => h.AddTags("CosmosLogging")));
-                logger.Information("测试2", builder => builder.AddTags("CosmosLogging"));
-                logger.Error("world");
+                logger.LogInformation("测试1", ctx => ctx.ForExceptionless(h => h.AddTags("CosmosLogging")));
+                logger.LogInformation("测试2", builder => builder.AddTags("CosmosLogging"));
+                logger.LogError("world");
                 logger.SubmitLogger();
 
                 Console.WriteLine("Hello World!");

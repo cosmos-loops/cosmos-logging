@@ -10,21 +10,21 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.Log4Net {
     public static class Log4NetSinkExtensions {
-        public static ILogServiceCollection WriteToLog4Net(this ILogServiceCollection services) {
-            return services.WriteToLog4Net((Action<Log4NetSinkSettings>) null);
+        public static ILogServiceCollection UseLog4Net(this ILogServiceCollection services) {
+            return services.UseLog4Net((Action<Log4NetSinkSettings>) null);
         }
 
-        public static ILogServiceCollection WriteToLog4Net(this ILogServiceCollection services, Action<Log4NetSinkSettings> settingAct) {
+        public static ILogServiceCollection UseLog4Net(this ILogServiceCollection services, Action<Log4NetSinkSettings> settingAct) {
             var settings = new Log4NetSinkSettings();
             settingAct?.Invoke(settings);
-            return services.WriteToLog4Net(settings);
+            return services.UseLog4Net(settings);
         }
 
-        public static ILogServiceCollection WriteToLog4Net(this ILogServiceCollection services, Log4NetSinkSettings settings) {
-            return services.WriteToLog4Net(Options.Create(settings));
+        public static ILogServiceCollection UseLog4Net(this ILogServiceCollection services, Log4NetSinkSettings settings) {
+            return services.UseLog4Net(Options.Create(settings));
         }
 
-        public static ILogServiceCollection WriteToLog4Net(this ILogServiceCollection services, IOptions<Log4NetSinkSettings> settings) {
+        public static ILogServiceCollection UseLog4Net(this ILogServiceCollection services, IOptions<Log4NetSinkSettings> settings) {
             services.AddSinkSettings(settings.Value);
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, Log4NetPayloadClient>();

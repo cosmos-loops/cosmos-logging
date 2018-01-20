@@ -39,6 +39,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.Except
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.ExceptionlessTests", "tests\Cosmos.Logging.ExceptionlessTests\Cosmos.Logging.ExceptionlessTests.csproj", "{C9F1AC97-786A-47BF-9141-2D72654B1440}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Loggings.SampleSink_AspNetCore", "tests\Cosmos.Loggings.SampleSink_AspNetCore\Cosmos.Loggings.SampleSink_AspNetCore.csproj", "{44140F1F-097B-4A7D-A249-AEFDB34F2064}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Loggings.MessageTemplateTokenTests", "tests\Cosmos.Loggings.MessageTemplateTokenTests\Cosmos.Loggings.MessageTemplateTokenTests.csproj", "{BCEC2921-F0A7-4286-8BC1-CE50D9D511E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.CollaborativeTest.NLogAndException", "tests\Cosmos.Logging.CollaborativeTest.NLogAndException\Cosmos.Logging.CollaborativeTest.NLogAndException.csproj", "{2FD19EE9-4E97-4A92-962A-9143BCB95CDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +107,18 @@ Global
 		{C9F1AC97-786A-47BF-9141-2D72654B1440}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9F1AC97-786A-47BF-9141-2D72654B1440}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9F1AC97-786A-47BF-9141-2D72654B1440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44140F1F-097B-4A7D-A249-AEFDB34F2064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44140F1F-097B-4A7D-A249-AEFDB34F2064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44140F1F-097B-4A7D-A249-AEFDB34F2064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44140F1F-097B-4A7D-A249-AEFDB34F2064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCEC2921-F0A7-4286-8BC1-CE50D9D511E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCEC2921-F0A7-4286-8BC1-CE50D9D511E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCEC2921-F0A7-4286-8BC1-CE50D9D511E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCEC2921-F0A7-4286-8BC1-CE50D9D511E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FD19EE9-4E97-4A92-962A-9143BCB95CDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD19EE9-4E97-4A92-962A-9143BCB95CDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD19EE9-4E97-4A92-962A-9143BCB95CDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD19EE9-4E97-4A92-962A-9143BCB95CDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +140,9 @@ Global
 		{23E7B66A-405E-4ECE-AB62-0F8B979BC477} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
 		{6863EEF0-2630-43E5-B3A1-465F1900720E} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
 		{C9F1AC97-786A-47BF-9141-2D72654B1440} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
+		{44140F1F-097B-4A7D-A249-AEFDB34F2064} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
+		{BCEC2921-F0A7-4286-8BC1-CE50D9D511E6} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
+		{2FD19EE9-4E97-4A92-962A-9143BCB95CDC} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7494AB0-4276-4102-B112-7BBE0329D263}
