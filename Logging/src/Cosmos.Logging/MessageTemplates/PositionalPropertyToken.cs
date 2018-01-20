@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cosmos.Logging.Events;
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.MessageTemplates {
@@ -18,9 +19,12 @@ namespace Cosmos.Logging.MessageTemplates {
             PositionalParameterValue = MachiningForPositionalValue(TokenString);
             Format = MachiningForFormat(RawFormatText, FormatEvents);
             Params = MachiningForParams(RawParamsText);
+            PropertyResolvingMode = PropertyResolvingToucher.Touch(RawFormatText);
         }
 
         public PropertyTokenTypes TokenType => PropertyTokenTypes.PositionalProperty;
+
+        public override PropertyResolvingMode PropertyResolvingMode { get; }
 
         public int PositionalParameterValue { get; }
 

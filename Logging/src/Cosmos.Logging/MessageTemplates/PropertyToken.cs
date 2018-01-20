@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cosmos.Logging.Events;
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.MessageTemplates {
@@ -9,8 +10,8 @@ namespace Cosmos.Logging.MessageTemplates {
         private int prefixPointer = 0;
         public readonly List<FormatEvent> FormatEvents;
 
-        public PropertyToken(string originText, string formatOriginText, string paramsOriginText, int index, int position, PropertyTokenTypes type, int paramsFlagMode,
-            int fixOriginTextLength = 3)
+        public PropertyToken(string originText, string formatOriginText, string paramsOriginText,
+            int index, int position, PropertyTokenTypes type, int paramsFlagMode, int fixOriginTextLength = 3)
             : base(originText, index, position, fixOriginTextLength) {
             FormatEvents = new List<FormatEvent>();
             TokenType = type;
@@ -21,6 +22,7 @@ namespace Cosmos.Logging.MessageTemplates {
             Name = MachiningForTokenName(TokenString, prefixPointer);
             Format = MachiningForFormat(RawFormatText, FormatEvents);
             Params = MachiningForParams(RawParamsText);
+            PropertyResolvingMode = PropertyResolvingToucher.Touch(RawFormatText);
         }
 
         public PropertyTokenTypes TokenType { get; }
@@ -34,6 +36,8 @@ namespace Cosmos.Logging.MessageTemplates {
         public string Params { get; }
 
         public override TokenRenderTypes TokenRenderType { get; } = TokenRenderTypes.AsProperty;
+
+        public override PropertyResolvingMode PropertyResolvingMode { get; }
 
         public override string ToText() => $"{{{TokenString}}}, format={RawFormatText}, params={RawParamsText}";
 

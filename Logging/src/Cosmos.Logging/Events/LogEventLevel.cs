@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using EnumsNET;
 
 namespace Cosmos.Logging.Events {
     [Flags]

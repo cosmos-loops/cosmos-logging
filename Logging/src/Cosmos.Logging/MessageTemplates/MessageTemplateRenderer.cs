@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Transactions;
 using Cosmos.Logging.Core.Extensions;
+using Cosmos.Logging.Events;
 using Cosmos.Logging.Renders;
 
 namespace Cosmos.Logging.MessageTemplates {

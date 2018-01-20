@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.MessageTemplates {
     public class MessageTemplate {

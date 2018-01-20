@@ -1,4 +1,4 @@
-﻿namespace Cosmos.Logging.MessageTemplates {
+﻿namespace Cosmos.Logging.Events {
     public interface IMessageProperty {
         
     }

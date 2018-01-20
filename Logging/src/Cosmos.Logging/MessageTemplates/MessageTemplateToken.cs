@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.MessageTemplates {
     public abstract class MessageTemplateToken {
@@ -38,6 +39,8 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         public abstract TokenRenderTypes TokenRenderType { get; }
+        
+        public abstract PropertyResolvingMode PropertyResolvingMode { get; }
 
         public abstract string ToText();
 

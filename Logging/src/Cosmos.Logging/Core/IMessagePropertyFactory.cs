@@ -1,4 +1,5 @@
-﻿using Cosmos.Logging.MessageTemplates;
+﻿using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Core {
     public interface IMessagePropertyFactory {

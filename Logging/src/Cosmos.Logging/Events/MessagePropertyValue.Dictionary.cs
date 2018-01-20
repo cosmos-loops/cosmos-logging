@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Cosmos.Logging.Formattings;
 
-namespace Cosmos.Logging.MessageTemplates {
+namespace Cosmos.Logging.Events {
     public class DictionaryValue : MessagePropertyValue {
 
         public DictionaryValue(IEnumerable<KeyValuePair<ScalarValue, MessagePropertyValue>> elements) {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using AspectCore.Extensions.Reflection;
 using Cosmos.Logging.Core.ObjectResolving.Extensions;
+using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Core.ObjectResolving {
@@ -60,7 +61,7 @@ namespace Cosmos.Logging.Core.ObjectResolving {
 
         public static bool TryResolveCompilerGeneratedType(object value, PropertyResolvingMode mode, NestParameterResolver nest, Type typeOfValue,
             bool raiseException, int index, out MessagePropertyValue result) {
-            if (mode == PropertyResolvingMode.ForceStringify) {
+            if (mode == PropertyResolvingMode.Destructure) {
 
                 result = new StructureValue(StructureElements(), Tag());
                 return true;
@@ -86,7 +87,7 @@ namespace Cosmos.Logging.Core.ObjectResolving {
                             propertyValue = $"Threw an exception at: {ex.InnerException?.GetType().Name}";
                         }
 
-                        yield return new MessageProperty(property.Name, index, nest.CreatePropertyValue(propertyValue, PropertyResolvingMode.ForceStringify));
+                        yield return new MessageProperty(property.Name, index, nest.CreatePropertyValue(propertyValue, PropertyResolvingMode.Destructure));
                     }
                 }
             }
