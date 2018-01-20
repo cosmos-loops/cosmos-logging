@@ -1,4 +1,6 @@
-﻿namespace Cosmos.Logging.MessageTemplates {
+﻿using Cosmos.Logging.Events;
+
+namespace Cosmos.Logging.MessageTemplates {
     public class TextToken : MessageTemplateToken {
         public TextToken(string originText, int index, int position)
             : base(originText, index, position, 4) { }
@@ -7,6 +9,8 @@
             : base(originText, tokenString, index, position) { }
 
         public override TokenRenderTypes TokenRenderType { get; } = TokenRenderTypes.AsText;
+
+        public override PropertyResolvingMode PropertyResolvingMode { get; } = PropertyResolvingMode.Stringify;
 
         public override string ToString() => $"{{{TokenString}}}";
 

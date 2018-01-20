@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using AspectCore.Extensions.Reflection;
+using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Core.ObjectResolving.Extensions {
@@ -22,7 +23,7 @@ namespace Cosmos.Logging.Core.ObjectResolving.Extensions {
         public static bool TryResolve(this IDestructureResolveRule[] rules, object value, PropertyResolvingMode mode,
             NestParameterResolver nest, out MessagePropertyValue result) {
             result = null;
-            if (mode == PropertyResolvingMode.ForceStringify) {
+            if (mode == PropertyResolvingMode.Destructure) {
                 foreach (var rule in rules) {
                     if (rule.TryResolve(value, nest, out result)) {
                         return true;

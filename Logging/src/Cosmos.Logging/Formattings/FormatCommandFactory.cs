@@ -7,10 +7,6 @@ namespace Cosmos.Logging.Formattings {
         public static IEnumerable<Func<object, IFormatProvider, object>> CreateCommandFunc(string format = null) {
             if (format == null || string.IsNullOrWhiteSpace(format)) yield break;
 
-            if (StringHelper.Check(out var cmd0, format) && (cmd0 == 'S' || cmd0 == 's')) {
-                yield return StringHelper.Format()(cmd0);
-            }
-
             if (CasingHelper.Check(out var cmd1, format) && (cmd1 == 'U' || cmd1 == 'w')) {
                 yield return CasingHelper.Format()(cmd1);
             }
@@ -26,10 +22,6 @@ namespace Cosmos.Logging.Formattings {
 
         public static IEnumerable<FormatEvent> CreateCommandEvent(string format = null) {
             if (format == null || string.IsNullOrWhiteSpace(format)) yield break;
-
-            if (StringHelper.Check(out var cmd0, format) && (cmd0 == 'S' || cmd0 == 's')) {
-                yield return new FormatEvent(cmd0, 9000, StringHelper.Format()(cmd0));
-            }
 
             if (CasingHelper.Check(out var cmd1, format) && (cmd1 == 'U' || cmd1 == 'w')) {
                 yield return new FormatEvent(cmd1, 10000, CasingHelper.Format()(cmd1));

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cosmos.Logging.Core.ObjectResolving.Extensions;
 using Cosmos.Logging.Core.ObjectResolving.Rules;
+using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Core.ObjectResolving {
@@ -53,7 +54,7 @@ namespace Cosmos.Logging.Core.ObjectResolving {
         internal MessagePropertyValue CreatePropertyValue(object value, PropertyResolvingMode mode, int level, int index) {
             if (value == null) return ReturnNullValue();
             if (mode == PropertyResolvingMode.Stringify) return ReturnStringifyValue(value);
-            if (mode == PropertyResolvingMode.ForceStringify && value is string str) {
+            if (mode == PropertyResolvingMode.Destructure && value is string str) {
                 value = FixStringifyValueForMaxLength(str);
             }
 

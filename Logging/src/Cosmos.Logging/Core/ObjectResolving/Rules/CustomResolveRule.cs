@@ -1,5 +1,5 @@
 ﻿using System;
-using Cosmos.Logging.MessageTemplates;
+using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Core.ObjectResolving.Rules {
     public class CustomResolveRule : IDestructureResolveRule {
@@ -15,7 +15,7 @@ namespace Cosmos.Logging.Core.ObjectResolving.Rules {
         public bool TryResolve(object value, IMessagePropertyValueFactory nest, out MessagePropertyValue result) {
             if (value == null) throw new ArgumentNullException(nameof(value));
             if (_conditionFunc(value.GetType())) {
-                result = nest.CreatePropertyValue(_convertFunc(value), PropertyResolvingMode.ForceStringify);
+                result = nest.CreatePropertyValue(_convertFunc(value), PropertyResolvingMode.Destructure);
                 return true;
             }
 

@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using Cosmos.Logging.Formattings;
 
-namespace Cosmos.Logging.MessageTemplates {
+namespace Cosmos.Logging.Events {
     public class ScalarValue : MessagePropertyValue {
 
         public ScalarValue(object value) {

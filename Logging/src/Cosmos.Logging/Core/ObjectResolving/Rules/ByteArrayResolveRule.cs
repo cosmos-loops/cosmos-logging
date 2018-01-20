@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Cosmos.Logging.MessageTemplates;
+using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Core.ObjectResolving.Rules {
     internal class ByteArrayResolveRule : IScalarResolveRule {

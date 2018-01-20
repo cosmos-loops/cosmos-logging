@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Cosmos.Logging.Formattings;
 
-namespace Cosmos.Logging.MessageTemplates {
+namespace Cosmos.Logging.Events {
     public abstract class MessagePropertyValue : IFormattable {
         public abstract void Render(TextWriter output, string format = null, IFormatProvider formatProvider = null);
         public abstract void Render(TextWriter output, IList<Func<object, IFormatProvider, object>> formatFuncs, string originFormat = null, IFormatProvider formatProvider = null);

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cosmos.Logging.MessageTemplates {
+namespace Cosmos.Logging.Events {
     public class ExtraMessageProperty : IMessageProperty {
         public ExtraMessageProperty(string name, MessagePropertyValue value) {
             CheckParams(name, value);
