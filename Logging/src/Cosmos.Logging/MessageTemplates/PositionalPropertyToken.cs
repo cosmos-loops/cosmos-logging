@@ -15,20 +15,20 @@ namespace Cosmos.Logging.MessageTemplates {
             RawFormatText = formatOriginText;
             RawParamsText = paramsOriginText;
             ParamsFlagMode = paramsFlagMode;
-            PositionParameterValue = MachiningForPositionValue(TokenString);
+            PositionalParameterValue = MachiningForPositionalValue(TokenString);
             Format = MachiningForFormat(RawFormatText, FormatEvents);
             Params = MachiningForParams(RawParamsText);
         }
 
-        public PropertyTokenTypes TokenType => PropertyTokenTypes.PositionProperty;
+        public PropertyTokenTypes TokenType => PropertyTokenTypes.PositionalProperty;
 
-        public int PositionParameterValue { get; }
+        public int PositionalParameterValue { get; }
 
         public string Format { get; }
 
         public string Params { get; }
 
-        public override TokenRenderTypes TokenRenderType { get; } = TokenRenderTypes.AsPositionProperty;
+        public override TokenRenderTypes TokenRenderType { get; } = TokenRenderTypes.AsPositionalProperty;
 
         public override string ToText() => $"{{{TokenString}}}, format={RawFormatText}, params={RawParamsText}";
 
@@ -38,7 +38,7 @@ namespace Cosmos.Logging.MessageTemplates {
 
         #region private methods
 
-        private static int MachiningForPositionValue(string rawText) {
+        private static int MachiningForPositionalValue(string rawText) {
             var colonIndex = rawText.IndexOf(':');
             var str = colonIndex < 0 ? rawText : rawText.Substring(0, colonIndex);
             return int.TryParse(str, out var ret) ? ret : 0;

@@ -3,6 +3,6 @@
         AsText,
         AsRawText,
         AsProperty,
-        AsPositionProperty,
+        AsPositionalProperty,
     }
 }

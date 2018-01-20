@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cosmos.Logging.Core;
 
 namespace Cosmos.Logging.MessageTemplates {
-    internal class MessageTemplateParser {
+    internal class MessageTemplateParser : IMessageTemplateParser {
         public MessageTemplate Parse(string messageTemplate) {
             if (messageTemplate == null) throw new ArgumentNullException(nameof(messageTemplate));
             return new MessageTemplate(messageTemplate, Tokenize(messageTemplate));

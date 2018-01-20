@@ -43,13 +43,13 @@ namespace Cosmos.Logging.MessageTemplates {
                     } else {
                         RenderTextTokenSlim(propertyToken, stringBuilder, formatProvider);
                     }
-                } else if (token is PositionalPropertyToken positionPropertyToken) {
-                    var propertyPosition = positionPropertyToken.PositionParameterValue;
-                    if (positionPropertyToken.TokenRenderType == TokenRenderTypes.AsPositionProperty &&
+                } else if (token is PositionalPropertyToken positionalPropertyToken) {
+                    var propertyPosition = positionalPropertyToken.PositionalParameterValue;
+                    if (positionalPropertyToken.TokenRenderType == TokenRenderTypes.AsPositionalProperty &&
                         TryGetMessageProperty(properties, propertyPosition, out var property)) {
-                        RenderPositionPropertyTokenForUserDefinedParameter(positionPropertyToken, property, stringBuilder, formatProvider);
+                        RenderPositionalPropertyTokenForUserDefinedParameter(positionalPropertyToken, property, stringBuilder, formatProvider);
                     } else {
-                        RenderTextTokenSlim(positionPropertyToken, stringBuilder, formatProvider);
+                        RenderTextTokenSlim(positionalPropertyToken, stringBuilder, formatProvider);
                     }
                 } else if (token is TextToken textToken) {
                     RenderTextToken(textToken, stringBuilder, formatProvider);
@@ -79,18 +79,18 @@ namespace Cosmos.Logging.MessageTemplates {
             stringBuilder.Append(token.RawText);
         }
 
-        private static void RenderPositionPropertyTokenForUserDefinedParameter(PositionalPropertyToken token, MessagePropertyValue property,
+        private static void RenderPropertyTokenForUserDefinedParameter(PropertyToken token, MessagePropertyValue property,
             StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
             stringBuilder.Append(property.ToString(token.FormatEvents, token.Params, formatProvider));
         }
 
-        private static void RenderPropertyTokenForUserDefinedParameter(PropertyToken token, MessagePropertyValue property, StringBuilder stringBuilder,
-            IFormatProvider formatProvider = null) {
+        private static void RenderPositionalPropertyTokenForUserDefinedParameter(PositionalPropertyToken token, MessagePropertyValue property,
+            StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
             stringBuilder.Append(property.ToString(token.FormatEvents, token.Params, formatProvider));
         }
 
-        private static void RenderPropertyTokenForPreferencesRender(PropertyToken token, IPreferencesRender render, StringBuilder stringBuilder,
-            IFormatProvider formatProvider = null) {
+        private static void RenderPropertyTokenForPreferencesRender(PropertyToken token, IPreferencesRender render,
+            StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
             if (token == null || render == null || render.IsNull) return;
             render.Render(token.FormatEvents, token.Params, stringBuilder, formatProvider);
         }
