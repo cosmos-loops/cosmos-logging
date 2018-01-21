@@ -2,19 +2,22 @@
 
 namespace Cosmos.Logging.Events {
     public class MessageProperty : IMessageProperty {
-        public MessageProperty(string name, int index, MessagePropertyValue value) {
-            CheckParams(name, index, value);
+        public MessageProperty(string name, int positionalIndex, MessagePropertyValue value) {
+            CheckParams(name, positionalIndex, value);
             Name = name;
             Value = value;
-            Index = index;
+            PositionalIndex = positionalIndex;
         }
 
         public string Name { get; }
         public MessagePropertyValue Value { get; }
-        public readonly int Index;
+        public readonly int PositionalIndex;
+        
+        public bool AsNamedProperty { get; set; }
+        public bool AsPositionalProperty { get; set; }
 
-        private static void CheckParams(string name, int index, MessagePropertyValue value) {
-            if (index < 0) throw new ArgumentOutOfRangeException(nameof(index));
+        private static void CheckParams(string name, int positionalIndex, MessagePropertyValue value) {
+            if (positionalIndex < -1) throw new ArgumentOutOfRangeException(nameof(positionalIndex));
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
             if (value == null) throw new ArgumentNullException(nameof(value));
         }

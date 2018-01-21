@@ -61,6 +61,7 @@ namespace Cosmos.Logging.Events {
         private void UpdateProperty(IEnumerable<MessageProperty> properties) {
             Console.WriteLine("开始处理 Message properties，但目前尚在开发中...");
             if (properties == null) return;
+            
             //todo
         }
 

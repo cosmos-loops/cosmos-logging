@@ -15,16 +15,16 @@ namespace Cosmos.Logging.Core.ObjectResolving {
 
         public void SetNestLevel(int nestLevel) => _currentNestLevel = nestLevel;
 
-        public MessagePropertyValue CreatePropertyValue(object value, PropertyResolvingMode mode, int index = 0) {
+        public MessagePropertyValue CreatePropertyValue(object value, PropertyResolvingMode mode, int positionalIndex = -1) {
             var _level = _currentNestLevel;
-            var ret = ReturnDefaultIfMaxNestLevel(_level) ?? _root.CreatePropertyValue(value, mode, _level + 1, index);
+            var ret = ReturnDefaultIfMaxNestLevel(_level) ?? _root.CreatePropertyValue(value, mode, _level + 1, positionalIndex);
             _currentNestLevel = _level;
             return ret;
         }
 
-        MessagePropertyValue IMessagePropertyValueFactory.CreatePropertyValue(object value, PropertyResolvingMode mode, int index = 0) {
+        MessagePropertyValue IMessagePropertyValueFactory.CreatePropertyValue(object value, PropertyResolvingMode mode, int positionalIndex = -1) {
             var _level = _currentNestLevel;
-            var ret = ReturnDefaultIfMaxNestLevel(_level) ?? _root.CreatePropertyValue(value, mode, _level + 1, index);
+            var ret = ReturnDefaultIfMaxNestLevel(_level) ?? _root.CreatePropertyValue(value, mode, _level + 1, positionalIndex);
             _currentNestLevel = _level;
             return ret;
         }

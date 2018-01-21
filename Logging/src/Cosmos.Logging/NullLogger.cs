@@ -265,7 +265,5 @@ namespace Cosmos.Logging {
         public void LogFatal<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3, Action<AdditionalOptContext> optCtxAct) { }
 
         public void LogFatal(Exception exception, string messageTemplate, Action<AdditionalOptContext> optCtxAct, params object[] paramObjects) { }
-
-
     }
 }

@@ -18,8 +18,6 @@ namespace Cosmos.Logging.MessageTemplates {
         public MessageTemplate(string messageTemplate, IEnumerable<MessageTemplateToken> tokens) {
             Text = messageTemplate ?? throw new ArgumentNullException(nameof(messageTemplate));
             _tokens = tokens?.OrderBy(o => o.Index).ToArray() ?? throw new ArgumentNullException(nameof(tokens));
-            
-            
         }
 
         public string Text { get; }
@@ -29,6 +27,9 @@ namespace Cosmos.Logging.MessageTemplates {
         public IEnumerable<MessageTemplateToken> Tokens => _tokens;
 
         internal MessageTemplateToken[] TokenArray => _tokens;
+
+        internal int PropertyClassTokenCount
+            => _tokens.Count(x => x.TokenRenderType == TokenRenderTypes.AsProperty || x.TokenRenderType == TokenRenderTypes.AsPositionalProperty);
 
         public string Render(IReadOnlyDictionary<string, MessagePropertyValue> properties, IFormatProvider provider = null) {
             using (var output = new StringWriter(provider)) {

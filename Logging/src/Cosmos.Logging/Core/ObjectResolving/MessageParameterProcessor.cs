@@ -19,8 +19,8 @@ namespace Cosmos.Logging.Core.ObjectResolving {
             parsedProperties = _propertyBinder.Bind(parsedTemplate, messageProperties);
         }
 
-        public MessageProperty CreateProperty(string name, object value, PropertyResolvingMode mode, int index = 0) {
-            return _messageParameterResolver.CreateProperty(name, value, mode, index);
+        public MessageProperty CreateProperty(string name, object value, PropertyResolvingMode mode, int positionalIndex = 0) {
+            return _messageParameterResolver.CreateProperty(name, value, mode, positionalIndex);
         }
     }
 }

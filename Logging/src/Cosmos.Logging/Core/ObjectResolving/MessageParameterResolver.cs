@@ -43,15 +43,15 @@ namespace Cosmos.Logging.Core.ObjectResolving {
             _nestParameterResolver = new NestParameterResolver(_maxLevelOfNestLevelLimited, this);
         }
 
-        public MessageProperty CreateProperty(string name, object value, PropertyResolvingMode mode, int index = 0) {
-            return new MessageProperty(name, index, CreatePropertyValue(value, mode, index));
+        public MessageProperty CreateProperty(string name, object value, PropertyResolvingMode mode, int positionalIndex = -1) {
+            return new MessageProperty(name, positionalIndex, CreatePropertyValue(value, mode, positionalIndex));
         }
 
-        public MessagePropertyValue CreatePropertyValue(object value, PropertyResolvingMode mode, int index = 0) {
-            return CreatePropertyValue(value, mode, 1, index);
+        public MessagePropertyValue CreatePropertyValue(object value, PropertyResolvingMode mode, int positionalIndex = -1) {
+            return CreatePropertyValue(value, mode, 1, positionalIndex);
         }
 
-        internal MessagePropertyValue CreatePropertyValue(object value, PropertyResolvingMode mode, int level, int index) {
+        internal MessagePropertyValue CreatePropertyValue(object value, PropertyResolvingMode mode, int level, int positionalIndex) {
             if (value == null) return ReturnNullValue();
             if (mode == PropertyResolvingMode.Stringify) return ReturnStringifyValue(value);
             if (mode == PropertyResolvingMode.Destructure && value is string str) {
@@ -65,7 +65,7 @@ namespace Cosmos.Logging.Core.ObjectResolving {
             if (_destructureResolveRules.TryResolve(value, mode, _nestParameterResolver, out var result1)) return result1;
             if (TypeFeeler.TryResolveToEnumerable(value, mode, _nestParameterResolver, typeOfValue, _maxLoopCountForCollection, out var result2)) return result2;
             if (TypeFeeler.TryResolveToValueTuple(value, mode, _nestParameterResolver, typeOfValue, out var result3)) return result3;
-            if (TypeFeeler.TryResolveCompilerGeneratedType(value, mode, _nestParameterResolver, typeOfValue, _raiseExceptions, index, out var result4)) return result4;
+            if (TypeFeeler.TryResolveCompilerGeneratedType(value, mode, _nestParameterResolver, typeOfValue, _raiseExceptions, positionalIndex, out var result4)) return result4;
 
             return ReturnDefaultValue(value);
         }
