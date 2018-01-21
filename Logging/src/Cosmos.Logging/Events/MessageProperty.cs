@@ -11,7 +11,7 @@ namespace Cosmos.Logging.Events {
 
         public string Name { get; }
         public MessagePropertyValue Value { get; }
-        public readonly int PositionalIndex;
+        public int PositionalIndex { get; set; }
         
         public bool AsNamedProperty { get; set; }
         public bool AsPositionalProperty { get; set; }

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Formattings;
-using Cosmos.Logging.Formattings.Helpers;
 using Cosmos.Logging.Renders;
 
 namespace Cosmos.Logging.RunsOn.Console.RendersLib {
@@ -15,36 +14,23 @@ namespace Cosmos.Logging.RunsOn.Console.RendersLib {
         public bool IsNull => false;
 
         public void Render(string format, string paramsText, StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
-            stringBuilder.Append(ToString(format, paramsText, formatProvider));
+            stringBuilder.Append(ToString(format, Content, formatProvider));
         }
 
         public void Render(IList<FormatEvent> formattingEvents, string paramsText, StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
-            stringBuilder.Append(ToString(formattingEvents, paramsText, formatProvider));
+            stringBuilder.Append(ToString(formattingEvents, Content, formatProvider));
         }
 
         public void Render(IList<Func<object, IFormatProvider, object>> formattingFuncs, string paramsText, StringBuilder stringBuilder, IFormatProvider formatProvider = null) {
-            stringBuilder.Append(ToString(formattingFuncs, paramsText, formatProvider));
+            stringBuilder.Append(ToString(formattingFuncs, Content, formatProvider));
         }
 
         public string ToString(IList<FormatEvent> formattingEvents, string paramsText, IFormatProvider formatProvider = null) {
-            var content = Content;
-            if (formattingEvents == null || !formattingEvents.Any()) return content;
-            var ordered = formattingEvents.OrderBy(x => x.Sort);
-            foreach (var cmd in ordered) {
-                content = cmd.Command(content, formatProvider) as string;
-            }
-
-            return content;
+            return formattingEvents.ToFormat(Content, formatProvider);
         }
 
         public string ToString(IList<Func<object, IFormatProvider, object>> formattingFuncs, string paramsText, IFormatProvider formatProvider = null) {
-            var content = Content;
-            if (formattingFuncs == null || !formattingFuncs.Any()) return content;
-            foreach (var cmd in formattingFuncs) {
-                content = cmd(content, formatProvider) as string;
-            }
-
-            return content;
+            return formattingFuncs.ToFormat(Content, formatProvider);
         }
 
         public string ToString(string format, string paramsText, IFormatProvider formatProvider = null) {

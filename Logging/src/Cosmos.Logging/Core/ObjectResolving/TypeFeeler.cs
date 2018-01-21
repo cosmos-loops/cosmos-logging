@@ -78,10 +78,12 @@ namespace Cosmos.Logging.Core.ObjectResolving {
                         try {
                             propertyValue = property.GetValue(value);
                         }
-                        catch (TargetParameterCountException ex) {
+                        catch (TargetParameterCountException) {
+                            InternalLogger.WriteLine("The property accessor '{0}' is a non-default indexer", property);
                             continue;
                         }
                         catch (TargetInvocationException ex) {
+                            InternalLogger.WriteLine("The property accessor '{0}' threw exception: {1}", property, ex);
                             if (raiseException)
                                 throw;
                             propertyValue = $"Threw an exception at: {ex.InnerException?.GetType().Name}";

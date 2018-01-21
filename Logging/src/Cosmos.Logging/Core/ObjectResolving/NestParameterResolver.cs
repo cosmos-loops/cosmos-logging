@@ -22,7 +22,7 @@ namespace Cosmos.Logging.Core.ObjectResolving {
             return ret;
         }
 
-        MessagePropertyValue IMessagePropertyValueFactory.CreatePropertyValue(object value, PropertyResolvingMode mode, int positionalIndex = -1) {
+        MessagePropertyValue IMessagePropertyValueFactory.CreatePropertyValue(object value, PropertyResolvingMode mode, int positionalIndex) {
             var _level = _currentNestLevel;
             var ret = ReturnDefaultIfMaxNestLevel(_level) ?? _root.CreatePropertyValue(value, mode, _level + 1, positionalIndex);
             _currentNestLevel = _level;
