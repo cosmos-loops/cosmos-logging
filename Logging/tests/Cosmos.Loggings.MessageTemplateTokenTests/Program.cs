@@ -12,7 +12,7 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
         static void Main(string[] args) {
             try {
                 LOGGER.Initialize().RunsOnConsole()
-                    .UseSampleLog(s=>s.Level = LogEventLevel.Information)
+                    .UseSampleLog(s => s.Level = LogEventLevel.Information)
                     .AllDone();
 
                 var logger = LOGGER.GetLogger("TOKEN_TESTS_SAMPLESINK");
@@ -98,8 +98,8 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
 //                logger.Information("token test--> alexLEWIS {$1234567890:");
 //                logger.Information("token test--> {$789:111:3[ ]33}");
 //                logger.Information("token test--> forerunner {$ErrorToken:ErrorFormat:ErrorParams");
-                
-                
+
+
 //                logger.LogInformation(@"
 //
 //Google、{{AWS}}和{@Azure}都已经发表了声明，{$ConsoleHelloWorld:jpr30w}，说道：
@@ -113,21 +113,25 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
 //来自{$Amazon:yyyyMMdd[ ]HH[:]mm[:]ss}的Richard Harvey对此进行了确认。
 //
 //");
-                
-                logger.LogInformation("position test{10}");
-                logger.LogInformation("position test{10} ");
-                logger.LogInformation("position test{10:}");
-                logger.LogInformation("position test{10:} ");
-                logger.LogInformation("position test{10::}");
-                logger.LogInformation("position test{10::} ");
-                logger.LogInformation("position test{10:w}");
-                logger.LogInformation("position test{10:w:} ");
-                
+
+//                logger.LogInformation("position test{10}");
+//                logger.LogInformation("position test{10} ");
+//                logger.LogInformation("position test{10:}");
+//                logger.LogInformation("position test{10:} ");
+//                logger.LogInformation("position test{10::}");
+//                logger.LogInformation("position test{10::} ");
+//                logger.LogInformation("position test{10:w}");
+//                logger.LogInformation("position test{10:w:} ");
+
+                logger.LogInformation("token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"}, "?world?");
+                logger.LogInformation("token test: {@Hello}, {0}, {@World}", new {Hello = "_hello_", World = "_world_"}, "?world?");
+
                 Console.WriteLine("I'm live");
             }
             catch (Exception e) {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.Source);
+
                 Console.WriteLine(e.StackTrace);
             }
 

@@ -31,17 +31,24 @@ namespace Cosmos.Logging.MessageTemplates {
         internal int PropertyClassTokenCount
             => _tokens.Count(x => x.TokenRenderType == TokenRenderTypes.AsProperty || x.TokenRenderType == TokenRenderTypes.AsPositionalProperty);
 
-        public string Render(IReadOnlyDictionary<string, MessagePropertyValue> properties, IFormatProvider provider = null) {
+        public string Render(
+            IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedMessageProperties,
+            IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalMessageProperties,
+            IFormatProvider provider = null) {
             using (var output = new StringWriter(provider)) {
-                Render(properties, output, provider);
+                Render(namedMessageProperties, positionalMessageProperties, output, provider);
                 return output.ToString();
             }
         }
 
-        public void Render(IReadOnlyDictionary<string, MessagePropertyValue> properties, TextWriter output, IFormatProvider provider = null) {
-            if (properties == null) throw new ArgumentNullException(nameof(properties));
+        public void Render(
+            IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedMessageProperties,
+            IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalMessageProperties,
+            TextWriter output, IFormatProvider provider = null) {
+            if (namedMessageProperties == null) throw new ArgumentNullException(nameof(namedMessageProperties));
+            if (positionalMessageProperties == null) throw new ArgumentNullException(nameof(positionalMessageProperties));
             if (output == null) throw new ArgumentNullException(nameof(output));
-            MessageTemplateRenderer.Render(this, properties, output, null, provider);
+            MessageTemplateRenderer.Render(this, namedMessageProperties, positionalMessageProperties, output, null, provider);
         }
 
         public override string ToString() => Text;
