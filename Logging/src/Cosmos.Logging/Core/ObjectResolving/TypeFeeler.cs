@@ -60,7 +60,7 @@ namespace Cosmos.Logging.Core.ObjectResolving {
         }
 
         public static bool TryResolveCompilerGeneratedType(object value, PropertyResolvingMode mode, NestParameterResolver nest, Type typeOfValue,
-            bool raiseException, int positionalIndex, out MessagePropertyValue result) {
+            bool raiseException, int positionalValue, out MessagePropertyValue result) {
             if (mode == PropertyResolvingMode.Destructure) {
 
                 result = new StructureValue(StructureElements(), Tag());
@@ -89,7 +89,7 @@ namespace Cosmos.Logging.Core.ObjectResolving {
                             propertyValue = $"Threw an exception at: {ex.InnerException?.GetType().Name}";
                         }
 
-                        yield return new MessageProperty(property.Name, positionalIndex, nest.CreatePropertyValue(propertyValue, PropertyResolvingMode.Destructure));
+                        yield return new MessageProperty(property.Name, positionalValue, nest.CreatePropertyValue(propertyValue, PropertyResolvingMode.Destructure));
                     }
                 }
             }

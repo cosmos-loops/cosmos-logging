@@ -66,10 +66,12 @@ namespace Cosmos.Logging.Core.ObjectResolving {
 
             var keysOfOutOfCachhed = namesHaveNotBeenCached.Select(x => x.Name);
             var namedPropMetaList2 = namedPropMetaList.Where(x => keysOfOutOfCachhed.Contains(x.name) && !namesHaveBeenCached.Contains(x.name)).ToList();
-            var __positional_offset_0 = Math.Max(
-                namesHaveNotBeenCached.Any() ? namesHaveNotBeenCached.Max(m => m.PositionalOffset) : 0,
-                legalPositionalPropMetaList.Select(x => x.position).Max());
-            var __real_max_positional_offset = Math.Min(__positional_offset_0, messageParameters.Length);
+
+            var __real_max_positional_offset = Math.Min(
+                Math.Max(
+                    namesHaveNotBeenCached.Any() ? namesHaveNotBeenCached.Max(m => m.PositionalOffset) : 0,
+                    legalPositionalPropMetaList.Any() ? legalPositionalPropMetaList.Select(x => x.position).Max() : 0),
+                messageParameters.Length);
 
             for (var __i = 0; __i <= __real_max_positional_offset; __i++) {
                 var __object = messageParameters[__i];
