@@ -42,9 +42,9 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
                         }
                     }
 
-                    foreach (var token in logEvent.MessageTemplate.Tokens) {
-                        Console.WriteLine($"token={token}, type={token.TokenRenderType}, rawString={token.RawText}, tokenString={token.ToText()}");
-                    }
+//                    foreach (var token in logEvent.MessageTemplate.Tokens) {
+//                        Console.WriteLine($"token={token}, type={token.TokenRenderType}, rawString={token.RawText}, tokenString={token.ToText()}");
+//                    }
 
                     Console.WriteLine($"[{payload.Name}][{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(Level)}] {stringBuilder}");
                 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Events;
@@ -9,9 +8,11 @@ using Cosmos.Logging.Renders;
 
 namespace Cosmos.Logging.MessageTemplates {
     internal static class MessageTemplateRenderer {
-        public static void Render(MessageTemplate messageTemplate, IReadOnlyDictionary<string, MessagePropertyValue> properties,
+        public static void Render(MessageTemplate messageTemplate,
+            IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedProperties,
+            IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalProperties,
             TextWriter output, string format = null, IFormatProvider formatProvider = null) {
-            var stringBuilder = RenderEngine(messageTemplate.TextArray, messageTemplate.TokenArray, properties, formatProvider);
+            var stringBuilder = RenderEngine(messageTemplate.TextArray, messageTemplate.TokenArray, namedProperties, positionalProperties, formatProvider);
             output.Write(ToBuffer(stringBuilder));
         }
 
@@ -22,7 +23,9 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         private static StringBuilder RenderEngine(char[] chars, MessageTemplateToken[] tokens,
-            IReadOnlyDictionary<string, MessagePropertyValue> properties, IFormatProvider formatProvider) {
+            IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedProperties,
+            IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalProperties,
+            IFormatProvider formatProvider) {
             var stringBuilder = new StringBuilder();
             var position = 0;
 
@@ -34,7 +37,7 @@ namespace Cosmos.Logging.MessageTemplates {
 
                 if (token.TokenRenderType == TokenRenderTypes.AsProperty && token is PropertyToken propertyToken) {
                     if (propertyToken.TokenType == PropertyTokenTypes.UserDefinedParameter &&
-                        properties.TryGetValue(propertyToken.Name, out var property)) {
+                        TryGetMessageProperty(namedProperties, propertyToken, out var property)) {
                         RenderPropertyTokenForUserDefinedParameter(propertyToken, property, stringBuilder, formatProvider);
                     } else if (propertyToken.TokenType == PropertyTokenTypes.PreferencesRender) {
                         var render = GetPreferencesRender(propertyToken);
@@ -43,9 +46,8 @@ namespace Cosmos.Logging.MessageTemplates {
                         RenderTextTokenSlim(propertyToken, stringBuilder, formatProvider);
                     }
                 } else if (token is PositionalPropertyToken positionalPropertyToken) {
-                    var propertyPosition = positionalPropertyToken.PositionalParameterValue;
                     if (positionalPropertyToken.TokenRenderType == TokenRenderTypes.AsPositionalProperty &&
-                        TryGetMessageProperty(properties, propertyPosition, out var property)) {
+                        TryGetMessageProperty(positionalProperties, positionalPropertyToken, out var property)) {
                         RenderPositionalPropertyTokenForUserDefinedParameter(positionalPropertyToken, property, stringBuilder, formatProvider);
                     } else {
                         RenderTextTokenSlim(positionalPropertyToken, stringBuilder, formatProvider);
@@ -102,10 +104,14 @@ namespace Cosmos.Logging.MessageTemplates {
             return render;
         }
 
-        private static bool TryGetMessageProperty(IReadOnlyDictionary<string, MessagePropertyValue> properties, int position, out MessagePropertyValue property) {
-            property = null;
-            if (properties == null || position < 0 || position >= properties.Count) return false;
-            return properties.TryGetValue(properties.Keys.ToArray()[position], out property);
+        private static bool TryGetMessageProperty(IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedProperties,
+            PropertyToken token, out MessagePropertyValue property) {
+            return namedProperties.TryGetValue((token.Name, token.PropertyResolvingMode), out property);
+        }
+
+        private static bool TryGetMessageProperty(IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalProperties,
+            PositionalPropertyToken token, out MessagePropertyValue property) {
+            return positionalProperties.TryGetValue((token.PositionalParameterValue, token.PropertyResolvingMode), out property);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Cosmos.Logging.Core.ObjectResolving.Extensions {
         }
 
         /// <summary>
-        /// Copy of Serilog.
+        /// One copy from Serilog.
         /// Author: Simon Cropp
         /// </summary>
         /// <param name="type"></param>

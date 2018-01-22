@@ -17,6 +17,26 @@ namespace Cosmos.Logging {
             _additionalOperations.Add(opt);
         }
 
-        public LogEventSendMode SendMode { get; set; } = LogEventSendMode.Customize;
+        public AdditionalOptContext Opt(IAdditionalOperation opt) {
+            ImportOpt(opt);
+            return this;
+        }
+
+        internal LogEventSendMode SendMode { get; private set; } = LogEventSendMode.Customize;
+
+        public AdditionalOptContext FileAutomatically() {
+            SendMode = LogEventSendMode.Automatic;
+            return this;
+        }
+
+        public AdditionalOptContext FireManually() {
+            SendMode = LogEventSendMode.Manually;
+            return this;
+        }
+
+        public AdditionalOptContext FireAsDefault() {
+            SendMode = LogEventSendMode.Customize;
+            return this;
+        }
     }
 }

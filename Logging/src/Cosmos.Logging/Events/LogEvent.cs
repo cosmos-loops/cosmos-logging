@@ -8,9 +8,9 @@ namespace Cosmos.Logging.Events {
     public class LogEvent {
         private readonly AdditionalOptContext _additionalOptContext;
 
-        private readonly Dictionary<string, MessagePropertyValue> _namedProperties = new Dictionary<string, MessagePropertyValue>();
-        private readonly Dictionary<int, MessagePropertyValue> _positionalProperties = new Dictionary<int, MessagePropertyValue>();
-        private readonly Dictionary<string, ExtraMessageProperty> _extraMessageProperties = new Dictionary<string, ExtraMessageProperty>();
+        private readonly Dictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> _namedProperties;
+        private readonly Dictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> _positionalProperties;
+        private readonly Dictionary<string, ExtraMessageProperty> _extraMessageProperties;
 
         public LogEvent(
             DateTimeOffset timestamp,
@@ -18,15 +18,25 @@ namespace Cosmos.Logging.Events {
             MessageTemplate messageTemplate,
             Exception exception,
             LogEventSendMode sendMode,
-            IEnumerable<MessageProperty> messageProperties,
+            Dictionary<(string name, PropertyResolvingMode mode), MessageProperty> namedMessageProperties,
+            Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> positionalMessageProperties,
             AdditionalOptContext additionalOptContext) {
+
+            if (namedMessageProperties == null) throw new ArgumentNullException(nameof(namedMessageProperties));
+            if (positionalMessageProperties == null) throw new ArgumentNullException(nameof(positionalMessageProperties));
+
             Timestamp = timestamp;
             Level = level;
             Exception = exception;
             SendMode = sendMode;
             MessageTemplate = messageTemplate ?? throw new ArgumentNullException(nameof(messageTemplate));
             _additionalOptContext = additionalOptContext ?? new AdditionalOptContext();
-            UpdateProperty(messageProperties);
+
+            _namedProperties = new Dictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue>();
+            _positionalProperties = new Dictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue>();
+            _extraMessageProperties = new Dictionary<string, ExtraMessageProperty>();
+
+            UpdateProperty(namedMessageProperties, positionalMessageProperties);
         }
 
         public DateTimeOffset Timestamp { get; }
@@ -38,11 +48,11 @@ namespace Cosmos.Logging.Events {
         #region Reder Message
 
         public void RenderMessage(TextWriter output, IFormatProvider provider = null) {
-            MessageTemplate.Render(NamedProperties, output, provider);
+            MessageTemplate.Render(NamedProperties, PositionalProperties, output, provider);
         }
 
         public string RenderMessage(IFormatProvider provider = null) {
-            return MessageTemplate.Render(NamedProperties, provider);
+            return MessageTemplate.Render(NamedProperties, PositionalProperties, provider);
         }
 
         #endregion
@@ -56,27 +66,15 @@ namespace Cosmos.Logging.Events {
 
         #region Normal Message Properties
 
-        public IReadOnlyDictionary<string, MessagePropertyValue> NamedProperties => _namedProperties;
+        public IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> NamedProperties => _namedProperties;
 
-        private void UpdateProperty(IEnumerable<MessageProperty> properties) {
-            Console.WriteLine("开始处理 Message properties，但目前尚在开发中...");
-            if (properties == null) return;
-            //todo
-        }
+        public IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> PositionalProperties => _positionalProperties;
 
-        public void AddOrUpdateProperty(MessageProperty property) {
-            if (property == null) throw new ArgumentNullException(nameof(property));
-            _namedProperties[property.Name] = property.Value;
-        }
-
-        public void AddPropertyIfAbsent(MessageProperty property) {
-            if (property == null) throw new ArgumentNullException(nameof(property));
-            if (!_namedProperties.ContainsKey(property.Name))
-                _namedProperties.Add(property.Name, property.Value);
-        }
-
-        public void RemoveProperty(string propertyName) {
-            _namedProperties.Remove(propertyName);
+        private void UpdateProperty(
+            Dictionary<(string name, PropertyResolvingMode mode), MessageProperty> namedMessageProperties,
+            Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> positionalMessageProperties) {
+            foreach (var prop in namedMessageProperties) _namedProperties.Add(prop.Key, prop.Value.Value);
+            foreach (var prop in positionalMessageProperties) _positionalProperties.Add(prop.Key, prop.Value.Value);
         }
 
         #endregion

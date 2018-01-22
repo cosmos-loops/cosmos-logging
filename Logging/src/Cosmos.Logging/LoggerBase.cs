@@ -54,9 +54,12 @@ namespace Cosmos.Logging {
             if (!IsEnabled(level)) return;
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
 
-            _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters), out var parsedTemplate, out var parsedProperties);
+            _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
+                out var parsedTemplate, out var parsedProperties,
+                out var namedMessageProperties, out var positionalMessageProperties);
 
-            var logEvent = new LogEvent(DateTimeOffset.Now, level, parsedTemplate, exception, sendMode, parsedProperties, context);
+            var logEvent = new LogEvent(DateTimeOffset.Now, level, parsedTemplate, exception, sendMode, 
+                namedMessageProperties, positionalMessageProperties, context);
 
             Dispatch(logEvent);
 

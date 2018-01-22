@@ -14,13 +14,16 @@ namespace Cosmos.Logging.Core.ObjectResolving {
             _propertyBinder = new PropertyBinder(_messageParameterResolver);
         }
 
-        public void Process(string messageTemplate, object[] messageProperties, out MessageTemplate parsedTemplate, out IEnumerable<MessageProperty> parsedProperties) {
+        public void Process(string messageTemplate, object[] messageProperties, out MessageTemplate parsedTemplate,
+            out IEnumerable<MessageProperty> parsedProperties,
+            out Dictionary<(string name, PropertyResolvingMode mode), MessageProperty> namedMessageProperties,
+            out Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> positionalMessageProperties) {
             parsedTemplate = _messageTemplateParser.Parse(messageTemplate);
-            parsedProperties = _propertyBinder.Bind(parsedTemplate, messageProperties);
+            parsedProperties = _propertyBinder.Bind(parsedTemplate, messageProperties, out namedMessageProperties, out positionalMessageProperties);
         }
 
-        public MessageProperty CreateProperty(string name, object value, PropertyResolvingMode mode, int index = 0) {
-            return _messageParameterResolver.CreateProperty(name, value, mode, index);
+        public MessageProperty CreateProperty(string name, object value, PropertyResolvingMode mode, int positionalValue = 0) {
+            return _messageParameterResolver.CreateProperty(name, value, mode, positionalValue);
         }
     }
 }
