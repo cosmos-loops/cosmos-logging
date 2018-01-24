@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.ObjectResolving;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging {
     public abstract partial class LoggerBase : ILogger {
@@ -58,7 +55,7 @@ namespace Cosmos.Logging {
                 out var parsedTemplate, out var parsedProperties,
                 out var namedMessageProperties, out var positionalMessageProperties);
 
-            var logEvent = new LogEvent(DateTimeOffset.Now, level, parsedTemplate, exception, sendMode, 
+            var logEvent = new LogEvent(DateTimeOffset.Now, level, parsedTemplate, exception, sendMode,
                 namedMessageProperties, positionalMessageProperties, context);
 
             Dispatch(logEvent);
@@ -83,6 +80,11 @@ namespace Cosmos.Logging {
                 AutomaticPayload.Add(logEvent);
                 LogPayloadEmitter.Emit(_logPayloadSender, AutomaticPayload.Export());
             }
+        }
+
+        public IDisposable BeginScope<TState>(TState state) {
+            if (state == null) throw new ArgumentNullException(nameof(state));
+            return LoggingScope.Push(Name, state);
         }
 
         public void SubmitLogger() {

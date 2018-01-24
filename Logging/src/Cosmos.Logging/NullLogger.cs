@@ -17,6 +17,8 @@ namespace Cosmos.Logging {
 
         public bool IsEnabled(LogEventLevel level) => false;
 
+        public IDisposable BeginScope<TState>(TState state) => default(IDisposable);
+
         public void Write(LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode,
             AdditionalOptContext context = null, params object[] messageTemplateParameters) { }
 

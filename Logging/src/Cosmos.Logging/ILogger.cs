@@ -3,15 +3,22 @@ using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging {
     public interface ILogger {
+
         string Name { get; }
+
         LogEventLevel MinimumLevel { get; }
+
         LogEventSendMode SendMode { get; }
+
         bool IsEnabled(LogEventLevel level);
+
+        IDisposable BeginScope<TState>(TState state);
 
         void Write(LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode,
             AdditionalOptContext context = null, params object[] messageTemplateParameters);
 
         void Write(LogEvent logEvent);
+
         void SubmitLogger();
 
         void LogVerbose(string messageTemplate);

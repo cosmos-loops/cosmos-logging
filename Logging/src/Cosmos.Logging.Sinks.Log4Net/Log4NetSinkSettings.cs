@@ -1,11 +1,11 @@
 ﻿using System;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Settings;
 
 namespace Cosmos.Logging.Sinks.Log4Net {
     public class Log4NetSinkSettings : ILogSinkSettings {
-        public string Key => "Log4Net";
-        public string Name { get; set; } = $"Log4NetSink_{DateTime.Now.ToString("yyyyMMdd_HHmmssffff")}";
+        public string Key => Internals.Constants.SinkKey;
+        public string Name { get; set; } = $"{Internals.Constants.SinkPrefix}_{DateTime.Now:yyyyMMdd_HHmmssffff}";
         public LogEventLevel? Level { get; set; }
 
         public void UseDefaultOriginConfigFilePath() {

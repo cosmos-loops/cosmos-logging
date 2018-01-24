@@ -1,6 +1,7 @@
 ﻿using System;
 using Cosmos.Logging.Collectors;
-using Cosmos.Logging.Settings;
+using Cosmos.Logging.Core;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NLog;
@@ -8,22 +9,21 @@ using NLog.Config;
 
 namespace Cosmos.Logging.Sinks.NLog {
     public static class NLogSinkExtensions {
-        public static ILogServiceCollection UseNLog(this ILogServiceCollection services) {
-            return services.UseNLog((Action<NLogSinkSettings>) null);
-        }
-
-        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, Action<NLogSinkSettings> settingAct) {
+        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, Action<NLogSinkSettings> settingAct = null,
+            Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
             var settings = new NLogSinkSettings();
             settingAct?.Invoke(settings);
-            return services.UseNLog(settings);
+            return services.UseNLog(settings, configAction);
         }
 
-        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, NLogSinkSettings settings) {
-            return services.UseNLog(Options.Create(settings));
+        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, NLogSinkSettings settings,
+            Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
+            return services.UseNLog(Options.Create(settings), configAction);
         }
 
-        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, IOptions<NLogSinkSettings> settings) {
-            services.AddSinkSettings(settings.Value);
+        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, IOptions<NLogSinkSettings> settings,
+            Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
+            services.AddSinkSettings<NLogSinkSettings, NLogSinkConfiguration>(settings.Value, (conf, sink) => configAction?.Invoke(conf, sink));
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, NLogPayloadClient>();
                 s.AddScoped<ILogPayloadClientProvider, NLogPayloadClientProvider>();

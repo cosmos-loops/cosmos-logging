@@ -1,5 +1,4 @@
 ﻿using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Core.ObjectResolving {
     public interface IDestructureResolveRule {

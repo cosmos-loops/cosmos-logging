@@ -49,8 +49,11 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
                     Console.WriteLine($"[{payload.Name}][{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(Level)}] {stringBuilder}");
                 }
             }
-
+#if NET451
+            return Task.FromResult(true);
+#else
             return Task.CompletedTask;
+#endif
         }
 
         private static Func<int, Func<int, Func<char, string>>> PadLeftByZero() => i => count => c => i.ToString().PadLeft(count, c);

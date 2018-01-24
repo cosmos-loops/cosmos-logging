@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Immutable;
 using AspectCore.Extensions.DependencyInjection;
 using AspectCore.Injector;
-using Cosmos.Logging.RunsOn.Console.Settings;
-using Cosmos.Logging.Settings;
+using Cosmos.Logging.Configurations;
+using Cosmos.Logging.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -40,9 +39,8 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
                 servicesImpl.ActiveSinkSettings();
                 servicesImpl.ActiveOriginConfiguration();
                 servicesImpl.ActiveConsolePreferencesRenders();
-                servicesImpl.ActiveMessageParameterProcessor();
                 servicesImpl.AddDependency(s => s.AddSingleton(Options.Create((LoggingSettings) servicesImpl.ExposeLogSettings())));
-                servicesImpl.AddDependency(s => s.AddSingleton(servicesImpl.ConfigurationRoot));
+                servicesImpl.AddDependency(s => s.AddSingleton(servicesImpl.ExposeLoggingConfiguration()));
                 ServiceResolver = servicesImpl.ExposeServices().ToServiceContainer().Build();
             } else {
                 throw new ArgumentException(nameof(services));

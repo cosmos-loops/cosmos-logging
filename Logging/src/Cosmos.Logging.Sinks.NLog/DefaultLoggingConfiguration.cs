@@ -3,7 +3,7 @@ using NLog.Config;
 using NLog.Targets;
 
 namespace Cosmos.Logging.Sinks.NLog {
-    public class DefaultLoggingConfiguration : LoggingConfiguration {
+    public class DefaultLoggingConfiguration : global::NLog.Config.LoggingConfiguration {
         public DefaultLoggingConfiguration() {
 
             var consoleTarget = new ColoredConsoleTarget {Layout = @"${date:format=HH\:mm\:ss} ${logger} ${message}"};

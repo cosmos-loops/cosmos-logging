@@ -1,29 +1,29 @@
 ﻿using System;
 using Cosmos.Logging.Collectors;
-using Cosmos.Logging.Settings;
+using Cosmos.Logging.Core;
 using Cosmos.Logging.Sinks.Exceptionless.Core;
 using Exceptionless;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.Exceptionless {
     public static class ExceptionlessSinkExtensions {
-        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services) {
-            return services.UseExceptionless((Action<ExceptionlessSinkSettings>) null);
-        }
-
-        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, Action<ExceptionlessSinkSettings> settingAct) {
+        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, Action<ExceptionlessSinkSettings> settingAct = null,
+            Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {
             var settings = new ExceptionlessSinkSettings();
             settingAct?.Invoke(settings);
-            return services.UseExceptionless(settings);
+            return services.UseExceptionless(settings, configAct);
         }
 
-        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, ExceptionlessSinkSettings settings) {
-            return services.UseExceptionless(Options.Create(settings));
+        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, ExceptionlessSinkSettings settings,
+            Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {
+            return services.UseExceptionless(Options.Create(settings), configAct);
         }
 
-        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, IOptions<ExceptionlessSinkSettings> settings) {
-            services.AddSinkSettings(settings.Value);
+        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, IOptions<ExceptionlessSinkSettings> settings,
+            Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {
+            services.AddSinkSettings<ExceptionlessSinkSettings, ExceptionlessSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, ExceptionlessPayloadClient>();
                 s.AddScoped<ILogPayloadClientProvider, ExceptionlessPayloadClientProvider>();

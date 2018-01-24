@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using AspectCore.Extensions.Reflection;
 using Cosmos.Logging.Core.ObjectResolving.Extensions;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Core.ObjectResolving {
     internal static class TypeFeeler {

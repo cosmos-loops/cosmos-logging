@@ -1,11 +1,7 @@
 ﻿using System;
 using System.IO;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.RunsOn.Console;
-using Cosmos.Logging.RunsOn.Console.Settings;
-using Cosmos.Logging.Settings;
 using Cosmos.Logging.Sinks.Exceptionless;
-using Exceptionless.Configuration;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging.ExceptionlessTests {
