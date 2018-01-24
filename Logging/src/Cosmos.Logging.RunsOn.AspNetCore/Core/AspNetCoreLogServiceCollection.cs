@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cosmos.Logging.Settings;
+using Cosmos.Logging.Configurations;
+using Cosmos.Logging.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cosmos.Logging.RunsOn.AspNetCore.Settings {
+namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
     public class AspNetCoreLogServiceCollection : ILogServiceCollection {
         private LoggingConfigurationBuilder _configurationBuilder;
         private readonly IServiceCollection _serviceCollection;
@@ -38,7 +39,12 @@ namespace Cosmos.Logging.RunsOn.AspNetCore.Settings {
             throw new NotImplementedException();
         }
 
-        public ILogServiceCollection AddSinkSettings<TSinkSettings>(TSinkSettings settings) where TSinkSettings : class, ILogSinkSettings, new() {
+        public ILogServiceCollection AddSinkSettings<TSinkSettings, TSinkConfiguration>(TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> configAct)
+            where TSinkSettings : class, ILogSinkSettings, new() where TSinkConfiguration : SinkConfiguration, new() {
+            throw new NotImplementedException();
+        }
+
+        public ILogServiceCollection AddOriginConfigAction(Action<IConfiguration> configAction) {
             throw new NotImplementedException();
         }
 

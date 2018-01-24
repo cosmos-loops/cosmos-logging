@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
 
-namespace Cosmos.Logging.Settings {
+namespace Cosmos.Logging.Configurations {
     public interface ILoggerSettings {
 
         string Level { get; set; }
@@ -10,7 +9,5 @@ namespace Cosmos.Logging.Settings {
 
         Dictionary<string, ILogSinkSettings> Sinks { get; set; }
         LogEventLevel GetMinimumLevel();
-
-        DestructureConfiguration GetDestructure();
     }
 }

@@ -1,17 +1,18 @@
 ﻿using System;
 using System.IO;
+using Cosmos.Logging.Core.ObjectResolving;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Yaml;
 
-namespace Cosmos.Logging.Settings {
+namespace Cosmos.Logging.Configurations {
     public class LoggingConfigurationBuilder {
         private IConfigurationBuilder ConfigurationBuilder { get; set; }
 
         public LoggingConfigurationBuilder(IConfigurationBuilder builder = null) {
             ConfigurationBuilder = builder ?? new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
             InitializedByGivenBuilder = builder != null;
+            AfterBuild(ActiveMessageParameterProcessor);
         }
-        
+
         public virtual bool InitializedByGivenBuilder { get; }
 
         public virtual LoggingConfigurationBuilder AddFile(string path, FileTypes fileType) {
@@ -24,10 +25,6 @@ namespace Cosmos.Logging.Settings {
                     ConfigurationBuilder.AddXmlFile(path, true, true);
                     break;
 
-                case FileTypes.YAML:
-                    ConfigurationBuilder.AddYamlFile(path, true, true);
-                    break;
-
                 default:
                     throw new ArgumentException("Dost not support such tile type");
             }
@@ -37,8 +34,32 @@ namespace Cosmos.Logging.Settings {
 
         public virtual LoggingConfigurationBuilder AddJsonFile(string path) => AddFile(path, FileTypes.JSON);
         public virtual LoggingConfigurationBuilder AddXmlFile(string path) => AddFile(path, FileTypes.XML);
-        public virtual LoggingConfigurationBuilder AddYamlFile(string path) => AddFile(path, FileTypes.YAML);
 
-        public virtual IConfigurationRoot Build() => ConfigurationBuilder.Build();
+        private Action<LoggingConfiguration> AfterBuildAction { get; set; }
+
+        public virtual LoggingConfiguration Build() {
+            var loggingConfiguration = new LoggingConfiguration(ConfigurationBuilder.Build());
+            AfterBuildAction?.Invoke(loggingConfiguration);
+            return loggingConfiguration;
+        }
+
+        public void AfterBuild(Action<LoggingConfiguration> action) {
+            if (action != null) {
+                AfterBuildAction += action;
+            }
+        }
+
+        private void ActiveMessageParameterProcessor(LoggingConfiguration loggingConfiguration) {
+            var destructure = loggingConfiguration.Destructure ?? new DestructureConfiguration();
+            var resolver = new MessageParameterResolver(
+                destructure.MaximumLengthOfString,
+                destructure.MaximumLevelOfNestLevelLimited,
+                destructure.MaximumLoopCountForCollection,
+                destructure.AdditionalScalarTypes,
+                destructure.AdditionalDestructureResolveRules,
+                false);
+
+            MessageParameterProcessorCache.Set(new MessageParameterProcessor(resolver));
+        }
     }
 }
