@@ -1,46 +1,78 @@
 ﻿using System;
+#if NET451
+using System.Runtime.Remoting.Messaging;
+using System.Runtime.Remoting;
+
+#else
 using System.Threading;
 
-namespace Cosmos.Logging.Core {
-    public class LoggingScope : IDisposable {
-        private static readonly AsyncLocal<LoggingScope> _current = new AsyncLocal<LoggingScope>();
+#endif
 
+namespace Cosmos.Logging.Core {
+    public class LoggingScope {
+#if NET451
+        private const string DataKey = "__CosmosLoops.LoggingScope_Current__";
+#else
+        private static readonly AsyncLocal<LoggingScope> _current = new AsyncLocal<LoggingScope>();
+#endif
+        private readonly object _state;
+        private readonly string _description;
+        private readonly string _id;
+        private readonly int _deep;
+
+        public LoggingScope(string description, object state) : this(description, state, 0) { }
+
+        private LoggingScope(string description, object state, int deep) {
+            _description = description;
+            _state = state;
+            _id = Guid.NewGuid().ToString();
+            _deep = deep;
+            TranceId = Id;
+        }
+
+#if NET451
+        public static LoggingScope Current {
+            get => (CallContext.GetData(DataKey) as ObjectHandle)?.Unwrap() as LoggingScope;
+            private set => CallContext.SetData(DataKey, new ObjectHandle(value));
+        }
+#else
         public static LoggingScope Current {
             get => _current.Value;
             private set => _current.Value = value;
         }
+#endif
 
-        public static void Push(LoggingScope scope) {
+        public static IDisposable Push(string description, object state) {
             var temp = Current;
-            Current = scope;
-            Current.Parent = temp;
-            Current.Deep = temp.Deep + 1;
-            Current.TranceId = temp.TranceId;
+
+            if (temp == null) {
+                Current = new LoggingScope(description, state);
+            } else {
+                Current = new LoggingScope(description, state, temp._deep + 1) {
+                    Parent = temp,
+                    TranceId = temp.TranceId
+                };
+            }
+
+            return new DisposableScope();
         }
 
-        public static void Push(string description) {
-            Push(new LoggingScope(description));
-        }
+        public string Description => _description;
 
-        public string Description { get; }
+        public string Id => _id;
 
-        public string Id { get; }
-
-        public int Deep { get; private set; }
+        public int Deep => _deep;
 
         public string TranceId { get; private set; }
 
         public LoggingScope Parent { get; private set; }
 
-        public LoggingScope(string description) {
-            Description = description;
-            Id = Guid.NewGuid().ToString();
-            Deep = 0;
-            TranceId = Id;
-        }
+        public override string ToString() => _state?.ToString();
 
-        public void Dispose() {
-            Current = Current.Parent;
+        private class DisposableScope : IDisposable {
+            public void Dispose() {
+                Current = Current.Parent;
+            }
         }
     }
 }
