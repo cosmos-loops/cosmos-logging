@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using AspectCore.Injector;
+using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.RunsOn.Console;
 using Cosmos.Logging.RunsOn.Console.Core;
-using Cosmos.Logging.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cosmos.Logging.RunsOn.Console {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
+    // ReSharper disable once InconsistentNaming
     public static class LOGGER {
         public static ILogServiceCollection Initialize(IConfigurationBuilder builder = null) {
             IServiceCollection services = new ServiceCollection();

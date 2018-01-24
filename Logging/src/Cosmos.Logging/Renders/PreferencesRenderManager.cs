@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Resources;
 
 namespace Cosmos.Logging.Renders {
     public static class PreferencesRenderManager {
@@ -18,11 +16,12 @@ namespace Cosmos.Logging.Renders {
 
         public static void AddPreferencesRender(IPreferencesRender render) {
             if (render == null) throw new ArgumentNullException(nameof(render));
+            var ignoreCaseName = render.Name.ToLowerInvariant();
             // ReSharper disable once InconsistentlySynchronizedField
-            if (!_preferencesRenders.ContainsKey(render.Name)) {
+            if (!_preferencesRenders.ContainsKey(ignoreCaseName)) {
                 lock (_preferencesRendersLock) {
-                    if (!_preferencesRenders.ContainsKey(render.Name))
-                        _preferencesRenders.Add(render.Name, render);
+                    if (!_preferencesRenders.ContainsKey(ignoreCaseName))
+                        _preferencesRenders.Add(ignoreCaseName, render);
                 }
             }
         }
@@ -33,12 +32,16 @@ namespace Cosmos.Logging.Renders {
 
         public static void AddPreferencesSinkRender(IPreferencesSinkRender render) {
             if (render == null) throw new ArgumentNullException(nameof(render));
-            CheckSinkAlias(render.SinkPrefix);
+            
+            var ignoreSinkPrefix = render.SinkPrefix.ToLowerInvariant();
+            CheckSinkAlias(ignoreSinkPrefix);
+            
+            var ignoreCaseName = render.Name.ToLowerInvariant();
             // ReSharper disable once InconsistentlySynchronizedField
-            if (!_preferencesSinkRenders[render.SinkPrefix].ContainsKey(render.Name)) {
+            if (!_preferencesSinkRenders[ignoreSinkPrefix].ContainsKey(ignoreCaseName)) {
                 lock (_preferencesSinkRendersLock) {
-                    if (!_preferencesSinkRenders[render.SinkPrefix].ContainsKey(render.Name)) {
-                        _preferencesSinkRenders[render.SinkPrefix].Add(render.Name, render);
+                    if (!_preferencesSinkRenders[ignoreSinkPrefix].ContainsKey(ignoreCaseName)) {
+                        _preferencesSinkRenders[ignoreSinkPrefix].Add(ignoreCaseName, render);
                     }
                 }
             }
@@ -61,13 +64,16 @@ namespace Cosmos.Logging.Renders {
 
         public static IPreferencesRender GetRender(string name) {
             if (string.IsNullOrWhiteSpace(name)) return NullPreferencesRender.Instance;
-            return _preferencesRenders.TryGetValue(name, out var ret) ? ret : NullPreferencesRender.Instance;
+            var ignoreCaseName = name.ToLowerInvariant();
+            return _preferencesRenders.TryGetValue(ignoreCaseName, out var ret) ? ret : NullPreferencesRender.Instance;
         }
 
         public static IPreferencesSinkRender GetRender(string prefix, string name) {
             if (string.IsNullOrWhiteSpace(prefix) || string.IsNullOrWhiteSpace(name)) return NullPreferencesSinkRender.Instance;
-            return _preferencesSinkRenders.TryGetValue(prefix, out var dict)
-                ? dict.TryGetValue(name, out var ret) ? ret : NullPreferencesSinkRender.Instance
+            var ignoreSinkPrefix =prefix.ToLowerInvariant();
+            var ignoreCaseName = name.ToLowerInvariant();
+            return _preferencesSinkRenders.TryGetValue(ignoreSinkPrefix, out var dict)
+                ? dict.TryGetValue(ignoreCaseName, out var ret) ? ret : NullPreferencesSinkRender.Instance
                 : NullPreferencesSinkRender.Instance;
         }
     }

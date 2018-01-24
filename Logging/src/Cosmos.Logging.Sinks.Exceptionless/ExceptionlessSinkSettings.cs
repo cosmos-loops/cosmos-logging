@@ -1,12 +1,11 @@
 ﻿using System;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Settings;
-using Exceptionless;
 
 namespace Cosmos.Logging.Sinks.Exceptionless {
     public class ExceptionlessSinkSettings : ILogSinkSettings {
-        public string Key => "Exceptionless";
-        public string Name { get; set; } = $"ExceptionlessSink_{DateTime.Now.ToString("yyyyMMdd_HHmmssffff")}";
+        public string Key => Internals.Constants.SinkKey;
+        public string Name { get; set; } = $"{Internals.Constants.SinkPrefix}_{DateTime.Now:yyyyMMdd_HHmmssffff}";
         public LogEventLevel? Level { get; set; }
 
         public void RemoveConfig() {
@@ -31,12 +30,6 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
             if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException(nameof(path));
             OriginConfigFilePath = path;
             OriginConfigFileType = FileTypes.XML;
-        }
-
-        public void UseYamlConfig(string path) {
-            if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException(nameof(path));
-            OriginConfigFilePath = path;
-            OriginConfigFileType = FileTypes.YAML;
         }
 
         internal string OriginConfigFilePath { get; set; }

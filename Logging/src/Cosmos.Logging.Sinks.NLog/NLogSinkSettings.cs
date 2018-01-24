@@ -1,15 +1,14 @@
 ﻿using System;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Settings;
-using NLog.Config;
 
 namespace Cosmos.Logging.Sinks.NLog {
     public class NLogSinkSettings : ILogSinkSettings {
-        public string Key => "NLog";
-        public string Name { get; set; } = $"NLogSink_{DateTime.Now.ToString("yyyyMMdd_HHmmssffff")}";
+        public string Key => Internals.Constants.SinkKey;
+        public string Name { get; set; } = $"{Internals.Constants.SinkPrefix}_{DateTime.Now:yyyyMMdd_HHmmssffff}";
         public LogEventLevel? Level { get; set; }
 
-        public LoggingConfiguration OriginConfiguration { get; set; }
+        public global::NLog.Config.LoggingConfiguration OriginConfiguration { get; set; }
 
         public void UseDefaultOriginConfigFilePath() => OriginConfigFilePath = "nlog.config";
         public string OriginConfigFilePath { get; set; }
