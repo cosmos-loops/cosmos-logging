@@ -1,13 +1,11 @@
 ﻿using System;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.RunsOn.Console;
-using Cosmos.Logging.RunsOn.Console.Settings;
 using Cosmos.Logging.Sinks.NLog;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 
-namespace Cosmos.Logging.NLogSinkTest {
+namespace Cosmos.Logging.NLogSinkTests {
     class Program {
         static void Main(string[] args) {
 
@@ -36,8 +34,8 @@ namespace Cosmos.Logging.NLogSinkTest {
             Console.ReadLine();
         }
 
-        private static LoggingConfiguration GetNLogConfig() {
-            var config = new LoggingConfiguration();
+        private static NLog.Config.LoggingConfiguration GetNLogConfig() {
+            var config = new NLog.Config.LoggingConfiguration();
             var consoleTarget = new ColoredConsoleTarget();
             config.AddTarget("console", consoleTarget);
             consoleTarget.Layout = @"${date:format=HH\:mm\:ss} ${logger} ${message}";

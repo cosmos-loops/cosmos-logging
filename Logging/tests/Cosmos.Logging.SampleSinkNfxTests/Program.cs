@@ -1,9 +1,7 @@
 ﻿using System;
-using Cosmos.Logging.RunsOn.Console;
-using Cosmos.Logging.RunsOn.Console.Settings;
 using Cosmos.Logging.Sinks.SampleLogSink;
 
-namespace Cosmos.Logging.SampleSinkNfxTest {
+namespace Cosmos.Logging.SampleSinkNfxTests {
     class Program {
         static void Main(string[] args) {
 

@@ -1,17 +1,17 @@
 ﻿using System;
+using System.IO;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.RunsOn.Console;
-using Cosmos.Logging.RunsOn.Console.Settings;
-using Cosmos.Logging.Sinks.SampleLogSink;
+using Cosmos.Logging.Sinks.Log4Net;
+using Microsoft.Extensions.Configuration;
 
-namespace Cosmos.Logging.SampleSinkTest {
-
+namespace Cosmos.Logging.Log4NetSinkTests {
     class Program {
         static void Main(string[] args) {
-
             try {
-                LOGGER.Initialize().RunsOnConsole()
-                    .UseSampleLog(s => s.Level = LogEventLevel.Error)
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
+
+                LOGGER.Initialize(builder).RunsOnConsole()
+                    .UseLog4Net(s => s.UseDefaultOriginConfigFilePath())
                     .AllDone();
 
                 var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);

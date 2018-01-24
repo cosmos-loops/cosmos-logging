@@ -1,7 +1,5 @@
 ﻿using System;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.RunsOn.Console;
-using Cosmos.Logging.RunsOn.Console.Settings;
 using Cosmos.Logging.Sinks.NLog;
 using Cosmos.Logging.Sinks.SampleLogSink;
 
