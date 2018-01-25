@@ -14,10 +14,12 @@ using Exceptionless.Logging;
 namespace Cosmos.Logging.Sinks.Exceptionless {
     public class ExceptionlessPayloadClient : ILogEventSink, ILogPayloadClient {
         private readonly IFormatProvider _formatProvider;
+        private readonly ExceptionlessSinkConfiguration _sinkConfiguration;
 
-        public ExceptionlessPayloadClient(string name, LogEventLevel? level, IFormatProvider formatProvider = null) {
+        public ExceptionlessPayloadClient(string name, ExceptionlessSinkConfiguration sinkConfiguration, IFormatProvider formatProvider = null) {
+            _sinkConfiguration = sinkConfiguration ?? throw new ArgumentNullException(nameof(sinkConfiguration));
             Name = name;
-            Level = level;
+            Level = _sinkConfiguration.GetDefaultMinimumLevel();
             _formatProvider = formatProvider;
         }
 
@@ -26,7 +28,7 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
 
         public Task WriteAsync(ILogPayload payload, CancellationToken cancellationToken = default(CancellationToken)) {
             if (payload != null) {
-                var legalityEvents = LogEventSinkFilter.Filter(payload, Level).ToList();
+                var legalityEvents = LogEventSinkFilter.Filter(payload, _sinkConfiguration).ToList();
                 var source = payload.SourceType.FullName;
                 using (var logger = ExceptionlessClient.Default) {
                     foreach (var logEvent in legalityEvents) {

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cosmos.Logging.Events;
+using EnumsNET;
 
 namespace Cosmos.Logging.Configurations {
     public abstract class SinkConfiguration {
@@ -11,5 +13,11 @@ namespace Cosmos.Logging.Configurations {
         }
 
         public Dictionary<string, string> LogLevel { get; set; } = new Dictionary<string, string>();
+        
+        public LogEventLevel GetDefaultMinimumLevel() {
+            return LogLevel.TryGetValue("Default", out var strLevel)
+                ? Enums.GetMember<LogEventLevel>(strLevel, true).Value
+                : LogEventLevel.Verbose;
+        }
     }
 }

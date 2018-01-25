@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
+using Cosmos.Logging.Events;
+using EnumsNET;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging {
@@ -19,6 +21,16 @@ namespace Cosmos.Logging {
         public bool IncludeScopes { get; set; }
 
         public Dictionary<string, string> LogLevel { get; set; } = new Dictionary<string, string>();
+
+        public LogEventLevel GetDefaultMinimumLevel() {
+            return LogLevel.TryGetValue("Default", out var strLevel)
+                ? Enums.GetMember<LogEventLevel>(strLevel, true).Value
+                : LogEventLevel.Verbose;
+        }
+
+        public LogEventLevel GetSinkDefaultMinimumLevel(string sinkName) {
+            return GetSinkConfiguration(sinkName)?.GetDefaultMinimumLevel() ?? LogEventLevel.Off;
+        }
 
         public DestructureConfiguration Destructure { get; set; }
 
@@ -49,12 +61,17 @@ namespace Cosmos.Logging {
             }
         }
 
+        public TSinkConfiguration GetSinkConfiguration<TSinkConfiguration>() where TSinkConfiguration : SinkConfiguration, new() {
+            var temp = new TSinkConfiguration();
+            return GetSinkConfiguration<TSinkConfiguration>(temp.Name);
+        }
+
         public TSinkConfiguration GetSinkConfiguration<TSinkConfiguration>(string name) where TSinkConfiguration : SinkConfiguration, new() {
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
             return _sinkConfigurations[name] as TSinkConfiguration;
         }
 
-        public object GetSinkConfiguration(string name) {
+        public SinkConfiguration GetSinkConfiguration(string name) {
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
             return _sinkConfigurations[name];
         }

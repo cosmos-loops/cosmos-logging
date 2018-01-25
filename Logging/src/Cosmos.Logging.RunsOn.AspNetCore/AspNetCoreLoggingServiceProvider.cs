@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cosmos.Logging.Collectors;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -13,13 +13,16 @@ namespace Cosmos.Logging.RunsOn.AspNetCore {
         private readonly IServiceProvider _provider;
         private readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
         private readonly ILoggerSettings _loggerSettings;
+        private readonly LoggingConfiguration _loggingConfiguration;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private const string DEFAULT_LOGGER_NAME_PREFIX = "logger:CosmosLoops:roAspNetCore_";
 
-        public AspNetCoreLoggingServiceProvider(IServiceProvider provider, IOptions<LoggingSettings> settings, IHttpContextAccessor httpContextAccessor) {
+        public AspNetCoreLoggingServiceProvider(IServiceProvider provider, IOptions<LoggingSettings> settings, LoggingConfiguration loggingConfiguration,
+            IHttpContextAccessor httpContextAccessor) {
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
             _logPayloadClientProviders = _provider.GetServices<ILogPayloadClientProvider>() ?? Enumerable.Empty<ILogPayloadClientProvider>();
             _loggerSettings = settings?.Value ?? LoggingSettings.Defaults;
+            _loggingConfiguration = loggingConfiguration ?? throw new ArgumentNullException(nameof(loggingConfiguration));
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -28,7 +31,7 @@ namespace Cosmos.Logging.RunsOn.AspNetCore {
         protected virtual string DefaultLoggerName => $"{DEFAULT_LOGGER_NAME_PREFIX}{DateTime.Now:yyyyMMddHHmmssffff}";
 
         private ILogger GetLoggerCore(Type sourceType, string name, LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return new AspNetCoreLogger(sourceType, level, name, mode, new LogPayloadSender(_logPayloadClientProviders), _httpContextAccessor);
+            return new AspNetCoreLogger(sourceType, level, name, mode, _loggingConfiguration, new LogPayloadSender(_logPayloadClientProviders), _httpContextAccessor);
         }
 
         public ILogger GetLogger(LogEventSendMode mode = LogEventSendMode.Customize) {

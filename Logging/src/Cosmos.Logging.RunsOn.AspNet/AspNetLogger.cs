@@ -10,8 +10,9 @@ namespace Cosmos.Logging.RunsOn.AspNet {
             LogEventLevel minimumLevel,
             string loggerName,
             LogEventSendMode sendMode,
+            LoggingConfiguration loggingConfiguration,
             ILogPayloadSender logPayloadSender,
-            HttpContext context) : base(sourceType, minimumLevel, loggerName, sendMode, logPayloadSender) {
+            HttpContext context) : base(sourceType, minimumLevel, loggerName, sendMode, loggingConfiguration, logPayloadSender) {
             HttpContext = context;
         }
 

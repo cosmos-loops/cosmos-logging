@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Logging.Collectors;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Sinks;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Sinks.SampleLogSink {
     public class SampleLogPayloadClient : ILogEventSink, ILogPayloadClient {
         private readonly IFormatProvider _formatProvider;
+        private readonly SampleLogConfiguration _sinkConfiguration;
 
-        public SampleLogPayloadClient(string name, LogEventLevel? level, IFormatProvider formatProvider = null) {
+        public SampleLogPayloadClient(string name, SampleLogConfiguration sinkConfiguration, IFormatProvider formatProvider = null) {
+            _sinkConfiguration = sinkConfiguration ?? throw new ArgumentNullException(nameof(sinkConfiguration));
             Name = name;
-            Level = level;
+            Level = sinkConfiguration.GetDefaultMinimumLevel();
             _formatProvider = formatProvider;
         }
 
@@ -23,7 +26,7 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
 
         public Task WriteAsync(ILogPayload payload, CancellationToken cancellationToken = default(CancellationToken)) {
             if (payload != null) {
-                var legalityEvents = LogEventSinkFilter.Filter(payload, Level).ToList();
+                var legalityEvents = LogEventSinkFilter.Filter(payload, _sinkConfiguration).ToList();
                 var ix = 0;
                 var count = legalityEvents.Count;
                 foreach (var logEvent in legalityEvents) {
