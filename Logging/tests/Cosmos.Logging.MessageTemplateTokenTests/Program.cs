@@ -1,19 +1,34 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using Cosmos.Logging;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.SampleLogSink;
 
 namespace Cosmos.Loggings.MessageTemplateTokenTests {
     class Program {
+
+        static void Preheater(MessageTemplateCachePreheater preheater) {
+            preheater.Add("token test: {@Hello}, {0}, {@World}");
+            preheater.Add("token test: {@Hello}, {0}, {@World}1");
+            preheater.Add("token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}");
+        }
 
         static object SyncLock = new object();
 
         static void Main(string[] args) {
             try {
                 LOGGER.Initialize().RunsOnConsole()
+                    .PreheatMessageTemplates(Preheater)
                     .UseSampleLog(s => s.Level = LogEventLevel.Information)
                     .AllDone();
+
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                Thread.Sleep(TimeSpan.FromSeconds(2));
+                sw.Stop();
+                Console.WriteLine($"睡眠停止，本次睡眠耗时 {sw.ElapsedMilliseconds} 毫秒");
 
                 var logger = LOGGER.GetLogger("TOKEN_TESTS_SAMPLESINK");
 //                lock (SyncLock) {
@@ -123,8 +138,7 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
 //                logger.LogInformation("position test{10:w}");
 //                logger.LogInformation("position test{10:w:} ");
 
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
+                sw.Restart();
                 logger.LogInformation("token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"}, "?world?");
                 logger.LogInformation("token test: {@Hello}, {0}, {@World}", new {Hello = "_hello_", World = "_world_"}, "?world?");
 
@@ -141,9 +155,10 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
                 using (var scope = logger.BeginScope("123")) {
                     logger.LogInformation("token test: {@Hello}, {0}, {@World}");
                 }
+
                 sw.Stop();
                 Console.WriteLine($"1. used {sw.ElapsedMilliseconds} milliseconds");
-                
+
                 sw.Restart();
                 logger.LogInformation("token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"}, "?world?");
                 logger.LogInformation("token test: {@Hello}, {0}, {@World}", new {Hello = "_hello_", World = "_world_"}, "?world?");
@@ -152,6 +167,7 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
                     logger.LogInformation("token test: {@Hello}, {0}, {@World}");
                     logger.LogInformation("token test: {@Hello}, {0}, {@World}1");
                 }
+
                 sw.Stop();
                 Console.WriteLine($"2. used {sw.ElapsedMilliseconds} milliseconds");
                 Console.WriteLine("I'm live");

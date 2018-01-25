@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Configurations;
+using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +16,7 @@ namespace Cosmos.Logging.Core {
             where TSinkSettings : class, ILogSinkSettings, new()
             where TSinkConfiguration : SinkConfiguration, new();
 
+        ILogServiceCollection PreheatMessageTemplates(Action<MessageTemplateCachePreheater> preheatAct);
         ILogServiceCollection AddOriginConfigAction(Action<IConfiguration> configAction);
         ILogServiceCollection ModifyConfigurationBuilder(Action<LoggingConfigurationBuilder> builderAct);
     }
