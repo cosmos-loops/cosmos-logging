@@ -5,7 +5,11 @@ namespace Cosmos.Logging.Configurations {
     public sealed class DisabledConfigurationBuilder : LoggingConfigurationBuilder {
         private readonly IConfigurationRoot _root;
 
-        public DisabledConfigurationBuilder(IConfigurationRoot root) => _root = root ?? throw new ArgumentNullException(nameof(root));
+        public DisabledConfigurationBuilder(IConfigurationRoot root) {
+            _root = root ?? throw new ArgumentNullException(nameof(root));
+            BeforeBuild(ActiveMessageTemplatePreheater);
+            AfterBuild(ActiveMessageParameterProcessor);
+        }
 
         public override bool InitializedByGivenBuilder => false;
 
@@ -15,6 +19,11 @@ namespace Cosmos.Logging.Configurations {
 
         public override LoggingConfigurationBuilder AddXmlFile(string path) => this;
 
-        public override LoggingConfiguration Build() => new LoggingConfiguration(_root);
+        public override LoggingConfiguration Build() {
+            BeforeBuildAction?.Invoke(this);
+            var loggingConfiguration = new LoggingConfiguration(_root);
+            AfterBuildAction?.Invoke(loggingConfiguration);
+            return loggingConfiguration;
+        }
     }
 }
