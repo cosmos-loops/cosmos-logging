@@ -3,7 +3,9 @@ using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Filters {
     public class EndValueNamespaceFilterNav : NamespaceFilterNav {
+        private static readonly EndValueNamespaceFilterNav _null = default(EndValueNamespaceFilterNav);
         private static readonly EndValueNamespaceFilterNav _default = new EndValueNamespaceFilterNav {Level = LogEventLevel.Verbose};
+        public static EndValueNamespaceFilterNav Null => _null;
         public static EndValueNamespaceFilterNav Default => _default;
 
         private EndValueNamespaceFilterNav() : base("EndValue") { }

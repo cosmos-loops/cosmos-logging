@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cosmos.Logging.Core;
-using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Filters {
     public class NamespaceFilterNavCache : INamespaceFilterNavParser {
@@ -14,18 +13,21 @@ namespace Cosmos.Logging.Filters {
             _namespaceFilterNavParser = namespaceFilterNavParser ?? throw new ArgumentNullException(nameof(namespaceFilterNavParser));
         }
 
-        public NamespaceFilterNav Parse(string @namespace, string level) {
+        public NamespaceFilterNav Parse(string @namespace, string level, out EndValueNamespaceFilterNav endValueNode) {
+            endValueNode = EndValueNamespaceFilterNav.Null;
             if (string.IsNullOrWhiteSpace(@namespace)) return NamespaceFilterNav.Empty;
             if (@namespace == "Default") return NamespaceFilterNav.Empty;
             if (_namespaceCache.ContainsKey(@namespace.GetHashCode())) return _namespaceCache[@namespace.GetHashCode()];
+            
             var nss = @namespace.Split('.');
             if (_namespaceNavCache.TryGetValue(nss[0].GetHashCode(), out var nav)) {
                 var currentNav = nav;
                 for (var i = 1; i < nss.Length; i++) {
                     if (nss[i] == "*") {
                         lock (_namespacePoolLock) {
-                            currentNav.AddChild(_namespaceFilterNavParser.Parse("*", level));
+                            currentNav.AddChild(_namespaceFilterNavParser.Parse("*", level, out endValueNode));
                             _namespaceCache.Add(@namespace.GetHashCode(), nav);
+                            nav.UpdateOriginNamespaceOnRoot(@namespace.GetHashCode(), endValueNode);
                         }
 
                         return nav;
@@ -36,9 +38,9 @@ namespace Cosmos.Logging.Filters {
                         var nss2 = new string[nss.Length - i];
                         Array.Copy(nss, i, nss2, 0, nss.Length - i);
                         lock (_namespacePoolLock) {
-                            currentNav.AddChild(_namespaceFilterNavParser.Parse(string.Join(".", nss2), level));
+                            currentNav.AddChild(_namespaceFilterNavParser.Parse(string.Join(".", nss2), level, out endValueNode));
                             _namespaceCache.Add(@namespace.GetHashCode(), nav);
-                            nav.OriginNamespaceOnRoot.Add(@namespace);
+                            nav.UpdateOriginNamespaceOnRoot(@namespace.GetHashCode(), endValueNode);
                         }
 
                         return nav;
@@ -47,18 +49,17 @@ namespace Cosmos.Logging.Filters {
                     currentNav = tempNav;
                 }
 
-                lock (_namespacePoolLock) {
-                    nav.OriginNamespaceOnRoot.Add(@namespace);
-                }
+                endValueNode = currentNav.GetValue();
+                nav.UpdateOriginNamespaceOnRoot(@namespace.GetHashCode(), endValueNode);
 
                 return nav;
             }
 
             lock (_namespacePoolLock) {
-                var newNav = _namespaceFilterNavParser.Parse(@namespace, level);
+                var newNav = _namespaceFilterNavParser.Parse(@namespace, level, out endValueNode);
                 _namespaceCache.Add(@namespace.GetHashCode(), newNav);
                 _namespaceNavCache.Add(nss[0].GetHashCode(), newNav);
-                newNav.OriginNamespaceOnRoot.Add(@namespace);
+                newNav.UpdateOriginNamespaceOnRoot(@namespace.GetHashCode(), endValueNode);
                 return newNav;
             }
         }

@@ -2,6 +2,6 @@
 
 namespace Cosmos.Logging.Core {
     public interface INamespaceFilterNavParser {
-        NamespaceFilterNav Parse(string @namespace, string level);
+        NamespaceFilterNav Parse(string @namespace, string level, out EndValueNamespaceFilterNav endValueNode);
     }
 }

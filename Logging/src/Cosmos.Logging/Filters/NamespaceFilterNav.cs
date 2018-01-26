@@ -7,18 +7,31 @@ namespace Cosmos.Logging.Filters {
         private NamespaceFilterNav ParentNav { get; set; }
         internal EndValueNamespaceFilterNav Value { get; set; }
         private readonly Dictionary<int, NamespaceFilterNav> _nextNavs = new Dictionary<int, NamespaceFilterNav>();
+        private readonly Dictionary<int, EndValueNamespaceFilterNav> _originNamespaceOnRoot;
+        private readonly object _originNamespaceUpdateLock = new object();
 
         public NamespaceFilterNav(string namespaceFragment) {
             if (string.IsNullOrWhiteSpace(namespaceFragment)) throw new ArgumentNullException(nameof(namespaceFragment));
             NamespaceFragment = namespaceFragment;
             FullNamespaceFragment = namespaceFragment;
+            _originNamespaceOnRoot = new Dictionary<int, EndValueNamespaceFilterNav>();
         }
 
         public string NamespaceFragment { get; }
 
         public string FullNamespaceFragment { get; private set; }
 
-        internal List<string> OriginNamespaceOnRoot { get; set; } = new List<string>();
+        public IReadOnlyDictionary<int, EndValueNamespaceFilterNav> OriginNamespaceOnRoot => _originNamespaceOnRoot;
+
+        internal void UpdateOriginNamespaceOnRoot(int hashcode, EndValueNamespaceFilterNav value) {
+            if (value != null && !_originNamespaceOnRoot.ContainsKey(hashcode)) {
+                lock (_originNamespaceUpdateLock) {
+                    if (!_originNamespaceOnRoot.ContainsKey(hashcode)) {
+                        _originNamespaceOnRoot.Add(hashcode, value);
+                    }
+                }
+            }
+        }
 
         public virtual NamespaceFilterNav GetParentNav() => ParentNav;
 

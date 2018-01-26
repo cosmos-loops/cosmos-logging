@@ -22,7 +22,7 @@ namespace Cosmos.Logging.Configurations {
 
         internal void UpdateParsedLogLevel(INamespaceFilterNavParser parser) {
             foreach (var item in LogLevel) {
-                var nav = parser.Parse(item.Key, item.Value);
+                var nav = parser.Parse(item.Key, item.Value, out _);
                 if (nav is EmptyNamespaceFilterNav) continue;
                 if (!_namespaceFilterNavRoots.Contains(nav)) {
                     lock (_parsedLgLevelLock) {

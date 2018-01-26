@@ -57,7 +57,6 @@ namespace Cosmos.Logging {
             where TSinkConfiguration : SinkConfiguration, new() {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             if (string.IsNullOrWhiteSpace(configuration.Name)) throw new ArgumentNullException(nameof(configuration.Name));
-            // ReSharper disable once InconsistentlySynchronizedField
             if (!_sinkConfigurations.ContainsKey(configuration.Name)) {
                 lock (_sinkConfigurationsLock) {
                     if (!_sinkConfigurations.ContainsKey(configuration.Name)) {
@@ -93,14 +92,10 @@ namespace Cosmos.Logging {
             }
 
             foreach (var item in LogLevel) {
-                var nav = _namespaceFilterNavCache.Parse(item.Key, item.Value);
+                var nav = _namespaceFilterNavCache.Parse(item.Key, item.Value, out _);
                 if (nav is EmptyNamespaceFilterNav) continue;
                 if (!_namespaceFilterNavRoots.Contains(nav)) {
-                    lock (_parsedLgLevelLock) {
-                        if (!_namespaceFilterNavRoots.Contains(nav)) {
-                            _namespaceFilterNavRoots.Add(nav);
-                        }
-                    }
+                    _namespaceFilterNavRoots.Add(nav);
                 }
             }
         }
