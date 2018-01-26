@@ -46,8 +46,8 @@ namespace Cosmos.Logging.Configurations {
             }
         }
 
-        private Action<LoggingConfigurationBuilder> BeforeBuildAction { get; set; }
-        private Action<LoggingConfiguration> AfterBuildAction { get; set; }
+        protected Action<LoggingConfigurationBuilder> BeforeBuildAction { get; set; }
+        protected Action<LoggingConfiguration> AfterBuildAction { get; set; }
 
         public virtual LoggingConfiguration Build() {
             BeforeBuildAction?.Invoke(this);
@@ -68,11 +68,11 @@ namespace Cosmos.Logging.Configurations {
             }
         }
 
-        private void ActiveMessageTemplatePreheater(LoggingConfigurationBuilder builder) {
+        protected void ActiveMessageTemplatePreheater(LoggingConfigurationBuilder builder) {
             MessageTemplateCachePreheaterAction?.Invoke(_messageTemplateCachePreheater);
         }
 
-        private void ActiveMessageParameterProcessor(LoggingConfiguration loggingConfiguration) {
+        protected void ActiveMessageParameterProcessor(LoggingConfiguration loggingConfiguration) {
             var destructure = loggingConfiguration.Destructure ?? new DestructureConfiguration();
             var resolver = new MessageParameterResolver(
                 destructure.MaximumLengthOfString,
