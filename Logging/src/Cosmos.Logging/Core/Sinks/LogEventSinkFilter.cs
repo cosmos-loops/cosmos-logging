@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Filters;
 
 namespace Cosmos.Logging.Core.Sinks {
     public static class LogEventSinkFilter {
-        public static IEnumerable<LogEvent> Filter(IEnumerable<LogEvent> logEvents, LogEventLevel? level) {
-            if (logEvents == null) return Enumerable.Empty<LogEvent>();
-            var realLevel = level ?? LogEventLevel.Verbose;
-            return realLevel == LogEventLevel.Off ? Enumerable.Empty<LogEvent>() : FilterAfterChecking(logEvents, realLevel);
-        }
+        private static readonly LogEvent[] EmptyLogEvents = new LogEvent[0];
 
-        private static IEnumerable<LogEvent> FilterAfterChecking(IEnumerable<LogEvent> logEvents, LogEventLevel realLevel) {
-            return logEvents.Where(logEvent => logEvent.Level != LogEventLevel.Off && (int) logEvent.Level >= (int) realLevel);
+        public static IEnumerable<LogEvent> Filter(IEnumerable<LogEvent> logEvents, SinkConfiguration sinkConfiguration) {
+            if (logEvents == null || sinkConfiguration == null) return EmptyLogEvents;
+            return logEvents.Where(logEvent => FurtherEventPercolator.Percolate(logEvent, sinkConfiguration));
         }
     }
 }

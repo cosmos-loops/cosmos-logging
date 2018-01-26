@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Logging.Collectors;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Sinks;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Sinks.NLog {
     public class NLogPayloadClient : ILogEventSink, ILogPayloadClient {
         private readonly IFormatProvider _formatProvider;
+        private readonly NLogSinkConfiguration _sinkConfiguration;
 
-        public NLogPayloadClient(string name, LogEventLevel? level, IFormatProvider formatProvider = null) {
+        public NLogPayloadClient(string name, NLogSinkConfiguration sinkConfiguration, IFormatProvider formatProvider = null) {
+            _sinkConfiguration = sinkConfiguration ?? throw new ArgumentNullException(nameof(sinkConfiguration));
             Name = name;
-            Level = level;
+            Level = _sinkConfiguration.GetDefaultMinimumLevel();
             _formatProvider = formatProvider;
         }
 
@@ -23,7 +26,7 @@ namespace Cosmos.Logging.Sinks.NLog {
 
         public Task WriteAsync(ILogPayload payload, CancellationToken cancellationToken = default(CancellationToken)) {
             if (payload != null) {
-                var legalityEvents = LogEventSinkFilter.Filter(payload, Level).ToList();
+                var legalityEvents = LogEventSinkFilter.Filter(payload, _sinkConfiguration).ToList();
                 var logger = global::NLog.LogManager.GetLogger(payload.Name, payload.SourceType);
 
                 foreach (var logEvent in legalityEvents) {
@@ -33,7 +36,7 @@ namespace Cosmos.Logging.Sinks.NLog {
                     using (var output = new StringWriter(stringBuilder, _formatProvider)) {
                         logEvent.RenderMessage(output, _formatProvider);
                     }
-                    
+
                     if (logEvent.ExtraProperties.Count > 0) {
                         stringBuilder.AppendLine("Extra properties:");
                         foreach (var extra in logEvent.ExtraProperties) {
@@ -43,7 +46,7 @@ namespace Cosmos.Logging.Sinks.NLog {
                             }
                         }
                     }
-                    
+
                     logger.Log(level, exception, stringBuilder.ToString());
                 }
             }

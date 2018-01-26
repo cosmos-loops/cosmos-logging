@@ -10,7 +10,8 @@ namespace Cosmos.Logging.RunsOn.Console {
             LogEventLevel minimumLevel,
             string loggerName,
             LogEventSendMode sendMode,
+            LoggingConfiguration loggingConfiguration,
             ILogPayloadSender logPayloadSender)
-            : base(sourceType, minimumLevel, loggerName, sendMode, logPayloadSender) { }
+            : base(sourceType, minimumLevel, loggerName, sendMode, loggingConfiguration, logPayloadSender) { }
     }
 }

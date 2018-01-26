@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -74,7 +75,6 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
             return this;
         }
 
-
         public ILogServiceCollection AddOriginConfigAction(Action<IConfiguration> configAction) {
             if (configAction != null) {
                 _originConfigAction += configAction;
@@ -88,6 +88,11 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
                 builderAct?.Invoke(_configurationBuilder);
             }
 
+            return this;
+        }
+
+        public ILogServiceCollection PreheatMessageTemplates(Action<MessageTemplateCachePreheater> preheatAct) {
+            _configurationBuilder.PreheatMessageTemplates(preheatAct);
             return this;
         }
 

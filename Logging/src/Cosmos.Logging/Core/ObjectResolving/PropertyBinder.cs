@@ -10,12 +10,10 @@ namespace Cosmos.Logging.Core.ObjectResolving {
     internal class PropertyBinder {
         private readonly MessageParameterResolver _messageParameterResolver;
 
-        private static readonly MessageProperty[] _emptyMessageProperties;
         private static readonly Dictionary<(string name, PropertyResolvingMode mode), MessageProperty> _emptyNamedMessageProperties;
         private static readonly Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> _emptyPositionalMessageProperties;
 
         static PropertyBinder() {
-            _emptyMessageProperties = new MessageProperty[0];
             _emptyNamedMessageProperties = new Dictionary<(string name, PropertyResolvingMode mode), MessageProperty>();
             _emptyPositionalMessageProperties = new Dictionary<(int position, PropertyResolvingMode mode), MessageProperty>();
         }
@@ -24,7 +22,7 @@ namespace Cosmos.Logging.Core.ObjectResolving {
             _messageParameterResolver = resolver ?? throw new ArgumentNullException(nameof(resolver));
         }
 
-        public IEnumerable<MessageProperty> Bind(MessageTemplate messageTemplate, object[] messageParameters,
+        public void Bind(MessageTemplate messageTemplate, object[] messageParameters,
             out Dictionary<(string name, PropertyResolvingMode mode), MessageProperty> namedMessageProperties,
             out Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> positionalMessageProperties) {
 
@@ -33,7 +31,7 @@ namespace Cosmos.Logging.Core.ObjectResolving {
                     InternalLogger.WriteLine("No message parameters can be used for '{0}'.", messageTemplate);
                 namedMessageProperties = _emptyNamedMessageProperties;
                 positionalMessageProperties = _emptyPositionalMessageProperties;
-                return _emptyMessageProperties;
+                return;
             }
 
             var __result = new List<MessageProperty>();
@@ -91,7 +89,6 @@ namespace Cosmos.Logging.Core.ObjectResolving {
 
             namedMessageProperties = __named_cache;
             positionalMessageProperties = __positional_cache;
-            return __result;
 
             void __update0((string name, PropertyResolvingMode mode) __key, object __object) {
                 if (!__named_cache.ContainsKey(__key)) {

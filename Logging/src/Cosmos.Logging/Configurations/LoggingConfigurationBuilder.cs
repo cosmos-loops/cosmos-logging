@@ -1,15 +1,18 @@
 ﻿using System;
 using System.IO;
 using Cosmos.Logging.Core.ObjectResolving;
+using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging.Configurations {
     public class LoggingConfigurationBuilder {
         private IConfigurationBuilder ConfigurationBuilder { get; set; }
+        private readonly MessageTemplateCachePreheater _messageTemplateCachePreheater = new MessageTemplateCachePreheater();
 
         public LoggingConfigurationBuilder(IConfigurationBuilder builder = null) {
             ConfigurationBuilder = builder ?? new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
             InitializedByGivenBuilder = builder != null;
+            BeforeBuild(ActiveMessageTemplatePreheater);
             AfterBuild(ActiveMessageParameterProcessor);
         }
 
@@ -35,12 +38,28 @@ namespace Cosmos.Logging.Configurations {
         public virtual LoggingConfigurationBuilder AddJsonFile(string path) => AddFile(path, FileTypes.JSON);
         public virtual LoggingConfigurationBuilder AddXmlFile(string path) => AddFile(path, FileTypes.XML);
 
-        private Action<LoggingConfiguration> AfterBuildAction { get; set; }
+        private Action<MessageTemplateCachePreheater> MessageTemplateCachePreheaterAction { get; set; }
+
+        public void PreheatMessageTemplates(Action<MessageTemplateCachePreheater> preheatAct) {
+            if (preheatAct != null) {
+                MessageTemplateCachePreheaterAction += preheatAct;
+            }
+        }
+
+        protected Action<LoggingConfigurationBuilder> BeforeBuildAction { get; set; }
+        protected Action<LoggingConfiguration> AfterBuildAction { get; set; }
 
         public virtual LoggingConfiguration Build() {
+            BeforeBuildAction?.Invoke(this);
             var loggingConfiguration = new LoggingConfiguration(ConfigurationBuilder.Build());
             AfterBuildAction?.Invoke(loggingConfiguration);
             return loggingConfiguration;
+        }
+
+        public void BeforeBuild(Action<LoggingConfigurationBuilder> action) {
+            if (action != null) {
+                BeforeBuildAction += action;
+            }
         }
 
         public void AfterBuild(Action<LoggingConfiguration> action) {
@@ -49,7 +68,11 @@ namespace Cosmos.Logging.Configurations {
             }
         }
 
-        private void ActiveMessageParameterProcessor(LoggingConfiguration loggingConfiguration) {
+        protected void ActiveMessageTemplatePreheater(LoggingConfigurationBuilder builder) {
+            MessageTemplateCachePreheaterAction?.Invoke(_messageTemplateCachePreheater);
+        }
+
+        protected void ActiveMessageParameterProcessor(LoggingConfiguration loggingConfiguration) {
             var destructure = loggingConfiguration.Destructure ?? new DestructureConfiguration();
             var resolver = new MessageParameterResolver(
                 destructure.MaximumLengthOfString,
@@ -59,7 +82,7 @@ namespace Cosmos.Logging.Configurations {
                 destructure.AdditionalDestructureResolveRules,
                 false);
 
-            MessageParameterProcessorCache.Set(new MessageParameterProcessor(resolver));
+            MessageParameterProcessorCache.Set(new MessageParameterProcessor(resolver, _messageTemplateCachePreheater));
         }
     }
 }

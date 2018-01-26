@@ -9,12 +9,19 @@ namespace Cosmos.Logging {
     public abstract partial class LoggerBase : ILogger {
         private readonly ILogPayloadSender _logPayloadSender;
         private readonly MessageParameterProcessor _messageParameterProcessor;
+        private readonly LoggingConfiguration _loggingConfiguration;
 
-        protected LoggerBase(Type sourceType, LogEventLevel minimumLevel, string loggerName, LogEventSendMode sendMode, ILogPayloadSender logPayloadSender) {
+        protected LoggerBase(Type sourceType,
+            LogEventLevel minimumLevel,
+            string loggerName,
+            LogEventSendMode sendMode,
+            LoggingConfiguration loggingConfiguration,
+            ILogPayloadSender logPayloadSender) {
             Name = loggerName;
             TargetType = sourceType ?? typeof(object);
             MinimumLevel = minimumLevel;
             SendMode = sendMode;
+            _loggingConfiguration = loggingConfiguration ?? throw new ArgumentNullException(nameof(loggingConfiguration));
             _logPayloadSender = logPayloadSender ?? throw new ArgumentNullException(nameof(logPayloadSender));
             _messageParameterProcessor = MessageParameterProcessorCache.Get();
 
@@ -31,13 +38,7 @@ namespace Cosmos.Logging {
         private readonly ILogPayload ManuallyPayload;
 
         public bool IsEnabled(LogEventLevel level) {
-            if (MinimumLevel == LogEventLevel.Off)
-                return true;
-
-            if ((int) level >= (int) MinimumLevel)
-                return true;
-
-            return false;
+            return Filters.PreliminaryEventPercolator.Percolate(level, this, _loggingConfiguration);
         }
 
         protected virtual bool IsManuallySendMode(LogEvent logEvent) {
@@ -52,8 +53,7 @@ namespace Cosmos.Logging {
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
 
             _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
-                out var parsedTemplate, out var parsedProperties,
-                out var namedMessageProperties, out var positionalMessageProperties);
+                out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
 
             var logEvent = new LogEvent(DateTimeOffset.Now, level, parsedTemplate, exception, sendMode,
                 namedMessageProperties, positionalMessageProperties, context);

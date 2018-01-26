@@ -1,17 +1,32 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
+using System.Threading;
 using Cosmos.Logging;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.SampleLogSink;
+using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Loggings.MessageTemplateTokenTests {
     class Program {
+
+        static void Preheater(MessageTemplateCachePreheater preheater) {
+            preheater.Add("token test: {@Hello}, {0}, {@World}");
+            preheater.Add("token test: {@Hello}, {0}, {@World}1");
+            preheater.Add("token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}");
+        }
 
         static object SyncLock = new object();
 
         static void Main(string[] args) {
             try {
-                LOGGER.Initialize().RunsOnConsole()
+                var root = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", true, true).Build();
+
+
+                LOGGER.Initialize(root).RunsOnConsole()
+                    .PreheatMessageTemplates(Preheater)
                     .UseSampleLog(s => s.Level = LogEventLevel.Information)
                     .AllDone();
 
@@ -123,8 +138,6 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
 //                logger.LogInformation("position test{10:w}");
 //                logger.LogInformation("position test{10:w:} ");
 
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 logger.LogInformation("token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"}, "?world?");
                 logger.LogInformation("token test: {@Hello}, {0}, {@World}", new {Hello = "_hello_", World = "_world_"}, "?world?");
 
@@ -132,28 +145,6 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
                     logger.LogInformation("token test: {@Hello}, {0}, {@World}");
                 }
 
-                sw.Stop();
-                Console.WriteLine($"0. used {sw.ElapsedMilliseconds} milliseconds");
-                sw.Restart();
-                logger.LogInformation("token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"}, "?world?");
-                logger.LogInformation("token test: {@Hello}, {0}, {@World}", new {Hello = "_hello_", World = "_world_"}, "?world?");
-
-                using (var scope = logger.BeginScope("123")) {
-                    logger.LogInformation("token test: {@Hello}, {0}, {@World}");
-                }
-                sw.Stop();
-                Console.WriteLine($"1. used {sw.ElapsedMilliseconds} milliseconds");
-                
-                sw.Restart();
-                logger.LogInformation("token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"}, "?world?");
-                logger.LogInformation("token test: {@Hello}, {0}, {@World}", new {Hello = "_hello_", World = "_world_"}, "?world?");
-
-                using (var scope = logger.BeginScope("123")) {
-                    logger.LogInformation("token test: {@Hello}, {0}, {@World}");
-                    logger.LogInformation("token test: {@Hello}, {0}, {@World}1");
-                }
-                sw.Stop();
-                Console.WriteLine($"2. used {sw.ElapsedMilliseconds} milliseconds");
                 Console.WriteLine("I'm live");
             }
             catch (Exception e) {

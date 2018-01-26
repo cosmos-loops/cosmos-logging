@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -42,6 +43,11 @@ namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
         public ILogServiceCollection AddSinkSettings<TSinkSettings, TSinkConfiguration>(TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> configAct)
             where TSinkSettings : class, ILogSinkSettings, new() where TSinkConfiguration : SinkConfiguration, new() {
             throw new NotImplementedException();
+        }
+
+        public ILogServiceCollection PreheatMessageTemplates(Action<MessageTemplateCachePreheater> preheatAct) {
+            _configurationBuilder.PreheatMessageTemplates(preheatAct);
+            return this;
         }
 
         public ILogServiceCollection AddOriginConfigAction(Action<IConfiguration> configAction) {
