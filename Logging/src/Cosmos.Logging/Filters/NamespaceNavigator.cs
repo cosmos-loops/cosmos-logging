@@ -2,28 +2,28 @@
 using System.Collections.Generic;
 
 namespace Cosmos.Logging.Filters {
-    public class NamespaceFilterNav {
-        public static NamespaceFilterNav Empty => EmptyNamespaceFilterNav._empty;
-        private NamespaceFilterNav ParentNav { get; set; }
-        internal EndValueNamespaceFilterNav Value { get; set; }
-        private readonly Dictionary<int, NamespaceFilterNav> _nextNavs = new Dictionary<int, NamespaceFilterNav>();
-        private readonly Dictionary<int, EndValueNamespaceFilterNav> _originNamespaceOnRoot;
+    public class NamespaceNavigator {
+        public static NamespaceNavigator Empty => EmptyNamespaceNavigationNode._empty;
+        private NamespaceNavigator ParentNav { get; set; }
+        internal EndValueNamespaceNavigationNode Value { get; set; }
+        private readonly Dictionary<int, NamespaceNavigator> _nextNavs = new Dictionary<int, NamespaceNavigator>();
+        private readonly Dictionary<int, EndValueNamespaceNavigationNode> _originNamespaceOnRoot;
         private readonly object _originNamespaceUpdateLock = new object();
 
-        public NamespaceFilterNav(string namespaceFragment) {
+        public NamespaceNavigator(string namespaceFragment) {
             if (string.IsNullOrWhiteSpace(namespaceFragment)) throw new ArgumentNullException(nameof(namespaceFragment));
             NamespaceFragment = namespaceFragment;
             FullNamespaceFragment = namespaceFragment;
-            _originNamespaceOnRoot = new Dictionary<int, EndValueNamespaceFilterNav>();
+            _originNamespaceOnRoot = new Dictionary<int, EndValueNamespaceNavigationNode>();
         }
 
         public string NamespaceFragment { get; }
 
         public string FullNamespaceFragment { get; private set; }
 
-        public IReadOnlyDictionary<int, EndValueNamespaceFilterNav> OriginNamespaceOnRoot => _originNamespaceOnRoot;
+        public IReadOnlyDictionary<int, EndValueNamespaceNavigationNode> OriginNamespaceOnRoot => _originNamespaceOnRoot;
 
-        internal void UpdateOriginNamespaceOnRoot(int hashcode, EndValueNamespaceFilterNav value) {
+        internal void UpdateOriginNamespaceOnRoot(int hashcode, EndValueNamespaceNavigationNode value) {
             if (value != null && !_originNamespaceOnRoot.ContainsKey(hashcode)) {
                 lock (_originNamespaceUpdateLock) {
                     if (!_originNamespaceOnRoot.ContainsKey(hashcode)) {
@@ -33,15 +33,15 @@ namespace Cosmos.Logging.Filters {
             }
         }
 
-        public virtual NamespaceFilterNav GetParentNav() => ParentNav;
+        public virtual NamespaceNavigator GetParentNav() => ParentNav;
 
-        public virtual NamespaceFilterNav GetNextNav(string path) => _nextNavs.TryGetValue(path.GetHashCode(), out var ret) ? ret : Empty;
+        public virtual NamespaceNavigator GetNextNav(string path) => _nextNavs.TryGetValue(path.GetHashCode(), out var ret) ? ret : Empty;
 
-        public virtual IEnumerable<NamespaceFilterNav> GetNextNavs() => _nextNavs.Values;
+        public virtual IEnumerable<NamespaceNavigator> GetNextNavs() => _nextNavs.Values;
 
-        public virtual EndValueNamespaceFilterNav GetValue() => Value ?? EndValueNamespaceFilterNav.Default;
+        public virtual EndValueNamespaceNavigationNode GetValue() => Value ?? EndValueNamespaceNavigationNode.Default;
 
-        public virtual void SetValue(EndValueNamespaceFilterNav nav) => Value = nav;
+        public virtual void SetValue(EndValueNamespaceNavigationNode nav) => Value = nav;
 
         public virtual bool HasParentNav() => ParentNav != null;
 
@@ -49,7 +49,7 @@ namespace Cosmos.Logging.Filters {
 
         public virtual bool HasValue() => Value != null;
 
-        public virtual void AddChild(NamespaceFilterNav nav) {
+        public virtual void AddChild(NamespaceNavigator nav) {
             if (nav == null) return;
             if (NamespaceFragment == "*") return;
             if (AntiLoopSelf(nav)) return;
@@ -66,7 +66,7 @@ namespace Cosmos.Logging.Filters {
             }
         }
 
-        private bool AntiLoopSelf(NamespaceFilterNav nav) {
+        private bool AntiLoopSelf(NamespaceNavigator nav) {
             return AntiLoopSelf(nav.GetHashCode(), LoopSelfWard.Default);
         }
 

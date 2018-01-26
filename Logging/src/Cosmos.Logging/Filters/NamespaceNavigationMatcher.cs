@@ -1,9 +1,9 @@
 ﻿using System;
 
 namespace Cosmos.Logging.Filters {
-    public static class NamespaceNavMatcher {
-        public static bool Match(string @namespace, NamespaceFilterNav nav, out EndValueNamespaceFilterNav value) {
-            value = default(EndValueNamespaceFilterNav);
+    internal static class NamespaceNavigationMatcher {
+        public static bool Match(string @namespace, NamespaceNavigator nav, out EndValueNamespaceNavigationNode value) {
+            value = default(EndValueNamespaceNavigationNode);
 
             if (string.IsNullOrWhiteSpace(@namespace)) return false;
             if (string.Compare(@namespace, "Default", StringComparison.OrdinalIgnoreCase) == 0) return false;
@@ -31,7 +31,7 @@ namespace Cosmos.Logging.Filters {
             return false;
         }
 
-        private static NamespaceFilterNav GetRoot(NamespaceFilterNav nav) {
+        private static NamespaceNavigator GetRoot(NamespaceNavigator nav) {
             if (nav == null) return null;
             if (!nav.HasParentNav()) return nav;
             var currentNav = nav;
@@ -42,7 +42,7 @@ namespace Cosmos.Logging.Filters {
             return currentNav;
         }
 
-        private static bool IsRoot(this NamespaceFilterNav nav) {
+        private static bool IsRoot(this NamespaceNavigator nav) {
             return nav != null && !nav.HasParentNav();
         }
     }
