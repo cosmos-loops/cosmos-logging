@@ -8,6 +8,7 @@ namespace Cosmos.Logging.Configurations {
         public DisabledConfigurationBuilder(IConfigurationRoot root) {
             _root = root ?? throw new ArgumentNullException(nameof(root));
             BeforeBuild(ActiveMessageTemplatePreheater);
+            BeforeBuild(ActiveCorePreferencesRenders);
             AfterBuild(ActiveMessageParameterProcessor);
         }
 

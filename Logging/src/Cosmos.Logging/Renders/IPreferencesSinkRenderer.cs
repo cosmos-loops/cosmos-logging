@@ -1,5 +1,5 @@
 ﻿namespace Cosmos.Logging.Renders {
-    public interface IPreferencesSinkRender : IPreferencesRender {
+    public interface IPreferencesSinkRenderer : IPreferencesRenderer {
         string SinkPrefix { get; }
     }
 }
