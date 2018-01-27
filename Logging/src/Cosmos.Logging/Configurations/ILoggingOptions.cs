@@ -2,12 +2,12 @@
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Configurations {
-    public interface ILoggerSettings {
+    public interface ILoggingOptions {
 
         string Level { get; set; }
         string Name { get; set; }
 
-        Dictionary<string, ILogSinkSettings> Sinks { get; set; }
+        Dictionary<string, ILoggingSinkOptions> Sinks { get; set; }
         LogEventLevel GetMinimumLevel();
     }
 }

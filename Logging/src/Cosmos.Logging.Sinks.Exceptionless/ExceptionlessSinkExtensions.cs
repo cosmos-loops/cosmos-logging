@@ -9,21 +9,21 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.Exceptionless {
     public static class ExceptionlessSinkExtensions {
-        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, Action<ExceptionlessSinkSettings> settingAct = null,
+        public static ILogServiceCollection AddExceptionless(this ILogServiceCollection services, Action<ExceptionlessOptions> settingAct = null,
             Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {
-            var settings = new ExceptionlessSinkSettings();
+            var settings = new ExceptionlessOptions();
             settingAct?.Invoke(settings);
-            return services.UseExceptionless(settings, configAct);
+            return services.AddExceptionless(settings, configAct);
         }
 
-        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, ExceptionlessSinkSettings settings,
+        public static ILogServiceCollection AddExceptionless(this ILogServiceCollection services, ExceptionlessOptions options,
             Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {
-            return services.UseExceptionless(Options.Create(settings), configAct);
+            return services.AddExceptionless(Options.Create(options), configAct);
         }
 
-        public static ILogServiceCollection UseExceptionless(this ILogServiceCollection services, IOptions<ExceptionlessSinkSettings> settings,
+        public static ILogServiceCollection AddExceptionless(this ILogServiceCollection services, IOptions<ExceptionlessOptions> settings,
             Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {
-            services.AddSinkSettings<ExceptionlessSinkSettings, ExceptionlessSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
+            services.AddSinkSettings<ExceptionlessOptions, ExceptionlessSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, ExceptionlessPayloadClient>();
                 s.AddScoped<ILogPayloadClientProvider, ExceptionlessPayloadClientProvider>();

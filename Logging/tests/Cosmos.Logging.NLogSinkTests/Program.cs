@@ -14,7 +14,7 @@ namespace Cosmos.Logging.NLogSinkTests {
 
                 LOGGER.Initialize().RunsOnConsole()
                     //.WriteToNLog(s => s.OriginConfiguration = config)
-                    .UseNLog(s => s.EnableUsingDefaultConfig())
+                    .AddNLog(s => s.EnableUsingDefaultConfig())
                     .AllDone();
 
                 var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);

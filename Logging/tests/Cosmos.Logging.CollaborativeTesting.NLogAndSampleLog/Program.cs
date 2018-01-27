@@ -9,11 +9,8 @@ namespace Cosmos.Logging.CollaborativeTesting.NLogAndSampleLog {
             try {
                 LOGGER.Initialize().RunsOnConsole()
                     //.UseNLog(s=>s.EnableUsingDefaultConfig())
-                    .UseNLog()
-                    .UseSampleLog(s => {
-                        s.Name = "sampleSink_123";
-                        s.Level = LogEventLevel.Debug;
-                    })
+                    .AddNLog()
+                    .AddSampleLog(s => s.UseMinLevel(LogEventLevel.Debug))
                     .AllDone();
 
                 var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);

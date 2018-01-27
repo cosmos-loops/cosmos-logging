@@ -6,24 +6,16 @@ using Cosmos.Logging.Sinks.SampleLogSink;
 
 namespace Cosmos.Logging.CollaborativeTesting.NLogAndExceptionless {
     class Program {
-        
+
         static void Main(string[] args) {
             try {
                 LOGGER.Initialize().RunsOnConsole()
-                    .UseNLog(s =>
-                    {
-                        s.Level = LogEventLevel.Information;
-                        s.UseDefaultOriginConfigFilePath();
-                    })
-                    .UseExceptionless(s =>
-                    {
-                        s.Level = LogEventLevel.Information;
-                        s.UseAppSettings();
-                    })
-                    .UseSampleLog(s => s.Level = LogEventLevel.Information)
+                    .AddNLog(s => s.UseMinLevel(LogEventLevel.Information).UseDefaultOriginConfigFilePath())
+                    .AddExceptionless(s => s.UseMinLevel(LogEventLevel.Information).UseAppSettings())
+                    .AddSampleLog(s => s.UseMinLevel(LogEventLevel.Information))
                     .AllDone();
 
-                var logger = LOGGER.GetLogger(LogEventLevel.Verbose ,mode: LogEventSendMode.Manually);
+                var logger = LOGGER.GetLogger(LogEventLevel.Verbose, mode: LogEventSendMode.Manually);
 
                 logger.LogInformation("hello");
                 logger.LogError("world");

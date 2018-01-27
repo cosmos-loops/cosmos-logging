@@ -9,21 +9,21 @@ using NLog.Config;
 
 namespace Cosmos.Logging.Sinks.NLog {
     public static class NLogSinkExtensions {
-        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, Action<NLogSinkSettings> settingAct = null,
+        public static ILogServiceCollection AddNLog(this ILogServiceCollection services, Action<NLoggingOptions> settingAct = null,
             Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
-            var settings = new NLogSinkSettings();
+            var settings = new NLoggingOptions();
             settingAct?.Invoke(settings);
-            return services.UseNLog(settings, configAction);
+            return services.AddNLog(settings, configAction);
         }
 
-        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, NLogSinkSettings settings,
+        public static ILogServiceCollection AddNLog(this ILogServiceCollection services, NLoggingOptions options,
             Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
-            return services.UseNLog(Options.Create(settings), configAction);
+            return services.AddNLog(Options.Create(options), configAction);
         }
 
-        public static ILogServiceCollection UseNLog(this ILogServiceCollection services, IOptions<NLogSinkSettings> settings,
+        public static ILogServiceCollection AddNLog(this ILogServiceCollection services, IOptions<NLoggingOptions> settings,
             Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
-            services.AddSinkSettings<NLogSinkSettings, NLogSinkConfiguration>(settings.Value, (conf, sink) => configAction?.Invoke(conf, sink));
+            services.AddSinkSettings<NLoggingOptions, NLogSinkConfiguration>(settings.Value, (conf, sink) => configAction?.Invoke(conf, sink));
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, NLogPayloadClient>();
                 s.AddScoped<ILogPayloadClientProvider, NLogPayloadClientProvider>();

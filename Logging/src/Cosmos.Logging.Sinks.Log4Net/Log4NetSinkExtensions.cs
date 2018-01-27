@@ -11,21 +11,21 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.Log4Net {
     public static class Log4NetSinkExtensions {
-        public static ILogServiceCollection UseLog4Net(this ILogServiceCollection services, Action<Log4NetSinkSettings> settingAct = null,
+        public static ILogServiceCollection AddLog4Net(this ILogServiceCollection services, Action<Log4NetOptions> settingAct = null,
             Action<IConfiguration, Log4NetSinkConfiguration> configAct = null) {
-            var settings = new Log4NetSinkSettings();
+            var settings = new Log4NetOptions();
             settingAct?.Invoke(settings);
-            return services.UseLog4Net(settings, configAct);
+            return services.AddLog4Net(settings, configAct);
         }
 
-        public static ILogServiceCollection UseLog4Net(this ILogServiceCollection services, Log4NetSinkSettings settings,
+        public static ILogServiceCollection AddLog4Net(this ILogServiceCollection services, Log4NetOptions options,
             Action<IConfiguration, Log4NetSinkConfiguration> configAct = null) {
-            return services.UseLog4Net(Options.Create(settings), configAct);
+            return services.AddLog4Net(Options.Create(options), configAct);
         }
 
-        public static ILogServiceCollection UseLog4Net(this ILogServiceCollection services, IOptions<Log4NetSinkSettings> settings,
+        public static ILogServiceCollection AddLog4Net(this ILogServiceCollection services, IOptions<Log4NetOptions> settings,
             Action<IConfiguration, Log4NetSinkConfiguration> configAct = null) {
-            services.AddSinkSettings<Log4NetSinkSettings, Log4NetSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
+            services.AddSinkSettings<Log4NetOptions, Log4NetSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, Log4NetPayloadClient>();
                 s.AddScoped<ILogPayloadClientProvider, Log4NetPayloadClientProvider>();

@@ -11,9 +11,9 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         private LoggingConfigurationBuilder _configurationBuilder;
         private readonly bool _configurationBuilderLockedStatus;
         private readonly IServiceCollection _serviceCollection;
-        private ILoggerSettings _settings { get; set; }
+        private ILoggingOptions _settings { get; set; }
         private LoggingConfiguration _loggingConfiguration { get; set; }
-        private readonly Dictionary<string, ILogSinkSettings> _sinkSettings;
+        private readonly Dictionary<string, ILoggingSinkOptions> _sinkSettings;
         private object _sinkUpdateLock = new object();
         private Action<IConfigurationRoot> _originConfigAction;
 
@@ -25,8 +25,8 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
             _configurationBuilder = new LoggingConfigurationBuilder(builder);
             _configurationBuilderLockedStatus = false;
             _serviceCollection = services ?? throw new ArgumentNullException(nameof(services));
-            _settings = new LoggingSettings();
-            _sinkSettings = new Dictionary<string, ILogSinkSettings>();
+            _settings = new LoggingOptions();
+            _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
 
             BeGivenConfigurationBuilder = _configurationBuilder.InitializedByGivenBuilder;
             BeGivenConfigurationRoot = false;
@@ -36,8 +36,8 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
             _configurationBuilder = new DisabledConfigurationBuilder(root);
             _configurationBuilderLockedStatus = true;
             _serviceCollection = services;
-            _settings = new LoggingSettings();
-            _sinkSettings = new Dictionary<string, ILogSinkSettings>();
+            _settings = new LoggingOptions();
+            _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
 
             BeGivenConfigurationBuilder = _configurationBuilder.InitializedByGivenBuilder;
             BeGivenConfigurationRoot = true;
@@ -46,11 +46,11 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         public bool BeGivenConfigurationBuilder { get; }
         public bool BeGivenConfigurationRoot { get; }
         public IServiceCollection ExposeServices() => _serviceCollection;
-        public ILoggerSettings ExposeLogSettings() => _settings;
+        public ILoggingOptions ExposeLogSettings() => _settings;
         public LoggingConfiguration ExposeLoggingConfiguration() => _loggingConfiguration;
 
-        public void ReplaceSettings<TLoggerSettings>(ILoggerSettings newSettings)
-            where TLoggerSettings : LoggingSettings, new() {
+        public void ReplaceSettings<TLoggerSettings>(ILoggingOptions newSettings)
+            where TLoggerSettings : LoggingOptions, new() {
             if (newSettings != null) _settings = newSettings;
         }
 
@@ -62,7 +62,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         private Action<object> AddSinkSettingsAction { get; set; }
 
         public ILogServiceCollection AddSinkSettings<TSinkSettings, TSinkConfiguration>(TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> configAct)
-            where TSinkSettings : class, ILogSinkSettings, new() where TSinkConfiguration : SinkConfiguration, new() {
+            where TSinkSettings : class, ILoggingSinkOptions, new() where TSinkConfiguration : SinkConfiguration, new() {
             if (settings != null && !_sinkSettings.ContainsKey(settings.Key)) {
                 AddSinkSettingsAction += lockObj => {
                     lock (lockObj) {

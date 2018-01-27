@@ -3,10 +3,15 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Sinks.NLog {
-    public class NLogSinkSettings : ILogSinkSettings {
+    public class NLoggingOptions : ILoggingSinkOptions<NLoggingOptions>, ILoggingSinkOptions {
         public string Key => Internals.Constants.SinkKey;
-        public string Name { get; set; } = $"{Internals.Constants.SinkPrefix}_{DateTime.Now:yyyyMMdd_HHmmssffff}";
-        public LogEventLevel? Level { get; set; }
+        public string Name => $"{Internals.Constants.SinkPrefix}_{DateTime.Now:yyyyMMdd}";
+        internal LogEventLevel InternalMinLevel { get; private set; }
+
+        public NLoggingOptions UseMinLevel(LogEventLevel level) {
+            InternalMinLevel = level;
+            return this;
+        }
 
         public global::NLog.Config.LoggingConfiguration OriginConfiguration { get; set; }
 

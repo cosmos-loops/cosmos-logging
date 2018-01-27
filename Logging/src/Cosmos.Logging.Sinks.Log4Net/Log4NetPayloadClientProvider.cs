@@ -5,16 +5,16 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.Log4Net {
     public class Log4NetPayloadClientProvider : ILogPayloadClientProvider {
-        private readonly Log4NetSinkSettings _settings;
+        private readonly Log4NetOptions _options;
         private readonly LoggingConfiguration _loggingConfiguration;
 
-        public Log4NetPayloadClientProvider(IOptions<Log4NetSinkSettings> settings, LoggingConfiguration loggingConfiguration) {
-            _settings = settings == null ? new Log4NetSinkSettings() : settings.Value;
+        public Log4NetPayloadClientProvider(IOptions<Log4NetOptions> settings, LoggingConfiguration loggingConfiguration) {
+            _options = settings == null ? new Log4NetOptions() : settings.Value;
             _loggingConfiguration = loggingConfiguration ?? throw new ArgumentNullException(nameof(loggingConfiguration));
         }
 
         public ILogPayloadClient GetClient() {
-            return new Log4NetPayloadClient(_settings.Name, _loggingConfiguration.GetSinkConfiguration<Log4NetSinkConfiguration>(Internals.Constants.SinkKey));
+            return new Log4NetPayloadClient(_options.Name, _loggingConfiguration.GetSinkConfiguration<Log4NetSinkConfiguration>(Internals.Constants.SinkKey));
         }
     }
 }
