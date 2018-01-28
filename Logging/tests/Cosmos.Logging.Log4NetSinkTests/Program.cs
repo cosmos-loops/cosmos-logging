@@ -14,7 +14,7 @@ namespace Cosmos.Logging.Log4NetSinkTests {
                     .AddLog4Net(s => s.UseDefaultOriginConfigFilePath())
                     .AllDone();
 
-                var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);
+                var logger = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
 
                 logger.LogInformation("hello");
                 logger.LogError("world");

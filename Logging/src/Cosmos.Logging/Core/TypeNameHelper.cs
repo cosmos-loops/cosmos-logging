@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Cosmos.Logging.RunsOn.Console.Core {
+namespace Cosmos.Logging.Core {
     /// <summary>
     /// One copy from Microsoft.Extensions.Logging
     /// </summary>
-    internal static class TypeNameHelper {
+    public static class TypeNameHelper {
         private static readonly Dictionary<Type, string> BuiltInTypeNames = new Dictionary<Type, string> {
             {typeof(bool), "bool"},
             {typeof(byte), "byte"},

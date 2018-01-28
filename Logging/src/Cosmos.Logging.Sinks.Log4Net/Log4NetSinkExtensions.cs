@@ -11,21 +11,21 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.Log4Net {
     public static class Log4NetSinkExtensions {
-        public static ILogServiceCollection AddLog4Net(this ILogServiceCollection services, Action<Log4NetOptions> settingAct = null,
+        public static ILogServiceCollection AddLog4Net(this ILogServiceCollection services, Action<Log4NetSinkOptions> settingAct = null,
             Action<IConfiguration, Log4NetSinkConfiguration> configAct = null) {
-            var settings = new Log4NetOptions();
+            var settings = new Log4NetSinkOptions();
             settingAct?.Invoke(settings);
             return services.AddLog4Net(settings, configAct);
         }
 
-        public static ILogServiceCollection AddLog4Net(this ILogServiceCollection services, Log4NetOptions options,
+        public static ILogServiceCollection AddLog4Net(this ILogServiceCollection services, Log4NetSinkOptions sinkOptions,
             Action<IConfiguration, Log4NetSinkConfiguration> configAct = null) {
-            return services.AddLog4Net(Options.Create(options), configAct);
+            return services.AddLog4Net(Options.Create(sinkOptions), configAct);
         }
 
-        public static ILogServiceCollection AddLog4Net(this ILogServiceCollection services, IOptions<Log4NetOptions> settings,
+        public static ILogServiceCollection AddLog4Net(this ILogServiceCollection services, IOptions<Log4NetSinkOptions> settings,
             Action<IConfiguration, Log4NetSinkConfiguration> configAct = null) {
-            services.AddSinkSettings<Log4NetOptions, Log4NetSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
+            services.AddSinkSettings<Log4NetSinkOptions, Log4NetSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, Log4NetPayloadClient>();
                 s.AddScoped<ILogPayloadClientProvider, Log4NetPayloadClientProvider>();

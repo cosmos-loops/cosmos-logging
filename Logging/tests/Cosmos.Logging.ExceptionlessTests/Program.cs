@@ -18,7 +18,7 @@ namespace Cosmos.Logging.ExceptionlessTests {
                     .AddExceptionless()
                     .AllDone();
 
-                var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);
+                var logger = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
 
                 logger.LogInformation("测试1", ctx => ctx.ForExceptionless(h => h.AddTags("CosmosLogging")));
                 logger.LogInformation("测试2", builder => builder.AddTags("CosmosLogging"));

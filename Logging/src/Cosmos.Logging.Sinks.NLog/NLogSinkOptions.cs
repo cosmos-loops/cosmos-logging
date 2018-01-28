@@ -4,11 +4,8 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 
-namespace Cosmos.Logging.Sinks.SampleLogSink {
-    public class SampleOptions : ILoggingSinkOptions<SampleOptions>, ILoggingSinkOptions {
-        
-        public SampleOptions() { }
-        
+namespace Cosmos.Logging.Sinks.NLog {
+    public class NLogSinkOptions : ILoggingSinkOptions<NLogSinkOptions>, ILoggingSinkOptions {
         public string Key => Internals.Constants.SinkKey;
 
         #region Append log minimum level
@@ -17,7 +14,7 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
 
         internal LogEventLevel? MinimumLevel { get; set; }
 
-        public SampleOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
+        public NLogSinkOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var typeName = TypeNameHelper.GetTypeDisplayName(type);
             if (InternalNavigatorLogEventLevels.ContainsKey(typeName)) {
@@ -29,13 +26,13 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
             return this;
         }
 
-        public SampleOptions UseMinimumLevelForNamespace(Type type, LogEventLevel level) {
+        public NLogSinkOptions UseMinimumLevelForNamespace(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var @namespace = type.Namespace;
             return UseMinimumLevelForNamespace(@namespace, level);
         }
 
-        public SampleOptions UseMinimumLevelForNamespace(string @namespace, LogEventLevel level) {
+        public NLogSinkOptions UseMinimumLevelForNamespace(string @namespace, LogEventLevel level) {
             if (string.IsNullOrWhiteSpace(@namespace)) throw new ArgumentNullException(nameof(@namespace));
             @namespace = $"{@namespace}.*";
             if (InternalNavigatorLogEventLevels.ContainsKey(@namespace)) {
@@ -47,18 +44,18 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
             return this;
         }
 
-        public SampleOptions UseMinimumLevel(LogEventLevel? level) {
+        public NLogSinkOptions UseMinimumLevel(LogEventLevel? level) {
             MinimumLevel = level;
             return this;
         }
 
         #endregion
-
+        
         #region Append log level alias
 
         internal readonly Dictionary<string, LogEventLevel> InternalAliases = new Dictionary<string, LogEventLevel>();
 
-        public SampleOptions UseAlias(string alias, LogEventLevel level) {
+        public NLogSinkOptions UseAlias(string alias, LogEventLevel level) {
             if (string.IsNullOrWhiteSpace(alias)) return this;
             if (InternalAliases.ContainsKey(alias)) {
                 InternalAliases[alias] = level;
@@ -70,5 +67,14 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
         }
 
         #endregion
+
+        public global::NLog.Config.LoggingConfiguration OriginConfiguration { get; set; }
+
+        public void UseDefaultOriginConfigFilePath() => OriginConfigFilePath = "nlog.config";
+        public string OriginConfigFilePath { get; set; }
+
+        public void EnableUsingDefaultConfig() => DoesUsedDefaultConfig = true;
+        public void DisableUsingDefaultConfig() => DoesUsedDefaultConfig = false;
+        internal bool DoesUsedDefaultConfig { get; set; } = true;
     }
 }

@@ -9,21 +9,21 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.Exceptionless {
     public static class ExceptionlessSinkExtensions {
-        public static ILogServiceCollection AddExceptionless(this ILogServiceCollection services, Action<ExceptionlessOptions> settingAct = null,
+        public static ILogServiceCollection AddExceptionless(this ILogServiceCollection services, Action<ExceptionlessSinkOptions> settingAct = null,
             Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {
-            var settings = new ExceptionlessOptions();
+            var settings = new ExceptionlessSinkOptions();
             settingAct?.Invoke(settings);
             return services.AddExceptionless(settings, configAct);
         }
 
-        public static ILogServiceCollection AddExceptionless(this ILogServiceCollection services, ExceptionlessOptions options,
+        public static ILogServiceCollection AddExceptionless(this ILogServiceCollection services, ExceptionlessSinkOptions sinkOptions,
             Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {
-            return services.AddExceptionless(Options.Create(options), configAct);
+            return services.AddExceptionless(Options.Create(sinkOptions), configAct);
         }
 
-        public static ILogServiceCollection AddExceptionless(this ILogServiceCollection services, IOptions<ExceptionlessOptions> settings,
+        public static ILogServiceCollection AddExceptionless(this ILogServiceCollection services, IOptions<ExceptionlessSinkOptions> settings,
             Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {
-            services.AddSinkSettings<ExceptionlessOptions, ExceptionlessSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
+            services.AddSinkSettings<ExceptionlessSinkOptions, ExceptionlessSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, ExceptionlessPayloadClient>();
                 s.AddScoped<ILogPayloadClientProvider, ExceptionlessPayloadClientProvider>();

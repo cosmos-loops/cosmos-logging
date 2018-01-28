@@ -13,7 +13,7 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
         }
 
         public ILogPayloadClient GetClient() {
-            return new SampleLogPayloadClient(_options.Name, _loggingConfiguration.GetSinkConfiguration<SampleLogConfiguration>(Internals.Constants.SinkKey));
+            return new SampleLogPayloadClient(_options.Key, _loggingConfiguration.GetSinkConfiguration<SampleLogConfiguration>(Internals.Constants.SinkKey));
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Filters;
+using Cosmos.Logging.Filters.Navigators;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging {
@@ -12,24 +12,27 @@ namespace Cosmos.Logging {
 
         public LogEventLevel GetSinkDefaultMinimumLevel(string sinkName) => NavigationFilterProcessor.GetDefault(sinkName);
 
-        public void SetSinkConfiguration<TSinkConfiguration>(string sectionName, Action<IConfiguration, TSinkConfiguration> addtionalAct = null)
-            where TSinkConfiguration : SinkConfiguration, new() {
+        public void SetSinkConfiguration<TSinkConfiguration, TSinkSettings>(
+            string sectionName, TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> addtionalAct = null)
+            where TSinkConfiguration : SinkConfiguration, new() where TSinkSettings : class, ILoggingSinkOptions, new() {
             if (string.IsNullOrWhiteSpace(sectionName)) throw new ArgumentNullException(nameof(sectionName));
+            if (settings == null) throw new ArgumentNullException(nameof(settings));
             var section = _loggingConfiguration.GetSection($"Logging:{sectionName}");
             var configuration = section.Get<TSinkConfiguration>() ?? new TSinkConfiguration();
             addtionalAct?.Invoke(section, configuration);
 
-            SetSinkConfiguration(configuration);
+            SetSinkConfiguration(configuration, settings);
         }
 
-        public void SetSinkConfiguration<TSinkConfiguration>(TSinkConfiguration configuration)
-            where TSinkConfiguration : SinkConfiguration, new() {
+        public void SetSinkConfiguration<TSinkConfiguration, TSinkSettings>(TSinkConfiguration configuration, TSinkSettings settings)
+            where TSinkConfiguration : SinkConfiguration, new() where TSinkSettings : class, ILoggingSinkOptions, new() {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+            if (settings == null) throw new ArgumentNullException(nameof(settings));
             if (string.IsNullOrWhiteSpace(configuration.Name)) throw new ArgumentNullException(nameof(configuration.Name));
             if (!_sinkConfigurations.ContainsKey(configuration.Name)) {
                 lock (_sinkConfigurationsLock) {
                     if (!_sinkConfigurations.ContainsKey(configuration.Name)) {
-                        configuration.ProcessLogLevel();
+                        configuration.ProcessLogLevel(settings);
                         _sinkConfigurations.Add(configuration.Name, configuration);
                     }
                 }

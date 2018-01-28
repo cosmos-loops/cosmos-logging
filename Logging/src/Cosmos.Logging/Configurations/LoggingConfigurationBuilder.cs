@@ -51,9 +51,9 @@ namespace Cosmos.Logging.Configurations {
         protected Action<LoggingConfigurationBuilder> BeforeBuildAction { get; set; }
         protected Action<LoggingConfiguration> AfterBuildAction { get; set; }
 
-        public virtual LoggingConfiguration Build() {
+        public virtual LoggingConfiguration Build(ILoggingOptions settings) {
             BeforeBuildAction?.Invoke(this);
-            var loggingConfiguration = new LoggingConfiguration(ConfigurationBuilder.Build());
+            var loggingConfiguration = new LoggingConfiguration(settings, ConfigurationBuilder.Build());
             AfterBuildAction?.Invoke(loggingConfiguration);
             return loggingConfiguration;
         }

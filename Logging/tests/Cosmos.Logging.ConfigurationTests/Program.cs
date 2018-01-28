@@ -37,7 +37,7 @@ namespace Cosmos.Logging.ConfigurationTests {
         }
 
         public void Process() {
-            var logger = LOGGER.GetLogger("main");
+            var logger = LOGGER.GetLogger<Program>();
             logger.LogInformation("hello");
         }
     }

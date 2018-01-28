@@ -10,10 +10,10 @@ namespace Cosmos.Logging.CollaborativeTesting.NLogAndSampleLog {
                 LOGGER.Initialize().RunsOnConsole()
                     //.UseNLog(s=>s.EnableUsingDefaultConfig())
                     .AddNLog()
-                    .AddSampleLog(s => s.UseMinLevel(LogEventLevel.Debug))
+                    .AddSampleLog(s => s.UseMinimumLevel(LogEventLevel.Debug))
                     .AllDone();
 
-                var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);
+                var logger = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
 
                 logger.LogInformation("hello");
                 logger.LogError("world");

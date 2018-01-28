@@ -9,21 +9,21 @@ using NLog.Config;
 
 namespace Cosmos.Logging.Sinks.NLog {
     public static class NLogSinkExtensions {
-        public static ILogServiceCollection AddNLog(this ILogServiceCollection services, Action<NLoggingOptions> settingAct = null,
+        public static ILogServiceCollection AddNLog(this ILogServiceCollection services, Action<NLogSinkOptions> settingAct = null,
             Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
-            var settings = new NLoggingOptions();
+            var settings = new NLogSinkOptions();
             settingAct?.Invoke(settings);
             return services.AddNLog(settings, configAction);
         }
 
-        public static ILogServiceCollection AddNLog(this ILogServiceCollection services, NLoggingOptions options,
+        public static ILogServiceCollection AddNLog(this ILogServiceCollection services, NLogSinkOptions options,
             Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
             return services.AddNLog(Options.Create(options), configAction);
         }
 
-        public static ILogServiceCollection AddNLog(this ILogServiceCollection services, IOptions<NLoggingOptions> settings,
+        public static ILogServiceCollection AddNLog(this ILogServiceCollection services, IOptions<NLogSinkOptions> settings,
             Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
-            services.AddSinkSettings<NLoggingOptions, NLogSinkConfiguration>(settings.Value, (conf, sink) => configAction?.Invoke(conf, sink));
+            services.AddSinkSettings<NLogSinkOptions, NLogSinkConfiguration>(settings.Value, (conf, sink) => configAction?.Invoke(conf, sink));
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, NLogPayloadClient>();
                 s.AddScoped<ILogPayloadClientProvider, NLogPayloadClientProvider>();

@@ -5,10 +5,11 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.RunsOn.Console.Core {
-    internal static class IocContainer {
+    internal static class InternalDependencyContainer {
         private static IServiceResolver ServiceResolver { get; set; }
 
         public static ILogServiceCollection Initialize() {
@@ -39,8 +40,8 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
                 servicesImpl.ActiveSinkSettings();
                 servicesImpl.ActiveOriginConfiguration();
                 servicesImpl.ActiveConsolePreferencesRenderers();
-                servicesImpl.AddDependency(s => s.AddSingleton(Options.Create((LoggingOptions) servicesImpl.ExposeLogSettings())));
-                servicesImpl.AddDependency(s => s.AddSingleton(servicesImpl.ExposeLoggingConfiguration()));
+                servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(Options.Create((LoggingOptions) servicesImpl.ExposeLogSettings()))));
+                servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(servicesImpl.ExposeLoggingConfiguration())));
                 ServiceResolver = servicesImpl.ExposeServices().ToServiceContainer().Build();
             } else {
                 throw new ArgumentException(nameof(services));

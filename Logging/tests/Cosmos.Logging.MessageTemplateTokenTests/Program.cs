@@ -27,10 +27,10 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
 
                 LOGGER.Initialize(root).RunsOnConsole()
                     .PreheatMessageTemplates(Preheater)
-                    .AddSampleLog(s => s.UseMinLevel(LogEventLevel.Information))
+                    .AddSampleLog(s => s.UseMinimumLevel(LogEventLevel.Information))
                     .AllDone();
 
-                var logger = LOGGER.GetLogger("TOKEN_TESTS_SAMPLESINK");
+                var logger = LOGGER.GetLogger<Program>();
 //                lock (SyncLock) {
 //                    //Text token
 //                    logger.Information("text token test--> {{1.helloworld");

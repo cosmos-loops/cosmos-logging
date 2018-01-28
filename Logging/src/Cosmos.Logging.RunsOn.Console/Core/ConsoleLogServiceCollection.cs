@@ -11,8 +11,8 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         private LoggingConfigurationBuilder _configurationBuilder;
         private readonly bool _configurationBuilderLockedStatus;
         private readonly IServiceCollection _serviceCollection;
-        private ILoggingOptions _settings { get; set; }
         private LoggingConfiguration _loggingConfiguration { get; set; }
+        private ILoggingOptions _settings { get; set; }
         private readonly Dictionary<string, ILoggingSinkOptions> _sinkSettings;
         private object _sinkUpdateLock = new object();
         private Action<IConfigurationRoot> _originConfigAction;
@@ -35,7 +35,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         internal ConsoleLogServiceCollection(IServiceCollection services, IConfigurationRoot root) {
             _configurationBuilder = new DisabledConfigurationBuilder(root);
             _configurationBuilderLockedStatus = true;
-            _serviceCollection = services;
+            _serviceCollection = services ?? throw new ArgumentNullException(nameof(services));
             _settings = new LoggingOptions();
             _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
 
@@ -49,8 +49,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         public ILoggingOptions ExposeLogSettings() => _settings;
         public LoggingConfiguration ExposeLoggingConfiguration() => _loggingConfiguration;
 
-        public void ReplaceSettings<TLoggerSettings>(ILoggingOptions newSettings)
-            where TLoggerSettings : LoggingOptions, new() {
+        public void ReplaceSettings(ILoggingOptions newSettings) {
             if (newSettings != null) _settings = newSettings;
         }
 
@@ -67,7 +66,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
                 AddSinkSettingsAction += lockObj => {
                     lock (lockObj) {
                         if (!_sinkSettings.ContainsKey(settings.Key)) _sinkSettings.Add(settings.Key, settings);
-                        _loggingConfiguration?.SetSinkConfiguration(settings.Key, configAct);
+                        _loggingConfiguration?.SetSinkConfiguration(settings.Key, settings, configAct);
                     }
                 };
             }
@@ -97,7 +96,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         }
 
         internal void BuildConfiguration() {
-            _loggingConfiguration = _configurationBuilder.Build();
+            _loggingConfiguration = _configurationBuilder.Build(_settings);
         }
 
         internal void ActiveSinkSettings() {

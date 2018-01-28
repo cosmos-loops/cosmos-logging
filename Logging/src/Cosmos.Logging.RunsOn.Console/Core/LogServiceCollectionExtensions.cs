@@ -23,14 +23,14 @@ namespace Cosmos.Logging {
         public static ILogServiceCollection RunsOnConsole<TLoggingSettings>(this ILogServiceCollection services, TLoggingSettings settings)
             where TLoggingSettings : LoggingOptions, new() {
             if (services is ConsoleLogServiceCollection collection) {
-                collection.ReplaceSettings<TLoggingSettings>(settings);
+                collection.ReplaceSettings(settings);
             }
 
             return services.RegisterToRunsOnConsole();
         }
 
         public static void AllDone(this ILogServiceCollection services) {
-            IocContainer.AllDone(services);
+            InternalDependencyContainer.AllDone(services);
         }
 
         private static ILogServiceCollection RegisterToRunsOnConsole(this ILogServiceCollection services) {

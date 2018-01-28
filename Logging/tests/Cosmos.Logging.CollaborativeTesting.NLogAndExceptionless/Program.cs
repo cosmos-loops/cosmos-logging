@@ -10,18 +10,18 @@ namespace Cosmos.Logging.CollaborativeTesting.NLogAndExceptionless {
         static void Main(string[] args) {
             try {
                 LOGGER.Initialize().RunsOnConsole()
-                    .AddNLog(s => s.UseMinLevel(LogEventLevel.Information).UseDefaultOriginConfigFilePath())
-                    .AddExceptionless(s => s.UseMinLevel(LogEventLevel.Information).UseAppSettings())
-                    .AddSampleLog(s => s.UseMinLevel(LogEventLevel.Information))
+                    .AddNLog(s => s.UseMinimumLevel(LogEventLevel.Information).UseDefaultOriginConfigFilePath())
+                    .AddExceptionless(s => s.UseMinimumLevel(LogEventLevel.Information).UseAppSettings())
+                    .AddSampleLog(s => s.UseMinimumLevel(LogEventLevel.Information))
                     .AllDone();
 
-                var logger = LOGGER.GetLogger(LogEventLevel.Verbose, mode: LogEventSendMode.Manually);
+                var logger = LOGGER.GetLogger<Program>(LogEventLevel.Verbose, mode: LogEventSendMode.Manually);
 
                 logger.LogInformation("hello");
                 logger.LogError("world");
                 logger.SubmitLogger();
 
-                var logger2 = LOGGER.GetLogger(LogEventLevel.Verbose);
+                var logger2 = LOGGER.GetLogger<Program>(LogEventLevel.Verbose);
                 logger2.LogInformation("submit log automatically");
 
             }
