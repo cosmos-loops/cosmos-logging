@@ -5,14 +5,9 @@ using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.RunsOn.AspNet {
     public class AspNetLogger : LoggerBase {
-        public AspNetLogger(
-            Type sourceType,
-            LogEventLevel minimumLevel,
-            string loggerName,
-            LogEventSendMode sendMode,
-            LoggingConfiguration loggingConfiguration,
-            ILogPayloadSender logPayloadSender,
-            HttpContext context) : base(sourceType, minimumLevel, loggerName, sendMode, loggingConfiguration, logPayloadSender) {
+        public AspNetLogger(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, LogEventSendMode sendMode,
+            ILogPayloadSender logPayloadSender, HttpContext context)
+            : base(sourceType, minimumLevel, loggerStateNamespace, sendMode, logPayloadSender) {
             HttpContext = context;
         }
 

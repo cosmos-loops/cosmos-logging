@@ -13,6 +13,7 @@ namespace Cosmos.Logging.Events {
         private readonly Dictionary<string, ExtraMessageProperty> _extraMessageProperties;
 
         public LogEvent(
+            string stateNamespace,
             DateTimeOffset timestamp,
             LogEventLevel level,
             MessageTemplate messageTemplate,
@@ -25,6 +26,7 @@ namespace Cosmos.Logging.Events {
             if (namedMessageProperties == null) throw new ArgumentNullException(nameof(namedMessageProperties));
             if (positionalMessageProperties == null) throw new ArgumentNullException(nameof(positionalMessageProperties));
 
+            StateNamespace = stateNamespace;
             Timestamp = timestamp;
             Level = level;
             Exception = exception;
@@ -39,6 +41,7 @@ namespace Cosmos.Logging.Events {
             UpdateProperty(namedMessageProperties, positionalMessageProperties);
         }
 
+        public string StateNamespace { get; }
         public DateTimeOffset Timestamp { get; }
         public LogEventLevel Level { get; }
         public LogEventSendMode SendMode { get; }
