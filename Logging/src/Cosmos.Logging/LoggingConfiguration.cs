@@ -2,24 +2,22 @@
 using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Filters;
-using EnumsNET;
+using Cosmos.Logging.Filters.Navigators;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging {
-    public class LoggingConfiguration {
+    public partial class LoggingConfiguration {
+        private readonly ILoggingOptions _loggingSettings;
         private readonly IConfigurationRoot _loggingConfiguration;
-        private readonly NamespaceFilterNavCache _namespaceFilterNavCache;
-        private readonly List<NamespaceFilterNav> _namespaceFilterNavRoots = new List<NamespaceFilterNav>();
-        private readonly Dictionary<string, SinkConfiguration> _sinkConfigurations = new Dictionary<string, SinkConfiguration>();
-        private readonly object _parsedLgLevelLock = new object();
-        private readonly object _sinkConfigurationsLock = new object();
+        private readonly NamespaceNavigatorCache _namespaceNavigatorCache;
+        private readonly List<NamespaceNavigator> _namespaceFilterNavRoots = new List<NamespaceNavigator>();
 
         public LoggingConfiguration() { }
 
-        public LoggingConfiguration(IConfigurationRoot loggingConfiguration) {
+        public LoggingConfiguration(ILoggingOptions settings, IConfigurationRoot loggingConfiguration) {
+            _loggingSettings = settings ?? throw new ArgumentNullException(nameof(settings));
             _loggingConfiguration = loggingConfiguration ?? throw new ArgumentNullException(nameof(loggingConfiguration));
-            _namespaceFilterNavCache = new NamespaceFilterNavCache(new NamespaceFilterNavParser());
+            _namespaceNavigatorCache = new NamespaceNavigatorCache(new NamespaceNavigationParser());
             SetSelf(loggingConfiguration.GetSection("Logging").Get<LoggingConfiguration>());
         }
 
@@ -27,82 +25,22 @@ namespace Cosmos.Logging {
 
         public Dictionary<string, string> LogLevel { get; set; } = new Dictionary<string, string>();
 
-        public IReadOnlyList<NamespaceFilterNav> NamespaceFilterNavs => _namespaceFilterNavRoots;
+        public Dictionary<string, string> Aliases { get; set; } = new Dictionary<string, string>();
 
-        public LogEventLevel GetDefaultMinimumLevel() {
-            return LogLevel.TryGetValue("Default", out var strLevel)
-                ? Enums.GetMember<LogEventLevel>(strLevel, true).Value
-                : LogEventLevel.Verbose;
-        }
+        public IReadOnlyList<NamespaceNavigator> NamespaceFilterNavs => _namespaceFilterNavRoots;
 
-        public LogEventLevel GetSinkDefaultMinimumLevel(string sinkName) {
-            return GetSinkConfiguration(sinkName)?.GetDefaultMinimumLevel() ?? LogEventLevel.Off;
+        public LogEventLevel GetDefaultMinimumLevel() => NavigationFilterProcessor.GetDefault();
+
+        public LogEventLevel GetMinimumLevel(string @namespace) {
+            return string.IsNullOrWhiteSpace(@namespace)
+                ? GetDefaultMinimumLevel()
+                : _namespaceNavigatorCache.Match(@namespace, out var nav)
+                    ? nav.GetValue().Level
+                    : GetDefaultMinimumLevel();
         }
 
         public DestructureConfiguration Destructure { get; set; }
 
         public IConfigurationRoot Configuration => _loggingConfiguration;
-
-        public void SetSinkConfiguration<TSinkConfiguration>(string sectionName, Action<IConfiguration, TSinkConfiguration> addtionalAct = null)
-            where TSinkConfiguration : SinkConfiguration, new() {
-            if (string.IsNullOrWhiteSpace(sectionName)) throw new ArgumentNullException(nameof(sectionName));
-            var section = _loggingConfiguration.GetSection(sectionName);
-            var configuration = section.Get<TSinkConfiguration>() ?? new TSinkConfiguration();
-            addtionalAct?.Invoke(section, configuration);
-
-            SetSinkConfiguration(configuration);
-        }
-
-        public void SetSinkConfiguration<TSinkConfiguration>(TSinkConfiguration configuration)
-            where TSinkConfiguration : SinkConfiguration, new() {
-            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
-            if (string.IsNullOrWhiteSpace(configuration.Name)) throw new ArgumentNullException(nameof(configuration.Name));
-            // ReSharper disable once InconsistentlySynchronizedField
-            if (!_sinkConfigurations.ContainsKey(configuration.Name)) {
-                lock (_sinkConfigurationsLock) {
-                    if (!_sinkConfigurations.ContainsKey(configuration.Name)) {
-                        configuration.UpdateParsedLogLevel(_namespaceFilterNavCache);
-                        _sinkConfigurations.Add(configuration.Name, configuration);
-                    }
-                }
-            }
-        }
-
-        public TSinkConfiguration GetSinkConfiguration<TSinkConfiguration>() where TSinkConfiguration : SinkConfiguration, new() {
-            var temp = new TSinkConfiguration();
-            return GetSinkConfiguration<TSinkConfiguration>(temp.Name);
-        }
-
-        public TSinkConfiguration GetSinkConfiguration<TSinkConfiguration>(string name) where TSinkConfiguration : SinkConfiguration, new() {
-            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
-            return _sinkConfigurations[name] as TSinkConfiguration;
-        }
-
-        public SinkConfiguration GetSinkConfiguration(string name) {
-            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
-            return _sinkConfigurations[name];
-        }
-
-        private void SetSelf(LoggingConfiguration configuration) {
-            if (configuration == null) {
-                IncludeScopes = false;
-                LogLevel = new Dictionary<string, string> {{"Default", "Information"}};
-            } else {
-                IncludeScopes = configuration.IncludeScopes;
-                LogLevel = configuration.LogLevel;
-            }
-
-            foreach (var item in LogLevel) {
-                var nav = _namespaceFilterNavCache.Parse(item.Key, item.Value);
-                if (nav is EmptyNamespaceFilterNav) continue;
-                if (!_namespaceFilterNavRoots.Contains(nav)) {
-                    lock (_parsedLgLevelLock) {
-                        if (!_namespaceFilterNavRoots.Contains(nav)) {
-                            _namespaceFilterNavRoots.Add(nav);
-                        }
-                    }
-                }
-            }
-        }
     }
 }

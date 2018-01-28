@@ -9,11 +9,11 @@ namespace Cosmos.Logging.Core {
         bool BeGivenConfigurationBuilder { get; }
         bool BeGivenConfigurationRoot { get; }
         IServiceCollection ExposeServices();
-        ILoggerSettings ExposeLogSettings();
+        ILoggingOptions ExposeLogSettings();
         ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction);
 
         ILogServiceCollection AddSinkSettings<TSinkSettings, TSinkConfiguration>(TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> configAct)
-            where TSinkSettings : class, ILogSinkSettings, new()
+            where TSinkSettings : class, ILoggingSinkOptions, new()
             where TSinkConfiguration : SinkConfiguration, new();
 
         ILogServiceCollection PreheatMessageTemplates(Action<MessageTemplateCachePreheater> preheatAct);

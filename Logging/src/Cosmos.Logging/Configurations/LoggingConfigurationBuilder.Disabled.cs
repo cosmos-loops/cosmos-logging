@@ -8,6 +8,7 @@ namespace Cosmos.Logging.Configurations {
         public DisabledConfigurationBuilder(IConfigurationRoot root) {
             _root = root ?? throw new ArgumentNullException(nameof(root));
             BeforeBuild(ActiveMessageTemplatePreheater);
+            BeforeBuild(ActiveCorePreferencesRenders);
             AfterBuild(ActiveMessageParameterProcessor);
         }
 
@@ -19,9 +20,9 @@ namespace Cosmos.Logging.Configurations {
 
         public override LoggingConfigurationBuilder AddXmlFile(string path) => this;
 
-        public override LoggingConfiguration Build() {
+        public override LoggingConfiguration Build(ILoggingOptions settings) {
             BeforeBuildAction?.Invoke(this);
-            var loggingConfiguration = new LoggingConfiguration(_root);
+            var loggingConfiguration = new LoggingConfiguration(settings, _root);
             AfterBuildAction?.Invoke(loggingConfiguration);
             return loggingConfiguration;
         }

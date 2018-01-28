@@ -9,6 +9,7 @@ using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Sinks;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Filters;
 
 namespace Cosmos.Logging.Sinks.Log4Net {
     public class Log4NetPayloadClient : ILogEventSink, ILogPayloadClient {

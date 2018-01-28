@@ -4,32 +4,31 @@ using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.ObjectResolving;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Filters.Internals;
 
 namespace Cosmos.Logging {
     public abstract partial class LoggerBase : ILogger {
         private readonly ILogPayloadSender _logPayloadSender;
         private readonly MessageParameterProcessor _messageParameterProcessor;
-        private readonly LoggingConfiguration _loggingConfiguration;
 
-        protected LoggerBase(Type sourceType,
+        protected LoggerBase(
+            Type sourceType,
             LogEventLevel minimumLevel,
-            string loggerName,
+            string loggerStateNamespace,
             LogEventSendMode sendMode,
-            LoggingConfiguration loggingConfiguration,
             ILogPayloadSender logPayloadSender) {
-            Name = loggerName;
+            StateNamespace = loggerStateNamespace;
             TargetType = sourceType ?? typeof(object);
             MinimumLevel = minimumLevel;
             SendMode = sendMode;
-            _loggingConfiguration = loggingConfiguration ?? throw new ArgumentNullException(nameof(loggingConfiguration));
             _logPayloadSender = logPayloadSender ?? throw new ArgumentNullException(nameof(logPayloadSender));
             _messageParameterProcessor = MessageParameterProcessorCache.Get();
 
-            AutomaticPayload = new LogPayload(sourceType, loggerName, Enumerable.Empty<LogEvent>());
-            ManuallyPayload = new LogPayload(sourceType, loggerName, Enumerable.Empty<LogEvent>());
+            AutomaticPayload = new LogPayload(sourceType, loggerStateNamespace, Enumerable.Empty<LogEvent>());
+            ManuallyPayload = new LogPayload(sourceType, loggerStateNamespace, Enumerable.Empty<LogEvent>());
         }
 
-        public string Name { get; }
+        public string StateNamespace { get; }
         public Type TargetType { get; }
         public LogEventLevel MinimumLevel { get; }
         public LogEventSendMode SendMode { get; }
@@ -38,7 +37,7 @@ namespace Cosmos.Logging {
         private readonly ILogPayload ManuallyPayload;
 
         public bool IsEnabled(LogEventLevel level) {
-            return Filters.PreliminaryEventPercolator.Percolate(level, this, _loggingConfiguration);
+            return PreliminaryEventPercolator.Percolate(level, this);
         }
 
         protected virtual bool IsManuallySendMode(LogEvent logEvent) {
@@ -55,8 +54,8 @@ namespace Cosmos.Logging {
             _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
                 out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
 
-            var logEvent = new LogEvent(DateTimeOffset.Now, level, parsedTemplate, exception, sendMode,
-                namedMessageProperties, positionalMessageProperties, context);
+            var logEvent = new LogEvent(StateNamespace, DateTimeOffset.Now, level, parsedTemplate, exception,
+                sendMode, namedMessageProperties, positionalMessageProperties, context);
 
             Dispatch(logEvent);
 
@@ -84,7 +83,7 @@ namespace Cosmos.Logging {
 
         public IDisposable BeginScope<TState>(TState state) {
             if (state == null) throw new ArgumentNullException(nameof(state));
-            return LoggingScope.Push(Name, state);
+            return LoggingScope.Push(StateNamespace, state);
         }
 
         public void SubmitLogger() {

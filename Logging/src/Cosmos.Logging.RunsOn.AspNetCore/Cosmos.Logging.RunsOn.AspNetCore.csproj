@@ -1,13 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
-    <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj">
-      <Project>{F04437BF-D39F-4ACF-BCDB-AC6ADF5C87C3}</Project>
-      <Name>Cosmos.Logging</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.1" />

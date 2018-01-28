@@ -7,10 +7,10 @@ namespace Cosmos.Logging.SampleSinkNfxTests {
 
             try {
                 LOGGER.Initialize().RunsOnConsole()
-                    .UseSampleLog()
+                    .AddSampleLog()
                     .AllDone();
 
-                var logger = LOGGER.GetLogger();
+                var logger = LOGGER.GetLogger<Program>();
 
                 logger.LogInformation("hello world!");
 

@@ -7,21 +7,16 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.SampleLogSink {
     public static class SampleLogSinkExtensions {
-        public static ILogServiceCollection UseSampleLog(this ILogServiceCollection services, Action<SampleLogSinkSettings> settingAct = null,
-            Action<IConfiguration, SampleLogConfiguration> configAction = null) {
-            var settings = new SampleLogSinkSettings();
-            settingAct?.Invoke(settings);
-            return services.UseSampleLog(settings, configAction);
+        public static ILogServiceCollection AddSampleLog(this ILogServiceCollection services, Action<SampleOptions> settingAct = null,
+            Action<IConfiguration, SampleLogConfiguration> config = null) {
+            var options = new SampleOptions();
+            settingAct?.Invoke(options);
+            return services.AddSampleLog(Options.Create(options), config);
         }
 
-        public static ILogServiceCollection UseSampleLog(this ILogServiceCollection services, SampleLogSinkSettings settings,
-            Action<IConfiguration, SampleLogConfiguration> configAction = null) {
-            return services.UseSampleLog(Options.Create(settings), configAction);
-        }
-
-        public static ILogServiceCollection UseSampleLog(this ILogServiceCollection services, IOptions<SampleLogSinkSettings> settings,
-            Action<IConfiguration, SampleLogConfiguration> configAction = null) {
-            services.AddSinkSettings<SampleLogSinkSettings, SampleLogConfiguration>(settings.Value, (conf, sink) => configAction?.Invoke(conf, sink));
+        public static ILogServiceCollection AddSampleLog(this ILogServiceCollection services, IOptions<SampleOptions> settings,
+            Action<IConfiguration, SampleLogConfiguration> config = null) {
+            services.AddSinkSettings<SampleOptions, SampleLogConfiguration>(settings.Value, (conf, sink) => config?.Invoke(conf, sink));
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, SampleLogPayloadClient>();
                 s.AddScoped<ILogPayloadClientProvider, SampleLogPayloadClientProvider>();

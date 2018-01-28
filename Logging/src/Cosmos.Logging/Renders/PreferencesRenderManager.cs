@@ -3,52 +3,52 @@ using System.Collections.Generic;
 
 namespace Cosmos.Logging.Renders {
     public static class PreferencesRenderManager {
-        private static readonly Dictionary<string, IPreferencesRender> _preferencesRenders;
-        private static readonly Dictionary<string, Dictionary<string, IPreferencesSinkRender>> _preferencesSinkRenders;
+        private static readonly Dictionary<string, IPreferencesRenderer> _preferencesRenders;
+        private static readonly Dictionary<string, Dictionary<string, IPreferencesSinkRenderer>> _preferencesSinkRenders;
         private static readonly object _preferencesRendersLock = new object();
         private static readonly object _preferencesSinkRendersLock = new object();
         private static readonly object _preferencesSinkRendersAliasLock = new object();
 
         static PreferencesRenderManager() {
-            _preferencesRenders = new Dictionary<string, IPreferencesRender>();
-            _preferencesSinkRenders = new Dictionary<string, Dictionary<string, IPreferencesSinkRender>>();
+            _preferencesRenders = new Dictionary<string, IPreferencesRenderer>();
+            _preferencesSinkRenders = new Dictionary<string, Dictionary<string, IPreferencesSinkRenderer>>();
         }
 
-        public static void AddPreferencesRender(IPreferencesRender render) {
-            if (render == null) throw new ArgumentNullException(nameof(render));
-            var ignoreCaseName = render.Name.ToLowerInvariant();
+        public static void AddPreferencesRenderer(IPreferencesRenderer renderer) {
+            if (renderer == null) throw new ArgumentNullException(nameof(renderer));
+            var ignoreCaseName = renderer.Name.ToLowerInvariant();
             // ReSharper disable once InconsistentlySynchronizedField
             if (!_preferencesRenders.ContainsKey(ignoreCaseName)) {
                 lock (_preferencesRendersLock) {
                     if (!_preferencesRenders.ContainsKey(ignoreCaseName))
-                        _preferencesRenders.Add(ignoreCaseName, render);
+                        _preferencesRenders.Add(ignoreCaseName, renderer);
                 }
             }
         }
 
-        public static void AddPreferencesRender<TPreferencesRender>() where TPreferencesRender : class, IPreferencesRender, new() {
-            AddPreferencesRender(new TPreferencesRender());
+        public static void AddPreferencesRenderer<TPreferencesRenderer>() where TPreferencesRenderer : class, IPreferencesRenderer, new() {
+            AddPreferencesRenderer(new TPreferencesRenderer());
         }
 
-        public static void AddPreferencesSinkRender(IPreferencesSinkRender render) {
-            if (render == null) throw new ArgumentNullException(nameof(render));
+        public static void AddPreferencesSinkRenderer(IPreferencesSinkRenderer renderer) {
+            if (renderer == null) throw new ArgumentNullException(nameof(renderer));
             
-            var ignoreSinkPrefix = render.SinkPrefix.ToLowerInvariant();
+            var ignoreSinkPrefix = renderer.SinkPrefix.ToLowerInvariant();
             CheckSinkAlias(ignoreSinkPrefix);
             
-            var ignoreCaseName = render.Name.ToLowerInvariant();
+            var ignoreCaseName = renderer.Name.ToLowerInvariant();
             // ReSharper disable once InconsistentlySynchronizedField
             if (!_preferencesSinkRenders[ignoreSinkPrefix].ContainsKey(ignoreCaseName)) {
                 lock (_preferencesSinkRendersLock) {
                     if (!_preferencesSinkRenders[ignoreSinkPrefix].ContainsKey(ignoreCaseName)) {
-                        _preferencesSinkRenders[ignoreSinkPrefix].Add(ignoreCaseName, render);
+                        _preferencesSinkRenders[ignoreSinkPrefix].Add(ignoreCaseName, renderer);
                     }
                 }
             }
         }
 
-        public static void AddPreferencesSinkRender<TPreferencesSinkRender>() where TPreferencesSinkRender : class, IPreferencesSinkRender, new() {
-            AddPreferencesSinkRender(new TPreferencesSinkRender());
+        public static void AddPreferencesSinkRenderer<TPreferencesSinkRender>() where TPreferencesSinkRender : class, IPreferencesSinkRenderer, new() {
+            AddPreferencesSinkRenderer(new TPreferencesSinkRender());
         }
 
         private static void CheckSinkAlias(string prefix) {
@@ -56,25 +56,25 @@ namespace Cosmos.Logging.Renders {
             if (!_preferencesSinkRenders.ContainsKey(prefix)) {
                 lock (_preferencesSinkRendersAliasLock) {
                     if (!_preferencesSinkRenders.ContainsKey(prefix)) {
-                        _preferencesSinkRenders.Add(prefix, new Dictionary<string, IPreferencesSinkRender>());
+                        _preferencesSinkRenders.Add(prefix, new Dictionary<string, IPreferencesSinkRenderer>());
                     }
                 }
             }
         }
 
-        public static IPreferencesRender GetRender(string name) {
-            if (string.IsNullOrWhiteSpace(name)) return NullPreferencesRender.Instance;
+        public static IPreferencesRenderer GetRender(string name) {
+            if (string.IsNullOrWhiteSpace(name)) return NullPreferencesRenderer.Instance;
             var ignoreCaseName = name.ToLowerInvariant();
-            return _preferencesRenders.TryGetValue(ignoreCaseName, out var ret) ? ret : NullPreferencesRender.Instance;
+            return _preferencesRenders.TryGetValue(ignoreCaseName, out var ret) ? ret : NullPreferencesRenderer.Instance;
         }
 
-        public static IPreferencesSinkRender GetRender(string prefix, string name) {
-            if (string.IsNullOrWhiteSpace(prefix) || string.IsNullOrWhiteSpace(name)) return NullPreferencesSinkRender.Instance;
+        public static IPreferencesSinkRenderer GetRender(string prefix, string name) {
+            if (string.IsNullOrWhiteSpace(prefix) || string.IsNullOrWhiteSpace(name)) return NullPreferencesSinkRenderer.Instance;
             var ignoreSinkPrefix =prefix.ToLowerInvariant();
             var ignoreCaseName = name.ToLowerInvariant();
             return _preferencesSinkRenders.TryGetValue(ignoreSinkPrefix, out var dict)
-                ? dict.TryGetValue(ignoreCaseName, out var ret) ? ret : NullPreferencesSinkRender.Instance
-                : NullPreferencesSinkRender.Instance;
+                ? dict.TryGetValue(ignoreCaseName, out var ret) ? ret : NullPreferencesSinkRenderer.Instance
+                : NullPreferencesSinkRenderer.Instance;
         }
     }
 }

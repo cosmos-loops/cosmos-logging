@@ -4,16 +4,16 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.SampleLogSink {
     public class SampleLogPayloadClientProvider : ILogPayloadClientProvider {
-        private readonly SampleLogSinkSettings _settings;
+        private readonly SampleOptions _options;
         private readonly LoggingConfiguration _loggingConfiguration;
 
-        public SampleLogPayloadClientProvider(IOptions<SampleLogSinkSettings> settings, LoggingConfiguration loggingConfiguration) {
-            _settings = settings == null ? new SampleLogSinkSettings() : settings.Value;
+        public SampleLogPayloadClientProvider(IOptions<SampleOptions> settings, LoggingConfiguration loggingConfiguration) {
+            _options = settings == null ? new SampleOptions() : settings.Value;
             _loggingConfiguration = loggingConfiguration ?? throw new ArgumentNullException(nameof(loggingConfiguration));
         }
 
         public ILogPayloadClient GetClient() {
-            return new SampleLogPayloadClient(_settings.Name, _loggingConfiguration.GetSinkConfiguration<SampleLogConfiguration>(Internals.Constants.SinkKey));
+            return new SampleLogPayloadClient(_options.Key, _loggingConfiguration.GetSinkConfiguration<SampleLogConfiguration>(Internals.Constants.SinkKey));
         }
     }
 }

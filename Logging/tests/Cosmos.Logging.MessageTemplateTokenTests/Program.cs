@@ -27,10 +27,10 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
 
                 LOGGER.Initialize(root).RunsOnConsole()
                     .PreheatMessageTemplates(Preheater)
-                    .UseSampleLog(s => s.Level = LogEventLevel.Information)
+                    .AddSampleLog(s => s.UseMinimumLevel(LogEventLevel.Information))
                     .AllDone();
 
-                var logger = LOGGER.GetLogger("TOKEN_TESTS_SAMPLESINK");
+                var logger = LOGGER.GetLogger<Program>();
 //                lock (SyncLock) {
 //                    //Text token
 //                    logger.Information("text token test--> {{1.helloworld");
@@ -138,7 +138,7 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
 //                logger.LogInformation("position test{10:w}");
 //                logger.LogInformation("position test{10:w:} ");
 
-                logger.LogInformation("token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"}, "?world?");
+                logger.LogInformation("{$Date::yyyy年MM月dd日} token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"}, "?world?");
                 logger.LogInformation("token test: {@Hello}, {0}, {@World}", new {Hello = "_hello_", World = "_world_"}, "?world?");
 
                 using (var scope = logger.BeginScope("123")) {

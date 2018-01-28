@@ -3,39 +3,14 @@ using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.RunsOn.AspNet {
     public class AspNetLoggingServiceProvider : ILoggingServiceProvider {
-        private const string DEFAULT_LOGGER_NAME_PREFIX = "logger:CosmosLoops:roAspNet_";
 
         public AspNetLoggingServiceProvider() { }
-
-        public ILogger GetLogger(LogEventSendMode mode = LogEventSendMode.Customize) {
-            throw new NotImplementedException();
-        }
-
-        public ILogger GetLogger(string name, LogEventSendMode mode = LogEventSendMode.Customize) {
-            throw new NotImplementedException();
-        }
-
-        public ILogger GetLogger(LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
-            throw new NotImplementedException();
-        }
-
-        public ILogger GetLogger(string name, LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
-            throw new NotImplementedException();
-        }
 
         public ILogger GetLogger(Type type, LogEventSendMode mode = LogEventSendMode.Customize) {
             throw new NotImplementedException();
         }
 
-        public ILogger GetLogger(Type type, string name, LogEventSendMode mode = LogEventSendMode.Customize) {
-            throw new NotImplementedException();
-        }
-
-        public ILogger GetLogger(Type type, LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
-            throw new NotImplementedException();
-        }
-
-        public ILogger GetLogger(Type type, string name, LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
+        public ILogger GetLogger(Type type, LogEventLevel minLevel, LogEventSendMode mode = LogEventSendMode.Customize) {
             throw new NotImplementedException();
         }
 
@@ -43,15 +18,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
             throw new NotImplementedException();
         }
 
-        public ILogger GetLogger<T>(string name, LogEventSendMode mode = LogEventSendMode.Customize) {
-            throw new NotImplementedException();
-        }
-
-        public ILogger GetLogger<T>(LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
-            throw new NotImplementedException();
-        }
-
-        public ILogger GetLogger<T>(string name, LogEventLevel level, LogEventSendMode mode = LogEventSendMode.Customize) {
+        public ILogger GetLogger<T>(LogEventLevel minLevel, LogEventSendMode mode = LogEventSendMode.Customize) {
             throw new NotImplementedException();
         }
     }

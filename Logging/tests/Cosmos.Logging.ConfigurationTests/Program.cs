@@ -14,7 +14,7 @@ namespace Cosmos.Logging.ConfigurationTests {
             var config = Configuration.GetSection("Logging").Get<LoggingConfiguration>();
 
             LOGGER.Initialize().RunsOnConsole()
-                .UseSampleLog()
+                .AddSampleLog()
                 .AllDone();
 
         }
@@ -37,7 +37,7 @@ namespace Cosmos.Logging.ConfigurationTests {
         }
 
         public void Process() {
-            var logger = LOGGER.GetLogger("main");
+            var logger = LOGGER.GetLogger<Program>();
             logger.LogInformation("hello");
         }
     }

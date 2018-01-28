@@ -5,13 +5,8 @@ using Cosmos.Logging.Events;
 namespace Cosmos.Logging.RunsOn.Console {
     public class ConsoleLogger : LoggerBase {
 
-        public ConsoleLogger(
-            Type sourceType,
-            LogEventLevel minimumLevel,
-            string loggerName,
-            LogEventSendMode sendMode,
-            LoggingConfiguration loggingConfiguration,
+        public ConsoleLogger(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, LogEventSendMode sendMode,
             ILogPayloadSender logPayloadSender)
-            : base(sourceType, minimumLevel, loggerName, sendMode, loggingConfiguration, logPayloadSender) { }
+            : base(sourceType, minimumLevel, loggerStateNamespace, sendMode, logPayloadSender) { }
     }
 }

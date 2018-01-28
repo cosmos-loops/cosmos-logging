@@ -14,10 +14,10 @@ namespace Cosmos.Logging.NLogSinkTests {
 
                 LOGGER.Initialize().RunsOnConsole()
                     //.WriteToNLog(s => s.OriginConfiguration = config)
-                    .UseNLog(s => s.EnableUsingDefaultConfig())
+                    .AddNLog(s => s.EnableUsingDefaultConfig())
                     .AllDone();
 
-                var logger = LOGGER.GetLogger(mode: LogEventSendMode.Manually);
+                var logger = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
 
                 logger.LogInformation("hello");
                 logger.LogError("world");

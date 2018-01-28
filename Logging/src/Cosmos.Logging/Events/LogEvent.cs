@@ -5,7 +5,7 @@ using Cosmos.Logging.Core;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Events {
-    public class LogEvent {
+    public class LogEvent : ILogEventInfo {
         private readonly AdditionalOptContext _additionalOptContext;
 
         private readonly Dictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> _namedProperties;
@@ -13,6 +13,7 @@ namespace Cosmos.Logging.Events {
         private readonly Dictionary<string, ExtraMessageProperty> _extraMessageProperties;
 
         public LogEvent(
+            string stateNamespace,
             DateTimeOffset timestamp,
             LogEventLevel level,
             MessageTemplate messageTemplate,
@@ -25,6 +26,7 @@ namespace Cosmos.Logging.Events {
             if (namedMessageProperties == null) throw new ArgumentNullException(nameof(namedMessageProperties));
             if (positionalMessageProperties == null) throw new ArgumentNullException(nameof(positionalMessageProperties));
 
+            StateNamespace = stateNamespace;
             Timestamp = timestamp;
             Level = level;
             Exception = exception;
@@ -39,6 +41,7 @@ namespace Cosmos.Logging.Events {
             UpdateProperty(namedMessageProperties, positionalMessageProperties);
         }
 
+        public string StateNamespace { get; }
         public DateTimeOffset Timestamp { get; }
         public LogEventLevel Level { get; }
         public LogEventSendMode SendMode { get; }
@@ -48,11 +51,11 @@ namespace Cosmos.Logging.Events {
         #region Reder Message
 
         public void RenderMessage(TextWriter output, IFormatProvider provider = null) {
-            MessageTemplate.Render(NamedProperties, PositionalProperties, output, provider);
+            MessageTemplate.Render(NamedProperties, PositionalProperties, output, this, provider);
         }
 
         public string RenderMessage(IFormatProvider provider = null) {
-            return MessageTemplate.Render(NamedProperties, PositionalProperties, provider);
+            return MessageTemplate.Render(NamedProperties, PositionalProperties, this, provider);
         }
 
         #endregion

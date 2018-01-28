@@ -9,9 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
     public class AspNetCoreLogServiceCollection : ILogServiceCollection {
         private LoggingConfigurationBuilder _configurationBuilder;
+        private readonly bool _configurationBuilderLockedStatus;
         private readonly IServiceCollection _serviceCollection;
-        private ILoggerSettings _settings { get; set; }
-        private readonly Dictionary<string, ILogSinkSettings> _sinkSettings;
+        private LoggingConfiguration _loggingConfiguration { get; set; }
+        private ILoggingOptions _settings { get; set; }
+        private readonly Dictionary<string, ILoggingSinkOptions> _sinkSettings;
         private object _sinkUpdateLock = new object();
         private Action<IConfigurationRoot> _originConfigAction;
 
@@ -23,9 +25,10 @@ namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
             _configurationBuilder = root == null
                 ? new LoggingConfigurationBuilder()
                 : new DisabledConfigurationBuilder(root);
+            _configurationBuilderLockedStatus = root != null;
             _serviceCollection = services ?? throw new ArgumentNullException(nameof(services));
-            _settings = new LoggingSettings();
-            _sinkSettings = new Dictionary<string, ILogSinkSettings>();
+            _settings = new LoggingOptions();
+            _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
 
             BeGivenConfigurationBuilder = _configurationBuilder.InitializedByGivenBuilder;
             BeGivenConfigurationRoot = root != null;
@@ -34,15 +37,48 @@ namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
         public bool BeGivenConfigurationBuilder { get; }
         public bool BeGivenConfigurationRoot { get; }
         public IServiceCollection ExposeServices() => _serviceCollection;
-        public ILoggerSettings ExposeLogSettings() => _settings;
+        public ILoggingOptions ExposeLogSettings() => _settings;
+        public LoggingConfiguration ExposeLoggingConfiguration() => _loggingConfiguration;
 
-        public ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction) {
-            throw new NotImplementedException();
+        public void ReplaceSettings(ILoggingOptions newSettings) {
+            if (newSettings != null) _settings = newSettings;
         }
 
+        public ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction) {
+            dependencyAction?.Invoke(_serviceCollection);
+            return this;
+        }
+
+        private Action<object> AddSinkSettingsAction { get; set; }
+
         public ILogServiceCollection AddSinkSettings<TSinkSettings, TSinkConfiguration>(TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> configAct)
-            where TSinkSettings : class, ILogSinkSettings, new() where TSinkConfiguration : SinkConfiguration, new() {
-            throw new NotImplementedException();
+            where TSinkSettings : class, ILoggingSinkOptions, new() where TSinkConfiguration : SinkConfiguration, new() {
+            if (settings != null && !_sinkSettings.ContainsKey(settings.Key)) {
+                AddSinkSettingsAction += lockObj => {
+                    lock (lockObj) {
+                        if (!_sinkSettings.ContainsKey(settings.Key)) _sinkSettings.Add(settings.Key, settings);
+                        _loggingConfiguration?.SetSinkConfiguration(settings.Key, settings, configAct);
+                    }
+                };
+            }
+
+            return this;
+        }
+
+        public ILogServiceCollection AddOriginConfigAction(Action<IConfiguration> configAction) {
+            if (configAction != null) {
+                _originConfigAction += configAction;
+            }
+
+            return this;
+        }
+
+        public ILogServiceCollection ModifyConfigurationBuilder(Action<LoggingConfigurationBuilder> builderAct) {
+            if (!_configurationBuilderLockedStatus) {
+                builderAct?.Invoke(_configurationBuilder);
+            }
+
+            return this;
         }
 
         public ILogServiceCollection PreheatMessageTemplates(Action<MessageTemplateCachePreheater> preheatAct) {
@@ -50,16 +86,18 @@ namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
             return this;
         }
 
-        public ILogServiceCollection AddOriginConfigAction(Action<IConfiguration> configAction) {
-            throw new NotImplementedException();
+        internal void BuildConfiguration() {
+            _loggingConfiguration = _configurationBuilder.Build(_settings);
         }
 
-        public ILogServiceCollection AddOriginConfigAction(Action<IConfigurationRoot> configAction) {
-            throw new NotImplementedException();
+        internal void ActiveSinkSettings() {
+            _settings.Sinks?.Clear();
+            _settings.Sinks = _sinkSettings;
+            AddSinkSettingsAction?.Invoke(_sinkUpdateLock);
         }
 
-        public ILogServiceCollection ModifyConfigurationBuilder(Action<LoggingConfigurationBuilder> builderAct) {
-            throw new NotImplementedException();
+        internal void ActiveOriginConfiguration() {
+            _originConfigAction?.Invoke(_loggingConfiguration.Configuration);
         }
     }
 }

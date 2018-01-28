@@ -2,6 +2,7 @@
 using System.IO;
 using Cosmos.Logging.Core.ObjectResolving;
 using Cosmos.Logging.MessageTemplates;
+using Cosmos.Logging.Renders;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging.Configurations {
@@ -13,6 +14,7 @@ namespace Cosmos.Logging.Configurations {
             ConfigurationBuilder = builder ?? new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
             InitializedByGivenBuilder = builder != null;
             BeforeBuild(ActiveMessageTemplatePreheater);
+            BeforeBuild(ActiveCorePreferencesRenders);
             AfterBuild(ActiveMessageParameterProcessor);
         }
 
@@ -49,9 +51,9 @@ namespace Cosmos.Logging.Configurations {
         protected Action<LoggingConfigurationBuilder> BeforeBuildAction { get; set; }
         protected Action<LoggingConfiguration> AfterBuildAction { get; set; }
 
-        public virtual LoggingConfiguration Build() {
+        public virtual LoggingConfiguration Build(ILoggingOptions settings) {
             BeforeBuildAction?.Invoke(this);
-            var loggingConfiguration = new LoggingConfiguration(ConfigurationBuilder.Build());
+            var loggingConfiguration = new LoggingConfiguration(settings, ConfigurationBuilder.Build());
             AfterBuildAction?.Invoke(loggingConfiguration);
             return loggingConfiguration;
         }
@@ -66,6 +68,10 @@ namespace Cosmos.Logging.Configurations {
             if (action != null) {
                 AfterBuildAction += action;
             }
+        }
+
+        protected void ActiveCorePreferencesRenders(LoggingConfigurationBuilder builder) {
+            CoreRenderActivation.ActiveCorePreferencesRenders();
         }
 
         protected void ActiveMessageTemplatePreheater(LoggingConfigurationBuilder builder) {
