@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cosmos.Logging.Filters {
+namespace Cosmos.Logging.Filters.Navigators {
     public sealed class EmptyNamespaceNavigationNode : NamespaceNavigator {
         internal static readonly NamespaceNavigator[] _emptyArray = new NamespaceNavigator[0];
         internal static readonly EmptyNamespaceNavigationNode _empty = new EmptyNamespaceNavigationNode();

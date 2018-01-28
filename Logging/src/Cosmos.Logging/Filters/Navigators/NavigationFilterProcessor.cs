@@ -4,7 +4,7 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 
-namespace Cosmos.Logging.Filters {
+namespace Cosmos.Logging.Filters.Navigators {
     internal static class NavigationFilterProcessor {
         private static INamespaceNavigationMatcher GlobalNavigationMatcher { get; set; }
         private static readonly Dictionary<string, INamespaceNavigationMatcher> _sinkFilterNavMatchers;

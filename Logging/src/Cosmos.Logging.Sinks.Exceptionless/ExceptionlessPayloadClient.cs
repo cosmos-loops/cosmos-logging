@@ -8,6 +8,7 @@ using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Sinks;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Filters;
 using Exceptionless;
 using Exceptionless.Logging;
 

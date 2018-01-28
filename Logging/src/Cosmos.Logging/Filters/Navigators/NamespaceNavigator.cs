@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cosmos.Logging.Filters {
+namespace Cosmos.Logging.Filters.Navigators {
     public class NamespaceNavigator {
         public static NamespaceNavigator Empty => EmptyNamespaceNavigationNode._empty;
         private NamespaceNavigator ParentNav { get; set; }

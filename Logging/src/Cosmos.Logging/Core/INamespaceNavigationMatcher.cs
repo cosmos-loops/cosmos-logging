@@ -1,4 +1,5 @@
 ﻿using Cosmos.Logging.Filters;
+using Cosmos.Logging.Filters.Navigators;
 
 namespace Cosmos.Logging.Core {
     public interface INamespaceNavigationMatcher {

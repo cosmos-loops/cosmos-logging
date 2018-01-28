@@ -2,9 +2,9 @@
 using System.Linq;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Filters;
+using Cosmos.Logging.Filters.Internals;
 
-namespace Cosmos.Logging.Core.Sinks {
+namespace Cosmos.Logging.Filters {
     public static class LogEventSinkFilter {
         private static readonly LogEvent[] EmptyLogEvents = new LogEvent[0];
 

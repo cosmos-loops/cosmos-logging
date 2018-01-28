@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Cosmos.Logging.Core;
 
-namespace Cosmos.Logging.Filters {
+namespace Cosmos.Logging.Filters.Navigators {
     public class NamespaceNavigatorCache : INamespaceNavigationParser ,INamespaceNavigationMatcher{
         private readonly INamespaceNavigationParser _namespaceNavigationParser;
         private readonly Dictionary<int, NamespaceNavigator> _namespaceCache = new Dictionary<int, NamespaceNavigator>();

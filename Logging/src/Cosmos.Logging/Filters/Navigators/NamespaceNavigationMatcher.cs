@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cosmos.Logging.Filters {
+namespace Cosmos.Logging.Filters.Navigators {
     internal static class NamespaceNavigationMatcher {
         public static bool Match(string @namespace, NamespaceNavigator nav, out EndValueNamespaceNavigationNode value) {
             value = default(EndValueNamespaceNavigationNode);

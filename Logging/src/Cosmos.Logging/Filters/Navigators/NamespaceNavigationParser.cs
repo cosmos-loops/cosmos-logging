@@ -1,7 +1,7 @@
 ﻿using System;
 using Cosmos.Logging.Core;
 
-namespace Cosmos.Logging.Filters {
+namespace Cosmos.Logging.Filters.Navigators {
     public class NamespaceNavigationParser : INamespaceNavigationParser {
 
         public NamespaceNavigator Parse(string @namespace, string level, out EndValueNamespaceNavigationNode endValueNode) {
