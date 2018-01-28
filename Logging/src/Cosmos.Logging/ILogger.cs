@@ -3,9 +3,6 @@ using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging {
     public interface ILogger {
-
-        string Name { get; }
-
         LogEventLevel MinimumLevel { get; }
 
         LogEventSendMode SendMode { get; }
