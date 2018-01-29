@@ -26,5 +26,7 @@ namespace Cosmos.Logging.RunsOn.AspNetCore {
         public IDisposable BeginScope<TState>(TState state) {
             return _logger.BeginScope(state);
         }
+
+        internal ILogger ExposeLogger() => _logger;
     }
 }
