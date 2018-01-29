@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <Import Project="..\..\build\common.props" />
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net451</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
     <AssemblyName>Cosmos.Logging</AssemblyName>
     <PackageId>Cosmos.Logging</PackageId>
     <Description>Cosmos logging library</Description>
@@ -30,6 +30,15 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
   </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net461'">
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Xml" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
+  </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net451'">
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.2" />
@@ -38,15 +47,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.2" />
-    <!--<PackageReference Include="NetFx.Extensions.Configuration" Version="2.1.0-preview1-171231-01"/>-->
-    <!--<PackageReference Include="NetFx.Extensions.Configuration.Json" Version="2.1.0-preview1-171231-01"/>-->
-    <!--<PackageReference Include="NetFx.Extensions.Configuration.Xml" Version="2.1.0-preview1-171231-01"/>-->
-    <!--<PackageReference Include="NetFx.Extensions.Configuration.FileExtensions" Version="2.1.0-preview1-171231-01"/>-->
-    <!--<PackageReference Include="NetFx.Extensions.DependencyInjection" Version="2.1.0-preview1-171231-01"/>-->
-    <!--<PackageReference Include="NetFx.Extensions.Options" Version="2.1.0-preview1-171231-01"/>-->
-    <!--<PackageReference Include="NetFx.Extensions.Options.ConfigurationExtensions" Version="2.1.0-preview1-171231-01"/>-->
     <PackageReference Include="System.ValueTuple" Version="4.3.1" />
-    <!--<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.0-preview1-26029-01" />-->
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\Piplelines" />
   </ItemGroup>
 </Project>

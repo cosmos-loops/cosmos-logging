@@ -3,6 +3,7 @@ using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Config;
@@ -25,14 +26,14 @@ namespace Cosmos.Logging.Sinks.NLog {
             Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
             services.AddSinkSettings<NLogSinkOptions, NLogSinkConfiguration>(settings.Value, (conf, sink) => configAction?.Invoke(conf, sink));
             services.AddDependency(s => {
-                s.AddScoped<ILogPayloadClient, NLogPayloadClient>();
-                s.AddScoped<ILogPayloadClientProvider, NLogPayloadClientProvider>();
-                s.AddSingleton(settings);
+                s.TryAdd(ServiceDescriptor.Scoped<ILogPayloadClient, NLogPayloadClient>());
+                s.TryAdd(ServiceDescriptor.Singleton<ILogPayloadClientProvider, NLogPayloadClientProvider>());
+                s.TryAdd(ServiceDescriptor.Singleton(settings));
             });
             if (settings.Value.OriginConfiguration != null) {
                 services.AddOriginConfigAction(root => LogManager.Configuration = settings.Value.OriginConfiguration);
             } else if (settings.Value.DoesUsedDefaultConfig) {
-                services.AddOriginConfigAction(root => LogManager.Configuration = new DefaultLoggingConfiguration());
+                services.AddOriginConfigAction(root => LogManager.Configuration = new DefaultLoggingTarget());
             } else if (!string.IsNullOrWhiteSpace(settings.Value.OriginConfigFilePath)) {
                 services.AddOriginConfigAction(root => LogManager.Configuration = new XmlLoggingConfiguration(settings.Value.OriginConfigFilePath));
             }

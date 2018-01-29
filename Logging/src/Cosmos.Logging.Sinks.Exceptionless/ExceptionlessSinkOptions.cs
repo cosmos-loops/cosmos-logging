@@ -71,11 +71,11 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
         #region Append configuration file path
 
         internal string OriginConfigFilePath { get; set; }
-        internal FileTypes OriginConfigFileType { get; set; } = FileTypes.JSON;
+        internal FileTypes OriginConfigFileType { get; set; } = FileTypes.Json;
 
         public ExceptionlessSinkOptions RemoveConfig() {
             OriginConfigFilePath = string.Empty;
-            OriginConfigFileType = FileTypes.JSON;
+            OriginConfigFileType = FileTypes.Json;
             return this;
         }
 
@@ -87,14 +87,14 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
         public ExceptionlessSinkOptions UseJsonConfig(string path) {
             if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException(nameof(path));
             OriginConfigFilePath = path;
-            OriginConfigFileType = FileTypes.JSON;
+            OriginConfigFileType = FileTypes.Json;
             return this;
         }
 
         public ExceptionlessSinkOptions UseXmlConfig(string path) {
             if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException(nameof(path));
             OriginConfigFilePath = path;
-            OriginConfigFileType = FileTypes.XML;
+            OriginConfigFileType = FileTypes.Xml;
             return this;
         }
 

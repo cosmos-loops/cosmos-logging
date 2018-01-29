@@ -5,6 +5,7 @@ using Cosmos.Logging.Sinks.Exceptionless.Core;
 using Exceptionless;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.Exceptionless {
@@ -25,9 +26,9 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
             Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {
             services.AddSinkSettings<ExceptionlessSinkOptions, ExceptionlessSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
             services.AddDependency(s => {
-                s.AddScoped<ILogPayloadClient, ExceptionlessPayloadClient>();
-                s.AddScoped<ILogPayloadClientProvider, ExceptionlessPayloadClientProvider>();
-                s.AddSingleton(settings);
+                s.TryAdd(ServiceDescriptor.Scoped<ILogPayloadClient, ExceptionlessPayloadClient>());
+                s.TryAdd(ServiceDescriptor.Singleton<ILogPayloadClientProvider, ExceptionlessPayloadClientProvider>());
+                s.TryAdd(ServiceDescriptor.Singleton(settings));
             });
             if (!string.IsNullOrWhiteSpace(settings.Value.OriginConfigFilePath)) {
                 services.ModifyConfigurationBuilder(b => b.AddFile(settings.Value.OriginConfigFilePath, settings.Value.OriginConfigFileType));

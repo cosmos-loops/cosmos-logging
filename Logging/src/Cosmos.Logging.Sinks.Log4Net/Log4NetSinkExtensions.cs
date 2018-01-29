@@ -7,6 +7,7 @@ using log4net;
 using log4net.Config;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.Log4Net {
@@ -27,9 +28,9 @@ namespace Cosmos.Logging.Sinks.Log4Net {
             Action<IConfiguration, Log4NetSinkConfiguration> configAct = null) {
             services.AddSinkSettings<Log4NetSinkOptions, Log4NetSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
             services.AddDependency(s => {
-                s.AddScoped<ILogPayloadClient, Log4NetPayloadClient>();
-                s.AddScoped<ILogPayloadClientProvider, Log4NetPayloadClientProvider>();
-                s.AddSingleton(settings);
+                s.TryAdd(ServiceDescriptor.Scoped<ILogPayloadClient, Log4NetPayloadClient>());
+                s.TryAdd(ServiceDescriptor.Singleton<ILogPayloadClientProvider, Log4NetPayloadClientProvider>());
+                s.TryAdd(ServiceDescriptor.Singleton(settings));
             });
             if (!string.IsNullOrWhiteSpace(settings.Value.OriginConfigFilePath)) {
                 services.AddOriginConfigAction(root => InternalUseCustomConfigFilePath(settings.Value.OriginConfigFilePath, settings.Value.WatchOriginConfigFile));

@@ -1,5 +1,4 @@
-﻿using Cosmos.Logging.Core;
-using Cosmos.Logging.Renders.RendersLib;
+﻿using Cosmos.Logging.Renders.RendersLib;
 
 namespace Cosmos.Logging.Renders {
     internal static class CoreRenderActivation {

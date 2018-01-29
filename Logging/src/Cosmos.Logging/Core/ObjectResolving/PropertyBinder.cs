@@ -34,6 +34,7 @@ namespace Cosmos.Logging.Core.ObjectResolving {
                 return;
             }
 
+            // ReSharper disable once CollectionNeverQueried.Local
             var __result = new List<MessageProperty>();
             var __named_cache = new Dictionary<(string name, PropertyResolvingMode mode), MessageProperty>();
             var __positional_cache = new Dictionary<(int position, PropertyResolvingMode mode), MessageProperty>();

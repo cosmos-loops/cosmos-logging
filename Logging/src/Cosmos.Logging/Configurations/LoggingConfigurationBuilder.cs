@@ -22,11 +22,11 @@ namespace Cosmos.Logging.Configurations {
 
         public virtual LoggingConfigurationBuilder AddFile(string path, FileTypes fileType) {
             switch (fileType) {
-                case FileTypes.JSON:
+                case FileTypes.Json:
                     ConfigurationBuilder.AddJsonFile(path, true, true);
                     break;
 
-                case FileTypes.XML:
+                case FileTypes.Xml:
                     ConfigurationBuilder.AddXmlFile(path, true, true);
                     break;
 
@@ -37,8 +37,8 @@ namespace Cosmos.Logging.Configurations {
             return this;
         }
 
-        public virtual LoggingConfigurationBuilder AddJsonFile(string path) => AddFile(path, FileTypes.JSON);
-        public virtual LoggingConfigurationBuilder AddXmlFile(string path) => AddFile(path, FileTypes.XML);
+        public virtual LoggingConfigurationBuilder AddJsonFile(string path) => AddFile(path, FileTypes.Json);
+        public virtual LoggingConfigurationBuilder AddXmlFile(string path) => AddFile(path, FileTypes.Xml);
 
         private Action<MessageTemplateCachePreheater> MessageTemplateCachePreheaterAction { get; set; }
 

@@ -67,7 +67,7 @@ namespace Cosmos.Logging.Core {
 
         public LoggingScope Parent { get; private set; }
 
-        public override string ToString() => _state?.ToString();
+        public override string ToString() => _state?.ToString() ?? string.Empty;
 
         private class DisposableScope : IDisposable {
             public void Dispose() {
