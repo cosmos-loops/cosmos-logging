@@ -10,6 +10,7 @@ namespace Cosmos.Logging.MessageTemplates {
     public class MessageTemplateCachePreheater {
         private readonly Hashtable _preheatedMessageTemplates = new Hashtable();
         private readonly Dictionary<int, string> _needToBePreheadedTemplates = new Dictionary<int, string>();
+        private readonly Dictionary<int, string> _templateStandards = new Dictionary<int, string>();
         private const int MaxCacheItemsForObject = 500;
         private const int MaxCacheItemsForString = 500;
         private const int MaxLengthOfTemplateToBeCached = 1024;
@@ -20,6 +21,16 @@ namespace Cosmos.Logging.MessageTemplates {
 
         internal Dictionary<int, string> GetNeedToBePreheadedMessageTemplates() {
             return _needToBePreheadedTemplates;
+        }
+
+        internal Dictionary<int, string> GetTemplateStandards() {
+            return _templateStandards;
+        }
+
+        internal void AddStandardsInternal(string messageTemplate) {
+            if (string.IsNullOrWhiteSpace(messageTemplate)) return;
+            if (_templateStandards.ContainsKey(messageTemplate.GetHashCode())) return;
+            _templateStandards.Add(messageTemplate.GetHashCode(), messageTemplate);
         }
 
         private void AddInternal(IEnumerable<MessageTemplate> templates) {

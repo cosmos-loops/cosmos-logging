@@ -3,6 +3,7 @@ using System.IO;
 using Cosmos.Logging.Core.ObjectResolving;
 using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Renders;
+using Cosmos.Logging.TemplateStandards;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging.Configurations {
@@ -10,12 +11,16 @@ namespace Cosmos.Logging.Configurations {
         private IConfigurationBuilder ConfigurationBuilder { get; set; }
         private readonly MessageTemplateCachePreheater _messageTemplateCachePreheater = new MessageTemplateCachePreheater();
 
-        public LoggingConfigurationBuilder(IConfigurationBuilder builder = null) {
-            ConfigurationBuilder = builder ?? new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
-            InitializedByGivenBuilder = builder != null;
+        protected LoggingConfigurationBuilder() {
+            MessageTemplateCachePreheaterAction = TemplateStandardsActivation.RegisterToMessageTemplateCachePreheater;
             BeforeBuild(ActiveMessageTemplatePreheater);
             BeforeBuild(ActiveCorePreferencesRenders);
             AfterBuild(ActiveMessageParameterProcessor);
+        }
+
+        public LoggingConfigurationBuilder(IConfigurationBuilder builder = null) : this() {
+            ConfigurationBuilder = builder ?? new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
+            InitializedByGivenBuilder = builder != null;
         }
 
         public virtual bool InitializedByGivenBuilder { get; }
