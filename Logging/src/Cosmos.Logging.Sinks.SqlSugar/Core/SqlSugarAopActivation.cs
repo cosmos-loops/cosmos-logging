@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.TemplateStandards;
 using SqlSugar;
@@ -54,18 +55,30 @@ namespace Cosmos.Logging.Sinks.SqlSugar.Core {
                 ms = DateTime.Now.Subtract(stamp).TotalMilliseconds;
             }
 
-            object userInfo = executedAct?.Invoke(sql, @params) ?? string.Empty;
-
+            object loggingParams;
+            var userInfo = executedAct?.Invoke(sql, @params) ?? string.Empty;
             var logger = loggingServiceProvider.GetLogger<SqlSugarClient>();
-            var loggingParams = new {
-                OrmName = Constants.SinkKey,
-                ContextId = client.ContextID,
-                Sql = sql,
-                SqlParams = @params,
-                UsedTime = ms,
-                UserInfo = userInfo
-            };
-            logger.LogDebug(OrmTemplateStandard.Normal, loggingParams);
+
+            if (ms > 1000) {
+                loggingParams = new {
+                    OrmName = Constants.SinkKey,
+                    ContextId = client.ContextID,
+                    Sql = sql,
+                    SqlParams = @params.Select(param => new DbParam(param.ParameterName, param.Value, param.DbType)).ToList(),
+                    UsedTime = ms,
+                    UserInfo = userInfo
+                };
+                logger.LogWarning(OrmTemplateStandard.LongNormal, loggingParams);
+            } else {
+                loggingParams = new {
+                    OrmName = Constants.SinkKey,
+                    ContextId = client.ContextID,
+                    Sql = sql,
+                    UsedTime = ms,
+                    UserInfo = userInfo
+                };
+                logger.LogInformation(OrmTemplateStandard.Normal, loggingParams);
+            }
         }
 
         private static void InternalErrorOpt(ILoggingServiceProvider loggingServiceProvider, Exception exception,
@@ -75,10 +88,14 @@ namespace Cosmos.Logging.Sinks.SqlSugar.Core {
             var realExcepton = exception.Unwrap();
             var loggingParams = new {
                 OrmName = Constants.SinkKey,
+                ContextId = "unknown",
+                Sql = "unknown",
+                SqlParams = "unknown",
                 ExceptionType = exception.GetType(),
                 ExceptionMessage = exception.Message,
                 RealExceptionType = realExcepton.GetType(),
                 RealExceptionMessage = realExcepton.Message,
+                UsedTime = "unknown",
                 UserInfo = userInfo
             };
             logger.LogError(exception, OrmTemplateStandard.Error, loggingParams);

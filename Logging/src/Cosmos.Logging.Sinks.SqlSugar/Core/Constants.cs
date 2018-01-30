@@ -1,5 +1,5 @@
 ﻿namespace Cosmos.Logging.Sinks.SqlSugar.Core {
-    internal class Constants {
+    internal static class Constants {
         public const string SinkKey = "SqlSugar";
     }
 }
