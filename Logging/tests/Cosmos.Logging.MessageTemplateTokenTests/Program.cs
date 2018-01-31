@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using Cosmos.Logging;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates;

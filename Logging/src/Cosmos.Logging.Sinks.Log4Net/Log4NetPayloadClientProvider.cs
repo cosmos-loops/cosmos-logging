@@ -1,6 +1,5 @@
 ﻿using System;
 using Cosmos.Logging.Collectors;
-using Cosmos.Logging.Configurations;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.Log4Net {

@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
-using Cosmos.Logging.Core.Sinks;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
 using Exceptionless;

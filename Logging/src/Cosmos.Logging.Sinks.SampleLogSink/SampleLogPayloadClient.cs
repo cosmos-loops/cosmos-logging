@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Logging.Collectors;
-using Cosmos.Logging.Configurations;
-using Cosmos.Logging.Core.Sinks;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
 

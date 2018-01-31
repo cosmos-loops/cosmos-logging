@@ -86,6 +86,6 @@ namespace Cosmos.Logging.Sinks.Log4Net {
 
 
         public string OriginConfigFilePath { get; set; }
-        public bool WatchOriginConfigFile { get; set; } = false;
+        public bool WatchOriginConfigFile { get; set; } 
     }
 }

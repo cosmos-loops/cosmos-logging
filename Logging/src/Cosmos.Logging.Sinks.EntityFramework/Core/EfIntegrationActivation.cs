@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity.Infrastructure.Interception;
-using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.EntityFramework.Core {
     internal class EfIntegrationActivation {
