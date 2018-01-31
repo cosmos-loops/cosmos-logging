@@ -1,15 +1,19 @@
 ﻿using System;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.RunsOn.AspNetCore.Core;
+using Cosmos.Logging.Sinks.MicrosoftExtensions.Core;
 using Microsoft.Extensions.Logging;
 
-namespace Cosmos.Logging.RunsOn.AspNetCore {
-    public class AspNetCoreLoggerOfT<T> : Microsoft.Extensions.Logging.ILogger<T> {
-        private readonly ILogger _logger;
+namespace Cosmos.Logging.Sinks.MicrosoftExtensions {
+    public class MicrosoftLoggerWrapper : Microsoft.Extensions.Logging.ILogger {
+        protected readonly ILogger _logger;
 
-        public AspNetCoreLoggerOfT(ILoggingServiceProvider provider) {
-            if (provider == null) throw new ArgumentNullException(nameof(provider));
-            _logger = provider.GetLogger<T>();
+        public MicrosoftLoggerWrapper(ILoggingServiceProvider loggerServiceProvider, string categoryName) {
+            if (loggerServiceProvider == null) throw new ArgumentNullException(nameof(loggerServiceProvider));
+            _logger = loggerServiceProvider.GetLogger(categoryName);
+        }
+
+        public MicrosoftLoggerWrapper(ILogger logger) {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter) {

@@ -7,8 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 // ReSharper disable InconsistentNaming
 
-namespace Cosmos.Logging.RunsOn.Console.Core {
-    public class ConsoleLogServiceCollection : ILogServiceCollection {
+namespace Cosmos.Logging.Sinks.MicrosoftExtensions.Core {
+    public class StandardLogServiceCollection : ILogServiceCollection {
         private LoggingConfigurationBuilder _configurationBuilder;
         private readonly bool _configurationBuilderLockedStatus;
         private readonly IServiceCollection _serviceCollection;
@@ -18,30 +18,21 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         private object _sinkUpdateLock = new object();
         private Action<IConfigurationRoot> _originConfigAction;
 
-        private ConsoleLogServiceCollection() { }
+        private StandardLogServiceCollection() { }
 
-        internal ConsoleLogServiceCollection(IServiceCollection services) : this(services, (IConfigurationBuilder) null) { }
+        internal StandardLogServiceCollection(IServiceCollection services) : this(services, null) { }
 
-        internal ConsoleLogServiceCollection(IServiceCollection services, IConfigurationBuilder builder) {
-            _configurationBuilder = new LoggingConfigurationBuilder(builder);
-            _configurationBuilderLockedStatus = false;
+        internal StandardLogServiceCollection(IServiceCollection services, IConfigurationRoot root) {
+            _configurationBuilder = root == null
+                ? new LoggingConfigurationBuilder()
+                : new DisabledConfigurationBuilder(root);
+            _configurationBuilderLockedStatus = root != null;
             _serviceCollection = services ?? throw new ArgumentNullException(nameof(services));
             _settings = new LoggingOptions();
             _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
 
             BeGivenConfigurationBuilder = _configurationBuilder.InitializedByGivenBuilder;
-            BeGivenConfigurationRoot = false;
-        }
-
-        internal ConsoleLogServiceCollection(IServiceCollection services, IConfigurationRoot root) {
-            _configurationBuilder = new DisabledConfigurationBuilder(root);
-            _configurationBuilderLockedStatus = true;
-            _serviceCollection = services ?? throw new ArgumentNullException(nameof(services));
-            _settings = new LoggingOptions();
-            _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
-
-            BeGivenConfigurationBuilder = _configurationBuilder.InitializedByGivenBuilder;
-            BeGivenConfigurationRoot = true;
+            BeGivenConfigurationRoot = root != null;
         }
 
         public bool BeGivenConfigurationBuilder { get; }
@@ -123,7 +114,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
             _settings.Sinks?.Clear();
             _settings.Sinks = _sinkSettings;
             AddSinkSettingsAction?.Invoke(_sinkUpdateLock);
-            AddExtraSinkSettingsAction?.Invoke(_sinkUpdateLock);
+            AddExtraSinkSettingsAction?.Invoke(_sinkSettings);
         }
 
         internal void ActiveOriginConfiguration() {

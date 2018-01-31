@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Cosmos.Logging;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.SampleLogSink;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Cosmos.Loggings.SampleSink_AspNetCore {
     public class Startup {
@@ -30,6 +25,7 @@ namespace Cosmos.Loggings.SampleSink_AspNetCore {
 
             services.AddCosmosLogging(Configuration, config => config
                 .ToGlobal(o => o.UseMinimumLevel(LogEventLevel.Information))
+                .AddDatabaseIntegration(o => o.UseSqlSugar(sugar => sugar.UseAlias("Everything", LogEventLevel.Verbose)))
                 .AddSampleLog());
 
             services.AddMvc();

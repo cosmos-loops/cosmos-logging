@@ -28,7 +28,7 @@ namespace Cosmos.Logging.RunsOn.AspNetCore.RendersLib {
         }
 
         public override string ToString() {
-            return ToString((string) null, null, null);
+            return ToString((string) null, null);
         }
     }
 }
