@@ -13,7 +13,7 @@ namespace Cosmos.Logging.Sinks.NLog {
         internal readonly Dictionary<string, LogEventLevel> InternalNavigatorLogEventLevels = new Dictionary<string, LogEventLevel>();
 
         internal LogEventLevel? MinimumLevel { get; set; }
-        
+
         public NLogSinkOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
 
         public NLogSinkOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
@@ -27,7 +27,7 @@ namespace Cosmos.Logging.Sinks.NLog {
 
             return this;
         }
-        
+
         public NLogSinkOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
         public NLogSinkOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
@@ -54,7 +54,7 @@ namespace Cosmos.Logging.Sinks.NLog {
         }
 
         #endregion
-        
+
         #region Append log level alias
 
         internal readonly Dictionary<string, LogEventLevel> InternalAliases = new Dictionary<string, LogEventLevel>();

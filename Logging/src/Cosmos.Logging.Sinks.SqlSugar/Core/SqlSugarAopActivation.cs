@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cosmos.Logging.Core.Extensions;
+using Cosmos.Logging.Events;
 using Cosmos.Logging.TemplateStandards;
 using SqlSugar;
 
@@ -12,28 +13,31 @@ namespace Cosmos.Logging.Sinks.SqlSugar.Core {
         public static void RegisterToSqlSugar(SimpleClient client, SqlSugarInterceptorDescriptor descriptor,
             Action<string, SugarParameter[]> executingAct = null,
             Func<string, SugarParameter[], object> executedAct = null,
-            Func<Exception, object> errorAct = null) {
-            RegisterToSqlSugar(client.FullClient, descriptor, executingAct, executedAct, errorAct);
+            Func<Exception, object> errorAct = null,
+            Func<string, LogEventLevel, bool> filter = null) {
+            RegisterToSqlSugar(client.FullClient, descriptor, executingAct, executedAct, errorAct, filter);
         }
 
         public static void RegisterToSqlSugar(SqlSugarClient client, SqlSugarInterceptorDescriptor descriptor,
             Action<string, SugarParameter[]> executingAct = null,
             Func<string, SugarParameter[], object> executedAct = null,
-            Func<Exception, object> errorAct = null) {
+            Func<Exception, object> errorAct = null,
+            Func<string, LogEventLevel, bool> filter = null) {
             if (client == null) throw new ArgumentNullException(nameof(client));
             if (descriptor == null) throw new ArgumentNullException(nameof(descriptor));
 
             var pinLogEventStarting = client.Context.Ado.LogEventStarting;
             var pinLogEventCompleted = client.Context.Ado.LogEventCompleted;
             var pinErrorEvent = client.Context.Ado.ErrorEvent;
+            Func<string, LogEventLevel, bool> localFilter = (s, l) => (descriptor.ExposeGlobalFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true);
 
             pinLogEventStarting += descriptor.ExposeExecutingInterceptor;
             pinLogEventCompleted += descriptor.ExposeExecutedInterceptor;
             pinErrorEvent += descriptor.ExposeErrorInterceptor;
 
             pinLogEventStarting += (sql, @params) => InternalExecutingOpt(descriptor.ExposeLoggingServiceProvider, client, sql, @params, executingAct);
-            pinLogEventCompleted += (sql, @params) => InternalExecutedOpt(descriptor.ExposeLoggingServiceProvider, client, sql, @params, executedAct);
-            pinErrorEvent += (exception) => InternalErrorOpt(descriptor.ExposeLoggingServiceProvider, exception, errorAct);
+            pinLogEventCompleted += (sql, @params) => InternalExecutedOpt(descriptor.ExposeLoggingServiceProvider, client, sql, @params, executedAct, localFilter);
+            pinErrorEvent += (exception) => InternalErrorOpt(descriptor.ExposeLoggingServiceProvider, exception, errorAct, localFilter);
 
             client.Context.Ado.LogEventStarting = pinLogEventStarting;
             client.Context.Ado.LogEventCompleted = pinLogEventCompleted;
@@ -48,7 +52,7 @@ namespace Cosmos.Logging.Sinks.SqlSugar.Core {
         }
 
         private static void InternalExecutedOpt(ILoggingServiceProvider loggingServiceProvider, SqlSugarClient client, string sql,
-            SugarParameter[] @params, Func<string, SugarParameter[], object> executedAct = null) {
+            SugarParameter[] @params, Func<string, SugarParameter[], object> executedAct = null, Func<string, LogEventLevel, bool> filter = null) {
             var ms = 0D;
             if (client.TempItems.TryGetValue(TimestampKey, out var startStamp) && startStamp is DateTime stamp) {
                 client.TempItems.Remove(TimestampKey);
@@ -57,7 +61,7 @@ namespace Cosmos.Logging.Sinks.SqlSugar.Core {
 
             object loggingParams;
             var userInfo = executedAct?.Invoke(sql, @params) ?? string.Empty;
-            var logger = loggingServiceProvider.GetLogger<SqlSugarClient>();
+            var logger = loggingServiceProvider.GetLogger<SqlSugarClient>(filter);
 
             if (ms > 1000) {
                 loggingParams = new {
@@ -82,9 +86,9 @@ namespace Cosmos.Logging.Sinks.SqlSugar.Core {
         }
 
         private static void InternalErrorOpt(ILoggingServiceProvider loggingServiceProvider, Exception exception,
-            Func<Exception, object> errorAct = null) {
+            Func<Exception, object> errorAct = null, Func<string, LogEventLevel, bool> filter = null) {
             object userInfo = errorAct?.Invoke(exception) ?? string.Empty;
-            var logger = loggingServiceProvider.GetLogger<SqlSugarClient>();
+            var logger = loggingServiceProvider.GetLogger<SqlSugarClient>(filter);
             var realExcepton = exception.Unwrap();
             var loggingParams = new {
                 OrmName = Constants.SinkKey,

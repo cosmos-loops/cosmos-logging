@@ -99,6 +99,21 @@ namespace Cosmos.Logging.Sinks.SqlSugar {
         }
 
         #endregion
+        
+        #region Appeng filter
+
+        internal Func<string, LogEventLevel, bool> Filter { get; set; }
+
+        public SqlSugarOptions UseFilter(Func<string, LogEventLevel, bool> filter) {
+            if (filter == null) throw new ArgumentNullException(nameof(filter));
+
+            var temp = Filter;
+            Filter = (s, l) => (temp?.Invoke(s, l) ?? true) && filter(s, l);
+
+            return this;
+        }
+
+        #endregion
 
     }
 }
