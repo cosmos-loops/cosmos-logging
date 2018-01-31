@@ -1,7 +1,7 @@
 ﻿using Cosmos.Logging.Events;
 using Microsoft.Extensions.Logging;
 
-namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
+namespace Cosmos.Logging.Sinks.EntityFrameworkCore.Core {
     internal static class LogLevelSwitcher {
         public static LogLevel Switch(LogEventLevel level) {
             switch (level) {

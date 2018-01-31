@@ -6,11 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Cosmos.Logging.Sinks.EntityFrameworkCore {
     public static class DbContextOptionsBuilderExtensions {
+        private static ILoggingServiceProvider _loggingServiceProvider => EfCoreInterceptorDescriptor.Instance.ExposeLoggingServiceProvider;
+        private static Func<string, LogEventLevel, bool> _gloablFilter => EfCoreInterceptorDescriptor.Instance.ExposeSettings.Filter;
+
         public static DbContextOptionsBuilder UseCosmosLogging(this DbContextOptionsBuilder builder) {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(Logging.Core.StaticInstanceOfLoggingServiceProvider.Instance));
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, _gloablFilter));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;
@@ -20,7 +23,8 @@ namespace Cosmos.Logging.Sinks.EntityFrameworkCore {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(Logging.Core.StaticInstanceOfLoggingServiceProvider.Instance, filter));
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider,
+                (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;
@@ -30,7 +34,8 @@ namespace Cosmos.Logging.Sinks.EntityFrameworkCore {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(Logging.Core.StaticInstanceOfLoggingServiceProvider.Instance, filter));
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider,
+                (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, LogLevelSwitcher.Switch(l)) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;
@@ -51,7 +56,8 @@ namespace Cosmos.Logging.Sinks.EntityFrameworkCore {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, filter));
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, 
+                (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;
@@ -62,7 +68,8 @@ namespace Cosmos.Logging.Sinks.EntityFrameworkCore {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, filter));
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider,
+                (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, LogLevelSwitcher.Switch(l)) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;

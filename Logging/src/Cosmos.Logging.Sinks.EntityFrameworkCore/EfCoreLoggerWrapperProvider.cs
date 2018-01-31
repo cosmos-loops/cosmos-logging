@@ -1,6 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.RunsOn.AspNetCore.Core;
+using Cosmos.Logging.Sinks.EntityFrameworkCore.Core;
 using Microsoft.Extensions.Logging;
 
 namespace Cosmos.Logging.Sinks.EntityFrameworkCore {
