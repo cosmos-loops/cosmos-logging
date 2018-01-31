@@ -3,6 +3,7 @@ using System.IO;
 using Cosmos.Logging.Core.ObjectResolving;
 using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Renders;
+using Cosmos.Logging.TemplateStandards;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging.Configurations {
@@ -10,23 +11,27 @@ namespace Cosmos.Logging.Configurations {
         private IConfigurationBuilder ConfigurationBuilder { get; set; }
         private readonly MessageTemplateCachePreheater _messageTemplateCachePreheater = new MessageTemplateCachePreheater();
 
-        public LoggingConfigurationBuilder(IConfigurationBuilder builder = null) {
-            ConfigurationBuilder = builder ?? new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
-            InitializedByGivenBuilder = builder != null;
+        protected LoggingConfigurationBuilder() {
+            MessageTemplateCachePreheaterAction = TemplateStandardsActivation.RegisterToMessageTemplateCachePreheater;
             BeforeBuild(ActiveMessageTemplatePreheater);
             BeforeBuild(ActiveCorePreferencesRenders);
             AfterBuild(ActiveMessageParameterProcessor);
+        }
+
+        public LoggingConfigurationBuilder(IConfigurationBuilder builder = null) : this() {
+            ConfigurationBuilder = builder ?? new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
+            InitializedByGivenBuilder = builder != null;
         }
 
         public virtual bool InitializedByGivenBuilder { get; }
 
         public virtual LoggingConfigurationBuilder AddFile(string path, FileTypes fileType) {
             switch (fileType) {
-                case FileTypes.JSON:
+                case FileTypes.Json:
                     ConfigurationBuilder.AddJsonFile(path, true, true);
                     break;
 
-                case FileTypes.XML:
+                case FileTypes.Xml:
                     ConfigurationBuilder.AddXmlFile(path, true, true);
                     break;
 
@@ -37,8 +42,8 @@ namespace Cosmos.Logging.Configurations {
             return this;
         }
 
-        public virtual LoggingConfigurationBuilder AddJsonFile(string path) => AddFile(path, FileTypes.JSON);
-        public virtual LoggingConfigurationBuilder AddXmlFile(string path) => AddFile(path, FileTypes.XML);
+        public virtual LoggingConfigurationBuilder AddJsonFile(string path) => AddFile(path, FileTypes.Json);
+        public virtual LoggingConfigurationBuilder AddXmlFile(string path) => AddFile(path, FileTypes.Xml);
 
         private Action<MessageTemplateCachePreheater> MessageTemplateCachePreheaterAction { get; set; }
 

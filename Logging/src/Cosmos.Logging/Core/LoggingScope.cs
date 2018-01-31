@@ -32,8 +32,8 @@ namespace Cosmos.Logging.Core {
 
 #if NET451
         public static LoggingScope Current {
-            get => (CallContext.GetData(DataKey) as ObjectHandle)?.Unwrap() as LoggingScope;
-            private set => CallContext.SetData(DataKey, new ObjectHandle(value));
+            get => (CallContext.LogicalGetData(DataKey) as ObjectHandle)?.Unwrap() as LoggingScope;
+            private set => CallContext.LogicalSetData(DataKey, new ObjectHandle(value));
         }
 #else
         public static LoggingScope Current {
@@ -67,7 +67,7 @@ namespace Cosmos.Logging.Core {
 
         public LoggingScope Parent { get; private set; }
 
-        public override string ToString() => _state?.ToString();
+        public override string ToString() => _state?.ToString() ?? string.Empty;
 
         private class DisposableScope : IDisposable {
             public void Dispose() {

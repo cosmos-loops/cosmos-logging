@@ -7,11 +7,15 @@ namespace Cosmos.Logging.Configurations {
 
         #region Append log minimum level
 
+        LoggingOptions UseMinimumLevelForType<T>(LogEventLevel level);
+
         LoggingOptions UseMinimumLevelForType(Type type, LogEventLevel level);
 
-        LoggingOptions UseMinimumLevelForNamespace(Type type, LogEventLevel level);
+        LoggingOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level);
 
-        LoggingOptions UseMinimumLevelForNamespace(string @namespace, LogEventLevel level);
+        LoggingOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level);
+
+        LoggingOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level);
 
         LoggingOptions UseMinimumLevel(LogEventLevel? level);
 

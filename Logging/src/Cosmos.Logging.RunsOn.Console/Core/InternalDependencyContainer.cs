@@ -43,6 +43,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
                 servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(Options.Create((LoggingOptions) servicesImpl.ExposeLogSettings()))));
                 servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(servicesImpl.ExposeLoggingConfiguration())));
                 ServiceResolver = servicesImpl.ExposeServices().ToServiceContainer().Build();
+                StaticInstanceOfLoggingServiceProvider.SetInstance(ServiceResolver.ResolveRequired<ILoggingServiceProvider>());
             } else {
                 throw new ArgumentException(nameof(services));
             }

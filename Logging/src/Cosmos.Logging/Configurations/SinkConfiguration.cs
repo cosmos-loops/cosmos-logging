@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cosmos.Logging.Core;
-using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters.Navigators;
 

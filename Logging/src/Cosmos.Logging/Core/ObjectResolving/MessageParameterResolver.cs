@@ -4,7 +4,6 @@ using System.Linq;
 using Cosmos.Logging.Core.ObjectResolving.Extensions;
 using Cosmos.Logging.Core.ObjectResolving.Rules;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Core.ObjectResolving {
     public class MessageParameterResolver : IMessagePropertyFactory, IMessagePropertyValueFactory {

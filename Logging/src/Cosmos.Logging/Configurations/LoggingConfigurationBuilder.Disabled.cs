@@ -5,11 +5,8 @@ namespace Cosmos.Logging.Configurations {
     public sealed class DisabledConfigurationBuilder : LoggingConfigurationBuilder {
         private readonly IConfigurationRoot _root;
 
-        public DisabledConfigurationBuilder(IConfigurationRoot root) {
+        public DisabledConfigurationBuilder(IConfigurationRoot root) : base() {
             _root = root ?? throw new ArgumentNullException(nameof(root));
-            BeforeBuild(ActiveMessageTemplatePreheater);
-            BeforeBuild(ActiveCorePreferencesRenders);
-            AfterBuild(ActiveMessageParameterProcessor);
         }
 
         public override bool InitializedByGivenBuilder => false;

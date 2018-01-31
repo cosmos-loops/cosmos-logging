@@ -10,17 +10,21 @@ namespace Cosmos.Logging {
     public abstract partial class LoggerBase : ILogger {
         private readonly ILogPayloadSender _logPayloadSender;
         private readonly MessageParameterProcessor _messageParameterProcessor;
+        private readonly Func<string, LogEventLevel, bool> _filter;
+        private static readonly Func<string, LogEventLevel, bool> TrueFilter = (s, l) => true;
 
         protected LoggerBase(
             Type sourceType,
             LogEventLevel minimumLevel,
             string loggerStateNamespace,
+            Func<string, LogEventLevel, bool> filter,
             LogEventSendMode sendMode,
             ILogPayloadSender logPayloadSender) {
             StateNamespace = loggerStateNamespace;
             TargetType = sourceType ?? typeof(object);
             MinimumLevel = minimumLevel;
             SendMode = sendMode;
+            _filter = filter ?? TrueFilter;
             _logPayloadSender = logPayloadSender ?? throw new ArgumentNullException(nameof(logPayloadSender));
             _messageParameterProcessor = MessageParameterProcessorCache.Get();
 
@@ -37,7 +41,7 @@ namespace Cosmos.Logging {
         private readonly ILogPayload ManuallyPayload;
 
         public bool IsEnabled(LogEventLevel level) {
-            return PreliminaryEventPercolator.Percolate(level, this);
+            return _filter(StateNamespace, level) && PreliminaryEventPercolator.Percolate(level, this);
         }
 
         protected virtual bool IsManuallySendMode(LogEvent logEvent) {

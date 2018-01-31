@@ -8,9 +8,9 @@ using Cosmos.Logging.RunsOn.AspNetCore.Core;
 namespace Cosmos.Logging.RunsOn.AspNetCore {
     public class AspNetCoreLogger : LoggerBase, Microsoft.Extensions.Logging.ILogger {
 
-        public AspNetCoreLogger(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, LogEventSendMode sendMode,
-            ILogPayloadSender logPayloadSender, IHttpContextAccessor httpContextAccessor)
-            : base(sourceType, minimumLevel, loggerStateNamespace, sendMode, logPayloadSender) {
+        public AspNetCoreLogger(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, Func<string, LogEventLevel, bool> filter,
+            LogEventSendMode sendMode, ILogPayloadSender logPayloadSender, IHttpContextAccessor httpContextAccessor)
+            : base(sourceType, minimumLevel, loggerStateNamespace, filter, sendMode, logPayloadSender) {
 
             HttpContext = httpContextAccessor?.HttpContext;
         }

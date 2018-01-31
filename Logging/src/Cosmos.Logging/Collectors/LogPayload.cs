@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Collectors {
@@ -16,7 +15,8 @@ namespace Cosmos.Logging.Collectors {
             Name = name;
         }
 
-        public LogPayload(Type sourceType, string name, params LogEvent[] events) : this(sourceType, name, (IEnumerable<LogEvent>) events) { }
+        public LogPayload(Type sourceType, string name, params LogEvent[] events)
+            : this(sourceType, name, (IEnumerable<LogEvent>) events) { }
 
         public IEnumerator<LogEvent> GetEnumerator() {
             return LogEvents.GetEnumerator();

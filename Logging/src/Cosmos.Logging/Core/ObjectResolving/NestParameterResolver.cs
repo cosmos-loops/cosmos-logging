@@ -1,6 +1,5 @@
 ﻿using System;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Core.ObjectResolving {
     internal class NestParameterResolver : IMessagePropertyValueFactory {

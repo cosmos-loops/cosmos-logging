@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using AspectCore.Extensions.Reflection;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Core.ObjectResolving.Extensions {
     internal static class TypeFeelerExtensions {
@@ -72,7 +71,7 @@ namespace Cosmos.Logging.Core.ObjectResolving.Extensions {
                     yield return property;
                 }
 
-                currentType = currentType.BaseType;
+                currentType = currentType?.BaseType;
             }
         }
     }

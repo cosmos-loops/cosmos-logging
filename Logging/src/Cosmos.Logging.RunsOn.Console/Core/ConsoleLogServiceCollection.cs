@@ -5,6 +5,7 @@ using Cosmos.Logging.Core;
 using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+// ReSharper disable InconsistentNaming
 
 namespace Cosmos.Logging.RunsOn.Console.Core {
     public class ConsoleLogServiceCollection : ILogServiceCollection {
@@ -74,6 +75,25 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
             return this;
         }
 
+        private Action<object> AddExtraSinkSettingsAction { get; set; }
+
+        public ILogServiceCollection AddExtraSinkSettings<TExtraSinkSettings, TExtraSinkConfiguration>(
+            TExtraSinkSettings settings,
+            Action<IConfiguration, TExtraSinkConfiguration, LoggingConfiguration> configAct)
+            where TExtraSinkSettings : class, ILoggingSinkOptions, new()
+            where TExtraSinkConfiguration : SinkConfiguration, new() {
+            if (settings != null && !_sinkSettings.ContainsKey(settings.Key)) {
+                AddExtraSinkSettingsAction += lockObj => {
+                    lock (lockObj) {
+                        if (!_sinkSettings.ContainsKey(settings.Key)) _sinkSettings.Add(settings.Key, settings);
+                        _loggingConfiguration?.SetExtraSinkConfiguration(settings.Key, settings, configAct);
+                    }
+                };
+            }
+
+            return this;
+        }
+
         public ILogServiceCollection AddOriginConfigAction(Action<IConfiguration> configAction) {
             if (configAction != null) {
                 _originConfigAction += configAction;
@@ -103,6 +123,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
             _settings.Sinks?.Clear();
             _settings.Sinks = _sinkSettings;
             AddSinkSettingsAction?.Invoke(_sinkUpdateLock);
+            AddExtraSinkSettingsAction?.Invoke(_sinkUpdateLock);
         }
 
         internal void ActiveOriginConfiguration() {

@@ -4,6 +4,7 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.RunsOn.AspNetCore;
 using Cosmos.Logging.RunsOn.AspNetCore.Core;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -23,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection {
 
             services.TryAdd(ServiceDescriptor.Scoped<IHttpContextAccessor, HttpContextAccessor>());
             services.TryAdd(ServiceDescriptor.Singleton<ILoggingServiceProvider, AspNetCoreLoggingServiceProvider>());
-            services.TryAdd(ServiceDescriptor.Singleton(typeof(ILogger<>), typeof(AspNetCoreLoggerOfT<>)));
+            services.TryAdd(ServiceDescriptor.Singleton(typeof(ILogger<>), typeof(AspNetCoreLoggerWrapper<>)));
 
             servicesImpl.BuildConfiguration();
             servicesImpl.ActiveSinkSettings();
@@ -32,8 +33,27 @@ namespace Microsoft.Extensions.DependencyInjection {
 
             services.TryAdd(ServiceDescriptor.Singleton(Options.Options.Create((LoggingOptions) servicesImpl.ExposeLogSettings())));
             services.TryAdd(ServiceDescriptor.Singleton(servicesImpl.ExposeLoggingConfiguration()));
+            services.TryAdd(ServiceDescriptor.Singleton<ILoggerFactory>(provider => new AspNetCoreLoggerFactory(provider.GetService<ILoggingServiceProvider>())));
+
+            if (HackStaticInstance.UsingSecInitializingActivation) {
+                services.TryAdd(ServiceDescriptor.Singleton<ISecInitializingActivation>(provider => {
+                    var initializingActivationImpl = new AspNetCoreSecInitializingActivation();
+                    initializingActivationImpl.AppendAction(() => StaticInstanceOfLoggingServiceProvider.SetInstance(provider.GetRequiredService<ILoggingServiceProvider>()));
+                    return initializingActivationImpl;
+                }));
+            } else {
+                services.TryAdd(ServiceDescriptor.Singleton(provider => new HackStaticInstance(provider.GetRequiredService<ILoggingServiceProvider>())));
+            }
+
 
             return services;
+        }
+
+        public static IApplicationBuilder UseCosmosLogging(this IApplicationBuilder app) {
+            var initializingActivationImpl = app.ApplicationServices.GetService<ISecInitializingActivation>();
+            initializingActivationImpl?.GetSecProcessing()?.Invoke();
+
+            return app;
         }
     }
 }

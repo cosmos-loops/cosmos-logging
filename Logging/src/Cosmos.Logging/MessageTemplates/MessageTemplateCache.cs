@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Cosmos.Logging.Core;
 
@@ -9,6 +8,8 @@ namespace Cosmos.Logging.MessageTemplates {
     internal class MessageTemplateCache : IMessageTemplateParser {
         private readonly IMessageTemplateParser _messageTemplateParser;
         private readonly Hashtable _messageTemplateCache = new Hashtable();
+        private readonly Hashtable _preheatedTemplateCache = new Hashtable();
+        private readonly Hashtable _cosmosOwnTemplateCache = new Hashtable();
         private readonly object _messageTemplateLock = new object();
         private const int MaxCacheItems = 1000;
         private const int MaxLengthOfTemplateToBeCached = 1024;
@@ -19,8 +20,9 @@ namespace Cosmos.Logging.MessageTemplates {
 
         internal void FirePreheadedMessageTemplates(MessageTemplateCachePreheater preheater) {
             if (preheater == null) return;
-            FirePreheadedMessageTemplatesInternal(preheater.GetPreheatedMessageTemplates());
-            FirePreheadedMessageTemplateInternal(preheater.GetNeedToBePreheadedMessageTemplates());
+            FirePreheadedMessageTemplatesInternal(preheater.GetPreheatedMessageTemplates(), false);
+            FirePreheadedMessageTemplatesInternal(preheater.GetNeedToBePreheadedMessageTemplates(), false);
+            FirePreheadedMessageTemplatesInternal(preheater.GetTemplateStandards(), true);
         }
 
         public MessageTemplate Parse(string messageTemplate) {
@@ -30,28 +32,52 @@ namespace Cosmos.Logging.MessageTemplates {
 
             result = _messageTemplateParser.Parse(messageTemplate);
             lock (_messageTemplateLock) {
-                if (_messageTemplateCache.Count >= MaxCacheItems) _messageTemplateCache.Clear();
+                if (_messageTemplateCache.Count >= MaxCacheItems) ClearAndSyncMessageTemplateCache();
                 _messageTemplateCache[messageTemplate.GetHashCode()] = result;
             }
 
             return result;
         }
 
-        private void FirePreheadedMessageTemplatesInternal(Hashtable preheadedTemplates) {
+        private void ClearAndSyncMessageTemplateCache() {
+            _messageTemplateCache.Clear();
+            foreach (var k in _cosmosOwnTemplateCache.Keys) {
+                if (!_messageTemplateCache.ContainsKey(k))
+                    _messageTemplateCache.Add(k, _cosmosOwnTemplateCache[k]);
+            }
+
+            foreach (var k in _preheatedTemplateCache.Keys) {
+                if (!_messageTemplateCache.ContainsKey(k))
+                    _messageTemplateCache.Add(k, _preheatedTemplateCache[k]);
+            }
+        }
+
+        private void FirePreheadedMessageTemplatesInternal(Hashtable preheadedTemplates, bool cosmosOwn) {
             if (preheadedTemplates == null) return;
             var indexer = 0;
             foreach (var item in preheadedTemplates) {
                 if (item is MessageTemplate template) {
                     if (template.Text.Length > MaxLengthOfTemplateToBeCached) continue;
                     if (_messageTemplateCache.ContainsKey(template.Text.GetHashCode())) continue;
-                    if (indexer++ >= MaxCacheItems) break;
-                    _messageTemplateCache[template.Text.GetHashCode()] = template;
-                }
+                    if (cosmosOwn) {
+                        if (_cosmosOwnTemplateCache.ContainsKey(template.Text.GetHashCode())) continue;
+                    } else {
+                        if (_preheatedTemplateCache.ContainsKey(template.Text.GetHashCode())) continue;
+                    }
 
+                    if (indexer++ >= MaxCacheItems) break;
+
+                    _messageTemplateCache[template.Text.GetHashCode()] = template;
+                    if (cosmosOwn) {
+                        _cosmosOwnTemplateCache[template.Text.GetHashCode()] = template;
+                    } else {
+                        _preheatedTemplateCache[template.Text.GetHashCode()] = template;
+                    }
+                }
             }
         }
 
-        private void FirePreheadedMessageTemplateInternal(Dictionary<int, string> preheadedTemplates) {
+        private void FirePreheadedMessageTemplatesInternal(Dictionary<int, string> preheadedTemplates, bool cosmosOwn) {
             if (preheadedTemplates == null) return;
             if (!preheadedTemplates.Any()) return;
             var indexer = 0;
@@ -59,8 +85,21 @@ namespace Cosmos.Logging.MessageTemplates {
                 if (string.IsNullOrWhiteSpace(item.Value)) continue;
                 if (item.Value.Length > MaxLengthOfTemplateToBeCached) continue;
                 if (_messageTemplateCache.ContainsKey(item.Key)) continue;
+                if (cosmosOwn) {
+                    if (_cosmosOwnTemplateCache.ContainsKey(item.Key)) continue;
+                } else {
+                    if (_preheatedTemplateCache.ContainsKey(item.Key)) continue;
+                }
+
                 if (indexer++ >= MaxCacheItems) break;
+
                 _messageTemplateCache[item.Key] = _messageTemplateParser.Parse(item.Value);
+
+                if (cosmosOwn) {
+                    _cosmosOwnTemplateCache[item.Key] = _messageTemplateParser.Parse(item.Value);
+                } else {
+                    _preheatedTemplateCache[item.Key] = _messageTemplateParser.Parse(item.Value);
+                }
             }
         }
     }

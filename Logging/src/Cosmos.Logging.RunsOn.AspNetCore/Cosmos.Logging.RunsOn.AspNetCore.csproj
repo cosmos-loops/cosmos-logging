@@ -1,11 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cosmos.Logging.Sinks.MicrosoftExtensions\Cosmos.Logging.Sinks.MicrosoftExtensions.csproj" />
     <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
