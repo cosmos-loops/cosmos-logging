@@ -20,6 +20,8 @@ namespace Cosmos.Logging {
 
         internal LogEventLevel? MinimumLevel { get; set; }
 
+        public EfSinkOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
+
         public EfSinkOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var typeName = TypeNameHelper.GetTypeDisplayName(type);
@@ -32,13 +34,15 @@ namespace Cosmos.Logging {
             return this;
         }
 
-        public EfSinkOptions UseMinimumLevelForNamespace(Type type, LogEventLevel level) {
+        public EfSinkOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
+
+        public EfSinkOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var @namespace = type.Namespace;
-            return UseMinimumLevelForNamespace(@namespace, level);
+            return UseMinimumLevelForCategoryName(@namespace, level);
         }
 
-        public EfSinkOptions UseMinimumLevelForNamespace(string @namespace, LogEventLevel level) {
+        public EfSinkOptions UseMinimumLevelForCategoryName(string @namespace, LogEventLevel level) {
             if (string.IsNullOrWhiteSpace(@namespace)) throw new ArgumentNullException(nameof(@namespace));
             @namespace = $"{@namespace}.*";
             if (InternalNavigatorLogEventLevels.ContainsKey(@namespace)) {

@@ -19,6 +19,8 @@ namespace Cosmos.Logging.Sinks.SqlSugar {
 
         internal LogEventLevel? MinimumLevel { get; set; }
 
+        public SqlSugarOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
+
         public SqlSugarOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var typeName = TypeNameHelper.GetTypeDisplayName(type);
@@ -31,19 +33,21 @@ namespace Cosmos.Logging.Sinks.SqlSugar {
             return this;
         }
 
-        public SqlSugarOptions UseMinimumLevelForNamespace(Type type, LogEventLevel level) {
+        public SqlSugarOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
+
+        public SqlSugarOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var @namespace = type.Namespace;
-            return UseMinimumLevelForNamespace(@namespace, level);
+            return UseMinimumLevelForCategoryName(@namespace, level);
         }
 
-        public SqlSugarOptions UseMinimumLevelForNamespace(string @namespace, LogEventLevel level) {
-            if (string.IsNullOrWhiteSpace(@namespace)) throw new ArgumentNullException(nameof(@namespace));
-            @namespace = $"{@namespace}.*";
-            if (InternalNavigatorLogEventLevels.ContainsKey(@namespace)) {
-                InternalNavigatorLogEventLevels[@namespace] = level;
+        public SqlSugarOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level) {
+            if (string.IsNullOrWhiteSpace(categoryName)) throw new ArgumentNullException(nameof(categoryName));
+            categoryName = $"{categoryName}.*";
+            if (InternalNavigatorLogEventLevels.ContainsKey(categoryName)) {
+                InternalNavigatorLogEventLevels[categoryName] = level;
             } else {
-                InternalNavigatorLogEventLevels.Add(@namespace, level);
+                InternalNavigatorLogEventLevels.Add(categoryName, level);
             }
 
             return this;
@@ -78,7 +82,7 @@ namespace Cosmos.Logging.Sinks.SqlSugar {
         internal Action<Exception> ErrorInterceptorAction { get; set; }
         internal Action<string, SugarParameter[]> ExecutingInterceptorAction { get; set; }
         internal Action<string, SugarParameter[]> ExecutedInterceptorAction { get; set; }
-        
+
         public SqlSugarOptions AddExecutingInterceptor(Action<string, SugarParameter[]> executingInterceptor) {
             ExecutingInterceptorAction += executingInterceptor ?? throw new ArgumentNullException(nameof(executingInterceptor));
             return this;

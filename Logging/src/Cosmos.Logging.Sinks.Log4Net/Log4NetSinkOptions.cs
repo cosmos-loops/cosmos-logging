@@ -13,6 +13,8 @@ namespace Cosmos.Logging.Sinks.Log4Net {
         internal readonly Dictionary<string, LogEventLevel> InternalNavigatorLogEventLevels = new Dictionary<string, LogEventLevel>();
 
         internal LogEventLevel? MinimumLevel { get; set; }
+        
+        public Log4NetSinkOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
 
         public Log4NetSinkOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -25,20 +27,22 @@ namespace Cosmos.Logging.Sinks.Log4Net {
 
             return this;
         }
+        
+        public Log4NetSinkOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
-        public Log4NetSinkOptions UseMinimumLevelForNamespace(Type type, LogEventLevel level) {
+        public Log4NetSinkOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var @namespace = type.Namespace;
-            return UseMinimumLevelForNamespace(@namespace, level);
+            return UseMinimumLevelForCategoryName(@namespace, level);
         }
 
-        public Log4NetSinkOptions UseMinimumLevelForNamespace(string @namespace, LogEventLevel level) {
-            if (string.IsNullOrWhiteSpace(@namespace)) throw new ArgumentNullException(nameof(@namespace));
-            @namespace = $"{@namespace}.*";
-            if (InternalNavigatorLogEventLevels.ContainsKey(@namespace)) {
-                InternalNavigatorLogEventLevels[@namespace] = level;
+        public Log4NetSinkOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level) {
+            if (string.IsNullOrWhiteSpace(categoryName)) throw new ArgumentNullException(nameof(categoryName));
+            categoryName = $"{categoryName}.*";
+            if (InternalNavigatorLogEventLevels.ContainsKey(categoryName)) {
+                InternalNavigatorLogEventLevels[categoryName] = level;
             } else {
-                InternalNavigatorLogEventLevels.Add(@namespace, level);
+                InternalNavigatorLogEventLevels.Add(categoryName, level);
             }
 
             return this;

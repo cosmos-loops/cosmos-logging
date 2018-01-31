@@ -10,16 +10,20 @@ namespace Cosmos.Logging.Configurations {
 
         #region Append log minimum level
 
+        TOptions UseMinimumLevelForType<T>(LogEventLevel level);
+
         TOptions UseMinimumLevelForType(Type type, LogEventLevel level);
 
-        TOptions UseMinimumLevelForNamespace(Type type, LogEventLevel level);
+        TOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level);
 
-        TOptions UseMinimumLevelForNamespace(string @namespace, LogEventLevel level);
+        TOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level);
+
+        TOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level);
 
         TOptions UseMinimumLevel(LogEventLevel? level);
 
         #endregion
-        
+
         #region Append log level alias
 
         TOptions UseAlias(string alias, LogEventLevel level);
