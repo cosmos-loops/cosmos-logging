@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Sinks.Exceptionless.Internals;
 
-namespace Cosmos.Logging.Sinks.Exceptionless {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public class ExceptionlessSinkOptions : ILoggingSinkOptions<ExceptionlessSinkOptions>, ILoggingSinkOptions {
-        public string Key => Internals.Constants.SinkKey;
+        public string Key => Constants.SinkKey;
 
         #region Append log minimum level
 
@@ -27,7 +29,7 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
 
             return this;
         }
-        
+
         public ExceptionlessSinkOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
         public ExceptionlessSinkOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {

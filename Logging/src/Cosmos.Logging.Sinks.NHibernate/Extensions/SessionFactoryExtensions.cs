@@ -1,5 +1,4 @@
 ﻿//using System;
-//using Cosmos.Logging.Sinks.NHibernate.Core;
 //using NHibernate;
 //
 //// ReSharper disable once CheckNamespace

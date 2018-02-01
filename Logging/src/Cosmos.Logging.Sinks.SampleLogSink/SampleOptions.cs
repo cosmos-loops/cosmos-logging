@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Sinks.SampleLogSink.Internals;
 
-namespace Cosmos.Logging.Sinks.SampleLogSink {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public class SampleOptions : ILoggingSinkOptions<SampleOptions>, ILoggingSinkOptions {
         
         public SampleOptions() { }
         
-        public string Key => Internals.Constants.SinkKey;
+        public string Key => Constants.SinkKey;
 
         #region Append log minimum level
 

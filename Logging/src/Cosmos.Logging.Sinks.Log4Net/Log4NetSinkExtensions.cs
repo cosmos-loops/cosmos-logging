@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Sinks.Log4Net;
 using log4net;
 using log4net.Config;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
-namespace Cosmos.Logging.Sinks.Log4Net {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public static class Log4NetSinkExtensions {
         public static ILogServiceCollection AddLog4Net(this ILogServiceCollection services, Action<Log4NetSinkOptions> settingAct = null,
             Action<IConfiguration, Log4NetSinkConfiguration> configAct = null) {

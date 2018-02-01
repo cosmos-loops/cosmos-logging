@@ -6,7 +6,8 @@ using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.SqlSugar.Core;
 using SqlSugar;
 
-namespace Cosmos.Logging.Sinks.SqlSugar {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public class SqlSugarOptions : ILoggingSinkOptions<SqlSugarOptions>, ILoggingSinkOptions {
 
         public SqlSugarOptions() { }

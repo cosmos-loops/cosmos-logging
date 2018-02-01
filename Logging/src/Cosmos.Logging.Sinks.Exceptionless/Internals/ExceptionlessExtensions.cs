@@ -2,8 +2,8 @@
 using Exceptionless;
 using Microsoft.Extensions.Configuration;
 
-namespace Cosmos.Logging.Sinks.Exceptionless.Core {
-    public static class ExceptionlessExtensions {
+namespace Cosmos.Logging.Sinks.Exceptionless.Internals {
+    internal static class ExceptionlessExtensions {
         /// <summary>
         /// Sets the configuration from .net configuration settings.
         /// </summary>

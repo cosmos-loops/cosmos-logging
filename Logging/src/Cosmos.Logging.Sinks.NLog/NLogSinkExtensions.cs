@@ -1,6 +1,7 @@
 ﻿using System;
 using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Sinks.NLog;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -8,7 +9,8 @@ using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Config;
 
-namespace Cosmos.Logging.Sinks.NLog {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public static class NLogSinkExtensions {
         public static ILogServiceCollection AddNLog(this ILogServiceCollection services, Action<NLogSinkOptions> settingAct = null,
             Action<IConfiguration, NLogSinkConfiguration> configAction = null) {

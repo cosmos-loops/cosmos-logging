@@ -1,10 +1,13 @@
 ﻿using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Extensions;
+using Cosmos.Logging.Sinks.NLog;
+using Cosmos.Logging.Sinks.NLog.Internals;
 using EnumsNET;
 
-namespace Cosmos.Logging.Sinks.NLog {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public class NLogSinkConfiguration : SinkConfiguration {
-        public NLogSinkConfiguration() : base(Internals.Constants.SinkKey) { }
+        public NLogSinkConfiguration() : base(Constants.SinkKey) { }
 
         protected override void BeforeProcessLogLevel(ILoggingSinkOptions settings) {
             if (settings is NLogSinkOptions options) {

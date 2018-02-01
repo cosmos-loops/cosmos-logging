@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
+using Cosmos.Logging.Sinks.NLog.Internals;
 
 namespace Cosmos.Logging.Sinks.NLog {
     public class NLogPayloadClient : ILogEventSink, ILogPayloadClient {

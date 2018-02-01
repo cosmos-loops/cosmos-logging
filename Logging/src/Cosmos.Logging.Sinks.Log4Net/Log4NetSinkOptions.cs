@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Sinks.Log4Net.Internals;
 
-namespace Cosmos.Logging.Sinks.Log4Net {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public class Log4NetSinkOptions : ILoggingSinkOptions<Log4NetSinkOptions>, ILoggingSinkOptions {
-        public string Key => Internals.Constants.SinkKey;
+        public string Key => Constants.SinkKey;
 
         #region Append log minimum level
 
         internal readonly Dictionary<string, LogEventLevel> InternalNavigatorLogEventLevels = new Dictionary<string, LogEventLevel>();
 
         internal LogEventLevel? MinimumLevel { get; set; }
-        
+
         public Log4NetSinkOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
 
         public Log4NetSinkOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
@@ -27,7 +29,7 @@ namespace Cosmos.Logging.Sinks.Log4Net {
 
             return this;
         }
-        
+
         public Log4NetSinkOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
         public Log4NetSinkOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
@@ -71,7 +73,7 @@ namespace Cosmos.Logging.Sinks.Log4Net {
         }
 
         #endregion
-        
+
         #region Append configuration file path
 
         public Log4NetSinkOptions UseDefaultOriginConfigFilePath() {
@@ -90,6 +92,6 @@ namespace Cosmos.Logging.Sinks.Log4Net {
 
 
         public string OriginConfigFilePath { get; set; }
-        public bool WatchOriginConfigFile { get; set; } 
+        public bool WatchOriginConfigFile { get; set; }
     }
 }
