@@ -7,13 +7,14 @@ Core repository of [COSMOS LOOPS PROGRAMME](https://github.com/CosmosLoops). Thi
 + [Cosmos.Standard](https://github.com/CosmosLoops/Cosmos/tree/dev/Standard)
 + [Cosmos.Encryption](https://github.com/CosmosLoops/Cosmos/tree/dev/Encryption)
 + [Cosmos.Logging](https://github.com/CosmosLoops/Cosmos/tree/dev/Logging)
-+ [Cosmos.Data](#) (*intending*)
++ [Cosmos.I18N](#) *(intending)*
++ [Cosmos.Data](#) *(intending)*
 
 **First-class projects**
 
 + [Cosmos.One](https://github.com/CosmosLoops/Cosmos.One)
-+ [Cosmos.Walkers](#) (*intending*)
-+ [Cosmos.Golhfinea](#) (*intending*)
++ [Cosmos.Walkers](#) *(intending)*
++ [Cosmos.Golhfinea](#) *(intending)*
 
 **Extra projects:**
 

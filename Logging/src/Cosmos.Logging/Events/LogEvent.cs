@@ -12,6 +12,13 @@ namespace Cosmos.Logging.Events {
         private readonly Dictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> _positionalProperties;
         private readonly Dictionary<string, ExtraMessageProperty> _extraMessageProperties;
 
+        internal LogEvent() {
+            _additionalOptContext = null;
+            _namedProperties = null;
+            _positionalProperties = null;
+            _extraMessageProperties = null;
+        }
+
         public LogEvent(
             string stateNamespace,
             DateTimeOffset timestamp,
