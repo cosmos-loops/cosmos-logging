@@ -1,7 +1,7 @@
 ﻿using Cosmos.Logging.Events;
 
-namespace Cosmos.Logging.Sinks.NLog {
-    public static class LogLevelSwitcher {
+namespace Cosmos.Logging.Sinks.NLog.Internals {
+    internal static class LogLevelSwitcher {
         public static global::NLog.LogLevel Switch(LogEventLevel level) {
             switch (level) {
                 case LogEventLevel.Verbose:

@@ -77,6 +77,17 @@ namespace Cosmos.Logging {
 
         #endregion
 
+        #region Append Interceptor
+
+        internal Func<string, object> SimgleLoggingAction { get; set; }
+
+        public EfCoreSinkOptions AddSimpleLoggingInterceptor(Func<string, object> simpleLoggingInterceptor) {
+            SimgleLoggingAction += simpleLoggingInterceptor;
+            return this;
+        }
+
+        #endregion
+
         #region Appeng filter
 
         internal Func<string, LogEventLevel, bool> Filter { get; set; }

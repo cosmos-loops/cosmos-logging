@@ -1,14 +1,16 @@
 ﻿using System;
 using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
-using Cosmos.Logging.Sinks.Exceptionless.Core;
+using Cosmos.Logging.Sinks.Exceptionless;
+using Cosmos.Logging.Sinks.Exceptionless.Internals;
 using Exceptionless;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
-namespace Cosmos.Logging.Sinks.Exceptionless {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public static class ExceptionlessSinkExtensions {
         public static ILogServiceCollection AddExceptionless(this ILogServiceCollection services, Action<ExceptionlessSinkOptions> settingAct = null,
             Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {

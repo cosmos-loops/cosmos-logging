@@ -1,9 +1,11 @@
 ﻿using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Extensions;
+using Cosmos.Logging.Sinks.SqlSugar;
 using Cosmos.Logging.Sinks.SqlSugar.Core;
 using EnumsNET;
 
-namespace Cosmos.Logging.Sinks.SqlSugar {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public class SqlSguarConfiguration : SinkConfiguration {
 
         public SqlSguarConfiguration() : base(Constants.SinkKey) { }

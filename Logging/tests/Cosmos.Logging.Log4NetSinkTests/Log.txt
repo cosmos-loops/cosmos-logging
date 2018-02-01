@@ -1,0 +1,2 @@
+2018-02-01 16:18:19,040 INFO [Cosmos.Logging.Log4NetSinkTests.Program]: hello
+2018-02-01 16:18:19,057 ERROR[Cosmos.Logging.Log4NetSinkTests.Program]: world

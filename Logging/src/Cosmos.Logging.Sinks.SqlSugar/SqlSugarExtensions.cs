@@ -1,9 +1,10 @@
 ﻿using System;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.SqlSugar.Core;
+using SqlSugar;
 
 // ReSharper disable once CheckNamespace
-namespace SqlSugar {
+namespace Cosmos.Logging {
     public static class SqlSugarExtensions {
         public static SimpleClient UseCosmosLogging(this SimpleClient client, SqlSugarInterceptorDescriptor descriptor,
             Action<string, SugarParameter[]> executingAct = null, Func<string, SugarParameter[], object> executedAct = null,

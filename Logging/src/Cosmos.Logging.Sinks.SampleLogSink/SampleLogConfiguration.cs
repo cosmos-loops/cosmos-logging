@@ -1,10 +1,12 @@
 ﻿using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Extensions;
+using Cosmos.Logging.Sinks.SampleLogSink.Internals;
 using EnumsNET;
 
-namespace Cosmos.Logging.Sinks.SampleLogSink {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public class SampleLogConfiguration : SinkConfiguration {
-        public SampleLogConfiguration() : base(Internals.Constants.SinkKey) { }
+        public SampleLogConfiguration() : base(Constants.SinkKey) { }
 
         protected override void BeforeProcessLogLevel(ILoggingSinkOptions settings) {
             if (settings is SampleOptions options) {

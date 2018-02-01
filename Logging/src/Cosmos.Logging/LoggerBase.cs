@@ -54,26 +54,14 @@ namespace Cosmos.Logging {
             AdditionalOptContext context = null, params object[] messageTemplateParameters) {
             if (!IsEnabled(level)) return;
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
-
-            _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
-                out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
-
-            var logEvent = new LogEvent(StateNamespace, DateTimeOffset.Now, level, parsedTemplate, exception,
-                sendMode, namedMessageProperties, positionalMessageProperties, context);
-
-            Dispatch(logEvent);
-
-            object[] __as(object[] __paramObjs) {
-                if (__paramObjs != null && __paramObjs.GetType() != typeof(object[]))
-                    return new object[] {__paramObjs};
-                return __paramObjs;
-            }
+            var task = InsertLogEventIntoAsyncQueue(level, exception, messageTemplate, sendMode, context, messageTemplateParameters);
+            task.ContinueWith(t => DispatchFromAsyncQueue());
+            task.Start();
         }
 
         public void Write(LogEvent logEvent) {
-            if (logEvent == null) return;
-            if (!IsEnabled(logEvent.Level)) return;
-            Dispatch(logEvent);
+            if (logEvent == null || !IsEnabled(logEvent.Level)) return;
+            InsertLogEventIntoAsyncQueue(logEvent);
         }
 
         protected virtual void Dispatch(LogEvent logEvent) {
@@ -81,7 +69,7 @@ namespace Cosmos.Logging {
                 ManuallyPayload.Add(logEvent);
             } else {
                 AutomaticPayload.Add(logEvent);
-                LogPayloadEmitter.Emit(_logPayloadSender, AutomaticPayload.Export());
+                AutomaticlySubmitLoggerByPipleline();
             }
         }
 
@@ -91,7 +79,7 @@ namespace Cosmos.Logging {
         }
 
         public void SubmitLogger() {
-            LogPayloadEmitter.Emit(_logPayloadSender, ManuallyPayload.Export());
+            LaunchSubmitCommand();
         }
 
         private static AdditionalOptContext TouchAdditionalOptContext(Action<AdditionalOptContext> additionalOptContextAct) {

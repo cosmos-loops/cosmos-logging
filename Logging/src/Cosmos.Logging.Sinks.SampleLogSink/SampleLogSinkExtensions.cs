@@ -1,12 +1,14 @@
 ﻿using System;
 using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Sinks.SampleLogSink;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
-namespace Cosmos.Logging.Sinks.SampleLogSink {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public static class SampleLogSinkExtensions {
         public static ILogServiceCollection AddSampleLog(this ILogServiceCollection services, Action<SampleOptions> settingAct = null,
             Action<IConfiguration, SampleLogConfiguration> config = null) {

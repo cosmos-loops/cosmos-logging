@@ -1,10 +1,12 @@
 ﻿using System;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Sinks.EntityFrameworkCore;
 using Cosmos.Logging.Sinks.EntityFrameworkCore.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace Cosmos.Logging.Sinks.EntityFrameworkCore {
+// ReSharper disable once CheckNamespace
+namespace Cosmos.Logging {
     public static class DbContextOptionsBuilderExtensions {
         private static ILoggingServiceProvider _loggingServiceProvider => EfCoreInterceptorDescriptor.Instance.ExposeLoggingServiceProvider;
         private static Func<string, LogEventLevel, bool> _gloablFilter => EfCoreInterceptorDescriptor.Instance.ExposeSettings.Filter;

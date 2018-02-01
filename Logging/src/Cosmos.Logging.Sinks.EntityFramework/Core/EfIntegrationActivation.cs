@@ -5,7 +5,7 @@ namespace Cosmos.Logging.Sinks.EntityFramework.Core {
         public EfIntegrationActivation(EfInterceptorDescriptor descriptor) {
             DbInterception.Add(new EfIntegrationLoggerInterceptor(descriptor));
             DatabaseExtensions.LoggingServiceProvider = descriptor.ExposeLoggingServiceProvider;
-            DatabaseExtensions.GlobalSimpleLogingInterceptor = descriptor.ExposeSettings.SimgleLoggingAction;
+            DatabaseExtensions.GlobalSimpleLoggingInterceptor = descriptor.ExposeSettings.SimgleLoggingAction;
             DatabaseExtensions.Settings = descriptor.ExposeSettings;
         }
     }
