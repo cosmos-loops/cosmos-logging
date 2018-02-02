@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Cosmos.Logging.Collectors;
 
 namespace Cosmos.Logging.Core {

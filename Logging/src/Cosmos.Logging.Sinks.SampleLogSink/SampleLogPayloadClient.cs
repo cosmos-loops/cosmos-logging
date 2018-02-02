@@ -28,6 +28,7 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
                 var legalityEvents = LogEventSinkFilter.Filter(payload, _sinkConfiguration).ToList();
                 var ix = 0;
                 var count = legalityEvents.Count;
+                
                 foreach (var logEvent in legalityEvents) {
                     var stringBuilder = new StringBuilder();
                     using (var output = new StringWriter(stringBuilder, _formatProvider)) {
@@ -48,7 +49,7 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
 //                        Console.WriteLine($"token={token}, type={token.TokenRenderType}, rawString={token.RawText}, tokenString={token.ToText()}");
 //                    }
 
-                    Console.WriteLine($"[{payload.Name}][{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(Level)}] {stringBuilder}");
+                    Console.WriteLine($"[{payload.Name}][{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(logEvent.Level)}] {stringBuilder}");
                 }
             }
 #if NET451

@@ -27,7 +27,7 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/CancellableQueue.cs
     /// Author: Sunlighter
     /// </summary>
-    public class CancellableQueue<T> {
+    public class CancellableQueue<T> : IDisposable {
         private long nextId;
         private ImmutableDictionary<long, T> itemMap;
         private ImmutableList<long> queue;
@@ -98,6 +98,17 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         public T GetById(long id) {
             return itemMap[id];
+        }
+
+        private bool disposed;
+
+        public void Dispose() {
+            if (disposed) return;
+
+            nextId = 0L;
+            itemMap.Clear();
+            queue.Clear();
+            disposed = true;
         }
     }
 }

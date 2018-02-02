@@ -33,7 +33,7 @@ namespace Cosmos.Logging.MessageTemplates {
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedProperties,
             IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalProperties,
             ILogEventInfo logEventInfo, IFormatProvider formatProvider) {
-            var stringBuilder = new StringBuilder();
+            var stringBuilder = CreateStringBuilder(logEventInfo);
             var position = 0;
 
             for (var current = 0; current < tokens.Length; current++) {
@@ -70,6 +70,32 @@ namespace Cosmos.Logging.MessageTemplates {
 
             if (position < chars.Length) {
                 stringBuilder.Append(chars.Read(position, chars.Length - position));
+            }
+
+            stringBuilder.Append(Environment.NewLine);
+            return stringBuilder;
+        }
+
+        private static StringBuilder CreateStringBuilder(ILogEventInfo logEventInfo) {
+            var now = DateTime.UtcNow.ToLocalTime();
+            var caller = logEventInfo.CallerInfo;
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.Append($"{now:yyyy/MM/dd HH:mm:ss} ");
+
+            switch (logEventInfo.Level) {
+                case LogEventLevel.Verbose:
+                case LogEventLevel.Debug:
+                case LogEventLevel.Information:
+                    if (!string.IsNullOrWhiteSpace(caller.MemberName))
+                        stringBuilder.Append($"({caller.MemberName}) ");
+                    break;
+
+                case LogEventLevel.Warning:
+                case LogEventLevel.Error:
+                case LogEventLevel.Fatal:
+                    stringBuilder.Append($"({caller.FilePath}:{caller.LineNumber} {caller.MemberName}) ");
+                    break;
             }
 
             return stringBuilder;

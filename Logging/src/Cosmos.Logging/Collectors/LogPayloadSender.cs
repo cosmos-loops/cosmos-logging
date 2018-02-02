@@ -13,8 +13,9 @@ namespace Cosmos.Logging.Collectors {
         }
 
         public async Task SendAsync(ILogPayload payload, CancellationToken cancellationToken = default(CancellationToken)) {
-            foreach (var provider in _logPayloadClientProviders)
+            foreach (var provider in _logPayloadClientProviders) {
                 await provider.GetClient().WriteAsync(payload, cancellationToken);
+            }
         }
     }
 }

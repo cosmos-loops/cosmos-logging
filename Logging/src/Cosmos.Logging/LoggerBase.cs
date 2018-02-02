@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
@@ -8,11 +9,12 @@ using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters.Internals;
 
 namespace Cosmos.Logging {
-    public abstract partial class LoggerBase : ILogger {
+    public abstract partial class LoggerBase : ILogger, IDisposable {
         private readonly ILogPayloadSender _logPayloadSender;
         private readonly MessageParameterProcessor _messageParameterProcessor;
         private readonly Func<string, LogEventLevel, bool> _filter;
         private static readonly Func<string, LogEventLevel, bool> TrueFilter = (s, l) => true;
+        private long CurrentManuallyTransId { get; set; }
 
         protected LoggerBase(
             Type sourceType,
@@ -31,6 +33,8 @@ namespace Cosmos.Logging {
 
             AutomaticPayload = new LogPayload(sourceType, loggerStateNamespace, Enumerable.Empty<LogEvent>());
             ManuallyPayload = new LogPayload(sourceType, loggerStateNamespace, Enumerable.Empty<LogEvent>());
+            CurrentManuallyTransId = DateTime.Now.Ticks;
+            _manuallyLogEventDescriptors.TryAdd(CurrentManuallyTransId, new List<ManuallyLogEventDescriptor>());
         }
 
         public string StateNamespace { get; }
@@ -55,9 +59,9 @@ namespace Cosmos.Logging {
             if (!IsEnabled(level)) return;
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
             if (IsManuallySendMode(sendMode)) {
-                ParseAndInsertLogEventIntoQueueManually(level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
+                ParseAndInsertLogEvenDescriptorManually(level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
             } else {
-                ParseAndInsertLogEventIntoQueueAutomaticly(level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
+                ParseAndInsertLogEventIntoQueueAutomatically(level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
             }
         }
 
@@ -71,7 +75,7 @@ namespace Cosmos.Logging {
                 ManuallyPayload.Add(logEvent);
             } else {
                 AutomaticPayload.Add(logEvent);
-                AutomaticlySubmitLoggerByPipleline();
+                AutomaticalSubmitLoggerByPipleline();
             }
         }
 
@@ -81,7 +85,11 @@ namespace Cosmos.Logging {
         }
 
         public void SubmitLogger() {
-            SubmitLogEventsManually();
+            SubmitLogEventsManually(new DisposableAction(() => {
+                CurrentManuallyTransId = DateTime.Now.Ticks;
+                _manuallyLogEventDescriptors.Clear();
+                _manuallyLogEventDescriptors.TryAdd(CurrentManuallyTransId, new List<ManuallyLogEventDescriptor>());
+            }));
         }
 
         private static AdditionalOptContext TouchAdditionalOptContext(Action<AdditionalOptContext> additionalOptContextAct) {
@@ -89,5 +97,23 @@ namespace Cosmos.Logging {
             additionalOptContextAct?.Invoke(context);
             return context;
         }
+
+        #region Dispose
+
+               private bool disposed;
+        
+                public void Dispose() {
+                    Dispose(true);
+                }
+        
+                protected virtual void Dispose(bool disposing) {
+                    if (disposed) return;
+        
+                    if (disposing) {
+                        _automaticAsyncQueue.Dispose();
+                    }
+                }
+
+        #endregion
     }
 }
