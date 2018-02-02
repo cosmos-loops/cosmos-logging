@@ -1,4 +1,5 @@
 ﻿using System;
+using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Core {
@@ -8,5 +9,6 @@ namespace Cosmos.Logging.Core {
         LogEventLevel Level { get; }
         LogEventSendMode SendMode { get; }
         Exception Exception { get; }
+        ILogCallerInfo CallerInfo { get; }
     }
 }

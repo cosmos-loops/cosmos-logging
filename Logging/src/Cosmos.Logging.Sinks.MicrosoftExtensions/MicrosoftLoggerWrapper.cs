@@ -1,4 +1,5 @@
 ﻿using System;
+using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.MicrosoftExtensions.Core;
 using Microsoft.Extensions.Logging;
@@ -20,7 +21,7 @@ namespace Cosmos.Logging.Sinks.MicrosoftExtensions {
             if (formatter == null) throw new ArgumentNullException(nameof(formatter));
             var messageTemplate = formatter(state, exception);
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
-            _logger.Write(LogLevelSwitcher.Switch(logLevel), exception, messageTemplate, LogEventSendMode.Customize);
+            _logger.Write(LogLevelSwitcher.Switch(logLevel), exception, messageTemplate, LogEventSendMode.Customize, NullLogCallerInfo.Instance);
         }
 
         public bool IsEnabled(LogLevel logLevel) {

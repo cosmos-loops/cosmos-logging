@@ -28,7 +28,7 @@ namespace Cosmos.Logging {
 
             var logger = new SimpleLogger(internalLogger, localFunc);
 
-            db.ConfigureLogging(logger.WriteLog, (s, l) => localFilter.Invoke(s, LogLevelSwitcher.Switch(l)));
+            db.ConfigureLogging(s => logger.WriteLog(s), (s, l) => localFilter.Invoke(s, LogLevelSwitcher.Switch(l)));
         }
     }
 }

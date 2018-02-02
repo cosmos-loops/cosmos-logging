@@ -2,6 +2,7 @@
 using System.Linq;
 using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Core.ObjectResolving;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters.Internals;
@@ -44,24 +45,25 @@ namespace Cosmos.Logging {
             return _filter(StateNamespace, level) && PreliminaryEventPercolator.Percolate(level, this);
         }
 
-        protected virtual bool IsManuallySendMode(LogEvent logEvent) {
-            return
-                SendMode == LogEventSendMode.Customize && logEvent.SendMode == LogEventSendMode.Manually ||
-                SendMode == LogEventSendMode.Manually;
-        }
+        protected virtual bool IsManuallySendMode(LogEventSendMode modeInEvent) =>
+            SendMode == LogEventSendMode.Customize && modeInEvent == LogEventSendMode.Manually || SendMode == LogEventSendMode.Manually;
 
-        public void Write(LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode,
+        protected bool IsManuallySendMode(LogEvent logEvent) => IsManuallySendMode(logEvent?.SendMode ?? LogEventSendMode.Customize);
+
+        public void Write(LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode, ILogCallerInfo callerInfo,
             AdditionalOptContext context = null, params object[] messageTemplateParameters) {
             if (!IsEnabled(level)) return;
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
-            var task = InsertLogEventIntoAsyncQueue(level, exception, messageTemplate, sendMode, context, messageTemplateParameters);
-            task.ContinueWith(t => DispatchFromAsyncQueue());
-            task.Start();
+            if (IsManuallySendMode(sendMode)) {
+                ParseAndInsertLogEventIntoQueueManually(level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
+            } else {
+                ParseAndInsertLogEventIntoQueueAutomaticly(level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
+            }
         }
 
         public void Write(LogEvent logEvent) {
             if (logEvent == null || !IsEnabled(logEvent.Level)) return;
-            InsertLogEventIntoAsyncQueue(logEvent);
+            Dispatch(logEvent);
         }
 
         protected virtual void Dispatch(LogEvent logEvent) {
@@ -79,7 +81,7 @@ namespace Cosmos.Logging {
         }
 
         public void SubmitLogger() {
-            LaunchSubmitCommand();
+            SubmitLogEventsManually();
         }
 
         private static AdditionalOptContext TouchAdditionalOptContext(Action<AdditionalOptContext> additionalOptContextAct) {

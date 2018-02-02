@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Events {
@@ -17,6 +18,7 @@ namespace Cosmos.Logging.Events {
             _namedProperties = null;
             _positionalProperties = null;
             _extraMessageProperties = null;
+            CallerInfo = NullLogCallerInfo.Instance;
         }
 
         public LogEvent(
@@ -26,6 +28,7 @@ namespace Cosmos.Logging.Events {
             MessageTemplate messageTemplate,
             Exception exception,
             LogEventSendMode sendMode,
+            ILogCallerInfo callerInfo,
             Dictionary<(string name, PropertyResolvingMode mode), MessageProperty> namedMessageProperties,
             Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> positionalMessageProperties,
             AdditionalOptContext additionalOptContext) {
@@ -38,6 +41,7 @@ namespace Cosmos.Logging.Events {
             Level = level;
             Exception = exception;
             SendMode = sendMode;
+            CallerInfo = callerInfo;
             MessageTemplate = messageTemplate ?? throw new ArgumentNullException(nameof(messageTemplate));
             _additionalOptContext = additionalOptContext ?? new AdditionalOptContext();
 
@@ -54,6 +58,7 @@ namespace Cosmos.Logging.Events {
         public LogEventSendMode SendMode { get; }
         public Exception Exception { get; }
         public MessageTemplate MessageTemplate { get; }
+        public ILogCallerInfo CallerInfo { get; }
 
         #region Reder Message
 

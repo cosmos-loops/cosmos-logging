@@ -14,8 +14,8 @@ namespace Cosmos.Logging.SampleSinkTests {
 
                 var logger = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
 
-                logger.LogInformation("hello");
-                logger.LogError("world");
+                logger.LogInformation("hello, {$CallerMemberName} {$CallerFilePath:pl20} {$CallerLineNumber}");
+                logger.LogError("world, {$CallerMemberName} {$CallerFilePath:pl20} {$CallerLineNumber}");
                 logger.SubmitLogger();
 
                 Console.WriteLine("Hello World!");

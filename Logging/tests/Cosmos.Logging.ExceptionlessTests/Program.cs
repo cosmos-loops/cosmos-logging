@@ -22,6 +22,7 @@ namespace Cosmos.Logging.ExceptionlessTests {
 
                 logger.LogInformation("测试1", ctx => ctx.ForExceptionless(h => h.AddTags("CosmosLogging")));
                 logger.LogInformation("测试2", builder => builder.AddTags("CosmosLogging"));
+                
                 logger.LogError("world");
                 logger.SubmitLogger();
 

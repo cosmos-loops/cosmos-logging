@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Cosmos.Logging.Sinks.EntityFrameworkCore.Core {
     internal class SimpleLogger {
@@ -10,7 +11,7 @@ namespace Cosmos.Logging.Sinks.EntityFrameworkCore.Core {
             _simgleLoggingAct = simgleLoggingAct;
         }
 
-        public void WriteLog(string sqlText) {
+        public void WriteLog(string sqlText, [CallerMemberName] string memberName = null) {
             var userInfo = _simgleLoggingAct?.Invoke(sqlText) ?? string.Empty;
 
             var loggingObj = new {
@@ -18,7 +19,7 @@ namespace Cosmos.Logging.Sinks.EntityFrameworkCore.Core {
                 Sql = sqlText,
                 UserInfo = userInfo
             };
-            _logger.LogDebug(TemplateStandards.OrmTemplateStandard.SimpleSqlLog, loggingObj);
+            _logger.LogDebug(TemplateStandards.OrmTemplateStandard.SimpleSqlLog, loggingObj, memberName);
         }
     }
 }

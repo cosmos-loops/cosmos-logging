@@ -16,7 +16,8 @@ namespace Cosmos.Logging.Sinks.EntityFramework.Core {
             OnExecuted(command, interceptionContext,
                 _descriptor.ExposeNonQueryExecutedInterceptor,
                 _descriptor.ExposeNonQueryLongTimeExecutedInterceptor,
-                _descriptor.ExposeNonQueryErrorInterceptor);
+                _descriptor.ExposeNonQueryErrorInterceptor,
+                "NonQueryExecuted");
         }
 
         public void NonQueryExecuting(DbCommand command, DbCommandInterceptionContext<int> interceptionContext) {
@@ -27,7 +28,8 @@ namespace Cosmos.Logging.Sinks.EntityFramework.Core {
             OnExecuted(command, interceptionContext,
                 _descriptor.ExposeReaderExecutedInterceptor,
                 _descriptor.ExposeReaderLongTimeExecutedInterceptor,
-                _descriptor.ExposeReaderErrorInterceptor);
+                _descriptor.ExposeReaderErrorInterceptor,
+                "ReaderExecuted");
         }
 
         public void ReaderExecuting(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext) {
@@ -38,7 +40,8 @@ namespace Cosmos.Logging.Sinks.EntityFramework.Core {
             OnExecuted(command, interceptionContext,
                 _descriptor.ExposeScalarExecutedInterceptor,
                 _descriptor.ExposeScalarLongTimeExecutedInterceptor,
-                _descriptor.ExposeScalarErrorInterceptor);
+                _descriptor.ExposeScalarErrorInterceptor,
+                "ScalarExecuted");
         }
 
         public void ScalarExecuting(DbCommand command, DbCommandInterceptionContext<object> interceptionContext) {
