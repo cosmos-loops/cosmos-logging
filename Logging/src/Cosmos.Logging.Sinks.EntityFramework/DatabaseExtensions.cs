@@ -27,7 +27,7 @@ namespace Cosmos.Logging {
 
             var logger = new SimpleLogger(internalLogger, localFunc);
 
-            db.Log += s => logger.WriteLog(s);
+            db.Log += s => logger.WriteLog(s, db.Connection.Database);
         }
     }
 }

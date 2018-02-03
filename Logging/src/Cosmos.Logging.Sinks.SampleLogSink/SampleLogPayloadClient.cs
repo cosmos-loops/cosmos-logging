@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cosmos.Logging.Collectors;
+using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
 
@@ -28,11 +28,11 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
                 var legalityEvents = LogEventSinkFilter.Filter(payload, _sinkConfiguration).ToList();
                 var ix = 0;
                 var count = legalityEvents.Count;
-                
+
                 foreach (var logEvent in legalityEvents) {
                     var stringBuilder = new StringBuilder();
                     using (var output = new StringWriter(stringBuilder, _formatProvider)) {
-                        logEvent.RenderMessage(output, _formatProvider);
+                        logEvent.RenderMessage(output, _sinkConfiguration.RenderingOptions, _formatProvider);
                     }
 
                     if (logEvent.ExtraProperties.Count > 0) {

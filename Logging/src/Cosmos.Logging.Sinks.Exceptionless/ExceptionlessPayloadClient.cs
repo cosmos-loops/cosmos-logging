@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
 using Cosmos.Logging.Sinks.Exceptionless.Internals;
@@ -37,7 +37,7 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
                         var level = LogLevelSwitcher.Switch(logEvent.Level);
                         var stringBuilder = new StringBuilder();
                         using (var output = new StringWriter(stringBuilder, _formatProvider)) {
-                            logEvent.RenderMessage(output, _formatProvider);
+                            logEvent.RenderMessage(output, _sinkConfiguration.RenderingOptions, _formatProvider);
                         }
 
                         var builder = logger.CreateLog(source, stringBuilder.ToString(), level);
@@ -50,8 +50,6 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
                         if (exception != null) {
                             builder.SetException(exception);
                         }
-
-                        //todo 此处需要使用 LogEvent 的属性（日后会增加），将之扁平化 Flatten 后使用 builder.SetProperty 加入
 
                         var legalityOpts = logEvent.GetAdditionalOperations(typeof(ExceptionlessPayloadClient), AdditionalOperationTypes.ForLogSink);
                         foreach (var opt in legalityOpts) {
@@ -66,6 +64,8 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
                                 builder.SetProperty(property.Name, property.Value);
                             }
                         }
+
+                        builder.PluginContextData.MergeContextData(logEvent.ContextData);
 
                         builder.Submit();
                     }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Core.Extensions;
+using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Core.Piplelines;
 using Cosmos.Logging.Events;
 
@@ -19,7 +20,7 @@ namespace Cosmos.Logging {
 
         private void AutomaticalSubmitLoggerByPipleline() => LogPayloadEmitter.Emit(_logPayloadSender, AutomaticPayload.Export());
 
-        private void ParseAndInsertLogEventIntoQueueAutomatically(LogEventLevel level, Exception exception, string messageTemplate,
+        private void ParseAndInsertLogEventIntoQueueAutomatically(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate,
             ILogCallerInfo callerInfo, AdditionalOptContext context = null, params object[] messageTemplateParameters) {
             var task = CreateEnqueueTask();
             task.ContinueWith(t => DispatchForAutomatic());
@@ -32,9 +33,10 @@ namespace Cosmos.Logging {
                         succeeded => {
                             _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
                                 out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
-                            
-                            var logEvent = new LogEvent(StateNamespace, DateTimeOffset.Now, level, parsedTemplate, exception,
-                                LogEventSendMode.Automatic, callerInfo, namedMessageProperties, positionalMessageProperties, context);
+
+                            var logEvent = new LogEvent(StateNamespace, eventId, level, parsedTemplate, exception,
+                                LogEventSendMode.Automatic, callerInfo, _upstreamRenderingOptions,
+                                namedMessageProperties, positionalMessageProperties, context);
 
                             if (succeeded.ItemCount >= 1) {
                                 _automaticAsyncQueue.ReleaseWrite(logEvent);
@@ -119,7 +121,7 @@ namespace Cosmos.Logging {
                 if (_manuallyLogEventDescriptors.TryGetValue(currentManuallyTransId, out var descriptors) && descriptors.Any()) {
                     Task.Factory.StartNew(() => {
                         foreach (var descriptor in descriptors) {
-                            CreateAndDispatchLogEvent(descriptor.Level, descriptor.Exception, descriptor.MessageTemplate,
+                            CreateAndDispatchLogEvent(descriptor.EventId, descriptor.Level, descriptor.Exception, descriptor.MessageTemplate,
                                 LogEventSendMode.Manually, descriptor.CallerInfo, descriptor.Context, descriptor.MessageTemplateParameters);
                         }
 
@@ -128,13 +130,13 @@ namespace Cosmos.Logging {
                 }
             }
 
-            void CreateAndDispatchLogEvent(LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode, ILogCallerInfo callerInfo,
-                AdditionalOptContext context = null, params object[] messageTemplateParameters) {
+            void CreateAndDispatchLogEvent(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode,
+                ILogCallerInfo callerInfo, AdditionalOptContext context = null, params object[] messageTemplateParameters) {
                 _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
                     out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
 
-                var logEvent = new LogEvent(StateNamespace, DateTimeOffset.Now, level, parsedTemplate, exception,
-                    sendMode, callerInfo, namedMessageProperties, positionalMessageProperties, context);
+                var logEvent = new LogEvent(StateNamespace, eventId, level, parsedTemplate, exception,
+                    sendMode, callerInfo, _upstreamRenderingOptions, namedMessageProperties, positionalMessageProperties, context);
 
                 Dispatch(logEvent);
 
@@ -146,10 +148,10 @@ namespace Cosmos.Logging {
             }
         }
 
-        private void ParseAndInsertLogEvenDescriptorManually(LogEventLevel level, Exception exception, string messageTemplate,
+        private void ParseAndInsertLogEvenDescriptorManually(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate,
             ILogCallerInfo callerInfo, AdditionalOptContext context = null, params object[] messageTemplateParameters) {
             _manuallyLogEventDescriptors[CurrentManuallyTransId]
-                .Add(new ManuallyLogEventDescriptor(level, exception, messageTemplate, callerInfo, context, messageTemplateParameters));
+                .Add(new ManuallyLogEventDescriptor(eventId, level, exception, messageTemplate, callerInfo, context, messageTemplateParameters));
         }
 
         #endregion

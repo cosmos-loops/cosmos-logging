@@ -1,6 +1,8 @@
 ﻿using System;
+using Cosmos.Logging.ExtraSupports;
 using Exceptionless;
 using Microsoft.Extensions.Configuration;
+using ContextData = Exceptionless.Plugins.ContextData;
 
 namespace Cosmos.Logging.Sinks.Exceptionless.Internals {
     internal static class ExceptionlessExtensions {
@@ -44,6 +46,18 @@ namespace Cosmos.Logging.Sinks.Exceptionless.Internals {
             foreach (var setting in section.GetSection("Settings").GetChildren())
                 if (setting.Value != null)
                     config.Settings[setting.Key] = setting.Value;
+        }
+
+        public static ContextData MergeContextData(this ContextData exceptionlessCtx, ExtraSupports.ContextData cosmosCtx) {
+            if (exceptionlessCtx == null) return new ContextData(cosmosCtx);
+
+            foreach (var item in cosmosCtx) {
+                if (string.Compare(item.Key, ContextDataTypes.Exception, StringComparison.OrdinalIgnoreCase) == 0) continue;
+                if (exceptionlessCtx.ContainsKey(item.Key)) continue;
+                exceptionlessCtx.Add(item.Key, item.Value);
+            }
+
+            return exceptionlessCtx;
         }
     }
 }

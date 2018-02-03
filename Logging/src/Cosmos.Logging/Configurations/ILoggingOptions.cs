@@ -27,6 +27,16 @@ namespace Cosmos.Logging.Configurations {
 
         #endregion
 
+        #region Append output
+
+        LoggingOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled);
+
+        LoggingOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled);
+
+        LoggingOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled);
+
+        #endregion
+
         Dictionary<string, ILoggingSinkOptions> Sinks { get; set; }
     }
 }

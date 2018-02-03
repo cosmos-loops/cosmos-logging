@@ -5,6 +5,7 @@ using Cosmos.Logging.Events;
 namespace Cosmos.Logging.Core {
     public interface ILogEventInfo {
         string StateNamespace { get; }
+        LogEventId EventId { get; }
         DateTimeOffset Timestamp { get; }
         LogEventLevel Level { get; }
         LogEventSendMode SendMode { get; }

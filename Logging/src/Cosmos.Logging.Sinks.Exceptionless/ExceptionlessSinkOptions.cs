@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.Exceptionless.Internals;
 
 // ReSharper disable once CheckNamespace
@@ -116,6 +117,28 @@ namespace Cosmos.Logging {
         }
 
         #endregion
+        
+        #region Append output
 
+        private readonly MessageTemplateRenderingOptions _renderingOptions = new MessageTemplateRenderingOptions();
+
+        public ExceptionlessSinkOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
+            _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
+            return this;
+        }
+
+        public ExceptionlessSinkOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled) {
+            _renderingOptions.DisplayingEventIdInfoEnabled = displayingEventIdInfoEnabled;
+            return this;
+        }
+
+        public ExceptionlessSinkOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled) {
+            _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
+            return this;
+        }
+
+        public MessageTemplateRenderingOptions GetRenderingOptions() => _renderingOptions;
+
+        #endregion
     }
 }

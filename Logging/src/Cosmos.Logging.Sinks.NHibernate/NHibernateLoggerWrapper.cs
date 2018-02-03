@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Sinks.NHibernate.Core;
 
 namespace Cosmos.Logging.Sinks.NHibernate {
     public class NHibernateLoggerWrapper : global::NHibernate.IInternalLogger {
@@ -16,59 +17,59 @@ namespace Cosmos.Logging.Sinks.NHibernate {
         }
 
         public void Error(object message) {
-            _logger.LogError(ConvertToString(message));
+            _logger.LogError(new LogEventId(EventIdKeys.Error), ConvertToString(message));
         }
 
         public void Error(object message, Exception exception) {
-            _logger.LogError(exception, ConvertToString(message));
+            _logger.LogError(new LogEventId(EventIdKeys.Error), exception, ConvertToString(message));
         }
 
         public void ErrorFormat(string format, params object[] args) {
-            _logger.LogError(format, args);
+            _logger.LogError(new LogEventId(EventIdKeys.Error), format, args);
         }
 
         public void Fatal(object message) {
-            _logger.LogFatal(ConvertToString(message));
+            _logger.LogFatal(new LogEventId(EventIdKeys.Error), ConvertToString(message));
         }
 
         public void Fatal(object message, Exception exception) {
-            _logger.LogFatal(exception, ConvertToString(message));
+            _logger.LogFatal(new LogEventId(EventIdKeys.Error), exception, ConvertToString(message));
         }
 
         public void Debug(object message) {
-            _logger.LogDebug(ConvertToString(message));
+            _logger.LogDebug(new LogEventId(EventIdKeys.Debug), ConvertToString(message));
         }
 
         public void Debug(object message, Exception exception) {
-            _logger.LogDebug(exception, ConvertToString(message));
+            _logger.LogDebug(new LogEventId(EventIdKeys.Debug), exception, ConvertToString(message));
         }
 
         public void DebugFormat(string format, params object[] args) {
-            _logger.LogDebug(format, args);
+            _logger.LogDebug(new LogEventId(EventIdKeys.Debug), format, args);
         }
 
         public void Info(object message) {
-            _logger.LogInformation(ConvertToString(message));
+            _logger.LogInformation(new LogEventId(EventIdKeys.Info), ConvertToString(message));
         }
 
         public void Info(object message, Exception exception) {
-            _logger.LogInformation(exception, ConvertToString(message));
+            _logger.LogInformation(new LogEventId(EventIdKeys.Info), exception, ConvertToString(message));
         }
 
         public void InfoFormat(string format, params object[] args) {
-            _logger.LogInformation(format, args);
+            _logger.LogInformation(new LogEventId(EventIdKeys.Info), format, args);
         }
 
         public void Warn(object message) {
-            _logger.LogWarning(ConvertToString(message));
+            _logger.LogWarning(new LogEventId(EventIdKeys.Warn), ConvertToString(message));
         }
 
         public void Warn(object message, Exception exception) {
-            _logger.LogWarning(exception, ConvertToString(message));
+            _logger.LogWarning(new LogEventId(EventIdKeys.Warn), exception, ConvertToString(message));
         }
 
         public void WarnFormat(string format, params object[] args) {
-            _logger.LogWarning(format, args);
+            _logger.LogWarning(new LogEventId(EventIdKeys.Warn), format, args);
         }
 
         public bool IsErrorEnabled => _logger.IsEnabled(LogEventLevel.Error);

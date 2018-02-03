@@ -61,8 +61,11 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
 
         private Action<object> AddSinkSettingsAction { get; set; }
 
-        public ILogServiceCollection AddSinkSettings<TSinkSettings, TSinkConfiguration>(TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> configAct)
-            where TSinkSettings : class, ILoggingSinkOptions, new() where TSinkConfiguration : SinkConfiguration, new() {
+        public ILogServiceCollection AddSinkSettings<TSinkSettings, TSinkConfiguration>(
+            TSinkSettings settings, 
+            Action<IConfiguration, TSinkConfiguration> configAct)
+            where TSinkSettings : class, ILoggingSinkOptions, new() 
+            where TSinkConfiguration : SinkConfiguration, new() {
             if (settings != null && !_sinkSettings.ContainsKey(settings.Key)) {
                 AddSinkSettingsAction += lockObj => {
                     lock (lockObj) {

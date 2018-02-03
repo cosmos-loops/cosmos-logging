@@ -7,6 +7,8 @@ namespace Cosmos.Logging.Renders {
             PreferencesRenderManager.AddPreferencesRenderer<CallerMemberNameRenderer>();
             PreferencesRenderManager.AddPreferencesRenderer<CallerFilePathRenderer>();
             PreferencesRenderManager.AddPreferencesRenderer<CallerLineNumberRenderer>();
+            PreferencesRenderManager.AddPreferencesRenderer<EventIdRenderer>();
+            PreferencesRenderManager.AddPreferencesRenderer<EventNameRenderer>();
         }
     }
 }

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Callers;
+using Cosmos.Logging.ExtraSupports;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Events {
     public class LogEvent : ILogEventInfo {
         private readonly AdditionalOptContext _additionalOptContext;
+        private readonly ContextData _contextData;
 
         private readonly Dictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> _namedProperties;
         private readonly Dictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> _positionalProperties;
@@ -23,21 +25,23 @@ namespace Cosmos.Logging.Events {
 
         public LogEvent(
             string stateNamespace,
-            DateTimeOffset timestamp,
+            LogEventId eventId,
             LogEventLevel level,
             MessageTemplate messageTemplate,
             Exception exception,
             LogEventSendMode sendMode,
             ILogCallerInfo callerInfo,
+            MessageTemplateRenderingOptions upstreamRenderingOptions,
             Dictionary<(string name, PropertyResolvingMode mode), MessageProperty> namedMessageProperties,
             Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> positionalMessageProperties,
-            AdditionalOptContext additionalOptContext) {
+            AdditionalOptContext additionalOptContext,
+            ContextData contextData = null) {
 
             if (namedMessageProperties == null) throw new ArgumentNullException(nameof(namedMessageProperties));
             if (positionalMessageProperties == null) throw new ArgumentNullException(nameof(positionalMessageProperties));
 
             StateNamespace = stateNamespace;
-            Timestamp = timestamp;
+            EventId = eventId;
             Level = level;
             Exception = exception;
             SendMode = sendMode;
@@ -49,25 +53,35 @@ namespace Cosmos.Logging.Events {
             _positionalProperties = new Dictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue>();
             _extraMessageProperties = new Dictionary<string, ExtraMessageProperty>();
 
+            _contextData = contextData == null ? new ContextData() : new ContextData(contextData);
+            if (exception != null && !_contextData.HasException()) _contextData.SetException(exception);
+
             UpdateProperty(namedMessageProperties, positionalMessageProperties);
+
+            UpstreamRenderingOptions = upstreamRenderingOptions.ToCalc(additionalOptContext?.RenderingOptions);
         }
 
         public string StateNamespace { get; }
-        public DateTimeOffset Timestamp { get; }
+        public LogEventId EventId { get; }
+        public DateTimeOffset Timestamp => EventId.Timestamp;
         public LogEventLevel Level { get; }
         public LogEventSendMode SendMode { get; }
         public Exception Exception { get; }
         public MessageTemplate MessageTemplate { get; }
         public ILogCallerInfo CallerInfo { get; }
 
+        public ContextData ContextData => _contextData;
+
+        public MessageTemplateRenderingOptions UpstreamRenderingOptions { get; }
+
         #region Reder Message
 
-        public void RenderMessage(TextWriter output, IFormatProvider provider = null) {
-            MessageTemplate.Render(NamedProperties, PositionalProperties, output, this, provider);
+        public void RenderMessage(TextWriter output, MessageTemplateRenderingOptions renderingOptions = null, IFormatProvider provider = null) {
+            MessageTemplate.Render(NamedProperties, PositionalProperties, output, this, UpstreamRenderingOptions.ToCalc(renderingOptions), provider);
         }
 
-        public string RenderMessage(IFormatProvider provider = null) {
-            return MessageTemplate.Render(NamedProperties, PositionalProperties, this, provider);
+        public string RenderMessage(MessageTemplateRenderingOptions renderingOptions = null, IFormatProvider provider = null) {
+            return MessageTemplate.Render(NamedProperties, PositionalProperties, this, UpstreamRenderingOptions.ToCalc(renderingOptions), provider);
         }
 
         #endregion

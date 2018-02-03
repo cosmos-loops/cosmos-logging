@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
-using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Core.ObjectResolving;
+using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters.Internals;
+using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging {
     public abstract partial class LoggerBase : ILogger, IDisposable {
@@ -14,6 +16,7 @@ namespace Cosmos.Logging {
         private readonly MessageParameterProcessor _messageParameterProcessor;
         private readonly Func<string, LogEventLevel, bool> _filter;
         private static readonly Func<string, LogEventLevel, bool> TrueFilter = (s, l) => true;
+        private readonly MessageTemplateRenderingOptions _upstreamRenderingOptions;
         private long CurrentManuallyTransId { get; set; }
 
         protected LoggerBase(
@@ -22,6 +25,7 @@ namespace Cosmos.Logging {
             string loggerStateNamespace,
             Func<string, LogEventLevel, bool> filter,
             LogEventSendMode sendMode,
+            MessageTemplateRenderingOptions renderingOptions,
             ILogPayloadSender logPayloadSender) {
             StateNamespace = loggerStateNamespace;
             TargetType = sourceType ?? typeof(object);
@@ -30,6 +34,7 @@ namespace Cosmos.Logging {
             _filter = filter ?? TrueFilter;
             _logPayloadSender = logPayloadSender ?? throw new ArgumentNullException(nameof(logPayloadSender));
             _messageParameterProcessor = MessageParameterProcessorCache.Get();
+            _upstreamRenderingOptions = renderingOptions ?? new MessageTemplateRenderingOptions();
 
             AutomaticPayload = new LogPayload(sourceType, loggerStateNamespace, Enumerable.Empty<LogEvent>());
             ManuallyPayload = new LogPayload(sourceType, loggerStateNamespace, Enumerable.Empty<LogEvent>());
@@ -54,14 +59,14 @@ namespace Cosmos.Logging {
 
         protected bool IsManuallySendMode(LogEvent logEvent) => IsManuallySendMode(logEvent?.SendMode ?? LogEventSendMode.Customize);
 
-        public void Write(LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode, ILogCallerInfo callerInfo,
+        public void Write(LogEventId? eventId, LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode, ILogCallerInfo callerInfo,
             AdditionalOptContext context = null, params object[] messageTemplateParameters) {
             if (!IsEnabled(level)) return;
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
             if (IsManuallySendMode(sendMode)) {
-                ParseAndInsertLogEvenDescriptorManually(level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
+                ParseAndInsertLogEvenDescriptorManually(eventId ?? new LogEventId(), level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
             } else {
-                ParseAndInsertLogEventIntoQueueAutomatically(level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
+                ParseAndInsertLogEventIntoQueueAutomatically(eventId ?? new LogEventId(), level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
             }
         }
 
@@ -100,20 +105,21 @@ namespace Cosmos.Logging {
 
         #region Dispose
 
-               private bool disposed;
-        
-                public void Dispose() {
-                    Dispose(true);
-                }
-        
-                protected virtual void Dispose(bool disposing) {
-                    if (disposed) return;
-        
-                    if (disposing) {
-                        _automaticAsyncQueue.Dispose();
-                    }
-                }
+        private bool disposed;
+
+        public void Dispose() {
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing) {
+            if (disposed) return;
+
+            if (disposing) {
+                _automaticAsyncQueue.Dispose();
+            }
+        }
 
         #endregion
+
     }
 }

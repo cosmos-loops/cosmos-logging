@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cosmos.Logging.Collectors;
+using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
 using Cosmos.Logging.Sinks.NLog.Internals;
@@ -34,7 +34,7 @@ namespace Cosmos.Logging.Sinks.NLog {
                     var level = LogLevelSwitcher.Switch(logEvent.Level);
                     var stringBuilder = new StringBuilder();
                     using (var output = new StringWriter(stringBuilder, _formatProvider)) {
-                        logEvent.RenderMessage(output, _formatProvider);
+                        logEvent.RenderMessage(output,_sinkConfiguration.RenderingOptions, _formatProvider);
                     }
 
                     if (logEvent.ExtraProperties.Count > 0) {

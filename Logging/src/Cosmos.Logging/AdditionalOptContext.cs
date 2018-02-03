@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging {
     public class AdditionalOptContext {
@@ -36,6 +37,13 @@ namespace Cosmos.Logging {
 
         public AdditionalOptContext FireAsDefault() {
             SendMode = LogEventSendMode.Customize;
+            return this;
+        }
+
+        internal MessageTemplateRenderingOptions RenderingOptions { get; set; }
+
+        public AdditionalOptContext UseRenderingOptions(MessageTemplateRenderingOptions renderingOptions) {
+            RenderingOptions = renderingOptions;
             return this;
         }
     }

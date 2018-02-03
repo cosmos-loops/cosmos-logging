@@ -1,4 +1,5 @@
 ﻿using System;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.SampleLogSink;
 
@@ -8,8 +9,8 @@ namespace Cosmos.Logging.SampleSinkTests {
         static void Main(string[] args) {
 
             try {
-                LOGGER.Initialize().RunsOnConsole()
-                    .AddSampleLog(s => s.UseMinimumLevel(LogEventLevel.Error))
+                LOGGER.Initialize().RunsOnConsole(o => o.EnableDisplayCallerInfo(ThreeValuedBoolean.False).EnableDisplayEventIdInfo(true))
+                    .AddSampleLog(s => s.UseMinimumLevel(LogEventLevel.Error).EnableDisplayCallerInfo(true))
                     .AllDone();
 
                 var logger = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
