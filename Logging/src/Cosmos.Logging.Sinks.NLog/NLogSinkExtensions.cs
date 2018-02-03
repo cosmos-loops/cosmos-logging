@@ -1,6 +1,6 @@
 ﻿using System;
-using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Sinks.NLog;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -5,6 +5,7 @@ using System.Runtime.Remoting;
 
 #else
 using System.Threading;
+// ReSharper disable InconsistentNaming
 
 #endif
 

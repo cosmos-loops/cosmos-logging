@@ -4,6 +4,7 @@ using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Interception;
 using Cosmos.Logging.Core.Extensions;
+using Cosmos.Logging.Events;
 using Cosmos.Logging.TemplateStandards;
 
 namespace Cosmos.Logging.Sinks.EntityFramework.Core {
@@ -18,7 +19,8 @@ namespace Cosmos.Logging.Sinks.EntityFramework.Core {
         private void OnExecuted<TState>(DbCommand command, DbCommandInterceptionContext<TState> interceptionContext,
             Func<string, DbParameterCollection, DateTime, DateTime, object> specificExecutedAction,
             Func<string, DbParameterCollection, DateTime, DateTime, object> specificLongTimeExecutedAction,
-            Func<Exception, string, DbParameterCollection, DateTime, DateTime, object> specificErrorAction) {
+            Func<Exception, string, DbParameterCollection, DateTime, DateTime, object> specificErrorAction,
+            string memberName) {
             InternalLoggingSharedContext.RemoveStartTime(command, out var stamp);
             var now = DateTime.Now;
             var ms = 0D;
@@ -28,22 +30,23 @@ namespace Cosmos.Logging.Sinks.EntityFramework.Core {
 
             var contextId = Guid.NewGuid();
 
+
             if (interceptionContext.Exception != null) {
-                OnError(interceptionContext.Exception, command, contextId, stamp, now, ms, specificErrorAction);
+                OnError(interceptionContext.Exception, command, contextId, stamp, now, ms, specificErrorAction, memberName);
             } else if (ms > 1000) {
-                OnLongTimeExecuted(command, contextId, stamp, now, ms, specificLongTimeExecutedAction);
+                OnLongTimeExecuted(command, contextId, stamp, now, ms, specificLongTimeExecutedAction, memberName);
             } else {
-                OnExecuted(command, contextId, stamp, now, ms, specificExecutedAction);
+                OnExecuted(command, contextId, stamp, now, ms, specificExecutedAction, memberName);
             }
         }
 
         private void OnError(Exception exception, DbCommand command, Guid contextId, DateTime start, DateTime now, double milliseconds,
-            Func<Exception, string, DbParameterCollection, DateTime, DateTime, object> specificErrorAction) {
+            Func<Exception, string, DbParameterCollection, DateTime, DateTime, object> specificErrorAction, string memberName) {
             var localFunc = _descriptor.ExposeErrorInterceptor;
             localFunc += specificErrorAction;
             var userInfo = localFunc?.Invoke(exception, command.CommandText, command.Parameters, start, now) ?? string.Empty;
-
-            var logger = _loggingServiceProvider.GetLogger<DbContext>();
+            var eventId = new LogEventId(contextId, EventIdKeys.Error);
+            var logger = _loggingServiceProvider.GetLogger<DbContext>(LogEventSendMode.Automatic, _descriptor.ExposeSettings.GetRenderingOptions());
             var dbParams = new List<DbParam>();
             foreach (DbParameter param in command.Parameters) {
                 dbParams.Add(new DbParam(param.ParameterName, param.Value, param.DbType));
@@ -62,16 +65,16 @@ namespace Cosmos.Logging.Sinks.EntityFramework.Core {
                 UsedTime = milliseconds,
                 UserInfo = userInfo
             };
-            logger.LogError(exception, OrmTemplateStandard.Error, loggingParams);
+            logger.LogError(eventId, exception, OrmTemplateStandard.Error, loggingParams, memberName: memberName);
         }
 
         private void OnExecuted(DbCommand command, Guid contextId, DateTime start, DateTime now, double milliseconds,
-            Func<string, DbParameterCollection, DateTime, DateTime, object> specificExecutedAction) {
+            Func<string, DbParameterCollection, DateTime, DateTime, object> specificExecutedAction, string memberName) {
             var localFunc = _descriptor.ExposeExecutedInterceptor;
             localFunc += specificExecutedAction;
             var userInfo = localFunc?.Invoke(command.CommandText, command.Parameters, start, now) ?? string.Empty;
-
-            var logger = _loggingServiceProvider.GetLogger<DbContext>();
+            var eventId = new LogEventId(contextId, EventIdKeys.Executed);
+            var logger = _loggingServiceProvider.GetLogger<DbContext>(LogEventSendMode.Automatic, _descriptor.ExposeSettings.GetRenderingOptions());
             var loggingParams = new {
                 OrmName = Constants.SinkKey,
                 ContextId = contextId,
@@ -79,16 +82,16 @@ namespace Cosmos.Logging.Sinks.EntityFramework.Core {
                 UsedTime = milliseconds,
                 UserInfo = userInfo
             };
-            logger.LogWarning(OrmTemplateStandard.Normal, loggingParams);
+            logger.LogWarning(eventId, OrmTemplateStandard.Normal, loggingParams, memberName: memberName);
         }
 
         private void OnLongTimeExecuted(DbCommand command, Guid contextId, DateTime start, DateTime now, double milliseconds,
-            Func<string, DbParameterCollection, DateTime, DateTime, object> specificLongTimeExecutedAction) {
+            Func<string, DbParameterCollection, DateTime, DateTime, object> specificLongTimeExecutedAction, string memberName) {
             var localFunc = _descriptor.ExposeLongTimeExecutedInterceptor;
             localFunc += specificLongTimeExecutedAction;
             var userInfo = localFunc?.Invoke(command.CommandText, command.Parameters, start, now) ?? string.Empty;
-
-            var logger = _loggingServiceProvider.GetLogger<DbContext>();
+            var eventId = new LogEventId(contextId, EventIdKeys.LongTimeExecuted);
+            var logger = _loggingServiceProvider.GetLogger<DbContext>(LogEventSendMode.Automatic, _descriptor.ExposeSettings.GetRenderingOptions());
             var dbParams = new List<DbParam>();
             foreach (DbParameter param in command.Parameters) {
                 dbParams.Add(new DbParam(param.ParameterName, param.Value, param.DbType));
@@ -103,7 +106,7 @@ namespace Cosmos.Logging.Sinks.EntityFramework.Core {
                 UserInfo = userInfo
             };
 
-            logger.LogInformation(OrmTemplateStandard.LongNormal, loggingParams);
+            logger.LogInformation(eventId, OrmTemplateStandard.LongNormal, loggingParams, memberName: memberName);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cosmos.Logging.Events;
 
-namespace Cosmos.Logging.Collectors {
+namespace Cosmos.Logging.Core.Payloads {
     public class LogPayload : ILogPayload {
         private List<LogEvent> LogEvents { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using Cosmos.Logging.Core;
@@ -12,13 +13,15 @@ namespace Cosmos.Logging.MessageTemplates {
         public static void Render(MessageTemplate messageTemplate,
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedProperties,
             IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalProperties,
-            TextWriter output, string format = null, ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
+            TextWriter output, string format = null, ILogEventInfo logEventInfo = null, MessageTemplateRenderingOptions renderingOptions = null,
+            IFormatProvider formatProvider = null) {
             var stringBuilder = RenderEngine(
                 messageTemplate.TextArray,
                 messageTemplate.TokenArray,
                 namedProperties,
                 positionalProperties,
                 logEventInfo,
+                renderingOptions,
                 formatProvider);
             output.Write(ToBuffer(stringBuilder));
         }
@@ -32,8 +35,8 @@ namespace Cosmos.Logging.MessageTemplates {
         private static StringBuilder RenderEngine(char[] chars, MessageTemplateToken[] tokens,
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedProperties,
             IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalProperties,
-            ILogEventInfo logEventInfo, IFormatProvider formatProvider) {
-            var stringBuilder = new StringBuilder();
+            ILogEventInfo logEventInfo, MessageTemplateRenderingOptions renderingOptions, IFormatProvider formatProvider) {
+            var stringBuilder = Som(logEventInfo, renderingOptions);
             var position = 0;
 
             for (var current = 0; current < tokens.Length; current++) {
@@ -70,6 +73,64 @@ namespace Cosmos.Logging.MessageTemplates {
 
             if (position < chars.Length) {
                 stringBuilder.Append(chars.Read(position, chars.Length - position));
+            }
+
+            Eom(stringBuilder, renderingOptions);
+
+            return stringBuilder;
+        }
+
+        /// <summary>
+        /// Start of message
+        /// </summary>
+        /// <param name="logEventInfo"></param>
+        /// <param name="renderingOptions"></param>
+        /// <returns></returns>
+        private static StringBuilder Som(ILogEventInfo logEventInfo, MessageTemplateRenderingOptions renderingOptions) {
+            var now = DateTime.UtcNow.ToLocalTime();
+            var stringBuilder = new StringBuilder();
+
+            if (renderingOptions?.DisplayingCallerInfoEnabled ?? false) {
+                var caller = logEventInfo.CallerInfo;
+                stringBuilder.Append($"{now:yyyy/MM/dd HH:mm:ss} ");
+
+                switch (logEventInfo.Level) {
+                    case LogEventLevel.Verbose:
+                    case LogEventLevel.Debug:
+                    case LogEventLevel.Information:
+                        if (!string.IsNullOrWhiteSpace(caller.MemberName))
+                            stringBuilder.Append($"({caller.MemberName}) ");
+                        break;
+
+                    case LogEventLevel.Warning:
+                    case LogEventLevel.Error:
+                    case LogEventLevel.Fatal:
+                        stringBuilder.Append($"({caller.FilePath}:{caller.LineNumber} {caller.MemberName}) ");
+                        break;
+                }
+            }
+
+            if (renderingOptions?.DisplayingEventIdInfoEnabled ?? false) {
+                var eventId = logEventInfo.EventId;
+                stringBuilder.Append($"[{_0(eventId.Id)} {_1(eventId.Name)}] ");
+
+                string _0(string _id) => string.IsNullOrWhiteSpace(_id) ? "no_id" : _id;
+                
+                string _1(string _name) => string.IsNullOrWhiteSpace(_name) ? "null" : _name;
+            }
+
+            return stringBuilder;
+        }
+
+        /// <summary>
+        /// End of message
+        /// </summary>
+        /// <param name="stringBuilder"></param>
+        /// <param name="renderingOptions"></param>
+        /// <returns></returns>
+        private static StringBuilder Eom(StringBuilder stringBuilder, MessageTemplateRenderingOptions renderingOptions) {
+            if (renderingOptions?.DisplayingNewLineEomEnabled ?? false) {
+                stringBuilder.Append(Environment.NewLine);
             }
 
             return stringBuilder;

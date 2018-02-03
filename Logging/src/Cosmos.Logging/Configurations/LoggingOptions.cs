@@ -78,6 +78,31 @@ namespace Cosmos.Logging.Configurations {
 
         #endregion
 
+        #region Append output
+
+        internal bool? DisplayingCallerInfoEnabled { get; private set; }
+
+        internal bool? DisplayingEventIdInfoEnabled { get; private set; }
+
+        internal bool? DisplayingNewLineEomEnabled { get; private set; }
+
+        public LoggingOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
+            DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
+            return this;
+        }
+
+        public LoggingOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled) {
+            DisplayingEventIdInfoEnabled = displayingEventIdInfoEnabled;
+            return this;
+        }
+
+        public LoggingOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled) {
+            DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
+            return this;
+        }
+
+        #endregion
+
         public Dictionary<string, ILoggingSinkOptions> Sinks { get; set; }
     }
 }

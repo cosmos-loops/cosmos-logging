@@ -269,7 +269,7 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
     /// Author: Sunlighter
     /// </summary>
-    public class AsyncQueue<T> : IQueueSource<T>, IQueueSink<T> {
+    public class AsyncQueue<T> : IQueueSource<T>, IQueueSink<T>, IDisposable {
         private object syncRoot;
         private int? capacity;
         private BigInteger readPtr;
@@ -513,6 +513,21 @@ namespace Cosmos.Logging.Core.Piplelines {
                 eofSignaled = true;
                 CheckWaitingReads();
             }
+        }
+
+        private bool disposed;
+
+        public void Dispose() {
+            if (disposed) return;
+
+            this.readPtr = BigInteger.Zero;
+            this.readLocked = null;
+            this.writeLocked = null;
+            this.eofSignaled = false;
+            this.items.Clear();
+            this.waitingReads.Dispose();
+            this.waitingWrites.Dispose();
+            disposed = true;
         }
     }
 }

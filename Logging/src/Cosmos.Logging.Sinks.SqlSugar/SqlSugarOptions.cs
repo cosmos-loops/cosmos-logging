@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.SqlSugar.Core;
 using SqlSugar;
 
@@ -100,7 +101,7 @@ namespace Cosmos.Logging {
         }
 
         #endregion
-        
+
         #region Appeng filter
 
         internal Func<string, LogEventLevel, bool> Filter { get; set; }
@@ -113,6 +114,29 @@ namespace Cosmos.Logging {
 
             return this;
         }
+
+        #endregion
+
+        #region Append output
+
+        private readonly MessageTemplateRenderingOptions _renderingOptions = new MessageTemplateRenderingOptions();
+
+        public SqlSugarOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
+            _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
+            return this;
+        }
+
+        public SqlSugarOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled) {
+            _renderingOptions.DisplayingEventIdInfoEnabled = displayingEventIdInfoEnabled;
+            return this;
+        }
+
+        public SqlSugarOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled) {
+            _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
+            return this;
+        }
+
+        public MessageTemplateRenderingOptions GetRenderingOptions() => _renderingOptions;
 
         #endregion
 

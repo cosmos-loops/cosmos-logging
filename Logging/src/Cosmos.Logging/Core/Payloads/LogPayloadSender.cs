@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cosmos.Logging.Collectors {
+namespace Cosmos.Logging.Core.Payloads {
     public sealed class LogPayloadSender : ILogPayloadSender {
 
         private readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
@@ -13,8 +13,9 @@ namespace Cosmos.Logging.Collectors {
         }
 
         public async Task SendAsync(ILogPayload payload, CancellationToken cancellationToken = default(CancellationToken)) {
-            foreach (var provider in _logPayloadClientProviders)
+            foreach (var provider in _logPayloadClientProviders) {
                 await provider.GetClient().WriteAsync(payload, cancellationToken);
+            }
         }
     }
 }

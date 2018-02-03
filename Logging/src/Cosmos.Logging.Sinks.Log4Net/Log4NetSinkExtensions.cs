@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Sinks.Log4Net;
 using log4net;
 using log4net.Config;

@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.EntityFrameworkCore;
 using Cosmos.Logging.Sinks.EntityFrameworkCore.Core;
 using Microsoft.EntityFrameworkCore;
@@ -10,12 +11,13 @@ namespace Cosmos.Logging {
     public static class DbContextOptionsBuilderExtensions {
         private static ILoggingServiceProvider _loggingServiceProvider => EfCoreInterceptorDescriptor.Instance.ExposeLoggingServiceProvider;
         private static Func<string, LogEventLevel, bool> _gloablFilter => EfCoreInterceptorDescriptor.Instance.ExposeSettings.Filter;
+        private static MessageTemplateRenderingOptions UpstreamRenderingOptions => EfCoreInterceptorDescriptor.Instance.ExposeSettings.GetRenderingOptions();
 
         public static DbContextOptionsBuilder UseCosmosLogging(this DbContextOptionsBuilder builder) {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, _gloablFilter));
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, UpstreamRenderingOptions, _gloablFilter));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;
@@ -25,7 +27,7 @@ namespace Cosmos.Logging {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider,
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, UpstreamRenderingOptions,
                 (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 
@@ -36,7 +38,7 @@ namespace Cosmos.Logging {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider,
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, UpstreamRenderingOptions,
                 (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, LogLevelSwitcher.Switch(l)) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 
@@ -47,7 +49,7 @@ namespace Cosmos.Logging {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider));
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, UpstreamRenderingOptions));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;
@@ -58,7 +60,7 @@ namespace Cosmos.Logging {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, 
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, UpstreamRenderingOptions,
                 (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 
@@ -70,7 +72,7 @@ namespace Cosmos.Logging {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider,
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, UpstreamRenderingOptions,
                 (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, LogLevelSwitcher.Switch(l)) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 

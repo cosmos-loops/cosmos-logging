@@ -1,5 +1,5 @@
 ﻿using System;
-using Cosmos.Logging.Collectors;
+using Cosmos.Logging.Core.Payloads;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.SampleLogSink {

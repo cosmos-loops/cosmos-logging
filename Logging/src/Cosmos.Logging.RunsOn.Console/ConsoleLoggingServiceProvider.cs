@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cosmos.Logging.Collectors;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.DependencyInjection;
 
 // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
@@ -21,59 +22,81 @@ namespace Cosmos.Logging.RunsOn.Console {
         }
 
         private ILogger GetLoggerCore(Type sourceType, string categoryName, LogEventLevel? level, Func<string, LogEventLevel, bool> filter,
-            LogEventSendMode mode = LogEventSendMode.Customize) {
+            LogEventSendMode mode = LogEventSendMode.Customize, MessageTemplateRenderingOptions renderingOptions = null) {
             var loggerStateNamespace = sourceType == null ? categoryName : TypeNameHelper.GetTypeDisplayName(sourceType);
             var minLevel = level ?? _loggingConfiguration.GetMinimumLevel(loggerStateNamespace);
-            return new ConsoleLogger(sourceType ?? typeof(object), minLevel, loggerStateNamespace, filter, mode, new LogPayloadSender(_logPayloadClientProviders));
+            return new ConsoleLogger(sourceType ?? typeof(object), minLevel, loggerStateNamespace, filter, mode,
+                _loggingConfiguration.RenderingOptions.ToCalc(renderingOptions), new LogPayloadSender(_logPayloadClientProviders));
         }
 
 
-        public ILogger GetLogger(string categoryName, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(null, categoryName, null, null, mode);
+        public ILogger GetLogger(string categoryName,
+            LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(null, categoryName, null, null, mode, renderingOptions);
         }
 
-        public ILogger GetLogger(string categoryName, Func<string, LogEventLevel, bool> filter, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(null, categoryName, null, filter, mode);
+        public ILogger GetLogger(string categoryName, Func<string, LogEventLevel, bool> filter,
+            LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(null, categoryName, null, filter, mode, renderingOptions);
         }
 
-        public ILogger GetLogger(string categoryName, LogEventLevel minLevel, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(null, categoryName, minLevel, null, mode);
+        public ILogger GetLogger(string categoryName, LogEventLevel minLevel,
+            LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(null, categoryName, minLevel, null, mode, renderingOptions);
         }
 
-        public ILogger GetLogger(string categoryName, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(null, categoryName, minLevel, filter, mode);
+        public ILogger GetLogger(string categoryName, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
+            LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(null, categoryName, minLevel, filter, mode, renderingOptions);
         }
 
-        public ILogger GetLogger(Type type, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(type, null, null, null, mode);
+        public ILogger GetLogger(Type type,
+            LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(type, null, null, null, mode, renderingOptions);
         }
 
-        public ILogger GetLogger(Type type, Func<string, LogEventLevel, bool> filter, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(type, null, null, filter, mode);
+        public ILogger GetLogger(Type type, Func<string, LogEventLevel, bool> filter,
+            LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(type, null, null, filter, mode, renderingOptions);
         }
 
-        public ILogger GetLogger(Type type, LogEventLevel minLevel, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(type, null, minLevel, null, mode);
+        public ILogger GetLogger(Type type, LogEventLevel minLevel,
+            LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(type, null, minLevel, null, mode, renderingOptions);
         }
 
-        public ILogger GetLogger(Type type, Func<string, LogEventLevel, bool> filter, LogEventLevel minLevel, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(type, null, minLevel, filter, mode);
+        public ILogger GetLogger(Type type, Func<string, LogEventLevel, bool> filter, LogEventLevel minLevel,
+            LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(type, null, minLevel, filter, mode, renderingOptions);
         }
 
-        public ILogger GetLogger<T>(LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(typeof(T), null, null, null, mode);
+        public ILogger GetLogger<T>(LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(typeof(T), null, null, null, mode, renderingOptions);
         }
 
-        public ILogger GetLogger<T>(Func<string, LogEventLevel, bool> filter, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(typeof(T), null, null, filter, mode);
+        public ILogger GetLogger<T>(Func<string, LogEventLevel, bool> filter, LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(typeof(T), null, null, filter, mode, renderingOptions);
         }
 
-        public ILogger GetLogger<T>(LogEventLevel minLevel, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(typeof(T), null, minLevel, null, mode);
+        public ILogger GetLogger<T>(LogEventLevel minLevel, LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(typeof(T), null, minLevel, null, mode, renderingOptions);
         }
 
-        public ILogger GetLogger<T>(LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter, LogEventSendMode mode = LogEventSendMode.Customize) {
-            return GetLoggerCore(typeof(T), null, minLevel, filter, mode);
+        public ILogger GetLogger<T>(LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
+            LogEventSendMode mode = LogEventSendMode.Customize,
+            MessageTemplateRenderingOptions renderingOptions = null) {
+            return GetLoggerCore(typeof(T), null, minLevel, filter, mode, renderingOptions);
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Filters.Navigators;
+using Cosmos.Logging.MessageTemplates;
 using EnumsNET;
 
 namespace Cosmos.Logging {
@@ -17,9 +19,14 @@ namespace Cosmos.Logging {
                 IncludeScopes = configuration.IncludeScopes;
                 LogLevel = configuration.LogLevel;
             }
-            
+
             Aliases.MergeAndOverWrite(settings.InternalAliases, k => k, v => v.GetName());
             LogLevel.MergeAndOverWrite(settings.InternalNavigatorLogEventLevels, k => k, v => v.GetName());
+            RenderingOptions = new MessageTemplateRenderingOptions {
+                DisplayingCallerInfoEnabled = settings.DisplayingCallerInfoEnabled,
+                DisplayingEventIdInfoEnabled = settings.DisplayingEventIdInfoEnabled,
+                DisplayingNewLineEomEnabled = settings.DisplayingNewLineEomEnabled
+            };
 
             foreach (var item in LogLevel) {
                 var nav = _namespaceNavigatorCache.Parse(item.Key, item.Value, out _);

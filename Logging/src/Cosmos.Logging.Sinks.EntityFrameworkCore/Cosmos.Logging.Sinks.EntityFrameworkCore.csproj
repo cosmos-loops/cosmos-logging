@@ -6,15 +6,9 @@
     <ProjectReference Include="..\Cosmos.Logging.Sinks.MicrosoftExtensions\Cosmos.Logging.Sinks.MicrosoftExtensions.csproj" />
     <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.1" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net461'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.1" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alexinea.EntityFrameworkCore.LoggingExposure" Version="2.0.0-beta1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.1" />
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters.Navigators;
+using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Configurations {
     public abstract class SinkConfiguration {
@@ -50,6 +51,11 @@ namespace Cosmos.Logging.Configurations {
             }
         }
 
+        internal void ProcessRenderingOptions<TSinkSettings>(TSinkSettings settings) where TSinkSettings : class, ILoggingSinkOptions, new() {
+            if (settings == null) throw new ArgumentNullException(nameof(settings));
+            RenderingOptions = settings.GetRenderingOptions();
+        }
+
         public LogEventLevel GetDefaultMinimumLevel() => NavigationFilterProcessor.GetDefault(Name);
 
         public LogEventLevel GetMinimumLevel(string @namespace) {
@@ -59,5 +65,7 @@ namespace Cosmos.Logging.Configurations {
                     ? nav.GetValue().Level
                     : GetDefaultMinimumLevel();
         }
+
+        public MessageTemplateRenderingOptions RenderingOptions { get; set; }
     }
 }

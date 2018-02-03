@@ -1,9 +1,12 @@
 ﻿using System;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Configurations {
     public interface ILoggingSinkOptions {
         string Key { get; }
+
+        MessageTemplateRenderingOptions GetRenderingOptions();
     }
 
     public interface ILoggingSinkOptions<out TOptions> where TOptions : class, ILoggingSinkOptions, new() {
@@ -27,6 +30,16 @@ namespace Cosmos.Logging.Configurations {
         #region Append log level alias
 
         TOptions UseAlias(string alias, LogEventLevel level);
+
+        #endregion
+
+        #region Append output
+
+        TOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled);
+
+        TOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled);
+        
+        TOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled);
 
         #endregion
 

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.SampleLogSink.Internals;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
     public class SampleOptions : ILoggingSinkOptions<SampleOptions>, ILoggingSinkOptions {
-        
+
         public SampleOptions() { }
-        
+
         public string Key => Constants.SinkKey;
 
         #region Append log minimum level
@@ -18,7 +19,7 @@ namespace Cosmos.Logging {
         internal readonly Dictionary<string, LogEventLevel> InternalNavigatorLogEventLevels = new Dictionary<string, LogEventLevel>();
 
         internal LogEventLevel? MinimumLevel { get; set; }
-        
+
         public SampleOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
 
         public SampleOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
@@ -32,7 +33,7 @@ namespace Cosmos.Logging {
 
             return this;
         }
-        
+
         public SampleOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
         public SampleOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
@@ -76,5 +77,29 @@ namespace Cosmos.Logging {
         }
 
         #endregion
+
+        #region Append output
+
+        private readonly MessageTemplateRenderingOptions _renderingOptions = new MessageTemplateRenderingOptions();
+
+        public SampleOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
+            _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
+            return this;
+        }
+
+        public SampleOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled) {
+            _renderingOptions.DisplayingEventIdInfoEnabled = displayingEventIdInfoEnabled;
+            return this;
+        }
+
+        public SampleOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled) {
+            _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
+            return this;
+        }
+
+        public MessageTemplateRenderingOptions GetRenderingOptions() => _renderingOptions;
+
+        #endregion
+
     }
 }

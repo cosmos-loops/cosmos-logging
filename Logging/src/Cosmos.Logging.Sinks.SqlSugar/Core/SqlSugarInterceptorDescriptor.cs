@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Options;
 using SqlSugar;
 
@@ -20,5 +21,7 @@ namespace Cosmos.Logging.Sinks.SqlSugar.Core {
         internal Func<string, LogEventLevel, bool> ExposeGlobalFilter => _settings?.Filter;
 
         internal ILoggingServiceProvider ExposeLoggingServiceProvider => _loggingServiceProvider;
+
+        internal MessageTemplateRenderingOptions RenderingOptions => _settings?.GetRenderingOptions() ?? new MessageTemplateRenderingOptions();
     }
 }

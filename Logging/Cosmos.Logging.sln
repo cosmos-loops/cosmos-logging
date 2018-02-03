@@ -39,9 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.Sinks.Except
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.ExceptionlessTests", "tests\Cosmos.Logging.ExceptionlessTests\Cosmos.Logging.ExceptionlessTests.csproj", "{C9F1AC97-786A-47BF-9141-2D72654B1440}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Loggings.SampleSink_AspNetCore", "tests\Cosmos.Logging.SampleSink_AspNetCore\Cosmos.Loggings.SampleSink_AspNetCore.csproj", "{44140F1F-097B-4A7D-A249-AEFDB34F2064}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.SampleSink_AspNetCore", "tests\Cosmos.Logging.SampleSink_AspNetCore\Cosmos.Logging.SampleSink_AspNetCore.csproj", "{44140F1F-097B-4A7D-A249-AEFDB34F2064}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Loggings.MessageTemplateTokenTests", "tests\Cosmos.Logging.MessageTemplateTokenTests\Cosmos.Loggings.MessageTemplateTokenTests.csproj", "{BCEC2921-F0A7-4286-8BC1-CE50D9D511E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.MessageTemplateTokenTests", "tests\Cosmos.Logging.MessageTemplateTokenTests\Cosmos.Logging.MessageTemplateTokenTests.csproj", "{BCEC2921-F0A7-4286-8BC1-CE50D9D511E6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.CollaborativeTesting.NLogAndExceptionless", "tests\Cosmos.Logging.CollaborativeTesting.NLogAndExceptionless\Cosmos.Logging.CollaborativeTesting.NLogAndExceptionless.csproj", "{2FD19EE9-4E97-4A92-962A-9143BCB95CDC}"
 EndProject
@@ -53,7 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build\version.props = build\version.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Loggings.SampleSink_AspNetMvc", "tests\Cosmos.Loggings.SampleSink_AspNetMvc\Cosmos.Loggings.SampleSink_AspNetMvc.csproj", "{D799929C-FAEE-474B-985F-A26BD8202162}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.SampleSink_AspNetMvc", "tests\Cosmos.Logging.SampleSink_AspNetMvc\Cosmos.Logging.SampleSink_AspNetMvc.csproj", "{D799929C-FAEE-474B-985F-A26BD8202162}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.Sinks.EntityFrameworkCore", "src\Cosmos.Logging.Sinks.EntityFrameworkCore\Cosmos.Logging.Sinks.EntityFrameworkCore.csproj", "{E53B9599-BBEC-47A7-98FA-77BFD7E641A0}"
 EndProject

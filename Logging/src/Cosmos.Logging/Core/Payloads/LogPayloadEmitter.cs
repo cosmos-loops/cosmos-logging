@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Cosmos.Logging.Collectors;
 
-namespace Cosmos.Logging.Core {
+namespace Cosmos.Logging.Core.Payloads {
     public static class LogPayloadEmitter {
         public static void Emit(ILogPayloadSender logPayloadSender, ILogPayload payload) {
             if (logPayloadSender == null || payload == null) return;

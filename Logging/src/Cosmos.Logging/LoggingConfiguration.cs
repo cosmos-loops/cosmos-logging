@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters.Navigators;
+using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging {
@@ -38,6 +39,8 @@ namespace Cosmos.Logging {
                     ? nav.GetValue().Level
                     : GetDefaultMinimumLevel();
         }
+        
+        public MessageTemplateRenderingOptions RenderingOptions { get; set; }
 
         public DestructureConfiguration Destructure { get; set; }
 

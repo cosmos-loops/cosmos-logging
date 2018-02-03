@@ -1,137 +1,92 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Core.Extensions;
+using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Core.Piplelines;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging {
     public abstract partial class LoggerBase {
-        private readonly AsyncQueue<LogEvent> _asyncQueue = new AsyncQueue<LogEvent>(100);
 
-        private void AutomaticlySubmitLoggerByPipleline() {
-            LogPayloadEmitter.Emit(_logPayloadSender, AutomaticPayload.Export());
-        }
+        #region Automaticlly 
 
-        private void ManuallySubmitLoggerByPipleline() {
-            LogPayloadEmitter.Emit(_logPayloadSender, ManuallyPayload.Export());
-        }
+        private readonly AsyncQueue<LogEvent> _automaticAsyncQueue = new AsyncQueue<LogEvent>(100);
 
-        private void LaunchSubmitCommand() {
-            var task = InsertLogEventIntoAsyncQueue(_submitCommandLogger);
-            task.ContinueWith(t => DispatchFromAsyncQueue());
+        private void AutomaticalSubmitLoggerByPipleline() => LogPayloadEmitter.Emit(_logPayloadSender, AutomaticPayload.Export());
+
+        private void ParseAndInsertLogEventIntoQueueAutomatically(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate,
+            ILogCallerInfo callerInfo, AdditionalOptContext context = null, params object[] messageTemplateParameters) {
+            var task = CreateEnqueueTask();
+            task.ContinueWith(t => DispatchForAutomatic());
             task.Start();
-        }
 
-        private Task InsertLogEventIntoAsyncQueue(LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode,
-            AdditionalOptContext context = null, params object[] messageTemplateParameters) {
-            var task = new Task(async () => {
-                var writer = await _asyncQueue.AcquireWriteAsync(1, CancellationToken.None);
-                writer.Visit(
-                    succeeded => {
-                        _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
-                            out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
+            Task CreateEnqueueTask() {
+                var taskResult = new Task(async () => {
+                    var writer = await _automaticAsyncQueue.AcquireWriteAsync(1, CancellationToken.None);
+                    writer.Visit(
+                        succeeded => {
+                            _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
+                                out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
 
-                        var logEvent = new LogEvent(StateNamespace, DateTimeOffset.Now, level, parsedTemplate, exception,
-                            sendMode, namedMessageProperties, positionalMessageProperties, context);
+                            var logEvent = new LogEvent(StateNamespace, eventId, level, parsedTemplate, exception,
+                                LogEventSendMode.Automatic, callerInfo, _upstreamRenderingOptions,
+                                namedMessageProperties, positionalMessageProperties, context);
 
-                        if (succeeded.ItemCount >= 1) {
-                            _asyncQueue.ReleaseWrite(logEvent);
-                        } else {
-                            _asyncQueue.ReleaseWrite();
-                        }
+                            if (succeeded.ItemCount >= 1) {
+                                _automaticAsyncQueue.ReleaseWrite(logEvent);
+                            } else {
+                                _automaticAsyncQueue.ReleaseWrite();
+                            }
 
-                        return logEvent;
-                    },
-                    cancelled => {
-                        InternalLogger.WriteLine("When insert log event(0) into async queue, task has been cancelled.");
-                        return null;
-                    },
-                    faulted => {
-                        InternalLogger.WriteLine($@"Thrown an exception when insert log event(0) into async queue:{Environment.NewLine}{faulted.Exception.ToUwrapedString()}",
-                            faulted.Exception);
-                        return null;
-                    });
-            });
+                            return logEvent;
+                        },
+                        cancelled => {
+                            InternalLogger.WriteLine("When insert log event(0) into async queue, task has been cancelled.");
+                            return null;
+                        },
+                        faulted => {
+                            InternalLogger.WriteLine(
+                                $@"Thrown an exception when insert log event(0) into async queue:{Environment.NewLine}{faulted.Exception.ToUwrapedString()}",
+                                faulted.Exception);
+                            return null;
+                        });
+                });
 
-            return task;
+                return taskResult;
 
-            object[] __as(object[] __paramObjs) {
-                if (__paramObjs != null && __paramObjs.GetType() != typeof(object[]))
-                    return new object[] {__paramObjs};
-                return __paramObjs;
+                object[] __as(object[] __paramObjs) {
+                    if (__paramObjs != null && __paramObjs.GetType() != typeof(object[]))
+                        return new object[] {__paramObjs};
+                    return __paramObjs;
+                }
             }
+
         }
 
-        private Task InsertLogEventIntoAsyncQueue(LogEvent logEvent) {
-            if (logEvent == null) throw new ArgumentNullException(nameof(logEvent));
-            var task = new Task(async () => {
-                var writer = await _asyncQueue.AcquireWriteAsync(1, CancellationToken.None);
-                writer.Visit(
-                    succeeded => {
-                        if (succeeded.ItemCount >= 1) {
-                            _asyncQueue.ReleaseWrite(_submitCommandLogger);
-                        } else {
-                            _asyncQueue.ReleaseWrite();
-                        }
-
-                        return _submitCommandLogger;
-                    },
-                    cancelled => {
-                        InternalLogger.WriteLine("When insert log event(1) into async queue, task has been cancelled.");
-                        return null;
-                    },
-                    faulted => {
-                        InternalLogger.WriteLine($@"Thrown an exception when insert log event(1) into async queue:{Environment.NewLine}{faulted.Exception.ToUwrapedString()}",
-                            faulted.Exception);
-                        return null;
-                    });
-            });
-            return task;
-        }
-
-        private void DispatchLogEventWithoutAsyncQueue(LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode,
-            AdditionalOptContext context = null, params object[] messageTemplateParameters) {
-            _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
-                out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
-
-            var logEvent = new LogEvent(StateNamespace, DateTimeOffset.Now, level, parsedTemplate, exception,
-                sendMode, namedMessageProperties, positionalMessageProperties, context);
-
-            Dispatch(logEvent);
-
-            object[] __as(object[] __paramObjs) {
-                if (__paramObjs != null && __paramObjs.GetType() != typeof(object[]))
-                    return new object[] {__paramObjs};
-                return __paramObjs;
-            }
-        }
-
-        private void DispatchFromAsyncQueue() {
+        private void DispatchForAutomatic(int desiredItems = 1) {
             var readerTask = new Task(async () => {
                 bool more = true;
                 while (more) {
-                    var result = await _asyncQueue.AcquireReadAsync(1, CancellationToken.None);
+                    var result = await _automaticAsyncQueue.AcquireReadAsync(desiredItems, CancellationToken.None);
                     result.Visit(
                         succeeded => {
                             LogEvent logEvent = null;
                             if (succeeded is AcquireReadSucceeded<LogEvent> acquireReader) {
-                                logEvent = acquireReader.Items.First();
-
-                                if (logEvent is EventSpeakAsSubmitCommand) {
-                                    ManuallySubmitLoggerByPipleline();
-                                } else {
-                                    Dispatch(logEvent);
-                                }
+                                logEvent = acquireReader.Items[0];
+                                Dispatch(logEvent);
                             }
 
                             if (succeeded.ItemCount < 1) {
                                 more = false;
                             }
 
-                            _asyncQueue.ReleaseRead(succeeded.ItemCount);
+                            _automaticAsyncQueue.ReleaseRead(succeeded.ItemCount);
 
                             return logEvent;
                         },
@@ -140,7 +95,8 @@ namespace Cosmos.Logging {
                             return null;
                         },
                         faulted => {
-                            InternalLogger.WriteLine($@"Thrown an exception when dispatch log event from async queue:{Environment.NewLine}{faulted.Exception.ToUwrapedString()}",
+                            InternalLogger.WriteLine(
+                                $@"Thrown an exception when dispatch log event from async queue:{Environment.NewLine}{faulted.Exception.ToUwrapedString()}",
                                 faulted.Exception);
                             return null;
                         });
@@ -150,8 +106,55 @@ namespace Cosmos.Logging {
             readerTask.Start();
         }
 
-        private static readonly EventSpeakAsSubmitCommand _submitCommandLogger = new EventSpeakAsSubmitCommand();
+        #endregion
 
-        private class EventSpeakAsSubmitCommand : LogEvent { }
+        #region Manually
+
+        private readonly ConcurrentDictionary<long, List<ManuallyLogEventDescriptor>> _manuallyLogEventDescriptors =
+            new ConcurrentDictionary<long, List<ManuallyLogEventDescriptor>>();
+
+        private void ManuallySubmitLoggerByPipleline() => LogPayloadEmitter.Emit(_logPayloadSender, ManuallyPayload.Export());
+
+        private void SubmitLogEventsManually(IDisposable disposableAction) {
+            var currentManuallyTransId = CurrentManuallyTransId;
+            using (disposableAction) {
+                if (_manuallyLogEventDescriptors.TryGetValue(currentManuallyTransId, out var descriptors) && descriptors.Any()) {
+                    Task.Factory.StartNew(() => {
+                        foreach (var descriptor in descriptors) {
+                            CreateAndDispatchLogEvent(descriptor.EventId, descriptor.Level, descriptor.Exception, descriptor.MessageTemplate,
+                                LogEventSendMode.Manually, descriptor.CallerInfo, descriptor.Context, descriptor.MessageTemplateParameters);
+                        }
+
+                        ManuallySubmitLoggerByPipleline();
+                    });
+                }
+            }
+
+            void CreateAndDispatchLogEvent(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode,
+                ILogCallerInfo callerInfo, AdditionalOptContext context = null, params object[] messageTemplateParameters) {
+                _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
+                    out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
+
+                var logEvent = new LogEvent(StateNamespace, eventId, level, parsedTemplate, exception,
+                    sendMode, callerInfo, _upstreamRenderingOptions, namedMessageProperties, positionalMessageProperties, context);
+
+                Dispatch(logEvent);
+
+                object[] __as(object[] __paramObjs) {
+                    if (__paramObjs != null && __paramObjs.GetType() != typeof(object[]))
+                        return new object[] {__paramObjs};
+                    return __paramObjs;
+                }
+            }
+        }
+
+        private void ParseAndInsertLogEvenDescriptorManually(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate,
+            ILogCallerInfo callerInfo, AdditionalOptContext context = null, params object[] messageTemplateParameters) {
+            _manuallyLogEventDescriptors[CurrentManuallyTransId]
+                .Add(new ManuallyLogEventDescriptor(eventId, level, exception, messageTemplate, callerInfo, context, messageTemplateParameters));
+        }
+
+        #endregion
+
     }
 }
