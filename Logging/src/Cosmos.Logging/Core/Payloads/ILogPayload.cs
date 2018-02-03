@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Cosmos.Logging.Events;
 
-namespace Cosmos.Logging.Collectors {
+namespace Cosmos.Logging.Core.Payloads {
     public interface ILogPayload : IEnumerable<LogEvent> {
         string Name { get; }
         Type SourceType { get; }

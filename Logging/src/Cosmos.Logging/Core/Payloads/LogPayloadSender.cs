@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cosmos.Logging.Collectors {
+namespace Cosmos.Logging.Core.Payloads {
     public sealed class LogPayloadSender : ILogPayloadSender {
 
         private readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
