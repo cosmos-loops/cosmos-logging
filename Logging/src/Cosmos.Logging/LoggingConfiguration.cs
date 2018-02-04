@@ -39,7 +39,9 @@ namespace Cosmos.Logging {
                     ? nav.GetValue().Level
                     : GetDefaultMinimumLevel();
         }
-        
+
+        public Dictionary<string, bool?> Rendering { get; set; } = new Dictionary<string, bool?>();
+
         public MessageTemplateRenderingOptions RenderingOptions { get; set; }
 
         public DestructureConfiguration Destructure { get; set; }

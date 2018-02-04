@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cosmos.Logging.Core {
     public static class LogAdditionalOperationFilter {
-        public static IEnumerable<IAdditionalOperation> Filter(AdditionalOptContext context, Type flagType, AdditionalOperationTypes optType) {
+        public static IEnumerable<IAdditionalOperation> Filter(LogEventContext context, Type flagType, AdditionalOperationTypes optType) {
             if (context == null) return ReturnEmptyAdditionalOperations();
             if (flagType == null) return ReturnEmptyAdditionalOperations();
             return FilterAfterChecking(context.ExposeOpts(), flagType, optType);

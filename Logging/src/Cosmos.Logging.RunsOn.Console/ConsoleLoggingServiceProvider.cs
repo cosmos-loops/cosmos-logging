@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Future;
 using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -72,7 +74,7 @@ namespace Cosmos.Logging.RunsOn.Console {
             return GetLoggerCore(type, null, minLevel, null, mode, renderingOptions);
         }
 
-        public ILogger GetLogger(Type type, Func<string, LogEventLevel, bool> filter, LogEventLevel minLevel,
+        public ILogger GetLogger(Type type, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
             MessageTemplateRenderingOptions renderingOptions = null) {
             return GetLoggerCore(type, null, minLevel, filter, mode, renderingOptions);
@@ -97,6 +99,102 @@ namespace Cosmos.Logging.RunsOn.Console {
             LogEventSendMode mode = LogEventSendMode.Customize,
             MessageTemplateRenderingOptions renderingOptions = null) {
             return GetLoggerCore(typeof(T), null, minLevel, filter, mode, renderingOptions);
+        }
+
+        public IFutureLogger GetFutureLogger(string categoryName,
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger(categoryName, LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
+        }
+
+        public IFutureLogger GetFutureLogger(string categoryName, Func<string, LogEventLevel, bool> filter,
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger(categoryName, filter, LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
+        }
+
+        public IFutureLogger GetFutureLogger(string categoryName, LogEventLevel minLevel,
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger(categoryName, minLevel, LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
+        }
+
+        public IFutureLogger GetFutureLogger(string categoryName, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger(categoryName, minLevel, filter, LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
+        }
+
+        public IFutureLogger GetFutureLogger(Type type,
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger(type, LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
+        }
+
+        public IFutureLogger GetFutureLogger(Type type, Func<string, LogEventLevel, bool> filter,
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger(type, filter, LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
+        }
+
+        public IFutureLogger GetFutureLogger(Type type, LogEventLevel minLevel,
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger(type, minLevel, LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
+        }
+
+        public IFutureLogger GetFutureLogger(Type type, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger(type, minLevel, filter, LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
+        }
+
+        public IFutureLogger GetFutureLogger<T>(
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger<T>(LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
+        }
+
+        public IFutureLogger GetFutureLogger<T>(Func<string, LogEventLevel, bool> filter,
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger<T>(filter, LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
+        }
+
+        public IFutureLogger GetFutureLogger<T>(LogEventLevel minLevel,
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger<T>(minLevel, LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
+        }
+
+        public IFutureLogger GetFutureLogger<T>(LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
+            MessageTemplateRenderingOptions renderingOptions = null,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            return GetLogger<T>(minLevel, filter, LogEventSendMode.Automatic, renderingOptions).ToFuture(memberName, filePath, lineNumber);
         }
     }
 }

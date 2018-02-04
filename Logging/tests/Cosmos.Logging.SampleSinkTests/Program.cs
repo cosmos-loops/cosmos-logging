@@ -16,8 +16,18 @@ namespace Cosmos.Logging.SampleSinkTests {
                 var logger = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
 
                 logger.LogInformation("hello");
-                logger.LogError("world");
+                logger.LogError("world", ctx => ctx.SetTags("Alex").SetTags("Lewis"));
+                logger.LogError("Nice {@L}", ctx => ctx.SetParameter(new {L = "KK"}));
                 logger.SubmitLogger();
+                
+                var future = logger.ToFuture();
+                future
+                    .SetLevel(LogEventLevel.Information)
+                    .SetMessage("future log===> Nice {@L}")
+                    .SetTags("Alex", "Lewis")
+                    .SetParameter(new{L="KK2"})
+                    .SetException(new ArgumentNullException(nameof(args)))
+                    .Submit();
 
                 Console.WriteLine("Hello World!");
             }

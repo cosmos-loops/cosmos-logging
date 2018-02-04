@@ -137,35 +137,41 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests {
 //                logger.LogInformation("position test{10::} ");
 //                logger.LogInformation("position test{10:w}");
 //                logger.LogInformation("position test{10:w:} ");
-                
-                Stopwatch sw= new Stopwatch();
-sw.Start();
-                logger.LogInformation("{$Date::yyyy年MM月dd日} token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"}, "?world?");
-                logger.LogInformation("token test: {@Hello}, {0}, {@World}", new {Hello = "_hello_", World = "_world_"}, "?world?");
+
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                logger.LogInformation("{$Date::yyyy年MM月dd日} token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"},
+                    "?world?");
+                logger.LogInformation("token test: {@Hello}, {0}, {@World}？？？？？", paramObjects: new Object[] {new {Hello = "_hello_", World = "_world_"}, "?world?"});
 
                 using (var scope = logger.BeginScope("123")) {
                     logger.LogInformation("token test: {@Hello}, {0}, {@World}");
                 }
-sw.Stop();
+
+                sw.Stop();
                 Console.WriteLine($"1:{sw.ElapsedMilliseconds}");
                 sw.Restart();
-                logger.LogInformation("{$Date::yyyy年MM月dd日} token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"}, "?world?");
+                logger.LogInformation("{$Date::yyyy年MM月dd日} token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"},
+                    "?world?");
                 logger.LogInformation("token test: {@Hello}, {0}, {@World}", new {Hello = "_hello_", World = "_world_"}, "?world?");
 
                 using (var scope = logger.BeginScope("123")) {
                     logger.LogInformation("token test: {@Hello}, {0}, {@World}");
                 }
+
                 sw.Stop();
                 Console.WriteLine($"2:{sw.ElapsedMilliseconds}");
-                
+
                 Thread.Sleep(TimeSpan.FromSeconds(4));
                 sw.Restart();
-                logger.LogInformation("{$Date::yyyy年MM月dd日} token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"}, "?world?");
+                logger.LogInformation("{$Date::yyyy年MM月dd日} token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}", new {Hello = "_hello_"},
+                    "?world?");
                 logger.LogInformation("token test: {@Hello}, {0}, {@World}", new {Hello = "_hello_", World = "_world_"}, "?world?");
 
                 using (var scope = logger.BeginScope("123")) {
                     logger.LogInformation("token test: {@Hello}, {0}, {@World}");
                 }
+
                 sw.Stop();
                 Console.WriteLine($"3:{sw.ElapsedMilliseconds}");
                 Console.WriteLine("I'm live");
