@@ -51,11 +51,6 @@ namespace Cosmos.Logging.Configurations {
             }
         }
 
-        internal void ProcessRenderingOptions<TSinkSettings>(TSinkSettings settings) where TSinkSettings : class, ILoggingSinkOptions, new() {
-            if (settings == null) throw new ArgumentNullException(nameof(settings));
-            RenderingOptions = settings.GetRenderingOptions();
-        }
-
         public LogEventLevel GetDefaultMinimumLevel() => NavigationFilterProcessor.GetDefault(Name);
 
         public LogEventLevel GetMinimumLevel(string @namespace) {
@@ -66,6 +61,13 @@ namespace Cosmos.Logging.Configurations {
                     : GetDefaultMinimumLevel();
         }
 
+        public Dictionary<string, bool?> Rendering { get; set; } = new Dictionary<string, bool?>();
+
         public MessageTemplateRenderingOptions RenderingOptions { get; set; }
+
+        internal void ProcessRenderingOptions<TSinkSettings>(TSinkSettings settings) where TSinkSettings : class, ILoggingSinkOptions, new() {
+            if (settings == null) throw new ArgumentNullException(nameof(settings));
+            RenderingOptions = new MessageTemplateRenderingOptions(Rendering, settings.GetRenderingOptions());
+        }
     }
 }

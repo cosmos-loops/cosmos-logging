@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Extensions;
@@ -15,18 +14,23 @@ namespace Cosmos.Logging {
             if (configuration == null) {
                 IncludeScopes = false;
                 LogLevel = new Dictionary<string, string> {{"Default", "Information"}};
+                RenderingOptions = new MessageTemplateRenderingOptions {
+                    DisplayingCallerInfoEnabled = settings.DisplayingCallerInfoEnabled,
+                    DisplayingEventIdInfoEnabled = settings.DisplayingEventIdInfoEnabled,
+                    DisplayingNewLineEomEnabled = settings.DisplayingNewLineEomEnabled
+                };
             } else {
                 IncludeScopes = configuration.IncludeScopes;
                 LogLevel = configuration.LogLevel;
+                RenderingOptions = new MessageTemplateRenderingOptions(
+                    configuration.Rendering,
+                    settings.DisplayingCallerInfoEnabled,
+                    settings.DisplayingEventIdInfoEnabled,
+                    settings.DisplayingNewLineEomEnabled);
             }
 
             Aliases.MergeAndOverWrite(settings.InternalAliases, k => k, v => v.GetName());
             LogLevel.MergeAndOverWrite(settings.InternalNavigatorLogEventLevels, k => k, v => v.GetName());
-            RenderingOptions = new MessageTemplateRenderingOptions {
-                DisplayingCallerInfoEnabled = settings.DisplayingCallerInfoEnabled,
-                DisplayingEventIdInfoEnabled = settings.DisplayingEventIdInfoEnabled,
-                DisplayingNewLineEomEnabled = settings.DisplayingNewLineEomEnabled
-            };
 
             foreach (var item in LogLevel) {
                 var nav = _namespaceNavigatorCache.Parse(item.Key, item.Value, out _);

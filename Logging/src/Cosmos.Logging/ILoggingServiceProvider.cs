@@ -3,7 +3,7 @@ using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging {
-    public interface ILoggingServiceProvider {
+    public partial interface ILoggingServiceProvider {
         ILogger GetLogger(string categoryName,
             LogEventSendMode mode = LogEventSendMode.Customize,
             MessageTemplateRenderingOptions renderingOptions = null);
@@ -32,7 +32,7 @@ namespace Cosmos.Logging {
             LogEventSendMode mode = LogEventSendMode.Customize,
             MessageTemplateRenderingOptions renderingOptions = null);
 
-        ILogger GetLogger(Type type, Func<string, LogEventLevel, bool> filter, LogEventLevel minLevel,
+        ILogger GetLogger(Type type, LogEventLevel minLevel,Func<string, LogEventLevel, bool> filter, 
             LogEventSendMode mode = LogEventSendMode.Customize,
             MessageTemplateRenderingOptions renderingOptions = null);
 

@@ -7,8 +7,8 @@ using Cosmos.Logging.ExtraSupports;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Events {
-    public class LogEvent : ILogEventInfo {
-        private readonly AdditionalOptContext _additionalOptContext;
+    public class LogEvent : ILogEventInfo, IContextualLogEvent {
+        private readonly LogEventContext _logEventContext;
         private readonly ContextData _contextData;
 
         private readonly Dictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> _namedProperties;
@@ -16,7 +16,7 @@ namespace Cosmos.Logging.Events {
         private readonly Dictionary<string, ExtraMessageProperty> _extraMessageProperties;
 
         internal LogEvent() {
-            _additionalOptContext = null;
+            _logEventContext = null;
             _namedProperties = null;
             _positionalProperties = null;
             _extraMessageProperties = null;
@@ -34,7 +34,7 @@ namespace Cosmos.Logging.Events {
             MessageTemplateRenderingOptions upstreamRenderingOptions,
             Dictionary<(string name, PropertyResolvingMode mode), MessageProperty> namedMessageProperties,
             Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> positionalMessageProperties,
-            AdditionalOptContext additionalOptContext,
+            LogEventContext logEventContext,
             ContextData contextData = null) {
 
             if (namedMessageProperties == null) throw new ArgumentNullException(nameof(namedMessageProperties));
@@ -47,7 +47,7 @@ namespace Cosmos.Logging.Events {
             SendMode = sendMode;
             CallerInfo = callerInfo;
             MessageTemplate = messageTemplate ?? throw new ArgumentNullException(nameof(messageTemplate));
-            _additionalOptContext = additionalOptContext ?? new AdditionalOptContext();
+            _logEventContext = logEventContext ?? new LogEventContext();
 
             _namedProperties = new Dictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue>();
             _positionalProperties = new Dictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue>();
@@ -58,7 +58,7 @@ namespace Cosmos.Logging.Events {
 
             UpdateProperty(namedMessageProperties, positionalMessageProperties);
 
-            UpstreamRenderingOptions = upstreamRenderingOptions.ToCalc(additionalOptContext?.RenderingOptions);
+            UpstreamRenderingOptions = upstreamRenderingOptions.ToCalc(logEventContext?.RenderingOptions);
         }
 
         public string StateNamespace { get; }
@@ -77,11 +77,11 @@ namespace Cosmos.Logging.Events {
         #region Reder Message
 
         public void RenderMessage(TextWriter output, MessageTemplateRenderingOptions renderingOptions = null, IFormatProvider provider = null) {
-            MessageTemplate.Render(NamedProperties, PositionalProperties, output, this, UpstreamRenderingOptions.ToCalc(renderingOptions), provider);
+            MessageTemplate.Render(NamedProperties, PositionalProperties, output, this, this, UpstreamRenderingOptions.ToCalc(renderingOptions), provider);
         }
 
         public string RenderMessage(MessageTemplateRenderingOptions renderingOptions = null, IFormatProvider provider = null) {
-            return MessageTemplate.Render(NamedProperties, PositionalProperties, this, UpstreamRenderingOptions.ToCalc(renderingOptions), provider);
+            return MessageTemplate.Render(NamedProperties, PositionalProperties, this, this, UpstreamRenderingOptions.ToCalc(renderingOptions), provider);
         }
 
         #endregion
@@ -89,7 +89,13 @@ namespace Cosmos.Logging.Events {
         #region Additional Operations
 
         public IEnumerable<IAdditionalOperation> GetAdditionalOperations(Type flagType, AdditionalOperationTypes optType)
-            => LogAdditionalOperationFilter.Filter(_additionalOptContext, flagType, optType);
+            => LogAdditionalOperationFilter.Filter(_logEventContext, flagType, optType);
+
+        #endregion
+
+        #region Tags
+
+        public IReadOnlyList<string> Tags => _logEventContext.Tags;
 
         #endregion
 

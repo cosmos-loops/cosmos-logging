@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Core.ObjectResolving;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters.Internals;
+using Cosmos.Logging.Future;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging {
@@ -55,12 +56,13 @@ namespace Cosmos.Logging {
         }
 
         protected virtual bool IsManuallySendMode(LogEventSendMode modeInEvent) =>
-            SendMode == LogEventSendMode.Customize && modeInEvent == LogEventSendMode.Manually || SendMode == LogEventSendMode.Manually;
+            modeInEvent != LogEventSendMode.Automatic &&
+            (SendMode == LogEventSendMode.Customize && modeInEvent == LogEventSendMode.Manually || SendMode == LogEventSendMode.Manually);
 
         protected bool IsManuallySendMode(LogEvent logEvent) => IsManuallySendMode(logEvent?.SendMode ?? LogEventSendMode.Customize);
 
         public void Write(LogEventId? eventId, LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode, ILogCallerInfo callerInfo,
-            AdditionalOptContext context = null, params object[] messageTemplateParameters) {
+            LogEventContext context = null, params object[] messageTemplateParameters) {
             if (!IsEnabled(level)) return;
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
             if (IsManuallySendMode(sendMode)) {
@@ -73,6 +75,21 @@ namespace Cosmos.Logging {
         public void Write(LogEvent logEvent) {
             if (logEvent == null || !IsEnabled(logEvent.Level)) return;
             Dispatch(logEvent);
+        }
+
+        public void Write(FutureLogEventDescriptor descriptor) {
+            if (descriptor == null) throw new ArgumentNullException(nameof(descriptor));
+            if (!IsEnabled(descriptor.Level)) return;
+            if (string.IsNullOrWhiteSpace(descriptor.MessageTemplate)) return;
+            Write(
+                descriptor.EventId,
+                descriptor.Level,
+                descriptor.Exception,
+                descriptor.MessageTemplate,
+                LogEventSendMode.Automatic,
+                descriptor.CallerInfo,
+                descriptor.Context,
+                descriptor.Context.Parameters);
         }
 
         protected virtual void Dispatch(LogEvent logEvent) {
@@ -97,11 +114,13 @@ namespace Cosmos.Logging {
             }));
         }
 
-        private static AdditionalOptContext TouchAdditionalOptContext(Action<AdditionalOptContext> additionalOptContextAct) {
-            var context = new AdditionalOptContext();
+        private static LogEventContext TouchLogEventContext(Action<LogEventContext> additionalOptContextAct) {
+            var context = new LogEventContext();
             additionalOptContextAct?.Invoke(context);
             return context;
         }
+
+        public abstract IFutureLogger ToFuture([CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0);
 
         #region Dispose
 

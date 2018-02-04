@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Extensions;
@@ -13,7 +14,8 @@ namespace Cosmos.Logging.MessageTemplates {
         public static void Render(MessageTemplate messageTemplate,
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedProperties,
             IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalProperties,
-            TextWriter output, string format = null, ILogEventInfo logEventInfo = null, MessageTemplateRenderingOptions renderingOptions = null,
+            TextWriter output, ILogEventInfo logEventInfo, IContextualLogEvent contextualLogEvent,
+            string format = null, MessageTemplateRenderingOptions renderingOptions = null,
             IFormatProvider formatProvider = null) {
             var stringBuilder = RenderEngine(
                 messageTemplate.TextArray,
@@ -21,6 +23,7 @@ namespace Cosmos.Logging.MessageTemplates {
                 namedProperties,
                 positionalProperties,
                 logEventInfo,
+                contextualLogEvent,
                 renderingOptions,
                 formatProvider);
             output.Write(ToBuffer(stringBuilder));
@@ -35,7 +38,8 @@ namespace Cosmos.Logging.MessageTemplates {
         private static StringBuilder RenderEngine(char[] chars, MessageTemplateToken[] tokens,
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedProperties,
             IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalProperties,
-            ILogEventInfo logEventInfo, MessageTemplateRenderingOptions renderingOptions, IFormatProvider formatProvider) {
+            ILogEventInfo logEventInfo, IContextualLogEvent contextualLogEvent,
+            MessageTemplateRenderingOptions renderingOptions, IFormatProvider formatProvider) {
             var stringBuilder = Som(logEventInfo, renderingOptions);
             var position = 0;
 
@@ -74,6 +78,8 @@ namespace Cosmos.Logging.MessageTemplates {
             if (position < chars.Length) {
                 stringBuilder.Append(chars.Read(position, chars.Length - position));
             }
+
+            RenderTags(contextualLogEvent, stringBuilder);
 
             Eom(stringBuilder, renderingOptions);
 
@@ -115,7 +121,7 @@ namespace Cosmos.Logging.MessageTemplates {
                 stringBuilder.Append($"[{_0(eventId.Id)} {_1(eventId.Name)}] ");
 
                 string _0(string _id) => string.IsNullOrWhiteSpace(_id) ? "no_id" : _id;
-                
+
                 string _1(string _name) => string.IsNullOrWhiteSpace(_name) ? "null" : _name;
             }
 
@@ -183,6 +189,14 @@ namespace Cosmos.Logging.MessageTemplates {
         private static bool TryGetMessageProperty(IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalProperties,
             PositionalPropertyToken token, out MessagePropertyValue property) {
             return positionalProperties.TryGetValue((token.PositionalParameterValue, token.PropertyResolvingMode), out property);
+        }
+
+        private static void RenderTags(IContextualLogEvent contextualLogEvent, StringBuilder stringBuilder) {
+            if (contextualLogEvent.Tags != null && contextualLogEvent.Tags.Any()) {
+                if (stringBuilder[stringBuilder.Length - 1] != ' ')
+                    stringBuilder.Append(' ');
+                stringBuilder.Append($"Tags: {string.Join(", ", contextualLogEvent.Tags)} ");
+            }
         }
     }
 }

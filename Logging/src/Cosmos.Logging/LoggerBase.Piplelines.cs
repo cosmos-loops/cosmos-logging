@@ -21,7 +21,7 @@ namespace Cosmos.Logging {
         private void AutomaticalSubmitLoggerByPipleline() => LogPayloadEmitter.Emit(_logPayloadSender, AutomaticPayload.Export());
 
         private void ParseAndInsertLogEventIntoQueueAutomatically(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate,
-            ILogCallerInfo callerInfo, AdditionalOptContext context = null, params object[] messageTemplateParameters) {
+            ILogCallerInfo callerInfo, LogEventContext context = null, params object[] messageTemplateParameters) {
             var task = CreateEnqueueTask();
             task.ContinueWith(t => DispatchForAutomatic());
             task.Start();
@@ -31,7 +31,7 @@ namespace Cosmos.Logging {
                     var writer = await _automaticAsyncQueue.AcquireWriteAsync(1, CancellationToken.None);
                     writer.Visit(
                         succeeded => {
-                            _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
+                            _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters, context),
                                 out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
 
                             var logEvent = new LogEvent(StateNamespace, eventId, level, parsedTemplate, exception,
@@ -60,10 +60,9 @@ namespace Cosmos.Logging {
 
                 return taskResult;
 
-                object[] __as(object[] __paramObjs) {
-                    if (__paramObjs != null && __paramObjs.GetType() != typeof(object[]))
-                        return new object[] {__paramObjs};
-                    return __paramObjs;
+                object[] __as(object[] __paramObjs, LogEventContext __context) {
+                    if (__paramObjs == null || !__paramObjs.Any()) return __context?.Parameters.ToArray();
+                    return __paramObjs.GetType() != typeof(object[]) ? new object[] {__paramObjs} : __paramObjs;
                 }
             }
 
@@ -131,8 +130,8 @@ namespace Cosmos.Logging {
             }
 
             void CreateAndDispatchLogEvent(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode,
-                ILogCallerInfo callerInfo, AdditionalOptContext context = null, params object[] messageTemplateParameters) {
-                _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters),
+                ILogCallerInfo callerInfo, LogEventContext context = null, params object[] messageTemplateParameters) {
+                _messageParameterProcessor.Process(messageTemplate, __as(messageTemplateParameters, context),
                     out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
 
                 var logEvent = new LogEvent(StateNamespace, eventId, level, parsedTemplate, exception,
@@ -140,16 +139,15 @@ namespace Cosmos.Logging {
 
                 Dispatch(logEvent);
 
-                object[] __as(object[] __paramObjs) {
-                    if (__paramObjs != null && __paramObjs.GetType() != typeof(object[]))
-                        return new object[] {__paramObjs};
-                    return __paramObjs;
+                object[] __as(object[] __paramObjs, LogEventContext __context) {
+                    if (__paramObjs == null || !__paramObjs.Any()) return __context?.Parameters.ToArray();
+                    return __paramObjs.GetType() != typeof(object[]) ? new object[] {__paramObjs} : __paramObjs;
                 }
             }
         }
 
         private void ParseAndInsertLogEvenDescriptorManually(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate,
-            ILogCallerInfo callerInfo, AdditionalOptContext context = null, params object[] messageTemplateParameters) {
+            ILogCallerInfo callerInfo, LogEventContext context = null, params object[] messageTemplateParameters) {
             _manuallyLogEventDescriptors[CurrentManuallyTransId]
                 .Add(new ManuallyLogEventDescriptor(eventId, level, exception, messageTemplate, callerInfo, context, messageTemplateParameters));
         }

@@ -35,9 +35,10 @@ namespace Cosmos.Logging.MessageTemplates {
         public string Render(
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedMessageProperties,
             IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalMessageProperties,
-            ILogEventInfo logEventInfo = null, MessageTemplateRenderingOptions renderingOptions = null, IFormatProvider provider = null) {
+            ILogEventInfo logEventInfo, IContextualLogEvent contextualLogEvent,
+            MessageTemplateRenderingOptions renderingOptions = null, IFormatProvider provider = null) {
             using (var output = new StringWriter(provider)) {
-                Render(namedMessageProperties, positionalMessageProperties, output, logEventInfo, renderingOptions, provider);
+                Render(namedMessageProperties, positionalMessageProperties, output, logEventInfo, contextualLogEvent, renderingOptions, provider);
                 return output.ToString();
             }
         }
@@ -45,12 +46,12 @@ namespace Cosmos.Logging.MessageTemplates {
         public void Render(
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedMessageProperties,
             IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalMessageProperties,
-            TextWriter output, ILogEventInfo logEventInfo = null, MessageTemplateRenderingOptions renderingOptions = null,
-            IFormatProvider provider = null) {
+            TextWriter output, ILogEventInfo logEventInfo, IContextualLogEvent contextualLogEvent,
+            MessageTemplateRenderingOptions renderingOptions = null, IFormatProvider provider = null) {
             if (namedMessageProperties == null) throw new ArgumentNullException(nameof(namedMessageProperties));
             if (positionalMessageProperties == null) throw new ArgumentNullException(nameof(positionalMessageProperties));
             if (output == null) throw new ArgumentNullException(nameof(output));
-            MessageTemplateRenderer.Render(this, namedMessageProperties, positionalMessageProperties, output, null, logEventInfo, renderingOptions, provider);
+            MessageTemplateRenderer.Render(this, namedMessageProperties, positionalMessageProperties, output, logEventInfo, contextualLogEvent, null, renderingOptions, provider);
         }
 
         public override string ToString() => Text;

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AspNetFutureLogger.cs" />
     <Compile Include="AspNetLogger.cs" />
     <Compile Include="AspNetLoggingServiceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
