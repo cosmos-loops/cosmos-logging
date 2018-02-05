@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
@@ -6,6 +7,7 @@ using Cosmos.Logging.Future;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.RunsOn.Console {
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public class ConsoleLogger : LoggerBase, IFutureableLogger<ConsoleFutureLogger> {
 
         public ConsoleLogger(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, Func<string, LogEventLevel, bool> filter,

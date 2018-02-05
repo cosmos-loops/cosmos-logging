@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Cosmos.Logging.Core;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
 
 namespace Cosmos.Logging.RunsOn.Console {
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public class ConsoleLoggingServiceProvider : ILoggingServiceProvider {
         private readonly IServiceProvider _provider;
         private readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
