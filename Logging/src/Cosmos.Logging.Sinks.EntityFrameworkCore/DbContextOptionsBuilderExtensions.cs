@@ -1,4 +1,5 @@
 ﻿using System;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.EntityFrameworkCore;
@@ -11,7 +12,7 @@ namespace Cosmos.Logging {
     public static class DbContextOptionsBuilderExtensions {
         private static ILoggingServiceProvider _loggingServiceProvider => EfCoreInterceptorDescriptor.Instance.ExposeLoggingServiceProvider;
         private static Func<string, LogEventLevel, bool> _gloablFilter => EfCoreInterceptorDescriptor.Instance.ExposeSettings.Filter;
-        private static MessageTemplateRenderingOptions UpstreamRenderingOptions => EfCoreInterceptorDescriptor.Instance.ExposeSettings.GetRenderingOptions();
+        private static RendingConfiguration UpstreamRenderingOptions => EfCoreInterceptorDescriptor.Instance.ExposeSettings.GetRenderingOptions();
 
         public static DbContextOptionsBuilder UseCosmosLogging(this DbContextOptionsBuilder builder) {
             if (builder == null) throw new ArgumentNullException(nameof(builder));

@@ -1,6 +1,6 @@
 ﻿using System;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Options;
 using SqlSugar;
 
@@ -22,6 +22,6 @@ namespace Cosmos.Logging.Sinks.SqlSugar.Core {
 
         internal ILoggingServiceProvider ExposeLoggingServiceProvider => _loggingServiceProvider;
 
-        internal MessageTemplateRenderingOptions RenderingOptions => _settings?.GetRenderingOptions() ?? new MessageTemplateRenderingOptions();
+        internal RendingConfiguration RenderingOptions => _settings?.GetRenderingOptions() ?? new RendingConfiguration();
     }
 }

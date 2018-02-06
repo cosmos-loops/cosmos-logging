@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
@@ -13,7 +14,7 @@ namespace Cosmos.Logging.RunsOn.AspNetCore {
     public class AspNetCoreLogger : LoggerBase, IFutureableLogger<AspNetCoreFutureLogger>, Microsoft.Extensions.Logging.ILogger {
 
         public AspNetCoreLogger(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, Func<string, LogEventLevel, bool> filter,
-            LogEventSendMode sendMode, MessageTemplateRenderingOptions renderingOptions, ILogPayloadSender logPayloadSender, IHttpContextAccessor httpContextAccessor)
+            LogEventSendMode sendMode, RendingConfiguration renderingOptions, ILogPayloadSender logPayloadSender, IHttpContextAccessor httpContextAccessor)
             : base(sourceType, minimumLevel, loggerStateNamespace, filter, sendMode, renderingOptions, logPayloadSender) {
 
             HttpContext = httpContextAccessor?.HttpContext;

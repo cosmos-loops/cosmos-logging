@@ -11,61 +11,54 @@ namespace Cosmos.Logging {
             Write(null, LogEventLevel.Verbose, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName));
         }
 
-        public virtual void LogVerbose<T>(string messageTemplate, T paramObject,
+        public virtual void LogVerbose<T>(string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Verbose, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject);
+            Write(null, LogEventLevel.Verbose, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg);
         }
 
-        public virtual void LogVerbose<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogVerbose<T1, T2>(string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Verbose, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2);
+            Write(null, LogEventLevel.Verbose, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2);
         }
 
-        public virtual void LogVerbose<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogVerbose<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Verbose, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2, paramObject3);
+            Write(null, LogEventLevel.Verbose, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogVerbose(string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            Write(null, LogEventLevel.Verbose, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObjects);
-        }
-
-        public virtual void LogVerbose(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogVerbose(string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Verbose, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx);
+            Write(null, LogEventLevel.Verbose, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, args);
         }
 
-        public virtual void LogVerbose<T>(string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogVerbose(string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Verbose, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Verbose, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx);
         }
 
-        public virtual void LogVerbose<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogVerbose<T>(string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Verbose, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Verbose, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg);
         }
 
-        public virtual void LogVerbose<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogVerbose<T1, T2>(string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Verbose, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Verbose, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2);
         }
 
-        public virtual void LogVerbose(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Verbose, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObjects);
+        public virtual void LogVerbose<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Verbose, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2, arg3);
+        }
+
+        public virtual void LogVerbose(string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Verbose, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, args);
         }
 
         public virtual void LogVerbose(Exception exception, string messageTemplate,
@@ -73,61 +66,54 @@ namespace Cosmos.Logging {
             Write(null, LogEventLevel.Verbose, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName));
         }
 
-        public virtual void LogVerbose<T>(Exception exception, string messageTemplate, T paramObject,
+        public virtual void LogVerbose<T>(Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Verbose, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject);
+            Write(null, LogEventLevel.Verbose, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg);
         }
 
-        public virtual void LogVerbose<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogVerbose<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Verbose, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2);
+            Write(null, LogEventLevel.Verbose, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2);
         }
 
-        public virtual void LogVerbose<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogVerbose<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Verbose, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2, paramObject3);
+            Write(null, LogEventLevel.Verbose, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogVerbose(Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            Write(null, LogEventLevel.Verbose, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObjects);
-        }
-
-        public virtual void LogVerbose(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogVerbose(Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Verbose, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx);
+            Write(null, LogEventLevel.Verbose, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, args);
         }
 
-        public virtual void LogVerbose<T>(Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogVerbose(Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Verbose, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Verbose, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx);
         }
 
-        public virtual void LogVerbose<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogVerbose<T>(Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Verbose, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Verbose, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg);
         }
 
-        public virtual void LogVerbose<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogVerbose<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Verbose, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Verbose, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2);
         }
 
-        public virtual void LogVerbose(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Verbose, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObjects);
+        public virtual void LogVerbose<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Verbose, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2, arg3);
+        }
+
+        public virtual void LogVerbose(Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Verbose, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, args);
         }
 
         public virtual void LogDebug(string messageTemplate,
@@ -135,62 +121,55 @@ namespace Cosmos.Logging {
             Write(null, LogEventLevel.Debug, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName));
         }
 
-        public virtual void LogDebug<T>(string messageTemplate, T paramObject,
+        public virtual void LogDebug<T>(string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Debug, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject);
+            Write(null, LogEventLevel.Debug, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg);
         }
 
-        public virtual void LogDebug<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogDebug<T1, T2>(string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Debug, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2);
+            Write(null, LogEventLevel.Debug, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2);
         }
 
-        public virtual void LogDebug<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogDebug<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Debug, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2, paramObject3);
+            Write(null, LogEventLevel.Debug, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogDebug(string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            Write(null, LogEventLevel.Debug, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObjects);
-        }
-
-        public virtual void LogDebug(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogDebug(string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Debug, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx);
+            Write(null, LogEventLevel.Debug, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, args);
         }
 
-        public virtual void LogDebug<T>(string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogDebug(string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Debug, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Debug, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx);
         }
 
-        public virtual void LogDebug<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogDebug<T>(string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Debug, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Debug, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg);
         }
 
-        public virtual void LogDebug<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogDebug<T1, T2>(string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Debug, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Debug, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2);
+        }
+
+        public virtual void LogDebug<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Debug, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2, arg3);
         }
 
 
-        public virtual void LogDebug(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Debug, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObjects);
+        public virtual void LogDebug(string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Debug, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, args);
         }
 
         public virtual void LogDebug(Exception exception, string messageTemplate,
@@ -198,61 +177,54 @@ namespace Cosmos.Logging {
             Write(null, LogEventLevel.Debug, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName));
         }
 
-        public virtual void LogDebug<T>(Exception exception, string messageTemplate, T paramObject,
+        public virtual void LogDebug<T>(Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Debug, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject);
+            Write(null, LogEventLevel.Debug, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg);
         }
 
-        public virtual void LogDebug<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogDebug<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Debug, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2);
+            Write(null, LogEventLevel.Debug, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2);
         }
 
-        public virtual void LogDebug<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogDebug<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Debug, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2, paramObject3);
+            Write(null, LogEventLevel.Debug, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogDebug(Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            Write(null, LogEventLevel.Debug, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObjects);
-        }
-
-        public virtual void LogDebug(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogDebug(Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Debug, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx);
+            Write(null, LogEventLevel.Debug, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, args);
         }
 
-        public virtual void LogDebug<T>(Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogDebug(Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Debug, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Debug, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx);
         }
 
-        public virtual void LogDebug<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogDebug<T>(Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Debug, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Debug, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg);
         }
 
-        public virtual void LogDebug<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogDebug<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Debug, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Debug, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2);
         }
 
-        public virtual void LogDebug(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Debug, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObjects);
+        public virtual void LogDebug<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Debug, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2, arg3);
+        }
+
+        public virtual void LogDebug(Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Debug, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, args);
         }
 
         public virtual void LogInformation(string messageTemplate,
@@ -260,60 +232,54 @@ namespace Cosmos.Logging {
             Write(null, LogEventLevel.Information, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName));
         }
 
-        public virtual void LogInformation<T>(string messageTemplate, T paramObject,
+        public virtual void LogInformation<T>(string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Information, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject);
+            Write(null, LogEventLevel.Information, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg);
         }
 
-        public virtual void LogInformation<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogInformation<T1, T2>(string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Information, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2);
+            Write(null, LogEventLevel.Information, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2);
         }
 
-        public virtual void LogInformation<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogInformation<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Information, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2, paramObject3);
+            Write(null, LogEventLevel.Information, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogInformation(string messageTemplate,
-            [CallerMemberName] string memberName = null, params object[] paramObjects) {
-            Write(null, LogEventLevel.Information, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObjects);
-        }
-
-        public virtual void LogInformation(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogInformation(string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Information, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx);
+            Write(null, LogEventLevel.Information, null, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, args);
         }
 
-        public virtual void LogInformation<T>(string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogInformation(string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Information, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Information, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx);
         }
 
-        public virtual void LogInformation<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogInformation<T>(string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Information, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Information, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg);
         }
 
-        public virtual void LogInformation<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogInformation<T1, T2>(string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Information, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Information, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2);
         }
 
-        public virtual void LogInformation(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Information, null, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObjects);
+        public virtual void LogInformation<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Information, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2, arg3);
+        }
+
+        public virtual void LogInformation(string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Information, null, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, args);
         }
 
         public virtual void LogInformation(Exception exception, string messageTemplate,
@@ -321,59 +287,54 @@ namespace Cosmos.Logging {
             Write(null, LogEventLevel.Information, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName));
         }
 
-        public virtual void LogInformation<T>(Exception exception, string messageTemplate, T paramObject,
+        public virtual void LogInformation<T>(Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Information, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject);
+            Write(null, LogEventLevel.Information, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg);
         }
 
-        public virtual void LogInformation<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogInformation<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Information, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2);
+            Write(null, LogEventLevel.Information, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2);
         }
 
-        public virtual void LogInformation<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogInformation<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
-            Write(null, LogEventLevel.Information, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObject1, paramObject2, paramObject3);
+            Write(null, LogEventLevel.Information, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogInformation(Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null, params object[] paramObjects) {
-            Write(null, LogEventLevel.Information, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, paramObjects);
-        }
-
-        public virtual void LogInformation(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogInformation(Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Information, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx);
+            Write(null, LogEventLevel.Information, exception, messageTemplate, LogEventSendMode.Customize, new LogCallerInfo(memberName), null, args);
         }
 
-        public virtual void LogInformation<T>(Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogInformation(Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Information, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Information, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx);
         }
 
-        public virtual void LogInformation<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogInformation<T>(Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Information, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Information, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg);
         }
 
-        public virtual void LogInformation<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogInformation<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Information, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Information, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2);
         }
 
-        public virtual void LogInformation(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null, params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Information, exception, messageTemplate, optCtx.SendMode, new LogCallerInfo(memberName), optCtx, paramObjects);
+        public virtual void LogInformation<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Information, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, arg1, arg2, arg3);
+        }
+
+        public virtual void LogInformation(Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Information, exception, messageTemplate, ctx.SendMode, new LogCallerInfo(memberName), ctx, args);
         }
 
         public virtual void LogWarning(string messageTemplate,
@@ -384,88 +345,81 @@ namespace Cosmos.Logging {
                 new LogCallerInfo(memberName, filePath, lineNumber));
         }
 
-        public virtual void LogWarning<T>(string messageTemplate, T paramObject,
+        public virtual void LogWarning<T>(string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Warning, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg);
         }
 
-        public virtual void LogWarning<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogWarning<T1, T2>(string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Warning, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2);
         }
 
-        public virtual void LogWarning<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogWarning<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Warning, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2, paramObject3);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogWarning(string messageTemplate,
+        public virtual void LogWarning(string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Warning, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObjects);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, args);
         }
 
-        public virtual void LogWarning(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogWarning(string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Warning, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Warning, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx);
         }
 
-        public virtual void LogWarning<T>(string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogWarning<T>(string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Warning, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Warning, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg);
         }
 
-        public virtual void LogWarning<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogWarning<T1, T2>(string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Warning, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Warning, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2);
         }
 
-        public virtual void LogWarning<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogWarning<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Warning, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Warning, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2, arg3);
         }
 
-        public virtual void LogWarning(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogWarning(string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Warning, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObjects);
+            [CallerLineNumber] int lineNumber = 0) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Warning, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, args);
         }
 
         public virtual void LogWarning(Exception exception, string messageTemplate,
@@ -476,88 +430,81 @@ namespace Cosmos.Logging {
                 new LogCallerInfo(memberName, filePath, lineNumber));
         }
 
-        public virtual void LogWarning<T>(Exception exception, string messageTemplate, T paramObject,
+        public virtual void LogWarning<T>(Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Warning, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg);
         }
 
-        public virtual void LogWarning<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogWarning<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Warning, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2);
         }
 
-        public virtual void LogWarning<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogWarning<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Warning, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2, paramObject3);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogWarning(Exception exception, string messageTemplate,
+        public virtual void LogWarning(Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Warning, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObjects);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, args);
         }
 
-        public virtual void LogWarning(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogWarning(Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Warning, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Warning, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx);
         }
 
-        public virtual void LogWarning<T>(Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogWarning<T>(Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Warning, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Warning, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg);
         }
 
-        public virtual void LogWarning<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogWarning<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Warning, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Warning, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2);
         }
 
-        public virtual void LogWarning<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogWarning<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Warning, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Warning, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2, arg3);
         }
 
-        public virtual void LogWarning(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogWarning(Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Warning, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObjects);
+            [CallerLineNumber] int lineNumber = 0) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Warning, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, args);
         }
 
         public virtual void LogError(string messageTemplate,
@@ -568,88 +515,81 @@ namespace Cosmos.Logging {
                 new LogCallerInfo(memberName, filePath, lineNumber));
         }
 
-        public virtual void LogError<T>(string messageTemplate, T paramObject,
+        public virtual void LogError<T>(string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg);
         }
 
-        public virtual void LogError<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogError<T1, T2>(string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2);
         }
 
-        public virtual void LogError<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogError<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2, paramObject3);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogError(string messageTemplate,
+        public virtual void LogError(string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObjects);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, args);
         }
 
-        public virtual void LogError(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogError(string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Error, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx);
         }
 
-        public virtual void LogError<T>(string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogError<T>(string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Error, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg);
         }
 
-        public virtual void LogError<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogError<T1, T2>(string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Error, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2);
         }
 
-        public virtual void LogError<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogError<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Error, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2, arg3);
         }
 
-        public virtual void LogError(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogError(string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Error, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObjects);
+            [CallerLineNumber] int lineNumber = 0) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, args);
         }
 
         public virtual void LogError(Exception exception, string messageTemplate,
@@ -660,88 +600,82 @@ namespace Cosmos.Logging {
                 new LogCallerInfo(memberName, filePath, lineNumber));
         }
 
-        public virtual void LogError<T>(Exception exception, string messageTemplate, T paramObject,
+        public virtual void LogError<T>(Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg);
         }
 
-        public virtual void LogError<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogError<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2);
         }
 
-        public virtual void LogError<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogError<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2, paramObject3);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogError(Exception exception, string messageTemplate,
+        public virtual void LogError(Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObjects);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, args);
         }
 
-        public virtual void LogError(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogError(Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Error, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx);
         }
 
-        public virtual void LogError<T>(Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogError<T>(Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Error, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg);
         }
 
-        public virtual void LogError<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogError<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Error, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2);
         }
 
-        public virtual void LogError<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogError<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Error, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2, arg3);
         }
 
-        public virtual void LogError(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogError(Exception exception, string messageTemplate, object[] args,
+            Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Error, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObjects);
+            [CallerLineNumber] int lineNumber = 0) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, args);
         }
 
         public virtual void LogFatal(string messageTemplate,
@@ -752,88 +686,81 @@ namespace Cosmos.Logging {
                 new LogCallerInfo(memberName, filePath, lineNumber));
         }
 
-        public virtual void LogFatal<T>(string messageTemplate, T paramObject,
+        public virtual void LogFatal<T>(string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Fatal, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg);
         }
 
-        public virtual void LogFatal<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogFatal<T1, T2>(string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Fatal, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2);
         }
 
-        public virtual void LogFatal<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogFatal<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Fatal, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2, paramObject3);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogFatal(string messageTemplate,
+        public virtual void LogFatal(string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Fatal, null, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObjects);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, args);
         }
 
-        public virtual void LogFatal(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogFatal(string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Fatal, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Fatal, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx);
         }
 
-        public virtual void LogFatal<T>(string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogFatal<T>(string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Fatal, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Fatal, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg);
         }
 
-        public virtual void LogFatal<T1, T2>(string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogFatal<T1, T2>(string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Fatal, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Fatal, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2);
         }
 
-        public virtual void LogFatal<T1, T2, T3>(string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogFatal<T1, T2, T3>(string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Fatal, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Fatal, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2, arg3);
         }
 
-        public virtual void LogFatal(string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogFatal(string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Fatal, null, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObjects);
+            [CallerLineNumber] int lineNumber = 0) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Fatal, null, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, args);
         }
 
         public virtual void LogFatal(Exception exception, string messageTemplate,
@@ -844,88 +771,81 @@ namespace Cosmos.Logging {
                 new LogCallerInfo(memberName, filePath, lineNumber));
         }
 
-        public virtual void LogFatal<T>(Exception exception, string messageTemplate, T paramObject,
+        public virtual void LogFatal<T>(Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Fatal, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg);
         }
 
-        public virtual void LogFatal<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public virtual void LogFatal<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Fatal, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2);
         }
 
-        public virtual void LogFatal<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public virtual void LogFatal<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Fatal, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObject1, paramObject2, paramObject3);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2, arg3);
         }
 
-        public virtual void LogFatal(Exception exception, string messageTemplate,
+        public virtual void LogFatal(Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             Write(null, LogEventLevel.Fatal, exception, messageTemplate, LogEventSendMode.Customize,
-                new LogCallerInfo(memberName, filePath, lineNumber), null, paramObjects);
+                new LogCallerInfo(memberName, filePath, lineNumber), null, args);
         }
 
-        public virtual void LogFatal(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogFatal(Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Fatal, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Fatal, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx);
         }
 
-        public virtual void LogFatal<T>(Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogFatal<T>(Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Fatal, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Fatal, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg);
         }
 
-        public virtual void LogFatal<T1, T2>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogFatal<T1, T2>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Fatal, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Fatal, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2);
         }
 
-        public virtual void LogFatal<T1, T2, T3>(Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogFatal<T1, T2, T3>(Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Fatal, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObject1, paramObject2, paramObject3);
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Fatal, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2, arg3);
         }
 
-        public virtual void LogFatal(Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public virtual void LogFatal(Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            var optCtx = TouchLogEventContext(eventContextAct);
-            Write(null, LogEventLevel.Fatal, exception, messageTemplate, optCtx.SendMode,
-                new LogCallerInfo(memberName, filePath, lineNumber), optCtx, paramObjects);
+            [CallerLineNumber] int lineNumber = 0) {
+            var ctx = TouchLogEventContext(contextAct);
+            Write(null, LogEventLevel.Fatal, exception, messageTemplate, ctx.SendMode,
+                new LogCallerInfo(memberName, filePath, lineNumber), ctx, args);
         }
     }
 }

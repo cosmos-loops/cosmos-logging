@@ -6,7 +6,7 @@ namespace Cosmos.Logging.Configurations {
     public interface ILoggingSinkOptions {
         string Key { get; }
 
-        MessageTemplateRenderingOptions GetRenderingOptions();
+        RendingConfiguration GetRenderingOptions();
     }
 
     public interface ILoggingSinkOptions<out TOptions> where TOptions : class, ILoggingSinkOptions, new() {

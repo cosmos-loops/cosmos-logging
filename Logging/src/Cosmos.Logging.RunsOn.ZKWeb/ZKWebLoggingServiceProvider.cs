@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Cosmos.Logging.Configurations;
@@ -7,32 +8,29 @@ using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
+using ZKWebStandard.Ioc;
 
-namespace Cosmos.Logging.RunsOn.AspNetCore {
-    public class AspNetCoreLoggingServiceProvider : ILoggingServiceProvider {
-        private readonly IServiceProvider _provider;
+namespace Cosmos.Logging.RunsOn.ZKWeb {
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
+    public class ZKWebLoggingServiceProvider : ILoggingServiceProvider {
+        private readonly IContainer _provider;
         private readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
         private readonly LoggingConfiguration _loggingConfiguration;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AspNetCoreLoggingServiceProvider(IServiceProvider provider, LoggingConfiguration loggingConfiguration,
-            IHttpContextAccessor httpContextAccessor) {
+        public ZKWebLoggingServiceProvider(IContainer provider, LoggingConfiguration loggingConfiguration) {
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
-            _logPayloadClientProviders = _provider.GetServices<ILogPayloadClientProvider>() ?? Enumerable.Empty<ILogPayloadClientProvider>();
+            _logPayloadClientProviders = _provider.ResolveMany<ILogPayloadClientProvider>() ?? Enumerable.Empty<ILogPayloadClientProvider>();
             _loggingConfiguration = loggingConfiguration ?? throw new ArgumentNullException(nameof(loggingConfiguration));
-            _httpContextAccessor = httpContextAccessor;
         }
 
         private ILogger GetLoggerCore(Type sourceType, string categoryName, LogEventLevel? level, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize, RendingConfiguration renderingOptions = null) {
             var loggerStateNamespace = sourceType == null ? categoryName : TypeNameHelper.GetTypeDisplayName(sourceType);
             var minLevel = level ?? _loggingConfiguration.GetMinimumLevel(loggerStateNamespace);
-            return new AspNetCoreLogger(sourceType ?? typeof(object), minLevel, loggerStateNamespace, filter, mode,
-                _loggingConfiguration.Rendering.ToCalc(renderingOptions),
-                new LogPayloadSender(_logPayloadClientProviders), _httpContextAccessor);
+            return new ZKWebLogger(sourceType ?? typeof(object), minLevel, loggerStateNamespace, filter, mode,
+                _loggingConfiguration.Rendering.ToCalc(renderingOptions), new LogPayloadSender(_logPayloadClientProviders));
         }
+
 
         public ILogger GetLogger(string categoryName,
             LogEventSendMode mode = LogEventSendMode.Customize,
@@ -82,20 +80,17 @@ namespace Cosmos.Logging.RunsOn.AspNetCore {
             return GetLoggerCore(type, null, minLevel, filter, mode, renderingOptions);
         }
 
-        public ILogger GetLogger<T>(
-            LogEventSendMode mode = LogEventSendMode.Customize,
+        public ILogger GetLogger<T>(LogEventSendMode mode = LogEventSendMode.Customize,
             RendingConfiguration renderingOptions = null) {
             return GetLoggerCore(typeof(T), null, null, null, mode, renderingOptions);
         }
 
-        public ILogger GetLogger<T>(Func<string, LogEventLevel, bool> filter,
-            LogEventSendMode mode = LogEventSendMode.Customize,
+        public ILogger GetLogger<T>(Func<string, LogEventLevel, bool> filter, LogEventSendMode mode = LogEventSendMode.Customize,
             RendingConfiguration renderingOptions = null) {
             return GetLoggerCore(typeof(T), null, null, filter, mode, renderingOptions);
         }
 
-        public ILogger GetLogger<T>(LogEventLevel minLevel,
-            LogEventSendMode mode = LogEventSendMode.Customize,
+        public ILogger GetLogger<T>(LogEventLevel minLevel, LogEventSendMode mode = LogEventSendMode.Customize,
             RendingConfiguration renderingOptions = null) {
             return GetLoggerCore(typeof(T), null, minLevel, null, mode, renderingOptions);
         }

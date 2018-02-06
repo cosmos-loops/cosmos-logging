@@ -14,73 +14,66 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogVerbose<T>(this IILogger logger, string messageTemplate, T paramObject,
+        public static void LogVerbose<T>(this IILogger logger, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg, memberName);
             }
         }
 
-        public static void LogVerbose<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogVerbose<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, memberName);
             }
         }
 
-        public static void LogVerbose<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogVerbose<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, paramObject3, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, arg3, memberName);
             }
         }
 
-        public static void LogVerbose(this IILogger logger, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, memberName, paramObjects);
-            }
-        }
-
-        public static void LogVerbose(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogVerbose(this IILogger logger, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, args, memberName);
             }
         }
 
-        public static void LogVerbose<T>(this IILogger logger, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogVerbose(this IILogger logger, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, contextAct, memberName);
             }
         }
 
-        public static void LogVerbose<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogVerbose<T>(this IILogger logger, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg, contextAct, memberName);
             }
         }
 
-        public static void LogVerbose<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogVerbose<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, contextAct, memberName);
             }
         }
 
-        public static void LogVerbose(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
+        public static void LogVerbose<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, eventContextAct, memberName, paramObjects);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, arg3, contextAct, memberName);
+            }
+        }
+
+        public static void LogVerbose(this IILogger logger, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogVerbose(messageTemplate, args, contextAct, memberName);
             }
         }
 
@@ -91,73 +84,66 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogVerbose<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
+        public static void LogVerbose<T>(this IILogger logger, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg, memberName);
             }
         }
 
-        public static void LogVerbose<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogVerbose<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, memberName);
             }
         }
 
-        public static void LogVerbose<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogVerbose<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, paramObject3, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, arg3, memberName);
             }
         }
 
-        public static void LogVerbose(this IILogger logger, Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, memberName, paramObjects);
-            }
-        }
-
-        public static void LogVerbose(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogVerbose(this IILogger logger, Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, args, memberName);
             }
         }
 
-        public static void LogVerbose<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogVerbose(this IILogger logger, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, contextAct, memberName);
             }
         }
 
-        public static void LogVerbose<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogVerbose<T>(this IILogger logger, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg, contextAct, memberName);
             }
         }
 
-        public static void LogVerbose<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogVerbose<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, contextAct, memberName);
             }
         }
 
-        public static void LogVerbose(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
+        public static void LogVerbose<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, eventContextAct, memberName, paramObjects);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, arg3, contextAct, memberName);
+            }
+        }
+
+        public static void LogVerbose(this IILogger logger, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, args, contextAct, memberName);
             }
         }
 
@@ -168,73 +154,66 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogDebug<T>(this IILogger logger, string messageTemplate, T paramObject,
+        public static void LogDebug<T>(this IILogger logger, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg, memberName);
             }
         }
 
-        public static void LogDebug<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogDebug<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, memberName);
             }
         }
 
-        public static void LogDebug<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogDebug<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, paramObject3, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, arg3, memberName);
             }
         }
 
-        public static void LogDebug(this IILogger logger, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, memberName, paramObjects);
-            }
-        }
-
-        public static void LogDebug(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogDebug(this IILogger logger, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, args, memberName);
             }
         }
 
-        public static void LogDebug<T>(this IILogger logger, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogDebug(this IILogger logger, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, contextAct, memberName);
             }
         }
 
-        public static void LogDebug<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogDebug<T>(this IILogger logger, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg, contextAct, memberName);
             }
         }
 
-        public static void LogDebug<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogDebug<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, contextAct, memberName);
             }
         }
 
-        public static void LogDebug(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
+        public static void LogDebug<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, eventContextAct, memberName, paramObjects);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, arg3, contextAct, memberName);
+            }
+        }
+
+        public static void LogDebug(this IILogger logger, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogVerbose(messageTemplate, args, contextAct, memberName);
             }
         }
 
@@ -245,72 +224,66 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogDebug<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
+        public static void LogDebug<T>(this IILogger logger, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg, memberName);
             }
         }
 
-        public static void LogDebug<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogDebug<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, memberName);
             }
         }
 
-        public static void LogDebug<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogDebug<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, paramObject3, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, arg3, memberName);
             }
         }
 
-        public static void LogDebug(this IILogger logger, Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null, params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, memberName, paramObjects);
-            }
-        }
-
-        public static void LogDebug(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogDebug(this IILogger logger, Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, args, memberName);
             }
         }
 
-        public static void LogDebug<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogDebug(this IILogger logger, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, contextAct, memberName);
             }
         }
 
-        public static void LogDebug<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogDebug<T>(this IILogger logger, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg, contextAct, memberName);
             }
         }
 
-        public static void LogDebug<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogDebug<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, contextAct, memberName);
             }
         }
 
-        public static void LogDebug(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
+        public static void LogDebug<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, eventContextAct, memberName, paramObjects);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, arg3, contextAct, memberName);
+            }
+        }
+
+        public static void LogDebug(this IILogger logger, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, args, contextAct, memberName);
             }
         }
 
@@ -321,73 +294,66 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogInformation<T>(this IILogger logger, string messageTemplate, T paramObject,
+        public static void LogInformation<T>(this IILogger logger, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg, memberName);
             }
         }
 
-        public static void LogInformation<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogInformation<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, memberName);
             }
         }
 
-        public static void LogInformation<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogInformation<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, paramObject3, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, arg3, memberName);
             }
         }
 
-        public static void LogInformation(this IILogger logger, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, memberName, paramObjects);
-            }
-        }
-
-        public static void LogInformation(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogInformation(this IILogger logger, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, args, memberName);
             }
         }
 
-        public static void LogInformation<T>(this IILogger logger, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogInformation(this IILogger logger, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, contextAct, memberName);
             }
         }
 
-        public static void LogInformation<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogInformation<T>(this IILogger logger, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg, contextAct, memberName);
             }
         }
 
-        public static void LogInformation<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogInformation<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, contextAct, memberName);
             }
         }
 
-        public static void LogInformation(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
+        public static void LogInformation<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(messageTemplate, eventContextAct, memberName, paramObjects);
+                l.ExposeLogger().LogVerbose(messageTemplate, arg1, arg2, arg3, contextAct, memberName);
+            }
+        }
+
+        public static void LogInformation(this IILogger logger, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogVerbose(messageTemplate, args, contextAct, memberName);
             }
         }
 
@@ -398,72 +364,67 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogInformation<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
+        public static void LogInformation<T>(this IILogger logger, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg, memberName);
             }
         }
 
-        public static void LogInformation<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogInformation<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, memberName);
             }
         }
 
-        public static void LogInformation<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogInformation<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, paramObject3, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, arg3, memberName);
             }
         }
 
-        public static void LogInformation(this IILogger logger, Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, memberName, paramObjects);
-            }
-        }
-
-        public static void LogInformation(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogInformation(this IILogger logger, Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, args, memberName);
             }
         }
 
-        public static void LogInformation<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogInformation(this IILogger logger, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, contextAct, memberName);
             }
         }
 
-        public static void LogInformation<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogInformation<T>(this IILogger logger, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg, contextAct, memberName);
             }
         }
 
-        public static void LogInformation<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogInformation<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, contextAct, memberName);
             }
         }
 
-        public static void LogInformation(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null, params object[] paramObjects) {
+        public static void LogInformation<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
+            Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogVerbose(exception, messageTemplate, eventContextAct, memberName, paramObjects);
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, arg1, arg2, arg3, contextAct, memberName);
+            }
+        }
+
+        public static void LogInformation(this IILogger logger, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogVerbose(exception, messageTemplate, args, contextAct, memberName);
             }
         }
 
@@ -476,91 +437,84 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogWarning<T>(this IILogger logger, string messageTemplate, T paramObject,
+        public static void LogWarning<T>(this IILogger logger, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(messageTemplate, paramObject, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(messageTemplate, arg, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogWarning<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(messageTemplate, paramObject1, paramObject2, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(messageTemplate, arg1, arg2, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogWarning<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(messageTemplate, paramObject1, paramObject2, paramObject3, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(messageTemplate, arg1, arg2, arg3, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning(this IILogger logger, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(messageTemplate, memberName, filePath, lineNumber, paramObjects);
-            }
-        }
-
-        public static void LogWarning(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogWarning(this IILogger logger, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(messageTemplate, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(messageTemplate, args, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning<T>(this IILogger logger, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogWarning(this IILogger logger, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(messageTemplate, paramObject, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(messageTemplate, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogWarning<T>(this IILogger logger, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(messageTemplate, paramObject1, paramObject2, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(messageTemplate, arg, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogWarning<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(messageTemplate, arg1, arg2, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogWarning<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(messageTemplate, eventContextAct, memberName, filePath, lineNumber, paramObjects);
+                l.ExposeLogger().LogWarning(messageTemplate, arg1, arg2, arg3, contextAct, memberName, filePath, lineNumber);
+            }
+        }
+
+        public static void LogWarning(this IILogger logger, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogWarning(messageTemplate, args, contextAct, memberName, filePath, lineNumber);
             }
         }
 
@@ -573,90 +527,84 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogWarning<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
+        public static void LogWarning<T>(this IILogger logger, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(exception, messageTemplate, paramObject, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(exception, messageTemplate, arg, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogWarning<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(exception, messageTemplate, paramObject1, paramObject2, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(exception, messageTemplate, arg1, arg2, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogWarning<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(exception, messageTemplate, paramObject1, paramObject2, paramObject3, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(exception, messageTemplate, arg1, arg2, arg3, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning(this IILogger logger, Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(exception, messageTemplate, memberName, filePath, lineNumber, paramObjects);
-            }
-        }
-
-        public static void LogWarning(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogWarning(this IILogger logger, Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(exception, messageTemplate, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(exception, messageTemplate, args, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogWarning(this IILogger logger, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(exception, messageTemplate, paramObject, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(exception, messageTemplate, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogWarning<T>(this IILogger logger, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(exception, messageTemplate, paramObject1, paramObject2, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(exception, messageTemplate, arg, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogWarning<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(exception, messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogWarning(exception, messageTemplate, arg1, arg2, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogWarning(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogWarning<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0, params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogWarning(exception, messageTemplate, eventContextAct, memberName, filePath, lineNumber, paramObjects);
+                l.ExposeLogger().LogWarning(exception, messageTemplate, arg1, arg2, arg3, contextAct, memberName, filePath, lineNumber);
+            }
+        }
+
+        public static void LogWarning(this IILogger logger, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogWarning(exception, messageTemplate, args, contextAct, memberName, filePath, lineNumber);
             }
         }
 
@@ -669,91 +617,84 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogError<T>(this IILogger logger, string messageTemplate, T paramObject,
+        public static void LogError<T>(this IILogger logger, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(messageTemplate, paramObject, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(messageTemplate, arg, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogError<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(messageTemplate, paramObject1, paramObject2, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(messageTemplate, arg1, arg2, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogError<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(messageTemplate, paramObject1, paramObject2, paramObject3, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(messageTemplate, arg1, arg2, arg3, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError(this IILogger logger, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(messageTemplate, memberName, filePath, lineNumber, paramObjects);
-            }
-        }
-
-        public static void LogError(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogError(this IILogger logger, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(messageTemplate, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(messageTemplate, args, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError<T>(this IILogger logger, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogError(this IILogger logger, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(messageTemplate, paramObject, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(messageTemplate, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogError<T>(this IILogger logger, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(messageTemplate, paramObject1, paramObject2, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(messageTemplate, arg, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogError<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(messageTemplate, arg1, arg2, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogError<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(messageTemplate, eventContextAct, memberName, filePath, lineNumber, paramObjects);
+                l.ExposeLogger().LogError(messageTemplate, arg1, arg2, arg3, contextAct, memberName, filePath, lineNumber);
+            }
+        }
+
+        public static void LogError(this IILogger logger, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogError(messageTemplate, args, contextAct, memberName, filePath, lineNumber);
             }
         }
 
@@ -766,91 +707,84 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogError<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
+        public static void LogError<T>(this IILogger logger, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(exception, messageTemplate, paramObject, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(exception, messageTemplate, arg, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogError<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(exception, messageTemplate, paramObject1, paramObject2, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(exception, messageTemplate, arg1, arg2, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogError<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(exception, messageTemplate, paramObject1, paramObject2, paramObject3, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(exception, messageTemplate, arg1, arg2, arg3, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError(this IILogger logger, Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(exception, messageTemplate, memberName, filePath, lineNumber, paramObjects);
-            }
-        }
-
-        public static void LogError(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogError(this IILogger logger, Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(exception, messageTemplate, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(exception, messageTemplate, args, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogError(this IILogger logger, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(exception, messageTemplate, paramObject, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(exception, messageTemplate, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogError<T>(this IILogger logger, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(exception, messageTemplate, paramObject1, paramObject2, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(exception, messageTemplate, arg, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogError<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(exception, messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogError(exception, messageTemplate, arg1, arg2, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogError(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogError<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogError(exception, messageTemplate, eventContextAct, memberName, filePath, lineNumber, paramObjects);
+                l.ExposeLogger().LogError(exception, messageTemplate, arg1, arg2, arg3, contextAct, memberName, filePath, lineNumber);
+            }
+        }
+
+        public static void LogError(this IILogger logger, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogError(exception, messageTemplate, args, contextAct, memberName, filePath, lineNumber);
             }
         }
 
@@ -863,91 +797,84 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogFatal<T>(this IILogger logger, string messageTemplate, T paramObject,
+        public static void LogFatal<T>(this IILogger logger, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(messageTemplate, paramObject, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(messageTemplate, arg, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogFatal<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(messageTemplate, paramObject1, paramObject2, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(messageTemplate, arg1, arg2, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogFatal<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(messageTemplate, paramObject1, paramObject2, paramObject3, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(messageTemplate, arg1, arg2, arg3, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal(this IILogger logger, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(messageTemplate, memberName, filePath, lineNumber, paramObjects);
-            }
-        }
-
-        public static void LogFatal(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogFatal(this IILogger logger, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(messageTemplate, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(messageTemplate, args, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal<T>(this IILogger logger, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogFatal(this IILogger logger, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(messageTemplate, paramObject, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(messageTemplate, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal<T1, T2>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogFatal<T>(this IILogger logger, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(messageTemplate, paramObject1, paramObject2, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(messageTemplate, arg, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogFatal<T1, T2>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(messageTemplate, arg1, arg2, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal(this IILogger logger, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogFatal<T1, T2, T3>(this IILogger logger, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(messageTemplate, eventContextAct, memberName, filePath, lineNumber, paramObjects);
+                l.ExposeLogger().LogFatal(messageTemplate, arg1, arg2, arg3, contextAct, memberName, filePath, lineNumber);
+            }
+        }
+
+        public static void LogFatal(this IILogger logger, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogFatal(messageTemplate, args, contextAct, memberName, filePath, lineNumber);
             }
         }
 
@@ -960,91 +887,84 @@ namespace Cosmos.Logging {
             }
         }
 
-        public static void LogFatal<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
+        public static void LogFatal<T>(this IILogger logger, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(exception, messageTemplate, paramObject, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(exception, messageTemplate, arg, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        public static void LogFatal<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(exception, messageTemplate, paramObject1, paramObject2, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(exception, messageTemplate, arg1, arg2, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        public static void LogFatal<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(exception, messageTemplate, paramObject1, paramObject2, paramObject3, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(exception, messageTemplate, arg1, arg2, arg3, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal(this IILogger logger, Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
-            if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(exception, messageTemplate, memberName, filePath, lineNumber, paramObjects);
-            }
-        }
-
-        public static void LogFatal(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogFatal(this IILogger logger, Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(exception, messageTemplate, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(exception, messageTemplate, args, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal<T>(this IILogger logger, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        public static void LogFatal(this IILogger logger, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(exception, messageTemplate, paramObject, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(exception, messageTemplate, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        public static void LogFatal<T>(this IILogger logger, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(exception, messageTemplate, paramObject1, paramObject2, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(exception, messageTemplate, arg, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        public static void LogFatal<T1, T2>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(exception, messageTemplate, paramObject1, paramObject2, paramObject3, eventContextAct, memberName, filePath, lineNumber);
+                l.ExposeLogger().LogFatal(exception, messageTemplate, arg1, arg2, contextAct, memberName, filePath, lineNumber);
             }
         }
 
-        public static void LogFatal(this IILogger logger, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        public static void LogFatal<T1, T2, T3>(this IILogger logger, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects) {
+            [CallerLineNumber] int lineNumber = 0) {
             if (logger is MicrosoftLoggerWrapper l) {
-                l.ExposeLogger().LogFatal(exception, messageTemplate, eventContextAct, memberName, filePath, lineNumber, paramObjects);
+                l.ExposeLogger().LogFatal(exception, messageTemplate, arg1, arg2, arg3, contextAct, memberName, filePath, lineNumber);
+            }
+        }
+
+        public static void LogFatal(this IILogger logger, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0) {
+            if (logger is MicrosoftLoggerWrapper l) {
+                l.ExposeLogger().LogFatal(exception, messageTemplate, args, contextAct, memberName, filePath, lineNumber);
             }
         }
     }

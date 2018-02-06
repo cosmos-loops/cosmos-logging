@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 
@@ -36,7 +37,7 @@ namespace Cosmos.Logging.MessageTemplates {
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedMessageProperties,
             IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalMessageProperties,
             ILogEventInfo logEventInfo, IContextualLogEvent contextualLogEvent,
-            MessageTemplateRenderingOptions renderingOptions = null, IFormatProvider provider = null) {
+            RendingConfiguration renderingOptions = null, IFormatProvider provider = null) {
             using (var output = new StringWriter(provider)) {
                 Render(namedMessageProperties, positionalMessageProperties, output, logEventInfo, contextualLogEvent, renderingOptions, provider);
                 return output.ToString();
@@ -47,7 +48,7 @@ namespace Cosmos.Logging.MessageTemplates {
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedMessageProperties,
             IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalMessageProperties,
             TextWriter output, ILogEventInfo logEventInfo, IContextualLogEvent contextualLogEvent,
-            MessageTemplateRenderingOptions renderingOptions = null, IFormatProvider provider = null) {
+            RendingConfiguration renderingOptions = null, IFormatProvider provider = null) {
             if (namedMessageProperties == null) throw new ArgumentNullException(nameof(namedMessageProperties));
             if (positionalMessageProperties == null) throw new ArgumentNullException(nameof(positionalMessageProperties));
             if (output == null) throw new ArgumentNullException(nameof(output));

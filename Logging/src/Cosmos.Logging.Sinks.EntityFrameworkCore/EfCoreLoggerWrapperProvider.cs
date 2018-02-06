@@ -1,32 +1,32 @@
 ﻿using System;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.EntityFrameworkCore.Core;
 using Microsoft.Extensions.Logging;
 
 namespace Cosmos.Logging.Sinks.EntityFrameworkCore {
     internal class EfCoreLoggerWrapperProvider : ILoggerProvider {
         private readonly ILoggingServiceProvider _loggingServiceProvider;
-        private readonly MessageTemplateRenderingOptions _upstreamRenderingOptions;
+        private readonly RendingConfiguration _upstreamRenderingOptions;
         private readonly Func<string, LogEventLevel, bool> _filter;
         private static readonly Func<string, LogEventLevel, bool> trueFilter = (cat, level) => true;
         private static readonly Func<string, LogEventLevel, bool> falseFilter = (cat, level) => false;
 
-        public EfCoreLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider, MessageTemplateRenderingOptions renderingOptions) {
+        public EfCoreLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider, RendingConfiguration renderingOptions) {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
-            _upstreamRenderingOptions = renderingOptions ?? new MessageTemplateRenderingOptions();
+            _upstreamRenderingOptions = renderingOptions ?? new RendingConfiguration();
             _filter = trueFilter;
         }
 
-        public EfCoreLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider, MessageTemplateRenderingOptions renderingOptions, Func<string, LogEventLevel, bool> filter) {
+        public EfCoreLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider, RendingConfiguration renderingOptions, Func<string, LogEventLevel, bool> filter) {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
-            _upstreamRenderingOptions = renderingOptions ?? new MessageTemplateRenderingOptions();
+            _upstreamRenderingOptions = renderingOptions ?? new RendingConfiguration();
             _filter = filter ?? trueFilter;
         }
 
-        public EfCoreLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider, MessageTemplateRenderingOptions renderingOptions, Func<string, LogLevel, bool> filter) {
+        public EfCoreLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider, RendingConfiguration renderingOptions, Func<string, LogLevel, bool> filter) {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
-            _upstreamRenderingOptions = renderingOptions ?? new MessageTemplateRenderingOptions();
+            _upstreamRenderingOptions = renderingOptions ?? new RendingConfiguration();
             _filter = As(filter) ?? trueFilter;
         }
 

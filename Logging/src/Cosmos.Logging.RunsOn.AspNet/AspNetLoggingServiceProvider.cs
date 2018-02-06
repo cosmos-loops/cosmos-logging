@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.RunsOn.AspNet {
     public class AspNetLoggingServiceProvider : ILoggingServiceProvider {
@@ -10,78 +10,78 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         public AspNetLoggingServiceProvider() { }
 
         public ILogger GetLogger(string categoryName, LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
         public ILogger GetLogger(string categoryName, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
         public ILogger GetLogger(string categoryName, LogEventLevel minLevel,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
         public ILogger GetLogger(string categoryName, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
         public ILogger GetLogger(Type type,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
         public ILogger GetLogger(Type type, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
         public ILogger GetLogger(Type type, LogEventLevel minLevel,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
         public ILogger GetLogger(Type type, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
         public ILogger GetLogger<T>(
             LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
         public ILogger GetLogger<T>(Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
         public ILogger GetLogger<T>(LogEventLevel minLevel,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
         public ILogger GetLogger<T>(LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            MessageTemplateRenderingOptions renderingOptions = null) {
+            RendingConfiguration renderingOptions = null) {
             throw new NotImplementedException();
         }
 
          public IFutureLogger GetFutureLogger(string categoryName,
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -89,7 +89,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         }
 
         public IFutureLogger GetFutureLogger(string categoryName, Func<string, LogEventLevel, bool> filter,
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -97,7 +97,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         }
 
         public IFutureLogger GetFutureLogger(string categoryName, LogEventLevel minLevel,
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -105,7 +105,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         }
 
         public IFutureLogger GetFutureLogger(string categoryName, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -113,7 +113,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         }
 
         public IFutureLogger GetFutureLogger(Type type,
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -121,7 +121,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         }
 
         public IFutureLogger GetFutureLogger(Type type, Func<string, LogEventLevel, bool> filter,
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -129,7 +129,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         }
 
         public IFutureLogger GetFutureLogger(Type type, LogEventLevel minLevel,
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -137,7 +137,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         }
 
         public IFutureLogger GetFutureLogger(Type type, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -145,7 +145,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         }
 
         public IFutureLogger GetFutureLogger<T>(
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -153,7 +153,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         }
 
         public IFutureLogger GetFutureLogger<T>(Func<string, LogEventLevel, bool> filter,
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -161,7 +161,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         }
 
         public IFutureLogger GetFutureLogger<T>(LogEventLevel minLevel,
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -169,7 +169,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         }
 
         public IFutureLogger GetFutureLogger<T>(LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
-            MessageTemplateRenderingOptions renderingOptions = null,
+            RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {

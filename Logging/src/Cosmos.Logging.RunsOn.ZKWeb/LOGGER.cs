@@ -2,35 +2,15 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cosmos.Logging.Configurations;
-using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
-using Cosmos.Logging.RunsOn.Console;
-using Cosmos.Logging.RunsOn.Console.Core;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
     // ReSharper disable once InconsistentNaming
     [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public static class LOGGER {
-        public static ILogServiceCollection Initialize(IConfigurationBuilder builder = null) {
-            IServiceCollection services = new ServiceCollection();
-            services.TryAdd(ServiceDescriptor.Singleton<ILoggingServiceProvider, ConsoleLoggingServiceProvider>());
-            return InternalDependencyContainer.Initialize(services, builder);
-        }
-
-        public static ILogServiceCollection Initialize(IConfigurationRoot root) {
-            IServiceCollection services = new ServiceCollection();
-            services.TryAdd(ServiceDescriptor.Singleton<ILoggingServiceProvider, ConsoleLoggingServiceProvider>());
-            return InternalDependencyContainer.Initialize(services, root);
-        }
-
-        public static IServiceProvider GetScopedServiceResolver() => InternalDependencyContainer.GetScopedServiceResolver();
-
-        private static ILoggingServiceProvider TouchProvider() => InternalDependencyContainer.GetServiceResolver().GetService<ILoggingServiceProvider>();
+        private static ILoggingServiceProvider TouchProvider() => ZKWeb.Application.Ioc.Resolve<ILoggingServiceProvider>();
 
         public static ILogger GetLogger(string categoryName,
             LogEventSendMode mode = LogEventSendMode.Customize,

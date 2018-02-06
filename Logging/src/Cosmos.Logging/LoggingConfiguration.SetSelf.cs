@@ -14,19 +14,11 @@ namespace Cosmos.Logging {
             if (configuration == null) {
                 IncludeScopes = false;
                 LogLevel = new Dictionary<string, string> {{"Default", "Information"}};
-                RenderingOptions = new MessageTemplateRenderingOptions {
-                    DisplayingCallerInfoEnabled = settings.DisplayingCallerInfoEnabled,
-                    DisplayingEventIdInfoEnabled = settings.DisplayingEventIdInfoEnabled,
-                    DisplayingNewLineEomEnabled = settings.DisplayingNewLineEomEnabled
-                };
+                Rendering = new RendingConfiguration(settings.Rendering);
             } else {
                 IncludeScopes = configuration.IncludeScopes;
                 LogLevel = configuration.LogLevel;
-                RenderingOptions = new MessageTemplateRenderingOptions(
-                    configuration.Rendering,
-                    settings.DisplayingCallerInfoEnabled,
-                    settings.DisplayingEventIdInfoEnabled,
-                    settings.DisplayingNewLineEomEnabled);
+                Rendering = new RendingConfiguration(configuration.Rendering, settings.Rendering);
             }
 
             Aliases.MergeAndOverWrite(settings.InternalAliases, k => k, v => v.GetName());

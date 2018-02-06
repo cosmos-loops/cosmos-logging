@@ -37,7 +37,7 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
                         var level = LogLevelSwitcher.Switch(logEvent.Level);
                         var stringBuilder = new StringBuilder();
                         using (var output = new StringWriter(stringBuilder, _formatProvider)) {
-                            logEvent.RenderMessage(output, _sinkConfiguration.RenderingOptions, _formatProvider);
+                            logEvent.RenderMessage(output, _sinkConfiguration.Rendering, _formatProvider);
                         }
 
                         var builder = logger.CreateLog(source, stringBuilder.ToString(), level);

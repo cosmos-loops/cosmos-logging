@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Core.ObjectResolving;
@@ -9,7 +10,6 @@ using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters.Internals;
 using Cosmos.Logging.Future;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging {
     public abstract partial class LoggerBase : ILogger, IDisposable {
@@ -17,7 +17,7 @@ namespace Cosmos.Logging {
         private readonly MessageParameterProcessor _messageParameterProcessor;
         private readonly Func<string, LogEventLevel, bool> _filter;
         private static readonly Func<string, LogEventLevel, bool> TrueFilter = (s, l) => true;
-        private readonly MessageTemplateRenderingOptions _upstreamRenderingOptions;
+        private readonly RendingConfiguration _upstreamRenderingOptions;
         private long CurrentManuallyTransId { get; set; }
 
         protected LoggerBase(
@@ -26,7 +26,7 @@ namespace Cosmos.Logging {
             string loggerStateNamespace,
             Func<string, LogEventLevel, bool> filter,
             LogEventSendMode sendMode,
-            MessageTemplateRenderingOptions renderingOptions,
+            RendingConfiguration renderingOptions,
             ILogPayloadSender logPayloadSender) {
             StateNamespace = loggerStateNamespace;
             TargetType = sourceType ?? typeof(object);
@@ -35,7 +35,7 @@ namespace Cosmos.Logging {
             _filter = filter ?? TrueFilter;
             _logPayloadSender = logPayloadSender ?? throw new ArgumentNullException(nameof(logPayloadSender));
             _messageParameterProcessor = MessageParameterProcessorCache.Get();
-            _upstreamRenderingOptions = renderingOptions ?? new MessageTemplateRenderingOptions();
+            _upstreamRenderingOptions = renderingOptions ?? new RendingConfiguration();
 
             AutomaticPayload = new LogPayload(sourceType, loggerStateNamespace, Enumerable.Empty<LogEvent>());
             ManuallyPayload = new LogPayload(sourceType, loggerStateNamespace, Enumerable.Empty<LogEvent>());

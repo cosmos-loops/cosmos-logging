@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Configurations {
     public class LoggingOptions : ILoggingOptions {
@@ -80,24 +81,20 @@ namespace Cosmos.Logging.Configurations {
 
         #region Append output
 
-        internal bool? DisplayingCallerInfoEnabled { get; private set; }
-
-        internal bool? DisplayingEventIdInfoEnabled { get; private set; }
-
-        internal bool? DisplayingNewLineEomEnabled { get; private set; }
+        internal RendingConfiguration Rendering = new RendingConfiguration();
 
         public LoggingOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
-            DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
+            Rendering.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
             return this;
         }
 
         public LoggingOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled) {
-            DisplayingEventIdInfoEnabled = displayingEventIdInfoEnabled;
+            Rendering.DisplayingEventIdInfoEnabled = displayingEventIdInfoEnabled;
             return this;
         }
 
         public LoggingOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled) {
-            DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
+            Rendering.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }
 

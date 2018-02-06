@@ -9,7 +9,7 @@ namespace Cosmos.Logging.Future {
         private readonly ILogger _internalLogger;
         private readonly ILogCallerInfo _callerInfo;
 
-        private FutureLogEventDescriptor CurrentState { get; set; }
+        private FutureLogEventDescriptor CurrentDescriptor { get; set; }
 
         protected FutureLoggerBase(ILogger logger, [CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0) {
             _internalLogger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -18,37 +18,46 @@ namespace Cosmos.Logging.Future {
         }
 
         public IFutureLogger SetLevel(LogEventLevel level) {
-            CurrentState.Level = level;
+            CurrentDescriptor.Level = level;
             return this;
         }
 
         public IFutureLogger SetException(Exception exception) {
-            CurrentState.Exception = exception;
+            CurrentDescriptor.Exception = exception;
             return this;
         }
 
         public IFutureLogger SetMessage(string message) {
-            CurrentState.MessageTemplate = message;
+            CurrentDescriptor.MessageTemplate = message;
             return this;
         }
 
         public IFutureLogger AppendMessage(string message) {
-            CurrentState.MessageTemplate += message;
+            CurrentDescriptor.MessageTemplate += message;
             return this;
         }
 
         public IFutureLogger SetParameter(object parameter) {
-            CurrentState.Context.SetParameter(parameter);
+            CurrentDescriptor.Context.SetParameter(parameter);
             return this;
         }
 
         public IFutureLogger SetTags(params string[] tags) {
-            CurrentState.Context.SetTags(tags);
+            CurrentDescriptor.Context.SetTags(tags);
+            return this;
+        }
+
+        public IFutureLogger SetEventId(Guid id, string name) => SetEventId(new LogEventId(id, name));
+        public IFutureLogger SetEventId(int id, string name) => SetEventId(new LogEventId(id, name));
+        public IFutureLogger SetEventId(string id, string name) => SetEventId(new LogEventId(id, name));
+
+        public IFutureLogger SetEventId(LogEventId eventId) {
+            CurrentDescriptor.EventId = eventId;
             return this;
         }
 
         public IFutureLogger AppendAdditionalOperation(IAdditionalOperation additionalOperation) {
-            CurrentState.Context.ImportOpt(additionalOperation);
+            CurrentDescriptor.Context.ImportOpt(additionalOperation);
             return this;
         }
 
@@ -58,11 +67,11 @@ namespace Cosmos.Logging.Future {
         }
 
         private void SubmitCurrentState() {
-            _internalLogger.Write(CurrentState);
+            _internalLogger.Write(CurrentDescriptor);
         }
 
         private void SetCurrentState(ILogCallerInfo callerInfo) {
-            CurrentState = new FutureLogEventDescriptor(callerInfo);
+            CurrentDescriptor = new FutureLogEventDescriptor(callerInfo);
         }
 
         public void Dispose() {
@@ -72,7 +81,7 @@ namespace Cosmos.Logging.Future {
         protected virtual void Dispose(bool disposing) {
             if (disposing) {
                 SubmitCurrentState();
-                CurrentState = null;
+                CurrentDescriptor = null;
             }
         }
     }

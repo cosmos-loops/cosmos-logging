@@ -7,298 +7,229 @@ namespace Cosmos.Logging {
         void LogVerbose(LogEventId eventId, string messageTemplate,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose<T>(LogEventId eventId, string messageTemplate, T paramObject,
+        void LogVerbose<T>(LogEventId eventId, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        void LogVerbose<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogVerbose<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose(LogEventId eventId, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
-
-        void LogVerbose(LogEventId eventId, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        void LogVerbose(LogEventId eventId, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose<T>(LogEventId eventId, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogVerbose(LogEventId eventId, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogVerbose<T>(LogEventId eventId, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogVerbose<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose(LogEventId eventId, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
-
-        void LogVerbose(LogEventId eventId, Exception exception, string messageTemplate,
+        void LogVerbose<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
-            [CallerMemberName] string memberName = null);
-
-        void LogVerbose<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            [CallerMemberName] string memberName = null);
-
-        void LogVerbose<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogVerbose(LogEventId eventId, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
         void LogVerbose(LogEventId eventId, Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
-
-        void LogVerbose(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogVerbose<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogVerbose<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogVerbose<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null);
 
-        void LogVerbose(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
+        void LogVerbose(LogEventId eventId, Exception exception, string messageTemplate, object[] args,
+            [CallerMemberName] string memberName = null);
+
+        void LogVerbose(LogEventId eventId, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogVerbose<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogVerbose<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogVerbose<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogVerbose(LogEventId eventId, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
 
         void LogDebug(LogEventId eventId, string messageTemplate,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug<T>(LogEventId eventId, string messageTemplate, T paramObject,
+        void LogDebug<T>(LogEventId eventId, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        void LogDebug<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogDebug<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug(LogEventId eventId, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
-
-        void LogDebug(LogEventId eventId, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        void LogDebug(LogEventId eventId, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug<T>(LogEventId eventId, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogDebug(LogEventId eventId, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogDebug<T>(LogEventId eventId, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogDebug<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug(LogEventId eventId, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
-
-        void LogDebug(LogEventId eventId, Exception exception, string messageTemplate,
+        void LogDebug<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
-            [CallerMemberName] string memberName = null);
-
-        void LogDebug<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            [CallerMemberName] string memberName = null);
-
-        void LogDebug<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogDebug(LogEventId eventId, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
         void LogDebug(LogEventId eventId, Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
-
-        void LogDebug(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogDebug<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogDebug<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogDebug<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null);
 
-        void LogDebug(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
+        void LogDebug(LogEventId eventId, Exception exception, string messageTemplate, object[] args,
+            [CallerMemberName] string memberName = null);
+
+        void LogDebug(LogEventId eventId, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogDebug<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogDebug<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogDebug<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogDebug(LogEventId eventId, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
 
         void LogInformation(LogEventId eventId, string messageTemplate,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation<T>(LogEventId eventId, string messageTemplate, T paramObject,
+        void LogInformation<T>(LogEventId eventId, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        void LogInformation<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogInformation<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation(LogEventId eventId, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
-
-        void LogInformation(LogEventId eventId, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        void LogInformation(LogEventId eventId, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation<T>(LogEventId eventId, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogInformation(LogEventId eventId, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogInformation<T>(LogEventId eventId, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogInformation<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation(LogEventId eventId, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
-
-        void LogInformation(LogEventId eventId, Exception exception, string messageTemplate,
+        void LogInformation<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
-            [CallerMemberName] string memberName = null);
-
-        void LogInformation<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            [CallerMemberName] string memberName = null);
-
-        void LogInformation<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogInformation(LogEventId eventId, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null);
 
         void LogInformation(LogEventId eventId, Exception exception, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
-
-        void LogInformation(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogInformation<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogInformation<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogInformation<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null);
 
-        void LogInformation(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            params object[] paramObjects);
+        void LogInformation(LogEventId eventId, Exception exception, string messageTemplate, object[] args,
+            [CallerMemberName] string memberName = null);
+
+        void LogInformation(LogEventId eventId, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogInformation<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogInformation<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogInformation<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
+
+        void LogInformation(LogEventId eventId, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null);
 
         void LogWarning(LogEventId eventId, string messageTemplate,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning<T>(LogEventId eventId, string messageTemplate, T paramObject,
+        void LogWarning<T>(LogEventId eventId, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        void LogWarning<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogWarning<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning(LogEventId eventId, string messageTemplate,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects);
-
-        void LogWarning(LogEventId eventId, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        void LogWarning(LogEventId eventId, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning<T>(LogEventId eventId, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogWarning(LogEventId eventId, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogWarning<T>(LogEventId eventId, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogWarning<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning(LogEventId eventId, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects);
-
-        void LogWarning(LogEventId eventId, Exception exception, string messageTemplate,
+        void LogWarning<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0);
-
-        void LogWarning<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0);
-
-        void LogWarning<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogWarning(LogEventId eventId, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
@@ -306,56 +237,49 @@ namespace Cosmos.Logging {
         void LogWarning(LogEventId eventId, Exception exception, string messageTemplate,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects);
+            [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        void LogWarning<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogWarning<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogWarning<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogWarning(LogEventId eventId, Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogWarning(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects);
-
-        void LogError(LogEventId eventId, string messageTemplate,
+        void LogWarning(LogEventId eventId, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T>(LogEventId eventId, string messageTemplate, T paramObject,
+        void LogWarning<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        void LogWarning<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogWarning<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0);
+
+        void LogWarning(LogEventId eventId, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
@@ -363,56 +287,49 @@ namespace Cosmos.Logging {
         void LogError(LogEventId eventId, string messageTemplate,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects);
+            [CallerLineNumber] int lineNumber = 0);
 
-        void LogError(LogEventId eventId, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        void LogError<T>(LogEventId eventId, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T>(LogEventId eventId, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogError<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogError<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogError(LogEventId eventId, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError(LogEventId eventId, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects);
-
-        void LogError(LogEventId eventId, Exception exception, string messageTemplate,
+        void LogError(LogEventId eventId, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
+        void LogError<T>(LogEventId eventId, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        void LogError<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogError<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0);
+
+        void LogError(LogEventId eventId, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
@@ -420,56 +337,49 @@ namespace Cosmos.Logging {
         void LogError(LogEventId eventId, Exception exception, string messageTemplate,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects);
+            [CallerLineNumber] int lineNumber = 0);
 
-        void LogError(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        void LogError<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogError<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogError<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogError(LogEventId eventId, Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogError(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects);
-
-        void LogFatal(LogEventId eventId, string messageTemplate,
+        void LogError(LogEventId eventId, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T>(LogEventId eventId, string messageTemplate, T paramObject,
+        void LogError<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        void LogError<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogError<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0);
+
+        void LogError(LogEventId eventId, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
@@ -477,55 +387,49 @@ namespace Cosmos.Logging {
         void LogFatal(LogEventId eventId, string messageTemplate,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0
-            , params object[] paramObjects);
+            [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal(LogEventId eventId, string messageTemplate, Action<LogEventContext> eventContextAct,
+        void LogFatal<T>(LogEventId eventId, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T>(LogEventId eventId, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogFatal<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T1, T2>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogFatal<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogFatal(LogEventId eventId, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal(LogEventId eventId, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
-            [CallerMemberName] string memberName = null,
-            [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects);
-
-        void LogFatal(LogEventId eventId, Exception exception, string messageTemplate,
+        void LogFatal(LogEventId eventId, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
+        void LogFatal<T>(LogEventId eventId, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
+        void LogFatal<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
+        void LogFatal<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0);
+
+        void LogFatal(LogEventId eventId, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
@@ -533,38 +437,51 @@ namespace Cosmos.Logging {
         void LogFatal(LogEventId eventId, Exception exception, string messageTemplate,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects);
+            [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        void LogFatal<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T>(LogEventId eventId, Exception exception, string messageTemplate, T paramObject,
-            Action<LogEventContext> eventContextAct,
+        void LogFatal<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2,
-            Action<LogEventContext> eventContextAct,
+        void LogFatal<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 paramObject1, T2 paramObject2, T3 paramObject3,
-            Action<LogEventContext> eventContextAct,
+        void LogFatal(LogEventId eventId, Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0);
 
-        void LogFatal(LogEventId eventId, Exception exception, string messageTemplate,
-            Action<LogEventContext> eventContextAct,
+        void LogFatal(LogEventId eventId, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
-            [CallerLineNumber] int lineNumber = 0,
-            params object[] paramObjects);
+            [CallerLineNumber] int lineNumber = 0);
+
+        void LogFatal<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0);
+
+        void LogFatal<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0);
+
+        void LogFatal<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0);
+
+        void LogFatal(LogEventId eventId, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+            [CallerMemberName] string memberName = null,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0);
     }
 }

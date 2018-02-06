@@ -32,7 +32,7 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
                 foreach (var logEvent in legalityEvents) {
                     var stringBuilder = new StringBuilder();
                     using (var output = new StringWriter(stringBuilder, _formatProvider)) {
-                        logEvent.RenderMessage(output, _sinkConfiguration.RenderingOptions, _formatProvider);
+                        logEvent.RenderMessage(output, _sinkConfiguration.Rendering, _formatProvider);
                     }
 
                     if (logEvent.ExtraProperties.Count > 0) {

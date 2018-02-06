@@ -61,13 +61,11 @@ namespace Cosmos.Logging.Configurations {
                     : GetDefaultMinimumLevel();
         }
 
-        public Dictionary<string, bool?> Rendering { get; set; } = new Dictionary<string, bool?>();
-
-        public MessageTemplateRenderingOptions RenderingOptions { get; set; }
+        public RendingConfiguration Rendering { get; set; } = new RendingConfiguration();
 
         internal void ProcessRenderingOptions<TSinkSettings>(TSinkSettings settings) where TSinkSettings : class, ILoggingSinkOptions, new() {
             if (settings == null) throw new ArgumentNullException(nameof(settings));
-            RenderingOptions = new MessageTemplateRenderingOptions(Rendering, settings.GetRenderingOptions());
+            Rendering.ImportFromSettings(settings.GetRenderingOptions());
         }
     }
 }
