@@ -40,9 +40,7 @@ namespace Cosmos.Logging {
                     : GetDefaultMinimumLevel();
         }
 
-        public Dictionary<string, bool?> Rendering { get; set; } = new Dictionary<string, bool?>();
-
-        public MessageTemplateRenderingOptions RenderingOptions { get; set; }
+        public RendingConfiguration Rendering { get; set; } = new RendingConfiguration();
 
         public DestructureConfiguration Destructure { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using Alexinea.EntityFrameworkCore.LoggingExposure;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.EntityFrameworkCore.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +11,7 @@ namespace Cosmos.Logging {
         private static ILoggingServiceProvider LoggingServiceProvider => EfCoreInterceptorDescriptor.Instance.ExposeLoggingServiceProvider;
         private static EfCoreSinkOptions Settings => EfCoreInterceptorDescriptor.Instance.ExposeSettings;
         private static Func<string, object> GlobalSimpleLoggingInterceptor => EfCoreInterceptorDescriptor.Instance.ExposeSettings.SimgleLoggingAction;
-        private static MessageTemplateRenderingOptions UpstreamRenderingOptions => EfCoreInterceptorDescriptor.Instance.ExposeSettings.GetRenderingOptions();
+        private static RendingConfiguration UpstreamRenderingOptions => EfCoreInterceptorDescriptor.Instance.ExposeSettings.GetRenderingOptions();
 
         public static void UseCosmosLogging(this DbContext db, Func<string, object> loggerAct = null) {
             UseCosmosLogging(db, null, loggerAct);

@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Events;
@@ -15,7 +16,7 @@ namespace Cosmos.Logging.MessageTemplates {
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedProperties,
             IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalProperties,
             TextWriter output, ILogEventInfo logEventInfo, IContextualLogEvent contextualLogEvent,
-            string format = null, MessageTemplateRenderingOptions renderingOptions = null,
+            string format = null, RendingConfiguration renderingOptions = null,
             IFormatProvider formatProvider = null) {
             var stringBuilder = RenderEngine(
                 messageTemplate.TextArray,
@@ -39,7 +40,7 @@ namespace Cosmos.Logging.MessageTemplates {
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedProperties,
             IReadOnlyDictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> positionalProperties,
             ILogEventInfo logEventInfo, IContextualLogEvent contextualLogEvent,
-            MessageTemplateRenderingOptions renderingOptions, IFormatProvider formatProvider) {
+            RendingConfiguration renderingOptions, IFormatProvider formatProvider) {
             var stringBuilder = Som(logEventInfo, renderingOptions);
             var position = 0;
 
@@ -92,7 +93,7 @@ namespace Cosmos.Logging.MessageTemplates {
         /// <param name="logEventInfo"></param>
         /// <param name="renderingOptions"></param>
         /// <returns></returns>
-        private static StringBuilder Som(ILogEventInfo logEventInfo, MessageTemplateRenderingOptions renderingOptions) {
+        private static StringBuilder Som(ILogEventInfo logEventInfo, RendingConfiguration renderingOptions) {
             var now = DateTime.UtcNow.ToLocalTime();
             var stringBuilder = new StringBuilder();
 
@@ -134,7 +135,7 @@ namespace Cosmos.Logging.MessageTemplates {
         /// <param name="stringBuilder"></param>
         /// <param name="renderingOptions"></param>
         /// <returns></returns>
-        private static StringBuilder Eom(StringBuilder stringBuilder, MessageTemplateRenderingOptions renderingOptions) {
+        private static StringBuilder Eom(StringBuilder stringBuilder, RendingConfiguration renderingOptions) {
             if (renderingOptions?.DisplayingNewLineEomEnabled ?? false) {
                 stringBuilder.Append(Environment.NewLine);
             }

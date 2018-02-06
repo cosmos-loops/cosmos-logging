@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates;
@@ -50,9 +51,9 @@ namespace Cosmos.Logging {
 
         #region Message template rendering options
 
-        internal MessageTemplateRenderingOptions RenderingOptions { get; set; }
+        internal RendingConfiguration RenderingOptions { get; set; }
 
-        public LogEventContext UseRenderingOptions(MessageTemplateRenderingOptions renderingOptions) {
+        public LogEventContext UseRenderingOptions(RendingConfiguration renderingOptions) {
             RenderingOptions = renderingOptions;
             return this;
         }

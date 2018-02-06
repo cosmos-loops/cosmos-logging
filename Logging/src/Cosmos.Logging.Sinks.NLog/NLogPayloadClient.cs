@@ -34,7 +34,7 @@ namespace Cosmos.Logging.Sinks.NLog {
                     var level = LogLevelSwitcher.Switch(logEvent.Level);
                     var stringBuilder = new StringBuilder();
                     using (var output = new StringWriter(stringBuilder, _formatProvider)) {
-                        logEvent.RenderMessage(output,_sinkConfiguration.RenderingOptions, _formatProvider);
+                        logEvent.RenderMessage(output,_sinkConfiguration.Rendering, _formatProvider);
                     }
 
                     if (logEvent.ExtraProperties.Count > 0) {

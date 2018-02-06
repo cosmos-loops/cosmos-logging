@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.SampleLogSink.Internals;
 
 // ReSharper disable once CheckNamespace
@@ -80,7 +79,7 @@ namespace Cosmos.Logging {
 
         #region Append output
 
-        private readonly MessageTemplateRenderingOptions _renderingOptions = new MessageTemplateRenderingOptions();
+        private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
 
         public SampleOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
             _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
@@ -97,7 +96,7 @@ namespace Cosmos.Logging {
             return this;
         }
 
-        public MessageTemplateRenderingOptions GetRenderingOptions() => _renderingOptions;
+        public RendingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
 

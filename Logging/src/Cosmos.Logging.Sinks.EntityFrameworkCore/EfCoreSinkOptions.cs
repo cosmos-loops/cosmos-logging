@@ -106,7 +106,7 @@ namespace Cosmos.Logging {
         
         #region Append output
 
-        private readonly MessageTemplateRenderingOptions _renderingOptions = new MessageTemplateRenderingOptions();
+        private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
 
         public EfCoreSinkOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
             _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
@@ -123,7 +123,7 @@ namespace Cosmos.Logging {
             return this;
         }
 
-        public MessageTemplateRenderingOptions GetRenderingOptions() => _renderingOptions;
+        public RendingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
 

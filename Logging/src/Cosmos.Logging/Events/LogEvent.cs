@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.ExtraSupports;
@@ -31,7 +32,7 @@ namespace Cosmos.Logging.Events {
             Exception exception,
             LogEventSendMode sendMode,
             ILogCallerInfo callerInfo,
-            MessageTemplateRenderingOptions upstreamRenderingOptions,
+            RendingConfiguration upstreamRenderingOptions,
             Dictionary<(string name, PropertyResolvingMode mode), MessageProperty> namedMessageProperties,
             Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> positionalMessageProperties,
             LogEventContext logEventContext,
@@ -72,15 +73,15 @@ namespace Cosmos.Logging.Events {
 
         public ContextData ContextData => _contextData;
 
-        public MessageTemplateRenderingOptions UpstreamRenderingOptions { get; }
+        public RendingConfiguration UpstreamRenderingOptions { get; }
 
         #region Reder Message
 
-        public void RenderMessage(TextWriter output, MessageTemplateRenderingOptions renderingOptions = null, IFormatProvider provider = null) {
+        public void RenderMessage(TextWriter output, RendingConfiguration renderingOptions = null, IFormatProvider provider = null) {
             MessageTemplate.Render(NamedProperties, PositionalProperties, output, this, this, UpstreamRenderingOptions.ToCalc(renderingOptions), provider);
         }
 
-        public string RenderMessage(MessageTemplateRenderingOptions renderingOptions = null, IFormatProvider provider = null) {
+        public string RenderMessage(RendingConfiguration renderingOptions = null, IFormatProvider provider = null) {
             return MessageTemplate.Render(NamedProperties, PositionalProperties, this, this, UpstreamRenderingOptions.ToCalc(renderingOptions), provider);
         }
 
