@@ -11,22 +11,24 @@ namespace Cosmos.Logging.Renders.RendersLib {
 
         public override string Name => "WorkingDirectory";
 
-        private static string GetStartInfoArguments() {
-            return Process.GetCurrentProcess().StartInfo.WorkingDirectory;
+        private static string WorkingDirectoryCache { get; set; }
+
+        private static string GetWorkingDirectory() {
+            return WorkingDirectoryCache ?? (WorkingDirectoryCache = Process.GetCurrentProcess().StartInfo.WorkingDirectory);
         }
 
         public override string ToString(string format, string paramsText, ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return GetStartInfoArguments();
+            return GetWorkingDirectory();
         }
 
         public override string ToString(IList<FormatEvent> formattingEvents, string paramsText,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return formattingEvents.ToFormat(GetStartInfoArguments(), formatProvider);
+            return formattingEvents.ToFormat(GetWorkingDirectory(), formatProvider);
         }
 
         public override string ToString(IList<Func<object, IFormatProvider, object>> formattingFuncs, string paramsText,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return formattingFuncs.ToFormat(GetStartInfoArguments(), formatProvider);
+            return formattingFuncs.ToFormat(GetWorkingDirectory(), formatProvider);
         }
 
         public override void Render(string format, string paramsText, StringBuilder stringBuilder,

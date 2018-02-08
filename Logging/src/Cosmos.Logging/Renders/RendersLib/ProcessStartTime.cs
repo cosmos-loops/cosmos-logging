@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Extensions;
+using Cosmos.Logging.Core.Piplelines;
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.Renders.RendersLib {
@@ -11,8 +12,10 @@ namespace Cosmos.Logging.Renders.RendersLib {
 
         public override string Name => "ProcessStartTime";
 
+        private static DateTime? StarTimeCache { get; set; }
+
         private static string GetProcessStartTime(string format, string paramsText) {
-            return Process.GetCurrentProcess().StartTime.ToString(FixedFormat(format, paramsText));
+            return (StarTimeCache ?? (StarTimeCache = Process.GetCurrentProcess().StartTime)).Value.ToString(FixedFormat(format, paramsText));
         }
 
         private static string FixedFormat(string format, string paramsText) {

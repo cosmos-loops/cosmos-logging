@@ -11,8 +11,10 @@ namespace Cosmos.Logging.Renders.RendersLib {
 
         public override string Name => "ProcessName";
 
+        private static string ProcessNameCache { get; set; }
+
         private static string GetProcessName() {
-            return Process.GetCurrentProcess().ProcessName;
+            return ProcessNameCache ?? (ProcessNameCache = Process.GetCurrentProcess().ProcessName);
         }
 
         public override string ToString(string format, string paramsText, ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {

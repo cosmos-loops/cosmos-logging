@@ -12,7 +12,7 @@ namespace Cosmos.Logging.Renders.RendersLib {
 
         public override string Name => "UserProcessorTime";
 
-        private static string GetProcessStartTime(string paramsText) {
+        private static string GetUserProcessorTime(string paramsText) {
             var ts = Process.GetCurrentProcess().UserProcessorTime;
             switch (paramsText.ToLower()) {
                 case "d": return ts.TotalDays.ToString(CultureInfo.InvariantCulture);
@@ -34,17 +34,17 @@ namespace Cosmos.Logging.Renders.RendersLib {
         }
 
         public override string ToString(string format, string paramsText, ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return GetProcessStartTime(paramsText);
+            return GetUserProcessorTime(paramsText);
         }
 
         public override string ToString(IList<FormatEvent> formattingEvents, string paramsText,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return formattingEvents.ToFormat(GetProcessStartTime(paramsText), formatProvider);
+            return formattingEvents.ToFormat(GetUserProcessorTime(paramsText), formatProvider);
         }
 
         public override string ToString(IList<Func<object, IFormatProvider, object>> formattingFuncs, string paramsText,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return formattingFuncs.ToFormat(GetProcessStartTime(paramsText), formatProvider);
+            return formattingFuncs.ToFormat(GetUserProcessorTime(paramsText), formatProvider);
         }
 
         public override void Render(string format, string paramsText, StringBuilder stringBuilder,

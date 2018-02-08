@@ -11,22 +11,24 @@ namespace Cosmos.Logging.Renders.RendersLib {
 
         public override string Name => "StartDomain";
 
-        private static string GetStartInfoArguments() {
-            return Process.GetCurrentProcess().StartInfo.Domain;
+        private static string StartDomainCache { get; set; }
+
+        private static string GetStartDomain() {
+            return StartDomainCache ?? (StartDomainCache = Process.GetCurrentProcess().StartInfo.Domain);
         }
 
         public override string ToString(string format, string paramsText, ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return GetStartInfoArguments();
+            return GetStartDomain();
         }
 
         public override string ToString(IList<FormatEvent> formattingEvents, string paramsText,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return formattingEvents.ToFormat(GetStartInfoArguments(), formatProvider);
+            return formattingEvents.ToFormat(GetStartDomain(), formatProvider);
         }
 
         public override string ToString(IList<Func<object, IFormatProvider, object>> formattingFuncs, string paramsText,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return formattingFuncs.ToFormat(GetStartInfoArguments(), formatProvider);
+            return formattingFuncs.ToFormat(GetStartDomain(), formatProvider);
         }
 
         public override void Render(string format, string paramsText, StringBuilder stringBuilder,

@@ -11,8 +11,10 @@ namespace Cosmos.Logging.Renders.RendersLib {
 
         public override string Name => "StartArguments";
 
+        private static string StartArgumentsCache { get; set; }
+
         private static string GetStartInfoArguments() {
-            return Process.GetCurrentProcess().StartInfo.Arguments;
+            return StartArgumentsCache ?? (StartArgumentsCache = Process.GetCurrentProcess().StartInfo.Arguments);
         }
 
         public override string ToString(string format, string paramsText, ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {

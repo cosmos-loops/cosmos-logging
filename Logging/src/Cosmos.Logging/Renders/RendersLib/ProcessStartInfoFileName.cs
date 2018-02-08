@@ -11,22 +11,24 @@ namespace Cosmos.Logging.Renders.RendersLib {
 
         public override string Name => "StartFileName";
 
-        private static string GetStartInfoArguments() {
-            return Process.GetCurrentProcess().StartInfo.FileName;
+        private static string StartFileNameCache { get; set; }
+
+        private static string GetStartFileName() {
+            return StartFileNameCache ?? (StartFileNameCache = Process.GetCurrentProcess().StartInfo.FileName);
         }
 
         public override string ToString(string format, string paramsText, ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return GetStartInfoArguments();
+            return GetStartFileName();
         }
 
         public override string ToString(IList<FormatEvent> formattingEvents, string paramsText,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return formattingEvents.ToFormat(GetStartInfoArguments(), formatProvider);
+            return formattingEvents.ToFormat(GetStartFileName(), formatProvider);
         }
 
         public override string ToString(IList<Func<object, IFormatProvider, object>> formattingFuncs, string paramsText,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return formattingFuncs.ToFormat(GetStartInfoArguments(), formatProvider);
+            return formattingFuncs.ToFormat(GetStartFileName(), formatProvider);
         }
 
         public override void Render(string format, string paramsText, StringBuilder stringBuilder,
