@@ -16,13 +16,17 @@ namespace Cosmos.Logging {
     // ReSharper disable once InconsistentNaming
     [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public static class LOGGER {
+        internal static bool _initialized = false;
+
         public static ILogServiceCollection Initialize(IConfigurationBuilder builder = null) {
+            if (_initialized) throw new InvalidOperationException("You have initialized Cosmos.Logging.");
             IServiceCollection services = new ServiceCollection();
             services.TryAdd(ServiceDescriptor.Singleton<ILoggingServiceProvider, ConsoleLoggingServiceProvider>());
             return InternalDependencyContainer.Initialize(services, builder);
         }
 
         public static ILogServiceCollection Initialize(IConfigurationRoot root) {
+            if (_initialized) throw new InvalidOperationException("You have initialized Cosmos.Logging.");
             IServiceCollection services = new ServiceCollection();
             services.TryAdd(ServiceDescriptor.Singleton<ILoggingServiceProvider, ConsoleLoggingServiceProvider>());
             return InternalDependencyContainer.Initialize(services, root);
