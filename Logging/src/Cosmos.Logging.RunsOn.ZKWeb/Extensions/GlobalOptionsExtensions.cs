@@ -21,7 +21,7 @@ namespace Cosmos.Logging {
 
         public static ILogServiceCollection ToGlobal<TLoggingSettings>(this ILogServiceCollection services, TLoggingSettings settings)
             where TLoggingSettings : LoggingOptions, new() {
-            if (services is ZKWebLogServiceCollection collection) {
+            if (services is ZkWebLogServiceCollection collection) {
                 collection.ReplaceSettings(settings);
             }
 

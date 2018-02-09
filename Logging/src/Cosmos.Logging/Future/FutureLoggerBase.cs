@@ -3,16 +3,19 @@ using System.Runtime.CompilerServices;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.ExtraSupports;
 
 namespace Cosmos.Logging.Future {
     public abstract class FutureLoggerBase : IFutureLogger, IDisposable {
         private readonly ILogger _internalLogger;
         private readonly ILogCallerInfo _callerInfo;
+        private readonly ContextData _loggerLigetimeContextData;
 
         private FutureLogEventDescriptor CurrentDescriptor { get; set; }
 
         protected FutureLoggerBase(ILogger logger, [CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0) {
             _internalLogger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _loggerLigetimeContextData = new ContextData();
             _callerInfo = new LogCallerInfo(memberName, filePath, lineNumber);
             SetCurrentState(_callerInfo);
         }
@@ -71,7 +74,7 @@ namespace Cosmos.Logging.Future {
         }
 
         private void SetCurrentState(ILogCallerInfo callerInfo) {
-            CurrentDescriptor = new FutureLogEventDescriptor(callerInfo);
+            CurrentDescriptor = new FutureLogEventDescriptor(callerInfo, _loggerLigetimeContextData);
         }
 
         public void Dispose() {

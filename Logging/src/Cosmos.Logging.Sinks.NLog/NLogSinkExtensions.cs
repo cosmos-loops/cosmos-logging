@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Sinks.NLog;
 using Microsoft.Extensions.Configuration;
@@ -40,7 +41,13 @@ namespace Cosmos.Logging {
                 services.AddOriginConfigAction(root => LogManager.Configuration = new XmlLoggingConfiguration(settings.Value.OriginConfigFilePath));
             }
 
+            RegisterCoreComponentsTypes();
+
             return services;
+        }
+        
+        private static void RegisterCoreComponentsTypes() {
+            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(IOptions<NLogSinkOptions>), false, ServiceLifetime.Singleton));
         }
     }
 }

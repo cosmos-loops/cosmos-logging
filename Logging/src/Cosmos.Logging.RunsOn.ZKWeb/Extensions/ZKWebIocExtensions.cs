@@ -12,7 +12,7 @@ namespace Cosmos.Logging {
     public static class ZKWebIocExtensions {
 
         public static IContainer RegisterCosmosLogging(this IContainer ioc, Action<ILogServiceCollection> config) {
-            var serviceImpl = new ZKWebLogServiceCollection(ioc);
+            var serviceImpl = new ZkWebLogServiceCollection();
 
             config?.Invoke(serviceImpl);
 

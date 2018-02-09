@@ -1,4 +1,5 @@
 ﻿using System;
+using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.NHibernate.Core;
 using EnumsNET;
@@ -49,9 +50,16 @@ namespace Cosmos.Logging {
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(provider =>
                     new HackStaticInstance(provider.GetRequiredService<ILoggingServiceProvider>(), settings.Value))));
+
+                RegisterCoreComponentsTypes();
             }
 
             return integration;
+        }
+        
+        private static void RegisterCoreComponentsTypes() {
+            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(IOptions<NhSinkOptions>), false, ServiceLifetime.Singleton));
+            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(HackStaticInstance), false, ServiceLifetime.Singleton));
         }
     }
 }

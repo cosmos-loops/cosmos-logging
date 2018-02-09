@@ -2,14 +2,17 @@
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.ExtraSupports;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging {
     public class LogEventContext {
         private readonly IList<IAdditionalOperation> _additionalOperations;
+        private readonly ContextData _contextData;
 
         public LogEventContext() {
             _additionalOperations = new List<IAdditionalOperation>();
+            _contextData = new ContextData();
         }
 
         #region Additional operations
@@ -90,6 +93,17 @@ namespace Cosmos.Logging {
         }
 
         internal IReadOnlyList<object> Parameters => _parameters;
+
+        #endregion
+
+        #region set context data
+
+        public LogEventContext AddData(string name, object value, bool output = true) {
+            _contextData.AddOrUpdateItem(name, value, output);
+            return this;
+        }
+
+        public ContextData ExposeContextData() => _contextData;
 
         #endregion
 

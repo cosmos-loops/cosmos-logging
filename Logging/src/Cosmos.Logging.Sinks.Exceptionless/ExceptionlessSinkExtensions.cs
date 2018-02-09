@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Sinks.Exceptionless;
 using Cosmos.Logging.Sinks.Exceptionless.Internals;
@@ -45,7 +46,14 @@ namespace Cosmos.Logging {
                 services.AddOriginConfigAction(root => ExceptionlessClient.Default.Startup());
             }
 
+            RegisterCoreComponentsTypes();
+
             return services;
+        }
+
+
+        private static void RegisterCoreComponentsTypes() {
+            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(IOptions<ExceptionlessSinkOptions>), false, ServiceLifetime.Singleton));
         }
     }
 }

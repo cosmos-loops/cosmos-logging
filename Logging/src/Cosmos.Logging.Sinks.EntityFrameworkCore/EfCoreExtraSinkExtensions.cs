@@ -1,4 +1,5 @@
 ﻿using System;
+using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.EntityFrameworkCore.Core;
 using EnumsNET;
@@ -57,9 +58,16 @@ namespace Cosmos.Logging {
                         EfCoreInterceptorDescriptor.Instance = instance;
                         return instance;
                     })));
+
+                RegisterCoreComponentsTypes();
             }
 
             return integration;
+        }
+
+        private static void RegisterCoreComponentsTypes() {
+            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(IOptions<EfCoreSinkOptions>), false, ServiceLifetime.Singleton));
+            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(EfCoreInterceptorDescriptor), false, ServiceLifetime.Singleton));
         }
 
     }

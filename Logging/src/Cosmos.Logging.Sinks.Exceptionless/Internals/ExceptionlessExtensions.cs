@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Cosmos.Logging.ExtraSupports;
 using Exceptionless;
 using Microsoft.Extensions.Configuration;
@@ -49,7 +52,7 @@ namespace Cosmos.Logging.Sinks.Exceptionless.Internals {
         }
 
         public static ContextData MergeContextData(this ContextData exceptionlessCtx, ExtraSupports.ContextData cosmosCtx) {
-            if (exceptionlessCtx == null) return new ContextData(cosmosCtx);
+            if (exceptionlessCtx == null) return new ContextData(cosmosCtx.Filter());
 
             foreach (var item in cosmosCtx) {
                 if (string.Compare(item.Key, ContextDataTypes.Exception, StringComparison.OrdinalIgnoreCase) == 0) continue;
@@ -58,6 +61,20 @@ namespace Cosmos.Logging.Sinks.Exceptionless.Internals {
             }
 
             return exceptionlessCtx;
+        }
+
+        private static IDictionary<string, object> Filter(this ExtraSupports.ContextData cosmosCtx) {
+            var ret = new Dictionary<string, object>();
+
+            if (cosmosCtx == null) return ret;
+
+            foreach (var item in cosmosCtx) {
+                if (!item.Value.Output) continue;
+                if (ret.ContainsKey(item.Key)) continue;
+                ret.Add(item.Key, item.Value.Value);
+            }
+
+            return ret;
         }
     }
 }
