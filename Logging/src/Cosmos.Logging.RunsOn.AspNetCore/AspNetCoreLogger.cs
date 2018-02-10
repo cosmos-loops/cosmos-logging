@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Callers;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Cosmos.Logging.RunsOn.AspNetCore.Core;
 
 namespace Cosmos.Logging.RunsOn.AspNetCore {
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public class AspNetCoreLogger : LoggerBase, IFutureableLogger<AspNetCoreFutureLogger>, Microsoft.Extensions.Logging.ILogger {
 
         public AspNetCoreLogger(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, Func<string, LogEventLevel, bool> filter,
@@ -45,10 +47,12 @@ namespace Cosmos.Logging.RunsOn.AspNetCore {
             return new AspNetCoreFutureLogger(this, memberName, filePath, lineNumber);
         }
 
+#pragma warning disable 1066,4024,4025,4026
         AspNetCoreFutureLogger IFutureableLogger<AspNetCoreFutureLogger>.ToFuture(
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
+#pragma warning restore 1066,4024,4025,4026
             return new AspNetCoreFutureLogger(this, memberName, filePath, lineNumber);
         }
     }

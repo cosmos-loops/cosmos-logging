@@ -56,6 +56,7 @@ namespace Cosmos.Logging.Events {
 
             _contextData = contextData == null ? new ContextData() : new ContextData(contextData);
             if (exception != null && !_contextData.HasException()) _contextData.SetException(exception);
+            _contextData.ImportUpstreamContextData(_logEventContext.ExposeContextData());
 
             UpdateProperty(namedMessageProperties, positionalMessageProperties);
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.SqlSugar;
 using Cosmos.Logging.Sinks.SqlSugar.Core;
@@ -44,9 +45,16 @@ namespace Cosmos.Logging {
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(typeof(SqlSugarInterceptorDescriptor),
                     provider => new SqlSugarInterceptorDescriptor(provider.GetService<ILoggingServiceProvider>(), settings))));
+
+                RegisterCoreComponentsTypes();
             }
 
             return integration;
+        }
+        
+        private static void RegisterCoreComponentsTypes() {
+            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(IOptions<SqlSugarOptions>), false, ServiceLifetime.Singleton));
+            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(SqlSugarInterceptorDescriptor), false, ServiceLifetime.Singleton));
         }
     }
 

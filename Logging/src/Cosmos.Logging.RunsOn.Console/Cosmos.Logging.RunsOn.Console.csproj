@@ -1,21 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-  <Import Project="..\..\build\common.props" />
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="AspectCore.Core" Version="0.2.4" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="0.2.4" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net461'">
-    <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="0.2.4" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net451'">
-    <PackageReference Include="AspectCore.Extensions.DependencyInjection.Backward" Version="0.2.4-beta1" />
-  </ItemGroup>
+    <Import Project="..\..\build\common.props"/>
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="AspectCore.Core" Version="0.2.4"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+        <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="0.2.4"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)'=='net461'">
+        <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="0.2.4"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)'=='net451'">
+        <PackageReference Include="AspectCore.Extensions.DependencyInjection.Backward" Version="0.2.4-beta1"/>
+    </ItemGroup>
 </Project>

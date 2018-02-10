@@ -17,6 +17,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AspectCore.Core" Version="0.2.4" />
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="0.2.4" />
     <PackageReference Include="Enums.NET" Version="2.3.1" />
     <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
@@ -51,5 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Piplelines" />
+    <Folder Include="Interceptors" />
   </ItemGroup>
 </Project>

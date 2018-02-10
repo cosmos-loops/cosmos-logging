@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Sinks.Log4Net;
 using log4net;
@@ -38,6 +39,8 @@ namespace Cosmos.Logging {
                 services.AddOriginConfigAction(root => InternalUseCustomConfigFilePath(settings.Value.OriginConfigFilePath, settings.Value.WatchOriginConfigFile));
             }
 
+            RegisterCoreComponentsTypes();
+            
             return services;
         }
 
@@ -51,6 +54,10 @@ namespace Cosmos.Logging {
                 XmlConfigurator.Configure(loggerRepository, new FileInfo(filePath));
 
             return true;
+        }
+        
+        private static void RegisterCoreComponentsTypes() {
+            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(IOptions<Log4NetSinkOptions>), false, ServiceLifetime.Singleton));
         }
     }
 }

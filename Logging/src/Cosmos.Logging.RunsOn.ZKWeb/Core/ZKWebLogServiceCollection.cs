@@ -5,25 +5,22 @@ using Cosmos.Logging.Core;
 using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ZKWebStandard.Ioc;
 
 namespace Cosmos.Logging.RunsOn.ZKWeb.Core {
-    public class ZKWebLogServiceCollection : ILogServiceCollection {
+    public class ZkWebLogServiceCollection : ILogServiceCollection {
         private LoggingConfigurationBuilder _configurationBuilder;
         private readonly bool _configurationBuilderLockedStatus;
         private readonly IServiceCollection _serviceCollection;
-        private readonly IContainer _zkwebContainer;
         private LoggingConfiguration _loggingConfiguration { get; set; }
         private ILoggingOptions _settings { get; set; }
         private readonly Dictionary<string, ILoggingSinkOptions> _sinkSettings;
         private object _sinkUpdateLock = new object();
         private Action<IConfigurationRoot> _originConfigAction;
 
-        internal ZKWebLogServiceCollection(IContainer zkwebIoc) {
+        internal ZkWebLogServiceCollection() {
             _configurationBuilder = new LoggingConfigurationBuilder();
             _configurationBuilderLockedStatus = false;
             _serviceCollection = new ServiceCollection();
-            _zkwebContainer = zkwebIoc ?? throw new ArgumentNullException(nameof(zkwebIoc));
             _settings = new LoggingOptions();
             _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
 

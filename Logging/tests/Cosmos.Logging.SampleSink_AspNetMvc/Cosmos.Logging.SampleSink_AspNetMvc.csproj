@@ -130,6 +130,12 @@
   <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Cosmos.Logging.RunsOn.AspNet\Cosmos.Logging.RunsOn.AspNet.csproj">
+      <Project>{c81cd027-2c33-4ebc-bc61-6eb8ce0fca84}</Project>
+      <Name>Cosmos.Logging.RunsOn.AspNet</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

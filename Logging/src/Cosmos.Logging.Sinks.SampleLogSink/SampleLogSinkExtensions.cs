@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Sinks.SampleLogSink;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,14 @@ namespace Cosmos.Logging {
                 s.TryAdd(ServiceDescriptor.Singleton<ILogPayloadClientProvider, SampleLogPayloadClientProvider>());
                 s.TryAdd(ServiceDescriptor.Singleton(settings));
             });
+
+            RegisterCoreComponentsTypes();
+
             return services;
+        }
+
+        private static void RegisterCoreComponentsTypes() {
+            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(IOptions<SampleOptions>), false, ServiceLifetime.Singleton));
         }
     }
 }
