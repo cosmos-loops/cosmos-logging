@@ -1,10 +1,10 @@
 ﻿using System;
 using Cosmos.Logging.Core.Extensions;
-using Cosmos.Logging.RunsOn.NancyFX.Abstractions;
+using Cosmos.Logging.RunsOn.NancyFX.Core.Abstractions;
 using Nancy;
 using Nancy.ErrorHandling;
 
-namespace Cosmos.Logging.RunsOn.NancyFX.Handlers {
+namespace Cosmos.Logging.RunsOn.NancyFX.Core.Handlers {
     public class InternalServerErrorLoggingHandler : IStatusCodeHandler, IErrorHandler {
         private readonly ILogger _logger = Core.HandlerLoggerContainer.ErrorHandlerLogger<InternalServerErrorLoggingHandler>();
 

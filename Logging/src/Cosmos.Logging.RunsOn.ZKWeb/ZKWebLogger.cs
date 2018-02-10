@@ -20,12 +20,12 @@ namespace Cosmos.Logging.RunsOn.ZKWeb {
             [CallerLineNumber] int lineNumber = 0) {
             return new ZKWebFutureLogger(this, memberName, filePath, lineNumber);
         }
-#pragma warning disable 1066
+#pragma warning disable 1066,4024,4025,4026
         ZKWebFutureLogger IFutureableLogger<ZKWebFutureLogger>.ToFuture(
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-#pragma warning restore 1066
+#pragma warning restore 1066,4024,4025,4026
             return new ZKWebFutureLogger(this, memberName, filePath, lineNumber);
         }
     }

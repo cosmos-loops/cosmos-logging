@@ -21,10 +21,12 @@ namespace Cosmos.Logging.RunsOn.Console {
             return new ConsoleFutureLogger(this, memberName, filePath, lineNumber);
         }
 
+#pragma warning disable 1066,4024,4025,4026
         ConsoleFutureLogger IFutureableLogger<ConsoleFutureLogger>.ToFuture(
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
+#pragma warning restore 1066,4024,4025,4026
             return new ConsoleFutureLogger(this, memberName, filePath, lineNumber);
         }
     }

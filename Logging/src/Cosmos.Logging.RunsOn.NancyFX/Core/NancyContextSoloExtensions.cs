@@ -8,16 +8,16 @@ namespace Cosmos.Logging {
     public static class NancyContextSoloExtensions {
         public static void AddNancyContext(this ContextData context, NancyContext nancyContext) {
             if (context == null) throw new ArgumentNullException(nameof(context));
-            context.Add(NancyContextSolo.Name, new NancyContextSolo(nancyContext));
+            context.Add(Constants.NancyContextName, new NancyContextSolo(nancyContext));
         }
 
         public static bool HasNancyContext(this ContextData context) {
-            return context?.ContainsKey(NancyContextSolo.Name) ?? false;
+            return context?.ContainsKey(Constants.NancyContextName) ?? false;
         }
 
         public static NancyContext GetNancyContext(this ContextData context) {
             if (context == null) throw new ArgumentNullException(nameof(context));
-            if (context.TryGetValue(NancyContextSolo.Name, out var value) && value is NancyContextSolo solo) {
+            if (context.TryGetValue(Constants.NancyContextName, out var value) && value is NancyContextSolo solo) {
                 return solo.GetContext();
             }
 
@@ -26,7 +26,7 @@ namespace Cosmos.Logging {
 
         public static LogEventContext AddNancyContext(this LogEventContext context, NancyContext nancyContext) {
             if (context == null) throw new ArgumentNullException(nameof(context));
-            context.AddData(NancyContextSolo.Name, new NancyContextSolo(nancyContext), false);
+            context.AddData(Constants.NancyContextName, new NancyContextSolo(nancyContext), false);
             return context;
         }
     }

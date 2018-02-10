@@ -58,7 +58,7 @@ namespace Cosmos.Logging.RunsOn.NancyFX.Core {
                     exceptionDetail = ctx.GetExceptionDetails();
                 }
 
-                var realExcepton = exception.Unwrap();
+                var realException = exception.Unwrap();
                 var paramObj = new {
                     FxName = NancyFxName,
                     UsedTime = $"{timePin} ms",
@@ -66,8 +66,8 @@ namespace Cosmos.Logging.RunsOn.NancyFX.Core {
                     ExceptionDetails = exceptionDetail,
                     ExceptionType = exception.GetType(),
                     ExceptionMessage = exception.Message,
-                    RealExceptionType = realExcepton.GetType(),
-                    RealExceptionMessage = realExcepton.Message,
+                    RealExceptionType = realException.GetType(),
+                    RealExceptionMessage = realException.Message,
                 };
                 _logger.LogFatal(exception, WebTemplateStandard.WebLog500, paramObj, o => o.AddNancyContext(ctx));
             } else {
