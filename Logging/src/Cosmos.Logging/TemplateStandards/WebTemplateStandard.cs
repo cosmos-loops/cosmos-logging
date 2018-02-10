@@ -1,5 +1,5 @@
 ﻿namespace Cosmos.Logging.TemplateStandards {
-    public static class WebTemplateStandard {
+        public static class WebTemplateStandard {
         public const string WebLog400 = @"
 FX NAME: {@FxName}
 DATETIME: {$Date}
@@ -21,6 +21,13 @@ EXCP INFO: {@ExceptionDetails}
 ";
 
         public const string Normal = @"
+FX NAME: {@FxName}
+DATETIME: {$Date}
+USED TIME: {@UsedTime}
+STAT CODE: {@StausCode}
+";
+
+        public const string LongNormal = @"
 FX NAME: {@FxName}
 DATETIME: {$Date}
 USED TIME: {@UsedTime}

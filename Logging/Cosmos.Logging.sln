@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.ZKWeb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.NancyFX.Autofac", "src\Cosmos.Logging.RunsOn.NancyFX.Autofac\Cosmos.Logging.RunsOn.NancyFX.Autofac.csproj", "{C0691F37-68A7-48F7-83A6-2243EF87DEFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.AspNet.Autofac", "src\Cosmos.Logging.RunsOn.AspNet.Autofac\Cosmos.Logging.RunsOn.AspNet.Autofac.csproj", "{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +193,10 @@ Global
 		{C0691F37-68A7-48F7-83A6-2243EF87DEFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0691F37-68A7-48F7-83A6-2243EF87DEFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0691F37-68A7-48F7-83A6-2243EF87DEFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -226,6 +232,7 @@ Global
 		{CEB6B741-3D2C-4586-ADFA-3A2659422339} = {8AE15513-6404-45CF-9470-428BC2549593}
 		{B4B85487-83EC-4FDA-9E2E-20472087B715} = {8AE15513-6404-45CF-9470-428BC2549593}
 		{C0691F37-68A7-48F7-83A6-2243EF87DEFC} = {8AE15513-6404-45CF-9470-428BC2549593}
+		{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215} = {8AE15513-6404-45CF-9470-428BC2549593}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7494AB0-4276-4102-B112-7BBE0329D263}
