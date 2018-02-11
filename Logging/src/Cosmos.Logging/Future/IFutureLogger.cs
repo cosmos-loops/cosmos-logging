@@ -1,9 +1,11 @@
 ﻿using System;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.LogFields;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Future {
     public interface IFutureLogger {
+        IFutureLogger UseFields(params ILogField[] fields);
         IFutureLogger SetLevel(LogEventLevel level);
         IFutureLogger SetException(Exception exception);
         IFutureLogger SetMessage(string message);
