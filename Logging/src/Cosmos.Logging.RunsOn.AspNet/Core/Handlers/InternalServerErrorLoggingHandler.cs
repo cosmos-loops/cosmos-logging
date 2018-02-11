@@ -8,7 +8,7 @@ namespace Cosmos.Logging.RunsOn.AspNet.Core.Handlers {
         public static void Handle(HttpApplication application) {
             if (application == null) return;
 
-            var logger = StaticInstanceOfLoggingServiceProvider.Instance.GetLogger<HttpApplication>();
+            var logger = StaticServiceResolver.Instance.GetLogger<HttpApplication>();
 
             var exception = application.Server.GetLastError();
             var statusCode = application.Response.StatusCode;

@@ -35,11 +35,11 @@ namespace Cosmos.Logging {
         }
 
         private static void BuildSoloContainer(ILogServiceCollection serviceImpl) {
-            AspNetContainerSolo.ServiceProvider = serviceImpl.ExposeServices().BuildServiceProvider();
+            SoloDependencyContainer.ServiceResolver = serviceImpl.ExposeServices().BuildServiceProvider();
         }
 
         private static void UpdateStaticProvider() {
-            StaticInstanceOfLoggingServiceProvider.SetInstance(AspNetContainerSolo.ServiceProvider.GetRequiredService<ILoggingServiceProvider>());
+            StaticServiceResolver.SetResolver(SoloDependencyContainer.ServiceResolver.GetRequiredService<ILoggingServiceProvider>());
         }
 
         public static void RegisterOnError(this HttpApplication application) {

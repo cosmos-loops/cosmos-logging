@@ -11,7 +11,7 @@ namespace Cosmos.Logging {
         public static IWebHostBuilder AddCosmosLogging(this IWebHostBuilder builder, Action<ILogServiceCollection> config = null) {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
-            HackStaticInstance.UsingSecInitializingActivation = false;
+            StaticServiceResolveInitialization.UsingSecInitializingActivation = false;
             builder.ConfigureServices((ctx, services) => services.AddCosmosLogging((IConfigurationRoot) ctx.Configuration, config));
 
             return builder;
@@ -20,7 +20,7 @@ namespace Cosmos.Logging {
         public static IWebHostBuilder AddCosmosLogging(this IWebHostBuilder builder, IConfigurationRoot root, Action<ILogServiceCollection> config = null) {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
-            HackStaticInstance.UsingSecInitializingActivation = false;
+            StaticServiceResolveInitialization.UsingSecInitializingActivation = false;
             builder.ConfigureServices(services => services.AddCosmosLogging(root, config));
 
             return builder;
