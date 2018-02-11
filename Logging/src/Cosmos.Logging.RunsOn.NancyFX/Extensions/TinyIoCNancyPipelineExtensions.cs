@@ -50,7 +50,7 @@ namespace Cosmos.Logging {
         }
 
         private static void UpdateStaticProvider() {
-            StaticInstanceOfLoggingServiceProvider.SetInstance(NancyContainerSolo.ServiceProvider.GetRequiredService<ILoggingServiceProvider>());
+            StaticServiceResolver.SetResolver(NancyContainerSolo.ServiceProvider.GetRequiredService<ILoggingServiceProvider>());
         }
 
         private static void UpdateTinyIoCContainer(TinyIoCContainer container) {

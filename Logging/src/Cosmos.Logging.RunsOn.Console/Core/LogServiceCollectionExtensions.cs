@@ -30,7 +30,7 @@ namespace Cosmos.Logging {
         }
 
         public static void AllDone(this ILogServiceCollection services) {
-            InternalDependencyContainer.AllDone(services);
+            SoloDependencyContainer.AllDone(services);
             LOGGER._initialized = true;
         }
 

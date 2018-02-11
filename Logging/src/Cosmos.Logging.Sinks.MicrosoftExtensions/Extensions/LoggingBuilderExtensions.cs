@@ -32,8 +32,8 @@ namespace Cosmos.Logging {
             
             builder.Services.TryAdd(ServiceDescriptor.Singleton(Options.Create((LoggingOptions) servicesImpl.ExposeLogSettings())));
             builder.Services.TryAdd(ServiceDescriptor.Singleton(servicesImpl.ExposeLoggingConfiguration()));
-            builder.Services.TryAdd(ServiceDescriptor.Singleton(typeof(HackStaticInstance),
-                provider => new HackStaticInstance(provider.GetRequiredService<ILoggingServiceProvider>())));
+            builder.Services.TryAdd(ServiceDescriptor.Singleton(typeof(StaticServiceResolveInitialization),
+                provider => new StaticServiceResolveInitialization(provider.GetRequiredService<ILoggingServiceProvider>())));
 
             return builder;
         }
