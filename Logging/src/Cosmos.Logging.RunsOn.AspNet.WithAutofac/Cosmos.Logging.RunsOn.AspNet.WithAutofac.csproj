@@ -7,8 +7,8 @@
     <ProjectGuid>{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cosmos.Logging.RunsOn.AspNet.Autofac</RootNamespace>
-    <AssemblyName>Cosmos.Logging.RunsOn.AspNet.Autofac</AssemblyName>
+    <RootNamespace>Cosmos.Logging.RunsOn.AspNet.WithAutofac</RootNamespace>
+    <AssemblyName>Cosmos.Logging.RunsOn.AspNet.WithAutofac</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -110,8 +110,8 @@
   <ItemGroup>
     <Compile Include="AutofacAspNetServiceCollection.cs" />
     <Compile Include="AutofacAspNetExtensions.cs" />
-    <Compile Include="Core\StaticProviderHack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticServiceResolveInitialization.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cosmos.Logging.RunsOn.AspNet\Cosmos.Logging.RunsOn.AspNet.csproj">

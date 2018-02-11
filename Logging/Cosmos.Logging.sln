@@ -71,9 +71,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.Nancy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.ZKWeb", "src\Cosmos.Logging.RunsOn.ZKWeb\Cosmos.Logging.RunsOn.ZKWeb.csproj", "{B4B85487-83EC-4FDA-9E2E-20472087B715}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.NancyFX.Autofac", "src\Cosmos.Logging.RunsOn.NancyFX.Autofac\Cosmos.Logging.RunsOn.NancyFX.Autofac.csproj", "{C0691F37-68A7-48F7-83A6-2243EF87DEFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.NancyFX.WithAutofac", "src\Cosmos.Logging.RunsOn.NancyFX.WithAutofac\Cosmos.Logging.RunsOn.NancyFX.WithAutofac.csproj", "{C0691F37-68A7-48F7-83A6-2243EF87DEFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.AspNet.Autofac", "src\Cosmos.Logging.RunsOn.AspNet.Autofac\Cosmos.Logging.RunsOn.AspNet.Autofac.csproj", "{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.AspNet.WithAutofac", "src\Cosmos.Logging.RunsOn.AspNet.WithAutofac\Cosmos.Logging.RunsOn.AspNet.WithAutofac.csproj", "{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

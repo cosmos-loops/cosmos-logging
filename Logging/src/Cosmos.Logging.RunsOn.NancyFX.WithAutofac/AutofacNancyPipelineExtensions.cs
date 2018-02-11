@@ -48,7 +48,7 @@ namespace Cosmos.Logging {
         }
 
         private static void UpdateStaticProvider(ILifetimeScope container) {
-            StaticInstanceOfLoggingServiceProvider.SetInstance(container.Resolve<ILoggingServiceProvider>());
+            StaticServiceResolver.SetResolver(container.Resolve<ILoggingServiceProvider>());
         }
     }
 }

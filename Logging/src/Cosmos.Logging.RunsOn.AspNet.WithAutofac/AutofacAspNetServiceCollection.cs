@@ -1,6 +1,6 @@
 ﻿using Cosmos.Logging.RunsOn.AspNet.Core;
 
-namespace Cosmos.Logging.RunsOn.AspNet.Autofac {
+namespace Cosmos.Logging.RunsOn.AspNet.WithAutofac {
     public class AutofacAspNetServiceCollection: AspNetLogServiceCollection {
         internal new void BuildConfiguration() {
             base.BuildConfiguration();
