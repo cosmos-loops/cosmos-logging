@@ -6,5 +6,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Cosmos.Logging.RunsOn.Console\Cosmos.Logging.RunsOn.Console.csproj" />
     <ProjectReference Include="..\..\src\Cosmos.Logging.Sinks.NLog\Cosmos.Logging.Sinks.NLog.csproj" />
+    <ProjectReference Include="..\..\src\Cosmos.Logging.Sinks.SampleLogSink\Cosmos.Logging.Sinks.SampleLogSink.csproj" />
   </ItemGroup>
 </Project>

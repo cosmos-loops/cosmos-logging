@@ -74,14 +74,36 @@ namespace Cosmos.Logging {
 
         #endregion
 
+        #region Append origin nlog configuration
+
         public NLog.Config.LoggingConfiguration OriginConfiguration { get; set; }
 
-        public void UseDefaultOriginConfigFilePath() => OriginConfigFilePath = "nlog.config";
-        public string OriginConfigFilePath { get; set; }
+        public NLogSinkOptions Configure(Action<NLog.Config.LoggingConfiguration> configAction) {
+            if (configAction == null) throw new ArgumentNullException(nameof(configAction));
+            if (OriginConfiguration == null) OriginConfiguration = new NLog.Config.LoggingConfiguration();
+            configAction.Invoke(OriginConfiguration);
+            return this;
+        }
 
-        public void EnableUsingDefaultConfig() => DoesUsedDefaultConfig = true;
-        public void DisableUsingDefaultConfig() => DoesUsedDefaultConfig = false;
-        internal bool DoesUsedDefaultConfig { get; set; } = true;
+        public NLogSinkOptions Unconfigure() {
+            OriginConfiguration = null;
+            return this;
+        }
+
+        public NLogSinkOptions UseDefaultConfigFile() {
+            OriginConfigFilePath = "nlog.config";
+            return this;
+        }
+
+        public NLogSinkOptions UseConfigFile(string path) {
+            if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException(nameof(path));
+            OriginConfigFilePath = path;
+            return this;
+        }
+
+        internal string OriginConfigFilePath { get; set; }
+
+        #endregion
 
         #region Append output
 
@@ -105,6 +127,5 @@ namespace Cosmos.Logging {
         public RendingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
-
     }
 }

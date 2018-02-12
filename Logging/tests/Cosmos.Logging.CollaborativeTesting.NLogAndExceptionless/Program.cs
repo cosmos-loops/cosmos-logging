@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Sinks.NLog;
 
 namespace Cosmos.Logging.CollaborativeTesting.NLogAndExceptionless {
     class Program {
@@ -8,7 +9,7 @@ namespace Cosmos.Logging.CollaborativeTesting.NLogAndExceptionless {
         static void Main(string[] args) {
             try {
                 LOGGER.Initialize().RunsOnConsole()
-                    .AddNLog(s => s.UseMinimumLevel(LogEventLevel.Information).UseDefaultOriginConfigFilePath())
+                    .AddNLog(s => s.UseMinimumLevel(LogEventLevel.Information).UseDefaultConfigFile())
                     .AddExceptionless(s => s.UseMinimumLevel(LogEventLevel.Information).UseAppSettings())
                     .AddSampleLog(s => s.UseMinimumLevel(LogEventLevel.Information))
                     .AllDone();

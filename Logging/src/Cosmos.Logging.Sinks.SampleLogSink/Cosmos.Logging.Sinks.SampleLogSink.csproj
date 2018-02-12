@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-    <Import Project="..\..\build\common.ns20-net461-net451.props"/>
+    <Import Project="..\..\build\common.ns20-net461-net451.props" />
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
-        <AssemblyName>Cosmos.Logging.Sinks.NLog</AssemblyName>
-        <PackageId>Cosmos.Logging.Sinks.NLog</PackageId>
+        <AssemblyName>Cosmos.Logging.Sinks.SampleLogSink</AssemblyName>
+        <PackageId>Cosmos.Logging.Sinks.SampleLogSink</PackageId>
         <Description>One sample sink library for Cosmos.Logging, only used to demonstrate sink api design.</Description>
         <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
         <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
         <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj"/>
+        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
 </Project>

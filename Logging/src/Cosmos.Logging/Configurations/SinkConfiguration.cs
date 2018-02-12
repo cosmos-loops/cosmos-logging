@@ -23,12 +23,10 @@ namespace Cosmos.Logging.Configurations {
 
         public IReadOnlyList<NamespaceNavigator> NamespaceFilterNavs => _namespaceFilterNavRoots;
 
-        protected abstract void BeforeProcessLogLevel(ILoggingSinkOptions settings);
+        protected internal abstract void BeforeProcessing(ILoggingSinkOptions settings);
 
         internal void ProcessLogLevel<TSinkSettings>(TSinkSettings settings) where TSinkSettings : class, ILoggingSinkOptions, new() {
             if (settings == null) throw new ArgumentNullException(nameof(settings));
-
-            BeforeProcessLogLevel(settings);
 
             foreach (var item in LogLevel) {
                 var nav = _namespaceNavigatorCache.Parse(item.Key, item.Value, out _);
@@ -49,6 +47,8 @@ namespace Cosmos.Logging.Configurations {
                 LogEventLevelAliasManager.AddAlias(item.Key, LogEventLevelConverter.Convert(item.Value));
             }
         }
+
+        protected internal virtual void PostProcessing(ILoggingSinkOptions settings) { }
 
         public LogEventLevel GetDefaultMinimumLevel() => NavigationFilterProcessor.GetDefault(Name);
 
