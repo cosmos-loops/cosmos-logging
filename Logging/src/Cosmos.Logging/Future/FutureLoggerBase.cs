@@ -25,26 +25,26 @@ namespace Cosmos.Logging.Future {
         public IFutureLogger UseFields(params ILogField[] fields) {
             if (fields == null) throw new ArgumentNullException(nameof(fields));
             if (!fields.Any()) return this;
-            foreach (var field in fields) {
+            foreach (var field in fields.OrderBy(x => x.Sort)) {
                 switch (field) {
                     case LogEventLevelField levelField:
                         SetLevel(levelField.Value);
                         break;
-                    case MessageTemplateField messageTemplateFields:
-                        if (messageTemplateFields.Append) AppendMessage(messageTemplateFields.Value);
-                        else SetMessage(messageTemplateFields.Value);
+                    case MessageTemplateField messageTemplateField:
+                        if (messageTemplateField.Append) AppendMessage(messageTemplateField.Value);
+                        else SetMessage(messageTemplateField.Value);
                         break;
-                    case ExceptionField exceptionFields:
-                        SetException(exceptionFields.Value);
+                    case ExceptionField exceptionField:
+                        SetException(exceptionField.Value);
                         break;
-                    case ArgsField argsFields:
-                        SetParameters(argsFields.Value);
+                    case ArgsField argsField:
+                        SetParameters(argsField.Value);
                         break;
-                    case TagsField tagsFields:
-                        SetTags(tagsFields.Value);
+                    case TagsField tagsField:
+                        SetTags(tagsField.Value);
                         break;
-                    case EventIdField eventIdFields:
-                        SetEventId(eventIdFields.Value);
+                    case EventIdField eventIdField:
+                        SetEventId(eventIdField.Value);
                         break;
                     default:
                         throw new ArgumentException("Unknown field type.");

@@ -3,5 +3,6 @@
         public TagsField(params string[] tags) => Value = tags;
         public LogFieldTypes Type => LogFieldTypes.Tags;
         public string[] Value { get; }
+        public int Sort { get; set; } = 1;
     }
 }

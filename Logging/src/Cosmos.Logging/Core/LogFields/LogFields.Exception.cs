@@ -5,5 +5,6 @@ namespace Cosmos.Logging.Core.LogFields {
         public ExceptionField(Exception exception) => Value = exception;
         public LogFieldTypes Type => LogFieldTypes.Exception;
         public Exception Value { get; }
+        public int Sort { get; set; } = 1;
     }
 }

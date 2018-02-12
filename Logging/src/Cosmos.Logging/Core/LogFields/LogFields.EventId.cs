@@ -11,5 +11,6 @@ namespace Cosmos.Logging.Core.LogFields {
         public EventIdField(LogEventId eventId) => Value = eventId;
         public LogFieldTypes Type => LogFieldTypes.EventId;
         public LogEventId Value { get; }
+        public int Sort { get; set; } = 1;
     }
 }
