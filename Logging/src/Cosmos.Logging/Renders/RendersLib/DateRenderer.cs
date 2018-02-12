@@ -11,7 +11,7 @@ namespace Cosmos.Logging.Renders.RendersLib {
         public override string Name => "Date";
 
         private static DateTimeOffset FixedDateTimeOffset(ILogEventInfo logEventInfo = null) {
-            return logEventInfo?.Timestamp ?? DateTimeOffset.Now;
+            return logEventInfo?.Timestamp ?? DateTime.Now;
         }
 
         private static string FixedFormat(string format, string paramsText) {

@@ -29,8 +29,8 @@ namespace Cosmos.Logging {
             Action<IConfiguration, ExceptionlessSinkConfiguration> configAct = null) {
             services.AddSinkSettings<ExceptionlessSinkOptions, ExceptionlessSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
             services.AddDependency(s => {
-                s.TryAdd(ServiceDescriptor.Scoped<ILogPayloadClient, ExceptionlessPayloadClient>());
-                s.TryAdd(ServiceDescriptor.Singleton<ILogPayloadClientProvider, ExceptionlessPayloadClientProvider>());
+                s.AddScoped<ILogPayloadClient, ExceptionlessPayloadClient>();
+                s.AddSingleton<ILogPayloadClientProvider, ExceptionlessPayloadClientProvider>();
                 s.TryAdd(ServiceDescriptor.Singleton(settings));
             });
             if (!string.IsNullOrWhiteSpace(settings.Value.OriginConfigFilePath)) {

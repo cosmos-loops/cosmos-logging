@@ -31,8 +31,8 @@ namespace Cosmos.Logging {
             Action<IConfiguration, Log4NetSinkConfiguration> configAct = null) {
             services.AddSinkSettings<Log4NetSinkOptions, Log4NetSinkConfiguration>(settings.Value, (conf, sink) => configAct?.Invoke(conf, sink));
             services.AddDependency(s => {
-                s.TryAdd(ServiceDescriptor.Scoped<ILogPayloadClient, Log4NetPayloadClient>());
-                s.TryAdd(ServiceDescriptor.Singleton<ILogPayloadClientProvider, Log4NetPayloadClientProvider>());
+                s.AddScoped<ILogPayloadClient, Log4NetPayloadClient>();
+                s.AddSingleton<ILogPayloadClientProvider, Log4NetPayloadClientProvider>();
                 s.TryAdd(ServiceDescriptor.Singleton(settings));
             });
             if (!string.IsNullOrWhiteSpace(settings.Value.OriginConfigFilePath)) {
@@ -40,7 +40,7 @@ namespace Cosmos.Logging {
             }
 
             RegisterCoreComponentsTypes();
-            
+
             return services;
         }
 
@@ -52,10 +52,10 @@ namespace Cosmos.Logging {
                 XmlConfigurator.ConfigureAndWatch(loggerRepository, new FileInfo(filePath));
             else
                 XmlConfigurator.Configure(loggerRepository, new FileInfo(filePath));
-
+            
             return true;
         }
-        
+
         private static void RegisterCoreComponentsTypes() {
             SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<Log4NetSinkOptions>), false, ServiceLifetime.Singleton));
         }

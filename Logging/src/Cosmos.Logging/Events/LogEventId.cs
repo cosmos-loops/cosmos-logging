@@ -10,7 +10,7 @@ namespace Cosmos.Logging.Events {
 
         public LogEventId(string id, string name) {
             Id = id;
-            Timestamp = DateTimeOffset.Now;
+            Timestamp = DateTime.Now;
             Name = name;
         }
 

@@ -32,8 +32,10 @@ namespace Cosmos.Logging {
             if (!_sinkConfigurations.ContainsKey(configuration.Name)) {
                 lock (_sinkConfigurationsLock) {
                     if (!_sinkConfigurations.ContainsKey(configuration.Name)) {
+                        configuration.BeforeProcessing(settings);
                         configuration.ProcessLogLevel(settings);
                         configuration.ProcessRenderingOptions(settings);
+                        configuration.PostProcessing(settings);
                         _sinkConfigurations.Add(configuration.Name, configuration);
                     }
                 }

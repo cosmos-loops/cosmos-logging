@@ -8,7 +8,7 @@ namespace Cosmos.Logging {
     public class ExceptionlessSinkConfiguration : SinkConfiguration {
         public ExceptionlessSinkConfiguration() : base(Constants.SinkKey) { }
 
-        protected override void BeforeProcessLogLevel(ILoggingSinkOptions settings) {
+        protected override void BeforeProcessing(ILoggingSinkOptions settings) {
             if (settings is ExceptionlessSinkOptions options) {
                 Aliases.MergeAndOverWrite(options.InternalAliases, k => k, v => v.GetName());
                 LogLevel.MergeAndOverWrite(options.InternalNavigatorLogEventLevels, k => k, v => v.GetName());

@@ -22,8 +22,8 @@ namespace Cosmos.Logging {
             Action<IConfiguration, SampleLogConfiguration> config = null) {
             services.AddSinkSettings<SampleOptions, SampleLogConfiguration>(settings.Value, (conf, sink) => config?.Invoke(conf, sink));
             services.AddDependency(s => {
-                s.TryAdd(ServiceDescriptor.Scoped<ILogPayloadClient, SampleLogPayloadClient>());
-                s.TryAdd(ServiceDescriptor.Singleton<ILogPayloadClientProvider, SampleLogPayloadClientProvider>());
+                s.AddScoped<ILogPayloadClient, SampleLogPayloadClient>();
+                s.AddSingleton<ILogPayloadClientProvider, SampleLogPayloadClientProvider>();
                 s.TryAdd(ServiceDescriptor.Singleton(settings));
             });
 
