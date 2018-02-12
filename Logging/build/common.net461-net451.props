@@ -1,0 +1,20 @@
+<Project>
+
+	<Import Project="version.props" />
+
+	<PropertyGroup Label="Build">
+		<TargetFrameworks>net461;net451</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Package">
+		<Product>Cosmos.Logging</Product>
+		<Authors>AlexLEWIS;dotnetcore;StarrySky;Cosmos</Authors>
+		<RepositoryUrl>https://github.com/CosmosLoops/Cosmos/tree/dev/Logging</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://github.com/CosmosLoops/Cosmos/tree/dev/Logging</PackageProjectUrl>
+		<PackageIconUrl>https://avatars2.githubusercontent.com/u/25580633?s=200</PackageIconUrl>
+		<PackageLicenseUrl>http://www.opensource.org/licenses/mit-license.php</PackageLicenseUrl>
+		<PackageTags>StarrySky;Cosmos;Logging</PackageTags>
+	</PropertyGroup>
+
+</Project>

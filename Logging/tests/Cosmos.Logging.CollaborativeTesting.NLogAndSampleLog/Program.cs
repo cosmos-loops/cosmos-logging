@@ -7,7 +7,6 @@ namespace Cosmos.Logging.CollaborativeTesting.NLogAndSampleLog {
         static void Main(string[] args) {
             try {
                 LOGGER.Initialize().RunsOnConsole()
-                    //.UseNLog(s=>s.EnableUsingDefaultConfig())
                     .AddNLog()
                     .AddSampleLog(s => s.UseMinimumLevel(LogEventLevel.Debug))
                     .AllDone();

@@ -68,7 +68,11 @@ namespace Cosmos.Logging.Sinks.Log4Net {
                 }
             }
 
+#if NET451
+            return Task.FromResult(true);
+#else
             return Task.CompletedTask;
+#endif
         }
     }
 }

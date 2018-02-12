@@ -72,7 +72,11 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
                 }
             }
 
+#if NET451
+            return Task.FromResult(true);
+#else
             return Task.CompletedTask;
+#endif
         }
     }
 }

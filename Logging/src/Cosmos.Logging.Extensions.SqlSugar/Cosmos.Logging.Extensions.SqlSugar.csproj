@@ -1,6 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\build\common.ns20-net461-net451.props"/>
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+        <AssemblyName>Cosmos.Logging.Extensions.SqlSugar</AssemblyName>
+        <PackageId>Cosmos.Logging.Extensions.SqlSugar</PackageId>
+        <Description>Cosmos.Logging extension for ORM SqlSugar 4.x.</Description>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj"/>
