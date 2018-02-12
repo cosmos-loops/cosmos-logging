@@ -1,8 +1,8 @@
 ﻿using System;
-using Cosmos.Logging.Sinks.SampleLogSink;
 
 namespace Cosmos.Logging.SampleSinkNfx451Tests {
     class Program {
+        // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args) {
 
             try {

@@ -6,6 +6,7 @@ namespace Cosmos.Logging.ExtraSupports {
             ItemType = type;
             Value = value;
             Name = name;
+            Output = output;
         }
 
         public string Name { get; }

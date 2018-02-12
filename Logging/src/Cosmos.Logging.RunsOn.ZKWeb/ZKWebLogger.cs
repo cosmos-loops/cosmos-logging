@@ -8,6 +8,7 @@ using Cosmos.Logging.Future;
 
 namespace Cosmos.Logging.RunsOn.ZKWeb {
     [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class ZKWebLogger : LoggerBase, IFutureableLogger<ZKWebFutureLogger> {
 
         public ZKWebLogger(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, Func<string, LogEventLevel, bool> filter,

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Cosmos.Logging.Sinks.SampleLogSink;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging.ConfigurationTests {
@@ -11,6 +10,7 @@ namespace Cosmos.Logging.ConfigurationTests {
 
             Configuration = builder.Build();
 
+            // ReSharper disable once UnusedVariable
             var config = Configuration.GetSection("Logging").Get<LoggingConfiguration>();
 
             LOGGER.Initialize().RunsOnConsole()
@@ -21,6 +21,7 @@ namespace Cosmos.Logging.ConfigurationTests {
 
         private IConfigurationRoot Configuration { get; set; }
 
+        // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args) {
             try {
 

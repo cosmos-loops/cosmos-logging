@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using Cosmos.Logging.Core.Piplelines;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public abstract partial class LoggerBase {
 
         #region Automaticlly 

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +32,10 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/ParallelWorker.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "NotAccessedField.Local")]
+    [SuppressMessage("ReSharper", "ArrangeThisQualifier")]
+    [SuppressMessage("ReSharper", "RedundantTypeArgumentsOfMethod")]
     public class ParallelWorker {
         private object syncRoot;
         private int capacity;
@@ -154,7 +159,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                         long id = waitingWorkItems.Enqueue(wa);
                         wa.id = id;
 
-                        Cosmos.Logging.Core.Piplelines.Utils.PostRegistration(ctoken, ctr => SetRegistrationForWorkItem(id, ctr), () => CancelWorkItem(id));
+                        Utils.PostRegistration(ctoken, ctr => SetRegistrationForWorkItem(id, ctr), () => CancelWorkItem(id));
 
                         return k.Task;
                     }
@@ -189,7 +194,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                         long id = waitingWorkItems.Enqueue(wa);
                         wa.id = id;
 
-                        Cosmos.Logging.Core.Piplelines.Utils.PostRegistration(ctoken, ctr => SetRegistrationForWorkItem(id, ctr), () => CancelWorkItem(id));
+                        Utils.PostRegistration(ctoken, ctr => SetRegistrationForWorkItem(id, ctr), () => CancelWorkItem(id));
 
                         return k.Task;
                     }

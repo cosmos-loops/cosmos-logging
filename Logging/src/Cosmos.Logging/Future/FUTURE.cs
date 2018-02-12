@@ -7,6 +7,7 @@ using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Future {
     [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
+    // ReSharper disable once InconsistentNaming
     public static class FUTURE {
         public static IFutureLogger GetFutureLogger(string categoryName, RendingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0) {

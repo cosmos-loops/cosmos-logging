@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -7,6 +8,7 @@ using System.Text;
 using Cosmos.Logging.Core;
 
 namespace Cosmos.Logging.MessageTemplates {
+    [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
     public class MessageTemplateCachePreheater {
         private readonly Hashtable _preheatedMessageTemplates = new Hashtable();
         private readonly Dictionary<int, string> _needToBePreheadedTemplates = new Dictionary<int, string>();

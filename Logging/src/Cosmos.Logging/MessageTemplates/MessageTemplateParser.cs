@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Cosmos.Logging.Core;
 
 namespace Cosmos.Logging.MessageTemplates {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class MessageTemplateParser : IMessageTemplateParser {
         public MessageTemplate Parse(string messageTemplate) {
             if (messageTemplate == null) throw new ArgumentNullException(nameof(messageTemplate));

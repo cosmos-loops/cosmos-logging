@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Cosmos.Logging.Core.Components {
     public static class SinkComponentsTypes {
+        // ReSharper disable once InconsistentNaming
         private static readonly List<ComponentsRegistration> _appends;
 
         static SinkComponentsTypes() {

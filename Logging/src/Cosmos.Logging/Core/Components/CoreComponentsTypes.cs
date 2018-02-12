@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Core.Components {
     public static class CoreComponentsTypes {
+        // ReSharper disable once InconsistentNaming
         private static readonly ComponentsRegistration[] _default;
 
         static CoreComponentsTypes() {

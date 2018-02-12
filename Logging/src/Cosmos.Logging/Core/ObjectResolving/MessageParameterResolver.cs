@@ -8,6 +8,7 @@ using Cosmos.Logging.Events;
 namespace Cosmos.Logging.Core.ObjectResolving {
     public class MessageParameterResolver : IMessagePropertyFactory, IMessagePropertyValueFactory {
         private readonly int _maxLengthOfString;
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly int _maxLevelOfNestLevelLimited;
         private readonly int _maxLoopCountForCollection;
         private readonly bool _raiseExceptions;

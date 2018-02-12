@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters.Navigators;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Configurations {
     public abstract class SinkConfiguration {

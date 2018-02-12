@@ -3,7 +3,6 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Filters.Navigators;
-using Cosmos.Logging.MessageTemplates;
 using EnumsNET;
 
 namespace Cosmos.Logging {

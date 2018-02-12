@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.MessageTemplates;
@@ -7,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
+    [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class AspNetCoreLogServiceCollection : ILogServiceCollection {
         private LoggingConfigurationBuilder _configurationBuilder;
         private readonly bool _configurationBuilderLockedStatus;

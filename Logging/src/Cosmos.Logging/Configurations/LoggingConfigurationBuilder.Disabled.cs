@@ -5,7 +5,7 @@ namespace Cosmos.Logging.Configurations {
     public sealed class DisabledConfigurationBuilder : LoggingConfigurationBuilder {
         private readonly IConfigurationRoot _root;
 
-        public DisabledConfigurationBuilder(IConfigurationRoot root) : base() {
+        public DisabledConfigurationBuilder(IConfigurationRoot root) {
             _root = root ?? throw new ArgumentNullException(nameof(root));
         }
 

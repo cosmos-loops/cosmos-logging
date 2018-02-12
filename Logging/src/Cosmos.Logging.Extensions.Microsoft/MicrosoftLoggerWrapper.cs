@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Cosmos.Logging.Extensions.Microsoft {
     public class MicrosoftLoggerWrapper : global::Microsoft.Extensions.Logging.ILogger {
+        // ReSharper disable once InconsistentNaming
         protected readonly ILogger _logger;
 
         public MicrosoftLoggerWrapper(ILoggingServiceProvider loggerServiceProvider, string categoryName) {

@@ -9,6 +9,7 @@ using ZKWebStandard.Ioc.Extensions;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
+    // ReSharper disable once InconsistentNaming
     public static class ZKWebIocExtensions {
 
         public static IContainer RegisterCosmosLogging(this IContainer ioc, Action<ILogServiceCollection> config) {

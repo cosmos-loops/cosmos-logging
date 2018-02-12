@@ -13,6 +13,7 @@ namespace Cosmos.Logging.Configurations {
             DisplayingEventIdInfoEnabled = _calc(config.DisplayingEventIdInfoEnabled, options.DisplayingEventIdInfoEnabled);
             DisplayingNewLineEomEnabled = _calc(config.DisplayingNewLineEomEnabled, options.DisplayingNewLineEomEnabled);
 
+            // ReSharper disable once InconsistentNaming
             bool? _calc(bool? conf, bool? sets) {
                 //sets 优先于 conf
                 if (sets == null) return conf;
@@ -27,6 +28,7 @@ namespace Cosmos.Logging.Configurations {
             DisplayingEventIdInfoEnabled = _calc(DisplayingEventIdInfoEnabled, options.DisplayingEventIdInfoEnabled);
             DisplayingNewLineEomEnabled = _calc(DisplayingNewLineEomEnabled, options.DisplayingNewLineEomEnabled);
 
+            // ReSharper disable once InconsistentNaming
             bool? _calc(bool? conf, bool? sets) {
                 //sets 优先于 conf
                 if (sets == null) return conf;
@@ -78,6 +80,7 @@ namespace Cosmos.Logging.Configurations {
                     DisplayingNewLineEomEnabled = __calc(DisplayingNewLineEomEnabled, downstreamOptions.DisplayingNewLineEomEnabled)
                 };
 
+            // ReSharper disable once InconsistentNaming
             bool? __calc(bool? upstream, bool? downstream) {
                 //上游优先于下游
                 if (upstream == null) return downstream;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Cosmos.Logging.Configurations;
@@ -12,6 +13,7 @@ using Cosmos.Logging.Filters.Internals;
 using Cosmos.Logging.Future;
 
 namespace Cosmos.Logging {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public abstract partial class LoggerBase : ILogger, IDisposable {
         private readonly ILogPayloadSender _logPayloadSender;
         private readonly MessageParameterProcessor _messageParameterProcessor;
@@ -136,6 +138,8 @@ namespace Cosmos.Logging {
             if (disposing) {
                 _automaticAsyncQueue.Dispose();
             }
+
+            disposed = true;
         }
 
         #endregion

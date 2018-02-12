@@ -31,7 +31,7 @@ namespace Cosmos.Logging.Events {
         }
 
         public override string ToString() {
-            return ToString((string) null, null);
+            return ToString(null, null);
         }
     }
 }

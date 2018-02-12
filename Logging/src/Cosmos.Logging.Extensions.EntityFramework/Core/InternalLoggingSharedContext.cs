@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
+#if NET451
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Messaging;
-#if NET451
-
 #else
 using System.Threading;
 
 #endif
 
 namespace Cosmos.Logging.Extensions.EntityFramework.Core {
+    [SuppressMessage("ReSharper", "UnusedMember.Local")]
     internal class InternalLoggingSharedContext {
 #if NET451
         private const string DataKey = "__CosmosLoops.EfExtraScope_Current__";
 #else
+        // ReSharper disable once InconsistentNaming
         private static readonly AsyncLocal<InternalLoggingSharedContext> _current = new AsyncLocal<InternalLoggingSharedContext>();
 #endif
 

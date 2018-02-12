@@ -21,9 +21,11 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+// ReSharper disable UnusedTypeParameter
 
 namespace Cosmos.Logging.Core.Piplelines {
     /// <summary>
@@ -40,6 +42,7 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public abstract class AcquireReadResult {
         private readonly ResultType resultType;
 
@@ -154,6 +157,7 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public abstract class AcquireWriteResult {
         private readonly ResultType resultType;
 
@@ -269,6 +273,9 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "NotAccessedField.Local")]
+    [SuppressMessage("ReSharper", "ArrangeThisQualifier")]
     public class AsyncQueue<T> : IQueueSource<T>, IQueueSink<T>, IDisposable {
         private object syncRoot;
         private int? capacity;
@@ -296,6 +303,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         public AsyncQueue(int? capacity) {
             if (capacity.HasValue && capacity.Value < 1) {
+                // ReSharper disable once NotResolvedInText
                 throw new ArgumentOutOfRangeException("Capacity must be at least one");
             }
 
@@ -433,6 +441,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
                 System.Diagnostics.Debug.Assert(capacity.HasValue, "If there is no capacity limit, there should never be any waiting writes");
 
+                // ReSharper disable once PossibleInvalidOperationException
                 if (capacity.Value - items.Count >= ww.desiredSpace) {
                     waitingWrites.Dequeue();
 

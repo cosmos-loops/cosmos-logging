@@ -23,6 +23,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,11 +34,14 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/PipelineExtensions.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedVariable")]
+    [SuppressMessage("ReSharper", "RedundantLambdaParameterType")]
     public static class PipelineExtensions {
         public static IQueueSource<T> AsQueueSource<T>(this IEnumerable<T> items, int? capacity = null) {
             AsyncQueue<T> queue = new AsyncQueue<T>(capacity ?? 2);
 
-            Func<Task> feed = async delegate() {
+            Func<Task> feed = async delegate {
                 foreach (var item in items) {
                     await queue.Enqueue(item, CancellationToken.None);
                 }
@@ -53,7 +57,7 @@ namespace Cosmos.Logging.Core.Piplelines {
         public static IEnumerable<T> AsEnumerable<T>(this IQueueSource<T> queue) {
             BlockingCollection<T> bc = new BlockingCollection<T>();
 
-            Func<Task> feed = async delegate() {
+            Func<Task> feed = async delegate {
                 while (true) {
                     Option<T> item = await queue.Dequeue(CancellationToken.None);
 
@@ -88,7 +92,7 @@ namespace Cosmos.Logging.Core.Piplelines {
         public static IQueueSource<U> Select<T, U>(this IQueueSource<T> queue, Func<T, Task<U>> func, int? capacity = null) {
             AsyncQueue<U> outQueue = new AsyncQueue<U>(capacity ?? 2);
 
-            Func<Task> worker = async delegate() {
+            Func<Task> worker = async delegate {
                 while (true) {
                     Option<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
@@ -107,7 +111,7 @@ namespace Cosmos.Logging.Core.Piplelines {
         public static IQueueSource<T> Where<T>(this IQueueSource<T> queue, Func<T, Task<bool>> predicate, int? capacity = null) {
             AsyncQueue<T> outQueue = new AsyncQueue<T>(capacity ?? 2);
 
-            Func<Task> worker = async delegate() {
+            Func<Task> worker = async delegate {
                 while (true) {
                     Option<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
@@ -129,7 +133,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             IdleDetector idleDetector = new IdleDetector();
 
-            Func<Task> workPoster = async delegate() {
+            Func<Task> workPoster = async delegate {
                 while (true) {
                     Option<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
@@ -167,7 +171,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             IdleDetector idleDetector = new IdleDetector();
 
-            Func<Task> workPoster = async delegate() {
+            Func<Task> workPoster = async delegate {
                 while (true) {
                     Option<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
@@ -268,7 +272,7 @@ namespace Cosmos.Logging.Core.Piplelines {
         public static IQueueSource<T> Reorder<T>(this IQueueSource<T> queue, Func<T, int> getOrder, int first, int? capacity = null) {
             AsyncQueue<T> outQueue = new AsyncQueue<T>(capacity ?? 2);
 
-            Func<Task> worker = async delegate() {
+            Func<Task> worker = async delegate {
                 int next = first;
                 ImmutableDictionary<int, T> buffer = ImmutableDictionary<int, T>.Empty;
                 while (true) {

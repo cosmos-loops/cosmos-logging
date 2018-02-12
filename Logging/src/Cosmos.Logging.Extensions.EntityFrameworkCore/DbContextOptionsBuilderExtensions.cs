@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Extensions.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public static class DbContextOptionsBuilderExtensions {
         private static ILoggingServiceProvider _loggingServiceProvider => EfCoreInterceptorDescriptor.Instance.ExposeLoggingServiceProvider;
         private static Func<string, LogEventLevel, bool> _gloablFilter => EfCoreInterceptorDescriptor.Instance.ExposeSettings.Filter;

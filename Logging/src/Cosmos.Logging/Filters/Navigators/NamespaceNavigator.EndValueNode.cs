@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Filters.Navigators {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class EndValueNamespaceNavigationNode : NamespaceNavigator {
         private static readonly EndValueNamespaceNavigationNode _null = default(EndValueNamespaceNavigationNode);
         private static readonly EndValueNamespaceNavigationNode _default = new EndValueNamespaceNavigationNode {Level = LogEventLevel.Verbose};

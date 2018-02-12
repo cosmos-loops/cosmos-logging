@@ -9,8 +9,6 @@ using Cosmos.Logging.Extensions.EntityFrameworkCore.Core;
 namespace Cosmos.Logging {
     public class EfCoreSinkOptions : ILoggingSinkOptions<EfCoreSinkOptions>, ILoggingSinkOptions {
 
-        public EfCoreSinkOptions() { }
-
         public string Key => Constants.SinkKey;
 
         #region Append log minimum level

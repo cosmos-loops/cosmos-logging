@@ -4,7 +4,9 @@ using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Configurations {
     internal static class LogEventLevelAliasManager {
+        // ReSharper disable once InconsistentNaming
         private static readonly Dictionary<int, LogEventLevel> _aliasToRealLevelCache = new Dictionary<int, LogEventLevel>();
+        // ReSharper disable once InconsistentNaming
         private static readonly object _aliasToRealLevelLock = new object();
 
         static LogEventLevelAliasManager() {

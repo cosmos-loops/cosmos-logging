@@ -10,6 +10,7 @@ using Nancy.Extensions;
 namespace Cosmos.Logging.RunsOn.NancyFX.Core {
     public static class NancyPipelinesHook {
 
+        // ReSharper disable once InconsistentNaming
         private static readonly ILogger _logger = StaticServiceResolver.Instance.GetLogger<IPipelines>();
 
         public static void RegisterLoggingHandlers(IPipelines pipelines) {

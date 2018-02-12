@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cosmos.Logging.Renders {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public static class PreferencesRenderManager {
         private static readonly Dictionary<string, IPreferencesRenderer> _preferencesRenders;
         private static readonly Dictionary<string, Dictionary<string, IPreferencesSinkRenderer>> _preferencesSinkRenders;

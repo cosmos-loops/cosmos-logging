@@ -3,7 +3,6 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.ExtraSupports;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging {
     public class LogEventContext {

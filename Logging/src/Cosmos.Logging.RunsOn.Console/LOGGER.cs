@@ -16,6 +16,7 @@ namespace Cosmos.Logging {
     // ReSharper disable once InconsistentNaming
     [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public static class LOGGER {
+        // ReSharper disable once InconsistentNaming
         internal static bool _initialized = false;
 
         public static ILogServiceCollection Initialize(IConfigurationBuilder builder = null) {

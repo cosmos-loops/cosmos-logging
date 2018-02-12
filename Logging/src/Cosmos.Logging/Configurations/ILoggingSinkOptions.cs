@@ -1,6 +1,5 @@
 ﻿using System;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Configurations {
     public interface ILoggingSinkOptions {

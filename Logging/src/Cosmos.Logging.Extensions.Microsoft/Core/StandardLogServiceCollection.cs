@@ -18,6 +18,7 @@ namespace Cosmos.Logging.Extensions.Microsoft.Core {
         private object _sinkUpdateLock = new object();
         private Action<IConfigurationRoot> _originConfigAction;
 
+        // ReSharper disable once UnusedMember.Local
         private StandardLogServiceCollection() { }
 
         internal StandardLogServiceCollection(IServiceCollection services) : this(services, null) { }
