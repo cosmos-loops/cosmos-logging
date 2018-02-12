@@ -1,8 +1,7 @@
 ﻿using System;
-using Cosmos.Logging;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cosmos.Loggings.SampleSink_AspNetCore.Controllers {
+namespace Cosmos.Logging.SampleSink_AspNetCore.Controllers {
     public class HomeController : Controller {
         private readonly ILoggingServiceProvider _loggingProvider;
 

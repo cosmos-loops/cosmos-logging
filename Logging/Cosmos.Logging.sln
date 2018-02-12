@@ -55,17 +55,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.SampleSink_AspNetMvc", "tests\Cosmos.Logging.SampleSink_AspNetMvc\Cosmos.Logging.SampleSink_AspNetMvc.csproj", "{D799929C-FAEE-474B-985F-A26BD8202162}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.Sinks.EntityFrameworkCore", "src\Cosmos.Logging.Sinks.EntityFrameworkCore\Cosmos.Logging.Sinks.EntityFrameworkCore.csproj", "{E53B9599-BBEC-47A7-98FA-77BFD7E641A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.Extensions.EntityFrameworkCore", "src\Cosmos.Logging.Extensions.EntityFrameworkCore\Cosmos.Logging.Extensions.EntityFrameworkCore.csproj", "{E53B9599-BBEC-47A7-98FA-77BFD7E641A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.SqlSugar", "src\Cosmos.Logging.Sinks.SqlSugar\Cosmos.Logging.Sinks.SqlSugar.csproj", "{179ED4EB-5EED-4E10-AB47-3D9F7B5468DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.SqlSugar", "src\Cosmos.Logging.Extensions.SqlSugar\Cosmos.Logging.Extensions.SqlSugar.csproj", "{179ED4EB-5EED-4E10-AB47-3D9F7B5468DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.SampleSinkNfx451Tests", "tests\Cosmos.Logging.SampleSinkNfx451Tests\Cosmos.Logging.SampleSinkNfx451Tests.csproj", "{66FD8397-77EB-4C75-ADB2-AFA497589836}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.EntityFramework", "src\Cosmos.Logging.Sinks.EntityFramework\Cosmos.Logging.Sinks.EntityFramework.csproj", "{19B171D2-B9D0-4C6E-B7DD-E08333BE74F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.EntityFramework", "src\Cosmos.Logging.Extensions.EntityFramework\Cosmos.Logging.Extensions.EntityFramework.csproj", "{19B171D2-B9D0-4C6E-B7DD-E08333BE74F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.MicrosoftExtensions", "src\Cosmos.Logging.Sinks.MicrosoftExtensions\Cosmos.Logging.Sinks.MicrosoftExtensions.csproj", "{717562D3-67B9-4330-8F3A-5147D6D9558C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.Microsoft", "src\Cosmos.Logging.Extensions.Microsoft\Cosmos.Logging.Extensions.Microsoft.csproj", "{717562D3-67B9-4330-8F3A-5147D6D9558C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.NHibernate", "src\Cosmos.Logging.Sinks.NHibernate\Cosmos.Logging.Sinks.NHibernate.csproj", "{BC5ECBC7-1754-4411-A0CF-F4FDDB13C9F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.NHibernate", "src\Cosmos.Logging.Extensions.NHibernate\Cosmos.Logging.Extensions.NHibernate.csproj", "{BC5ECBC7-1754-4411-A0CF-F4FDDB13C9F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.NancyFX", "src\Cosmos.Logging.RunsOn.NancyFX\Cosmos.Logging.RunsOn.NancyFX.csproj", "{CEB6B741-3D2C-4586-ADFA-3A2659422339}"
 EndProject
@@ -74,6 +74,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.NancyFX.WithAutofac", "src\Cosmos.Logging.RunsOn.NancyFX.WithAutofac\Cosmos.Logging.RunsOn.NancyFX.WithAutofac.csproj", "{C0691F37-68A7-48F7-83A6-2243EF87DEFC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.AspNet.WithAutofac", "src\Cosmos.Logging.RunsOn.AspNet.WithAutofac\Cosmos.Logging.RunsOn.AspNet.WithAutofac.csproj", "{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{94BC7763-6909-438E-92AD-C3E7602541C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -224,15 +226,16 @@ Global
 		{B8A8625E-DEF5-4319-A063-4B0F96D00DF1} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
 		{D799929C-FAEE-474B-985F-A26BD8202162} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
 		{66FD8397-77EB-4C75-ADB2-AFA497589836} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
-		{19B171D2-B9D0-4C6E-B7DD-E08333BE74F1} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
-		{E53B9599-BBEC-47A7-98FA-77BFD7E641A0} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
-		{179ED4EB-5EED-4E10-AB47-3D9F7B5468DC} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
-		{717562D3-67B9-4330-8F3A-5147D6D9558C} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
-		{BC5ECBC7-1754-4411-A0CF-F4FDDB13C9F0} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
 		{CEB6B741-3D2C-4586-ADFA-3A2659422339} = {8AE15513-6404-45CF-9470-428BC2549593}
 		{B4B85487-83EC-4FDA-9E2E-20472087B715} = {8AE15513-6404-45CF-9470-428BC2549593}
 		{C0691F37-68A7-48F7-83A6-2243EF87DEFC} = {8AE15513-6404-45CF-9470-428BC2549593}
 		{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215} = {8AE15513-6404-45CF-9470-428BC2549593}
+		{94BC7763-6909-438E-92AD-C3E7602541C4} = {EB80C43D-DCA2-4433-8297-0EFBF7AE5CF5}
+		{19B171D2-B9D0-4C6E-B7DD-E08333BE74F1} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{E53B9599-BBEC-47A7-98FA-77BFD7E641A0} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{717562D3-67B9-4330-8F3A-5147D6D9558C} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{BC5ECBC7-1754-4411-A0CF-F4FDDB13C9F0} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{179ED4EB-5EED-4E10-AB47-3D9F7B5468DC} = {94BC7763-6909-438E-92AD-C3E7602541C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7494AB0-4276-4102-B112-7BBE0329D263}

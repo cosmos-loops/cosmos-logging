@@ -47,7 +47,7 @@ namespace Cosmos.Logging {
         }
         
         private static void RegisterCoreComponentsTypes() {
-            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(IOptions<NLogSinkOptions>), false, ServiceLifetime.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<NLogSinkOptions>), false, ServiceLifetime.Singleton));
         }
     }
 }

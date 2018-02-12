@@ -11,6 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Cosmos.Logging.RunsOn.AspNetCore\Cosmos.Logging.RunsOn.AspNetCore.csproj" />
     <ProjectReference Include="..\..\src\Cosmos.Logging.Sinks.SampleLogSink\Cosmos.Logging.Sinks.SampleLogSink.csproj" />
-    <ProjectReference Include="..\..\src\Cosmos.Logging.Sinks.SqlSugar\Cosmos.Logging.Sinks.SqlSugar.csproj" />
+    <ProjectReference Include="..\..\src\Cosmos.Logging.Extensions.SqlSugar\Cosmos.Logging.Extensions.SqlSugar.csproj" />
   </ItemGroup>
 </Project>
