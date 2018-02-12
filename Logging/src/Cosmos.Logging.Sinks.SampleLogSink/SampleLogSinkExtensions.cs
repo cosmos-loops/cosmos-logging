@@ -33,7 +33,7 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterCoreComponentsTypes() {
-            CoreComponentsTypes.Appends.Add(new ComponentsRegistration(typeof(IOptions<SampleOptions>), false, ServiceLifetime.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<SampleOptions>), false, ServiceLifetime.Singleton));
         }
     }
 }

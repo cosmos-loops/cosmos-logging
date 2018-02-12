@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Configurations {
     public class LoggingOptions : ILoggingOptions {

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cosmos.Logging.Filters.Navigators {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public sealed class EmptyNamespaceNavigationNode : NamespaceNavigator {
         internal static readonly NamespaceNavigator[] _emptyArray = new NamespaceNavigator[0];
         internal static readonly EmptyNamespaceNavigationNode _empty = new EmptyNamespaceNavigationNode();

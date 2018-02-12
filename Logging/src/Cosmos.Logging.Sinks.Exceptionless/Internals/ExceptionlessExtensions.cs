@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Cosmos.Logging.ExtraSupports;
 using Exceptionless;
 using Microsoft.Extensions.Configuration;

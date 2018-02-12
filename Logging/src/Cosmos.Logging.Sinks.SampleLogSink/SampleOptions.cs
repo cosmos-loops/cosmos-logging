@@ -9,8 +9,6 @@ using Cosmos.Logging.Sinks.SampleLogSink.Internals;
 namespace Cosmos.Logging {
     public class SampleOptions : ILoggingSinkOptions<SampleOptions>, ILoggingSinkOptions {
 
-        public SampleOptions() { }
-
         public string Key => Constants.SinkKey;
 
         #region Append log minimum level

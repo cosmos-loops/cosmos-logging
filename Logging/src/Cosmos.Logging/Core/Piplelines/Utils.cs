@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,6 +30,8 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/Utils.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "RedundantDelegateCreation")]
+    [SuppressMessage("ReSharper", "RedundantTypeArgumentsOfMethod")]
     public static partial class Utils {
         public static void PostResult<T>(this TaskCompletionSource<T> k, T result) {
             ThreadPool.QueueUserWorkItem(notUsed => k.SetResult(result));

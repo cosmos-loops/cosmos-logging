@@ -20,6 +20,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,6 +29,8 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/IdleDetector.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "NotAccessedField.Local")]
     public class IdleDetector {
         private object syncRoot;
         private int referenceCount;
@@ -119,7 +122,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                         long id = waiters.Enqueue(waiter);
                         waiter.id = id;
 
-                        Cosmos.Logging.Core.Piplelines.Utils.PostRegistration(ctoken, ctr => SetRegistrationForWait(id, ctr), () => CancelWait(id));
+                        Utils.PostRegistration(ctoken, ctr => SetRegistrationForWait(id, ctr), () => CancelWait(id));
 
                         return k.Task;
                     }

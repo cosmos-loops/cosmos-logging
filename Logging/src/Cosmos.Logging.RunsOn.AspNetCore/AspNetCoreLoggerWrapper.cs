@@ -1,4 +1,4 @@
-﻿using Cosmos.Logging.Sinks.MicrosoftExtensions;
+﻿using Cosmos.Logging.Extensions.Microsoft;
 
 namespace Cosmos.Logging.RunsOn.AspNetCore {
     public class AspNetCoreLoggerWrapper : MicrosoftLoggerWrapper {

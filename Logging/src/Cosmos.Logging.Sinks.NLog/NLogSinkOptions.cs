@@ -74,7 +74,7 @@ namespace Cosmos.Logging {
 
         #endregion
 
-        public global::NLog.Config.LoggingConfiguration OriginConfiguration { get; set; }
+        public NLog.Config.LoggingConfiguration OriginConfiguration { get; set; }
 
         public void UseDefaultOriginConfigFilePath() => OriginConfigFilePath = "nlog.config";
         public string OriginConfigFilePath { get; set; }

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Filters.Navigators {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "InconsistentlySynchronizedField")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
     internal static class NavigationFilterProcessor {
         private static INamespaceNavigationMatcher GlobalNavigationMatcher { get; set; }
         private static readonly Dictionary<string, INamespaceNavigationMatcher> _sinkFilterNavMatchers;

@@ -10,6 +10,7 @@ using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
 
 namespace Cosmos.Logging.RunsOn.NancyFX {
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public class NancyLoggingServiceProvider : ILoggingServiceProvider {
         private readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
         private readonly LoggingConfiguration _loggingConfiguration;

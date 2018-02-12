@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Web;
@@ -10,6 +11,7 @@ using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
 
 namespace Cosmos.Logging.RunsOn.AspNet {
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public class AspNetLoggingServiceProvider : ILoggingServiceProvider {
         private readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
         private readonly LoggingConfiguration _loggingConfiguration;

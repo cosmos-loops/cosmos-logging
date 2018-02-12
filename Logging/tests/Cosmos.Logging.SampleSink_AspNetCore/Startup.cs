@@ -1,12 +1,10 @@
-﻿using Cosmos.Logging;
-using Cosmos.Logging.Events;
-using Cosmos.Logging.Sinks.SampleLogSink;
+﻿using Cosmos.Logging.Events;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cosmos.Loggings.SampleSink_AspNetCore {
+namespace Cosmos.Logging.SampleSink_AspNetCore {
     public class Startup {
         public Startup(IHostingEnvironment env) {
             var builder = new ConfigurationBuilder()

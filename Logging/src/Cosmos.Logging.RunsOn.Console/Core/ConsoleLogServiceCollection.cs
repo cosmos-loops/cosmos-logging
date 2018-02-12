@@ -5,8 +5,8 @@ using Cosmos.Logging.Core;
 using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-// ReSharper disable InconsistentNaming
 
+// ReSharper disable InconsistentNaming
 namespace Cosmos.Logging.RunsOn.Console.Core {
     public class ConsoleLogServiceCollection : ILogServiceCollection {
         private LoggingConfigurationBuilder _configurationBuilder;
@@ -18,6 +18,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         private object _sinkUpdateLock = new object();
         private Action<IConfigurationRoot> _originConfigAction;
 
+        // ReSharper disable once UnusedMember.Local
         private ConsoleLogServiceCollection() { }
 
         internal ConsoleLogServiceCollection(IServiceCollection services) : this(services, (IConfigurationBuilder) null) { }

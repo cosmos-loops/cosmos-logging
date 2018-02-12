@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Text;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Extensions;
-using Cosmos.Logging.Core.Piplelines;
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.Renders.RendersLib {

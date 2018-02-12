@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Callers;
+using Cosmos.Logging.Core.LogFields;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.ExtraSupports;
 
@@ -18,6 +20,38 @@ namespace Cosmos.Logging.Future {
             _loggerLigetimeContextData = new ContextData();
             _callerInfo = new LogCallerInfo(memberName, filePath, lineNumber);
             SetCurrentState(_callerInfo);
+        }
+
+        public IFutureLogger UseFields(params ILogField[] fields) {
+            if (fields == null) throw new ArgumentNullException(nameof(fields));
+            if (!fields.Any()) return this;
+            foreach (var field in fields) {
+                switch (field) {
+                    case LogEventLevelField levelField:
+                        SetLevel(levelField.Value);
+                        break;
+                    case MessageTemplateField messageTemplateFields:
+                        if (messageTemplateFields.Append) AppendMessage(messageTemplateFields.Value);
+                        else SetMessage(messageTemplateFields.Value);
+                        break;
+                    case ExceptionField exceptionFields:
+                        SetException(exceptionFields.Value);
+                        break;
+                    case ArgsField argsFields:
+                        SetParameters(argsFields.Value);
+                        break;
+                    case TagsField tagsFields:
+                        SetTags(tagsFields.Value);
+                        break;
+                    case EventIdField eventIdFields:
+                        SetEventId(eventIdFields.Value);
+                        break;
+                    default:
+                        throw new ArgumentException("Unknown field type.");
+                }
+            }
+
+            return this;
         }
 
         public IFutureLogger SetLevel(LogEventLevel level) {
@@ -45,10 +79,18 @@ namespace Cosmos.Logging.Future {
             return this;
         }
 
+        public IFutureLogger SetParameters(params object[] parameters) {
+            foreach (var parameter in parameters)
+                SetParameter(parameter);
+            return this;
+        }
+
         public IFutureLogger SetTags(params string[] tags) {
             CurrentDescriptor.Context.SetTags(tags);
             return this;
         }
+
+        #region Set eventid
 
         public IFutureLogger SetEventId(Guid id, string name) => SetEventId(new LogEventId(id, name));
         public IFutureLogger SetEventId(int id, string name) => SetEventId(new LogEventId(id, name));
@@ -59,10 +101,14 @@ namespace Cosmos.Logging.Future {
             return this;
         }
 
+        #endregion
+
         public IFutureLogger AppendAdditionalOperation(IAdditionalOperation additionalOperation) {
             CurrentDescriptor.Context.ImportOpt(additionalOperation);
             return this;
         }
+
+        #region Submit
 
         public void Submit() {
             SubmitCurrentState();
@@ -77,6 +123,10 @@ namespace Cosmos.Logging.Future {
             CurrentDescriptor = new FutureLogEventDescriptor(callerInfo, _loggerLigetimeContextData);
         }
 
+        #endregion
+
+        #region Dispose
+
         public void Dispose() {
             Dispose(true);
         }
@@ -87,5 +137,8 @@ namespace Cosmos.Logging.Future {
                 CurrentDescriptor = null;
             }
         }
+
+        #endregion
+
     }
 }

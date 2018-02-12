@@ -14,7 +14,7 @@ namespace Cosmos.Logging {
 
         public static NullLogger Instance => NullLoggerCache;
 
-        public string Name { get; }
+        public string Name { get; } = string.Empty;
 
         public void LogVerbose(LogEventId eventId, string messageTemplate, string memberName = null) { }
 
@@ -685,8 +685,8 @@ namespace Cosmos.Logging {
         public void LogFatal(Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             string memberName = null, string filePath = null, int lineNumber = 0) { }
 
-        public LogEventLevel MinimumLevel { get; }
-        public LogEventSendMode SendMode { get; }
+        public LogEventLevel MinimumLevel { get; } = LogEventLevel.Off;
+        public LogEventSendMode SendMode { get; } = LogEventSendMode.Customize;
         public bool IsEnabled(LogEventLevel level) => false;
 
         public IDisposable BeginScope<TState>(TState state) => null;

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// </summary>
     public static class WorkerTask {
         public static Func<Task> ForEach<T>(IQueueSource<T> source, Func<ForEachInfo<T>, Task> processAsync, Func<Task> onCloseAsync, ExceptionCollector ec) {
-            Func<Task> t = async delegate() {
+            Func<Task> t = async delegate {
                 try {
                     while (true) {
                         var item = await source.Dequeue(ec.CancellationToken);
@@ -63,17 +64,17 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         public static Func<Task> ForEach<T>(IQueueSource<T>[] sources, InputPriorities inputPriorities, Func<ForEachInfo<T>, Task> processAsync, Func<Task> onCloseAsync,
             ExceptionCollector ec) {
-            Func<Task> t = async delegate() {
+            Func<Task> t = async delegate {
                 try {
                     int sourceCount = sources.Length;
                     bool[] atEof = new bool[sourceCount];
                     RoundRobinLoopGenerator loop = new RoundRobinLoopGenerator(sourceCount, inputPriorities);
                     while (!(atEof.All(e => e))) {
-                        var ops = Cosmos.Logging.Core.Piplelines.Utils.OperationStarters<int, Option<T>>();
+                        var ops = Utils.OperationStarters<int, Option<T>>();
 
                         loop.ForEach
                         (
-                            j => { ops = ops.AddIf(!atEof[j], j, Cosmos.Logging.Core.Piplelines.Utils.StartableGet<T, Option<T>>(sources[j], a => new Some<T>(a), new None<T>())); }
+                            j => { ops = ops.AddIf(!atEof[j], j, Utils.StartableGet<T, Option<T>>(sources[j], a => new Some<T>(a), new None<T>())); }
                         );
 
                         Tuple<int, Option<T>> result = await ops.CompleteAny(ec.CancellationToken);
@@ -107,7 +108,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         public static Func<Task> ParallelForEach<T>(IQueueSource<T> source, ParallelWorker parallelWorker, Func<ForEachInfo<T>, Task> processAsync, Func<Task> onCloseAsync,
             ExceptionCollector ec) {
-            Func<Task> t = async delegate() {
+            Func<Task> t = async delegate {
                 IdleDetector idleDetector = new IdleDetector();
                 try {
                     while (true) {
@@ -152,18 +153,18 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         public static Func<Task> ParallelForEach<T>(IQueueSource<T>[] sources, InputPriorities inputPriorities, ParallelWorker parallelWorker,
             Func<ForEachInfo<T>, Task> processAsync, Func<Task> onCloseAsync, ExceptionCollector ec) {
-            Func<Task> t = async delegate() {
+            Func<Task> t = async delegate {
                 IdleDetector idleDetector = new IdleDetector();
                 try {
                     int sourceCount = sources.Length;
                     bool[] atEof = new bool[sourceCount];
                     RoundRobinLoopGenerator loop = new RoundRobinLoopGenerator(sourceCount, inputPriorities);
                     while (!(atEof.All(e => e))) {
-                        var ops = Cosmos.Logging.Core.Piplelines.Utils.OperationStarters<int, Option<T>>();
+                        var ops = Utils.OperationStarters<int, Option<T>>();
 
                         loop.ForEach
                         (
-                            j => { ops = ops.AddIf(!atEof[j], j, Cosmos.Logging.Core.Piplelines.Utils.StartableGet<T, Option<T>>(sources[j], a => new Some<T>(a), new None<T>())); }
+                            j => { ops = ops.AddIf(!atEof[j], j, Utils.StartableGet<T, Option<T>>(sources[j], a => new Some<T>(a), new None<T>())); }
                         );
 
                         Tuple<int, Option<T>> result = await ops.CompleteAny(ec.CancellationToken);
@@ -246,15 +247,16 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/WorkerTask.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "ArrangeThisQualifier")]
     public class RoundRobinLoopGenerator {
         private int size;
         private InputPriorities inputPriorities;
-        private int counter;
+        private int _counter;
 
         public RoundRobinLoopGenerator(int size, InputPriorities inputPriorities) {
             this.size = size;
             this.inputPriorities = inputPriorities;
-            this.counter = 0;
+            this._counter = 0;
         }
 
         public void ForEach(Action<int> action) {
@@ -263,15 +265,15 @@ namespace Cosmos.Logging.Core.Piplelines {
                 if (inputPriorities == InputPriorities.AsWritten) {
                     j = i;
                 } else {
-                    j = i + counter;
+                    j = i + _counter;
                     if (j >= size) j -= size;
                 }
 
                 action(j);
             }
 
-            ++counter;
-            if (counter >= size) counter -= size;
+            ++_counter;
+            if (_counter >= size) _counter -= size;
         }
     }
 
@@ -281,6 +283,7 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// </summary>
     public class ExceptionCollector {
         private object syncRoot;
+        // ReSharper disable once InconsistentNaming
         private ImmutableList<Exception> exceptions;
         private CancellationTokenSource cts;
 
@@ -313,6 +316,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             }
         }
 
+        // ReSharper disable once InconsistentlySynchronizedField
         public ImmutableList<Exception> Exceptions => exceptions;
 
         public CancellationToken CancellationToken => cts.Token;

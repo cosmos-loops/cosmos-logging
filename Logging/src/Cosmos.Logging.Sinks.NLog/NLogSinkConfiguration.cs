@@ -1,6 +1,5 @@
 ﻿using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Extensions;
-using Cosmos.Logging.Sinks.NLog;
 using Cosmos.Logging.Sinks.NLog.Internals;
 using EnumsNET;
 

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/CompleteAny.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public abstract class CancellableResult<V> {
         public abstract V Complete();
         public abstract void Cancel();
@@ -40,6 +42,7 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/CompleteAny.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class CancellableOperation<V> : IDisposable {
         private Task<CancellableResult<V>> task;
         private CancellationTokenSource cts;
@@ -70,12 +73,17 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/CompleteAny.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public delegate CancellableOperation<V> CancellableOperationStarter<V>(CancellationToken ctoken);
 
     /// <summary>
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/CompleteAny.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "ArrangeThisQualifier")]
+    [SuppressMessage("ReSharper", "AccessToModifiedClosure")]
+    [SuppressMessage("ReSharper", "PossibleInvalidOperationException")]
     public static partial class Utils {
         private class GetCancellableResult<U, V> : CancellableResult<V> {
             private IQueueSource<U> queue;
@@ -110,6 +118,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             }
         }
 
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         private class GetEofCancellableResult<U, V> : CancellableResult<V> {
             private IQueueSource<U> queue;
             private V eofResult;
@@ -145,7 +154,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             return delegate(CancellationToken ctoken) {
                 CancellationTokenSource cts = CancellationTokenSource.CreateLinkedTokenSource(ctoken);
 
-                Func<Task<CancellableResult<V>>> taskSource = async delegate() {
+                Func<Task<CancellableResult<V>>> taskSource = async delegate {
                     AcquireReadResult arr = await queue.AcquireReadAsync(1, cts.Token);
 
                     if (arr is AcquireReadSucceeded<U>) {
@@ -162,13 +171,14 @@ namespace Cosmos.Logging.Core.Piplelines {
 
                         throw faultedResult.Exception;
                     } else {
+                        // ReSharper disable once UnusedVariable
                         AcquireReadCancelled cancelledResult = (AcquireReadCancelled) arr;
 
                         throw new OperationCanceledException();
                     }
                 };
 
-                Task<CancellableResult<V>> task = null;
+                Task<CancellableResult<V>> task;
                 try {
                     task = Task.Run(taskSource);
                 }
@@ -233,7 +243,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             return delegate(CancellationToken ctoken) {
                 CancellationTokenSource cts = CancellationTokenSource.CreateLinkedTokenSource(ctoken);
 
-                Func<Task<CancellableResult<V>>> taskSource = async delegate() {
+                Func<Task<CancellableResult<V>>> taskSource = async delegate {
                     AcquireWriteResult awr = await queue.AcquireWriteAsync(1, cts.Token);
 
                     if (awr is AcquireWriteSucceeded) {
@@ -247,13 +257,14 @@ namespace Cosmos.Logging.Core.Piplelines {
 
                         throw awf.Exception;
                     } else {
+                        // ReSharper disable once UnusedVariable
                         AcquireWriteCancelled awc = (AcquireWriteCancelled) awr;
 
                         throw new OperationCanceledException();
                     }
                 };
 
-                Task<CancellableResult<V>> task = null;
+                Task<CancellableResult<V>> task;
                 try {
                     task = taskSource();
                 }
@@ -326,7 +337,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 }
             };
 
-            Action deliverFinalResult = delegate() {
+            Action deliverFinalResult = delegate {
 
                 #region
 
@@ -372,7 +383,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             };
 
-            Action unwind = delegate() {
+            Action unwind = delegate {
                 int j = operationStarters.Count;
                 while (j > 0) {
                     --j;
@@ -385,7 +396,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 }
             };
 
-            Action handleCancellation = delegate() {
+            Action handleCancellation = delegate {
                 lock (syncRoot) {
                     if (!firstIndex.HasValue) {
                         firstIndex = -1;

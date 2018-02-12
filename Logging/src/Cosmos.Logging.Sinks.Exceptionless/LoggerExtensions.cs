@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Exceptionless;
 
-// ReSharper disable ExplicitCallerInfoArgument
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public static class LoggerExtensions {
         public static void LogVerbose(this ILogger logger, string messageTemplate,
             Func<EventBuilder, EventBuilder> eventBuilderFunc,

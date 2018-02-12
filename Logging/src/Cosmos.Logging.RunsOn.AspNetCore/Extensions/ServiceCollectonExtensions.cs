@@ -35,14 +35,14 @@ namespace Microsoft.Extensions.DependencyInjection {
             services.TryAdd(ServiceDescriptor.Singleton(servicesImpl.ExposeLoggingConfiguration()));
             services.TryAdd(ServiceDescriptor.Singleton<ILoggerFactory>(provider => new AspNetCoreLoggerFactory(provider.GetService<ILoggingServiceProvider>())));
 
-            if (HackStaticInstance.UsingSecInitializingActivation) {
+            if (StaticServiceResolveInitialization.UsingSecInitializingActivation) {
                 services.TryAdd(ServiceDescriptor.Singleton<ISecInitializingActivation>(provider => {
                     var initializingActivationImpl = new AspNetCoreSecInitializingActivation();
-                    initializingActivationImpl.AppendAction(() => StaticInstanceOfLoggingServiceProvider.SetInstance(provider.GetRequiredService<ILoggingServiceProvider>()));
+                    initializingActivationImpl.AppendAction(() => StaticServiceResolver.SetResolver(provider.GetRequiredService<ILoggingServiceProvider>()));
                     return initializingActivationImpl;
                 }));
             } else {
-                services.TryAdd(ServiceDescriptor.Singleton(provider => new HackStaticInstance(provider.GetRequiredService<ILoggingServiceProvider>())));
+                services.TryAdd(ServiceDescriptor.Singleton(provider => new StaticServiceResolveInitialization(provider.GetRequiredService<ILoggingServiceProvider>())));
             }
 
 

@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.RunsOn.Conso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.RunsOn.AspNetCore", "src\Cosmos.Logging.RunsOn.AspNetCore\Cosmos.Logging.RunsOn.AspNetCore.csproj", "{94342275-20D7-4A5B-9FA9-D5566959F163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.AspNet", "src\Cosmos.Logging.RunsOn.AspNet\Cosmos.Logging.RunsOn.AspNet.csproj", "{C81CD027-2C33-4EBC-BC61-6EB8CE0FCA84}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.Sinks.SampleLogSink", "src\Cosmos.Logging.Sinks.SampleLogSink\Cosmos.Logging.Sinks.SampleLogSink.csproj", "{C7370C02-38E5-44FD-9973-1EF68F901253}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.SampleSinkTests", "tests\Cosmos.Logging.SampleSinkTests\Cosmos.Logging.SampleSinkTests.csproj", "{593BD303-13CA-4BA5-8D40-90D9F58041FD}"
@@ -49,31 +47,40 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.Configuratio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EE8F40AE-A39B-4495-AFC0-D3B81F4DED0B}"
 	ProjectSection(SolutionItems) = preProject
-		build\common.props = build\common.props
 		build\version.props = build\version.props
+		build\common.net461.props = build\common.net461.props
+		build\common.ns20-net451.props = build\common.ns20-net451.props
+		build\common.ns20-net461-net451.props = build\common.ns20-net461-net451.props
+		build\common.ns20-net461.props = build\common.ns20-net461.props
+		build\common.ns20.props = build\common.ns20.props
+		build\common.net461-net451.props = build\common.net461-net451.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.SampleSink_AspNetMvc", "tests\Cosmos.Logging.SampleSink_AspNetMvc\Cosmos.Logging.SampleSink_AspNetMvc.csproj", "{D799929C-FAEE-474B-985F-A26BD8202162}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.Sinks.EntityFrameworkCore", "src\Cosmos.Logging.Sinks.EntityFrameworkCore\Cosmos.Logging.Sinks.EntityFrameworkCore.csproj", "{E53B9599-BBEC-47A7-98FA-77BFD7E641A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.Extensions.EntityFrameworkCore", "src\Cosmos.Logging.Extensions.EntityFrameworkCore\Cosmos.Logging.Extensions.EntityFrameworkCore.csproj", "{E53B9599-BBEC-47A7-98FA-77BFD7E641A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.SqlSugar", "src\Cosmos.Logging.Sinks.SqlSugar\Cosmos.Logging.Sinks.SqlSugar.csproj", "{179ED4EB-5EED-4E10-AB47-3D9F7B5468DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.SqlSugar", "src\Cosmos.Logging.Extensions.SqlSugar\Cosmos.Logging.Extensions.SqlSugar.csproj", "{179ED4EB-5EED-4E10-AB47-3D9F7B5468DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.SampleSinkNfx451Tests", "tests\Cosmos.Logging.SampleSinkNfx451Tests\Cosmos.Logging.SampleSinkNfx451Tests.csproj", "{66FD8397-77EB-4C75-ADB2-AFA497589836}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.EntityFramework", "src\Cosmos.Logging.Sinks.EntityFramework\Cosmos.Logging.Sinks.EntityFramework.csproj", "{19B171D2-B9D0-4C6E-B7DD-E08333BE74F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.EntityFramework", "src\Cosmos.Logging.Extensions.EntityFramework\Cosmos.Logging.Extensions.EntityFramework.csproj", "{19B171D2-B9D0-4C6E-B7DD-E08333BE74F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.MicrosoftExtensions", "src\Cosmos.Logging.Sinks.MicrosoftExtensions\Cosmos.Logging.Sinks.MicrosoftExtensions.csproj", "{717562D3-67B9-4330-8F3A-5147D6D9558C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.Microsoft", "src\Cosmos.Logging.Extensions.Microsoft\Cosmos.Logging.Extensions.Microsoft.csproj", "{717562D3-67B9-4330-8F3A-5147D6D9558C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.NHibernate", "src\Cosmos.Logging.Sinks.NHibernate\Cosmos.Logging.Sinks.NHibernate.csproj", "{BC5ECBC7-1754-4411-A0CF-F4FDDB13C9F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.NHibernate", "src\Cosmos.Logging.Extensions.NHibernate\Cosmos.Logging.Extensions.NHibernate.csproj", "{BC5ECBC7-1754-4411-A0CF-F4FDDB13C9F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.NancyFX", "src\Cosmos.Logging.RunsOn.NancyFX\Cosmos.Logging.RunsOn.NancyFX.csproj", "{CEB6B741-3D2C-4586-ADFA-3A2659422339}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.ZKWeb", "src\Cosmos.Logging.RunsOn.ZKWeb\Cosmos.Logging.RunsOn.ZKWeb.csproj", "{B4B85487-83EC-4FDA-9E2E-20472087B715}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.NancyFX.Autofac", "src\Cosmos.Logging.RunsOn.NancyFX.Autofac\Cosmos.Logging.RunsOn.NancyFX.Autofac.csproj", "{C0691F37-68A7-48F7-83A6-2243EF87DEFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.NancyFX.WithAutofac", "src\Cosmos.Logging.RunsOn.NancyFX.WithAutofac\Cosmos.Logging.RunsOn.NancyFX.WithAutofac.csproj", "{C0691F37-68A7-48F7-83A6-2243EF87DEFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.AspNet.Autofac", "src\Cosmos.Logging.RunsOn.AspNet.Autofac\Cosmos.Logging.RunsOn.AspNet.Autofac.csproj", "{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{94BC7763-6909-438E-92AD-C3E7602541C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.AspNet", "src\Cosmos.Logging.RunsOn.AspNet\Cosmos.Logging.RunsOn.AspNet.csproj", "{4198D489-C252-4952-B913-43C2BDB47669}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.RunsOn.AspNet.WithAutofac", "src\Cosmos.Logging.RunsOn.AspNet.WithAutofac\Cosmos.Logging.RunsOn.AspNet.WithAutofac.csproj", "{907F7742-B897-4274-95DE-A4B61664C1FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,10 +100,6 @@ Global
 		{94342275-20D7-4A5B-9FA9-D5566959F163}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94342275-20D7-4A5B-9FA9-D5566959F163}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94342275-20D7-4A5B-9FA9-D5566959F163}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C81CD027-2C33-4EBC-BC61-6EB8CE0FCA84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C81CD027-2C33-4EBC-BC61-6EB8CE0FCA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C81CD027-2C33-4EBC-BC61-6EB8CE0FCA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C81CD027-2C33-4EBC-BC61-6EB8CE0FCA84}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C7370C02-38E5-44FD-9973-1EF68F901253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C7370C02-38E5-44FD-9973-1EF68F901253}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7370C02-38E5-44FD-9973-1EF68F901253}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -193,10 +196,14 @@ Global
 		{C0691F37-68A7-48F7-83A6-2243EF87DEFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0691F37-68A7-48F7-83A6-2243EF87DEFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0691F37-68A7-48F7-83A6-2243EF87DEFC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4198D489-C252-4952-B913-43C2BDB47669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4198D489-C252-4952-B913-43C2BDB47669}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4198D489-C252-4952-B913-43C2BDB47669}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4198D489-C252-4952-B913-43C2BDB47669}.Release|Any CPU.Build.0 = Release|Any CPU
+		{907F7742-B897-4274-95DE-A4B61664C1FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{907F7742-B897-4274-95DE-A4B61664C1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{907F7742-B897-4274-95DE-A4B61664C1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{907F7742-B897-4274-95DE-A4B61664C1FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -207,7 +214,6 @@ Global
 		{F04437BF-D39F-4ACF-BCDB-AC6ADF5C87C3} = {EB80C43D-DCA2-4433-8297-0EFBF7AE5CF5}
 		{7C120FAD-1B05-4BB1-99D3-8B34FCD4A110} = {8AE15513-6404-45CF-9470-428BC2549593}
 		{94342275-20D7-4A5B-9FA9-D5566959F163} = {8AE15513-6404-45CF-9470-428BC2549593}
-		{C81CD027-2C33-4EBC-BC61-6EB8CE0FCA84} = {8AE15513-6404-45CF-9470-428BC2549593}
 		{C7370C02-38E5-44FD-9973-1EF68F901253} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
 		{593BD303-13CA-4BA5-8D40-90D9F58041FD} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
 		{47158ACF-3B61-4168-8701-2DF26F4F3B10} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
@@ -224,15 +230,17 @@ Global
 		{B8A8625E-DEF5-4319-A063-4B0F96D00DF1} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
 		{D799929C-FAEE-474B-985F-A26BD8202162} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
 		{66FD8397-77EB-4C75-ADB2-AFA497589836} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
-		{19B171D2-B9D0-4C6E-B7DD-E08333BE74F1} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
-		{E53B9599-BBEC-47A7-98FA-77BFD7E641A0} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
-		{179ED4EB-5EED-4E10-AB47-3D9F7B5468DC} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
-		{717562D3-67B9-4330-8F3A-5147D6D9558C} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
-		{BC5ECBC7-1754-4411-A0CF-F4FDDB13C9F0} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
 		{CEB6B741-3D2C-4586-ADFA-3A2659422339} = {8AE15513-6404-45CF-9470-428BC2549593}
 		{B4B85487-83EC-4FDA-9E2E-20472087B715} = {8AE15513-6404-45CF-9470-428BC2549593}
 		{C0691F37-68A7-48F7-83A6-2243EF87DEFC} = {8AE15513-6404-45CF-9470-428BC2549593}
-		{5CDA3E01-25F4-42D7-8EAB-24BD23BE4215} = {8AE15513-6404-45CF-9470-428BC2549593}
+		{94BC7763-6909-438E-92AD-C3E7602541C4} = {EB80C43D-DCA2-4433-8297-0EFBF7AE5CF5}
+		{19B171D2-B9D0-4C6E-B7DD-E08333BE74F1} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{E53B9599-BBEC-47A7-98FA-77BFD7E641A0} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{717562D3-67B9-4330-8F3A-5147D6D9558C} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{BC5ECBC7-1754-4411-A0CF-F4FDDB13C9F0} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{179ED4EB-5EED-4E10-AB47-3D9F7B5468DC} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{4198D489-C252-4952-B913-43C2BDB47669} = {8AE15513-6404-45CF-9470-428BC2549593}
+		{907F7742-B897-4274-95DE-A4B61664C1FE} = {8AE15513-6404-45CF-9470-428BC2549593}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7494AB0-4276-4102-B112-7BBE0329D263}

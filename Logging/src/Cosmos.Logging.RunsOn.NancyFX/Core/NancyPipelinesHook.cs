@@ -10,27 +10,28 @@ using Nancy.Extensions;
 namespace Cosmos.Logging.RunsOn.NancyFX.Core {
     public static class NancyPipelinesHook {
 
-        private static readonly ILogger _logger = StaticInstanceOfLoggingServiceProvider.Instance.GetLogger<IPipelines>();
+        // ReSharper disable once InconsistentNaming
+        private static readonly ILogger _logger = StaticServiceResolver.Instance.GetLogger<IPipelines>();
 
         public static void RegisterLoggingHandlers(IPipelines pipelines) {
             pipelines.BeforeRequest.AddItemToStartOfPipeline(BeforeHandler);
             pipelines.AfterRequest.AddItemToEndOfPipeline(AfterHandler);
         }
 
-        public const string TimeStopWatch = "__COSMOS_NANFYFX_CTXTSW";
+        public const string StopWatchKey = "__COSMOS_NANFYFX_CTXTSW";
 
         public const string NancyFxName = "NancyFX";
 
 
         private static Func<NancyContext, Response> BeforeHandler = ctx => {
-            ctx.Items.Add(TimeStopWatch, new Stopwatch());
+            ctx.Items.Add(StopWatchKey, new Stopwatch());
             return null;
         };
 
         private static Action<NancyContext> AfterHandler = ctx => {
             var timePin = 0L;
-            if (ctx.Items.ContainsKey(TimeStopWatch)) {
-                var time = ctx.Items[TimeStopWatch] as Stopwatch;
+            if (ctx.Items.ContainsKey(StopWatchKey)) {
+                var time = ctx.Items[StopWatchKey] as Stopwatch;
                 time?.Stop();
                 timePin = time?.ElapsedMilliseconds ?? 0L;
             }

@@ -19,15 +19,25 @@ namespace Cosmos.Logging.SampleSinkTests {
                 logger.LogError("world", ctx => ctx.SetTags("Alex").SetTags("Lewis"));
                 logger.LogError("Nice {@L}", ctx => ctx.SetParameter(new {L = "KK"}));
                 logger.SubmitLogger();
-                
+
                 var future = logger.ToFuture();
+
+                //future logger api style 1
                 future
                     .SetLevel(LogEventLevel.Information)
                     .SetMessage("future log===> Nice {@L}")
                     .SetTags("Alex", "Lewis")
-                    .SetParameter(new{L="KK2"})
+                    .SetParameter(new {L = "KK2"})
                     .SetException(new ArgumentNullException(nameof(args)))
                     .Submit();
+
+                //future logger api style 2
+                future.UseFields(
+                    Fields.Level(LogEventLevel.Information),
+                    Fields.Message("future log===> Nice {@L}"),
+                    Fields.Tags("Alex", "Lewis"),
+                    Fields.Args(new {L = "KK3"}),
+                    Fields.Exception(new ArgumentNullException(nameof(args)))).Submit();
 
                 Console.WriteLine("Hello World!");
             }

@@ -11,6 +11,8 @@ using Cosmos.Logging.Events;
 using Cosmos.Logging.Renders;
 
 namespace Cosmos.Logging.MessageTemplates {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
     internal static class MessageTemplateRenderer {
         public static void Render(MessageTemplate messageTemplate,
             IReadOnlyDictionary<(string name, PropertyResolvingMode mode), MessagePropertyValue> namedProperties,

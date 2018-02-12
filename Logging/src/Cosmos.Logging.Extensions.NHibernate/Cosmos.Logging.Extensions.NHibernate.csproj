@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\build\common.net461.props" />
+    <PropertyGroup>
+        <TargetFramework>net461</TargetFramework>
+        <AssemblyName>Cosmos.Logging.Extensions.NHibernate</AssemblyName>
+        <PackageId>Cosmos.Logging.Extensions.NHibernate</PackageId>
+        <Description>Cosmos.Logging extension for ORM NHibernate 5.0.x.</Description>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="NHibernate" Version="5.0.3" />
+    </ItemGroup>
+</Project>

@@ -16,25 +16,26 @@ namespace Cosmos.Logging {
     // ReSharper disable once InconsistentNaming
     [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public static class LOGGER {
+        // ReSharper disable once InconsistentNaming
         internal static bool _initialized = false;
 
         public static ILogServiceCollection Initialize(IConfigurationBuilder builder = null) {
             if (_initialized) throw new InvalidOperationException("You have initialized Cosmos.Logging.");
             IServiceCollection services = new ServiceCollection();
             services.TryAdd(ServiceDescriptor.Singleton<ILoggingServiceProvider, ConsoleLoggingServiceProvider>());
-            return InternalDependencyContainer.Initialize(services, builder);
+            return SoloDependencyContainer.Initialize(services, builder);
         }
 
         public static ILogServiceCollection Initialize(IConfigurationRoot root) {
             if (_initialized) throw new InvalidOperationException("You have initialized Cosmos.Logging.");
             IServiceCollection services = new ServiceCollection();
             services.TryAdd(ServiceDescriptor.Singleton<ILoggingServiceProvider, ConsoleLoggingServiceProvider>());
-            return InternalDependencyContainer.Initialize(services, root);
+            return SoloDependencyContainer.Initialize(services, root);
         }
 
-        public static IServiceProvider GetScopedServiceResolver() => InternalDependencyContainer.GetScopedServiceResolver();
+        public static IServiceProvider GetScopedServiceResolver() => SoloDependencyContainer.GetScopedServiceResolver();
 
-        private static ILoggingServiceProvider TouchProvider() => InternalDependencyContainer.GetServiceResolver().GetService<ILoggingServiceProvider>();
+        private static ILoggingServiceProvider TouchProvider() => SoloDependencyContainer.GetServiceResolver().GetService<ILoggingServiceProvider>();
 
         public static ILogger GetLogger(string categoryName,
             LogEventSendMode mode = LogEventSendMode.Customize,

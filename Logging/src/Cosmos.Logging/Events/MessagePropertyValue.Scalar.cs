@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.Events {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class ScalarValue : MessagePropertyValue {
 
         public ScalarValue(object value) {

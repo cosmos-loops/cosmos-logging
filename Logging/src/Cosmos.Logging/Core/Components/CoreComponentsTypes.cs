@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Payloads;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,8 +6,8 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Core.Components {
     public static class CoreComponentsTypes {
+        // ReSharper disable once InconsistentNaming
         private static readonly ComponentsRegistration[] _default;
-        private static readonly List<ComponentsRegistration> _appends;
 
         static CoreComponentsTypes() {
             _default = new[] {
@@ -19,17 +17,10 @@ namespace Cosmos.Logging.Core.Components {
                 new ComponentsRegistration(typeof(LoggingConfiguration), false, ServiceLifetime.Singleton),
                 new ComponentsRegistration(typeof(IOptions<LoggingOptions>), false, ServiceLifetime.Singleton)
             };
-            _appends = new List<ComponentsRegistration>();
         }
 
         public static ComponentsRegistration[] Defaults => _default;
 
-        public static List<ComponentsRegistration> Appends => _appends;
-
-        public static void SafeAddAppendType(ComponentsRegistration registration) {
-            if (registration == null) throw new ArgumentNullException(nameof(registration));
-            if (_appends.Any(x => x.ServiceType == registration.ServiceType)) return;
-            _appends.Add(registration);
-        }
+        public static ComponentsRegistration[] Appends => SinkComponentsTypes.Appends.ToArray();
     }
 }

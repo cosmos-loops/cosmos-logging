@@ -1,8 +1,12 @@
 ﻿using System.Web.Mvc;
+using Cosmos.Logging;
 
 namespace Cosmos.Loggings.SampleSink_AspNetMvc.Controllers {
     public class HomeController : Controller {
         public ActionResult Index() {
+            var logger = LOGGER.GetLogger<HomeController>();
+            logger.LogFatal("Error:)");
+
             return View();
         }
 

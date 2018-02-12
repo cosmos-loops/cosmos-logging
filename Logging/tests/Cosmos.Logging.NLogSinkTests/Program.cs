@@ -1,12 +1,12 @@
 ﻿using System;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Sinks.NLog;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 
 namespace Cosmos.Logging.NLogSinkTests {
     class Program {
+        // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args) {
 
             try {

@@ -21,21 +21,23 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cosmos.Logging.Core.Piplelines {
     /// <summary>
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/CancellableQueue.cs
     /// Author: Sunlighter
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class CancellableQueue<T> : IDisposable {
         private long nextId;
         private ImmutableDictionary<long, T> itemMap;
         private ImmutableList<long> queue;
 
         public CancellableQueue() {
-            this.nextId = 0L;
-            this.itemMap = ImmutableDictionary<long, T>.Empty;
-            this.queue = ImmutableList<long>.Empty;
+            nextId = 0L;
+            itemMap = ImmutableDictionary<long, T>.Empty;
+            queue = ImmutableList<long>.Empty;
         }
 
         public long Enqueue(T item) {

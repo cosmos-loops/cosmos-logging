@@ -12,7 +12,7 @@ EXCP INFO: {@ExceptionDetails}
 FX NAME: {@FxName}
 DATETIME: {$Date}
 USED TIME: {@UsedTime}
-STAT CODE: {@StausCode}
+STAT CODE: {@StatusCode}
 EXCEPTION TYPE: {@ExceptionType}
 MESSAGE: {@ExceptionMessage}
     REAL EXCEPTIOM TYPE: {@RealExceptionType}
@@ -24,14 +24,14 @@ EXCP INFO: {@ExceptionDetails}
 FX NAME: {@FxName}
 DATETIME: {$Date}
 USED TIME: {@UsedTime}
-STAT CODE: {@StausCode}
+STAT CODE: {@StatusCode}
 ";
 
         public const string LongNormal = @"
 FX NAME: {@FxName}
 DATETIME: {$Date}
 USED TIME: {@UsedTime}
-STAT CODE: {@StausCode}
+STAT CODE: {@StatusCode}
 ";
     }
 }

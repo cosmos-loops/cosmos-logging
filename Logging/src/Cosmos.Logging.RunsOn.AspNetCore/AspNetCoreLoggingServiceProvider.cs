@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Cosmos.Logging.Configurations;
@@ -11,6 +12,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cosmos.Logging.RunsOn.AspNetCore {
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
+    [SuppressMessage("ReSharper", "PrivateFieldCanBeConvertedToLocalVariable")]
     public class AspNetCoreLoggingServiceProvider : ILoggingServiceProvider {
         private readonly IServiceProvider _provider;
         private readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
