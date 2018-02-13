@@ -17,7 +17,7 @@ namespace Cosmos.Logging.Future {
 
         public LogEventLevel Level { get; set; }
         public string MessageTemplate { get; set; }
-        public LogEventId EventId { get; set; }
+        public LogEventId EventId { get; set; } = new LogEventId();
         public Exception Exception { get; set; }
         public ILogCallerInfo CallerInfo => _callerInfo;
         public LogEventContext Context { get; set; } = new LogEventContext();

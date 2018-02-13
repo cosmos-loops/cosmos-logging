@@ -14,7 +14,7 @@ namespace Cosmos.Logging {
 
         IDisposable BeginScope<TState>(TState state);
 
-        void Write(LogEventId? eventId, LogEventLevel level, Exception exception, string messageTemplate,
+        void Write(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate,
             LogEventSendMode sendMode, ILogCallerInfo callerInfo, LogEventContext context = null,
             params object[] messageTemplateParameters);
 
