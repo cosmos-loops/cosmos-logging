@@ -6,7 +6,9 @@ using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.Renders {
     public interface IPreferencesRenderer {
+        
         string Name { get; }
+        
         bool IsNull { get; }
 
         string ToString(string format, string paramsText,

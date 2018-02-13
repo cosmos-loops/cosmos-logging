@@ -5,6 +5,7 @@ using Cosmos.Logging.Core;
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.Renders {
+    [NonScanRenderer]
     public class NullPreferencesSinkRenderer : IPreferencesSinkRenderer {
         private static readonly NullPreferencesSinkRenderer NullPreferencesSinkRendererCache;
 

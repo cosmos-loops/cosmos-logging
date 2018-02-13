@@ -35,7 +35,6 @@ namespace Cosmos.Logging {
             serviceImpl.BuildConfiguration();
             serviceImpl.ActiveSinkSettings();
             serviceImpl.ActiveOriginConfiguration();
-            serviceImpl.ActiveNancyPreferencesRenderers();
         }
 
         private static void UpdateAutofacContainer(ILifetimeScope container, AutofacNancyLogServiceCollection serviceImpl) {

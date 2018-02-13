@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\..\build\common.ns20-net461-net451.props"/>
-    <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
-        <AssemblyName>Cosmos.Logging.Sinks.Log4Net</AssemblyName>
-        <PackageId>Cosmos.Logging.Sinks.Log4Net</PackageId>
-        <Description>The Log4Net sink for Cosmos.Logging.</Description>
-        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    </PropertyGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj"/>
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="log4net" Version="2.0.8"/>
-    </ItemGroup>
+  <Import Project="..\..\build\common.ns20-net461-net451.props" />
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+    <AssemblyName>Cosmos.Logging.Sinks.Log4Net</AssemblyName>
+    <PackageId>Cosmos.Logging.Sinks.Log4Net</PackageId>
+    <Description>The Log4Net sink for Cosmos.Logging.</Description>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+  </ItemGroup>
 </Project>

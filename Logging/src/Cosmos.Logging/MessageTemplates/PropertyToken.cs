@@ -55,6 +55,7 @@ namespace Cosmos.Logging.MessageTemplates {
 
         private static string MachiningForTokenName(string rawText, int position) {
             var colonIndex = rawText.IndexOf(':');
+            position = position > 0 ? position + 1 : position;
             return colonIndex < 0 ? rawText.Substring(position, rawText.Length - position) : rawText.Substring(position, colonIndex - position);
         }
 

@@ -24,29 +24,29 @@ namespace Cosmos.Logging.NLogSinkTests {
 //                LOGGER.Initialize("appsettings.json", FileTypes.Json).RunsOnConsole().AddNLog().AddSampleLog().AllDone();
 
                 var logger1 = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
-                logger1.LogWarning("hello");
+                logger1.LogWarning("hello， {$Date} {$MachineName}");
                 logger1.SubmitLogger();
-
-                var logger2 = LOGGER.GetLogger<Program>();
-                logger2.LogWarning("world");
-
-                var logger3 = LOGGER.GetLogger<Program>().ToFuture();
-                var logger4 = logger2.ToFuture();
-
-                var logger5 = FUTURE.GetFutureLogger<Program>();
-                logger5.SetLevel(LogEventLevel.Warning)
-                    .SetMessage("future log===> Nice {@L}")
-                    .SetTags("Alex", "Lewis")
-                    .SetParameter(new {L = "KK2"})
-                    .SetException(new ArgumentNullException(nameof(args)))
-                    .Submit();
-
-                logger5.UseFields(
-                    Fields.Level(LogEventLevel.Warning),
-                    Fields.Message("future log===> Nice {@L}"),
-                    Fields.Tags("Alex", "Lewis"),
-                    Fields.Args(new {L = "KK3"}),
-                    Fields.Exception(new ArgumentNullException(nameof(args)))).Submit();
+//
+//                var logger2 = LOGGER.GetLogger<Program>();
+//                logger2.LogWarning("world");
+//
+//                var logger3 = LOGGER.GetLogger<Program>().ToFuture();
+//                var logger4 = logger2.ToFuture();
+//
+//                var logger5 = FUTURE.GetFutureLogger<Program>();
+//                logger5.SetLevel(LogEventLevel.Warning)
+//                    .SetMessage("future log===> Nice {@L}")
+//                    .SetTags("Alex", "Lewis")
+//                    .SetParameter(new {L = "KK2"})
+//                    .SetException(new ArgumentNullException(nameof(args)))
+//                    .Submit();
+//
+//                logger5.UseFields(
+//                    Fields.Level(LogEventLevel.Warning),
+//                    Fields.Message("future log===> Nice {@L}"),
+//                    Fields.Tags("Alex", "Lewis"),
+//                    Fields.Args(new {L = "KK3"}),
+//                    Fields.Exception(new ArgumentNullException(nameof(args)))).Submit();
 
                 Console.WriteLine("Hello World!");
             }

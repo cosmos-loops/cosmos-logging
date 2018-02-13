@@ -22,7 +22,6 @@ namespace Cosmos.Logging {
             serviceImpl.BuildConfiguration();
             serviceImpl.ActiveSinkSettings();
             serviceImpl.ActiveOriginConfiguration();
-            serviceImpl.ActiveZKWebPreferencesRenderers();
 
             ioc.RegisterFromServiceCollection(serviceImpl.ExposeServices());
             ioc.RegisterInstance(Options.Create((LoggingOptions) serviceImpl.ExposeLogSettings()), ReuseType.Singleton);

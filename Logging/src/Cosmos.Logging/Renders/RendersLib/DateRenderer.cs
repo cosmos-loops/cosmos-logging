@@ -6,12 +6,13 @@ using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.Renders.RendersLib {
+    [Renderer("Date")]
     public class DateRenderer : BasicPreferencesRenderer {
 
         public override string Name => "Date";
 
-        private static DateTimeOffset FixedDateTimeOffset(ILogEventInfo logEventInfo = null) {
-            return logEventInfo?.Timestamp ?? DateTime.Now;
+        private static DateTime FixedDateTimeOffset(ILogEventInfo logEventInfo = null) {
+            return logEventInfo?.Timestamp.DateTime ?? DateTime.Now;
         }
 
         private static string FixedFormat(string format, string paramsText) {

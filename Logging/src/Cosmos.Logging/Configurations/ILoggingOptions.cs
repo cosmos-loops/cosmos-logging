@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Renders;
 
 namespace Cosmos.Logging.Configurations {
     public interface ILoggingOptions {
@@ -34,6 +36,14 @@ namespace Cosmos.Logging.Configurations {
         LoggingOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled);
 
         LoggingOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled);
+
+        #endregion
+
+        #region Append scan renderers
+
+        LoggingOptions AutomaticalScanRenderers();
+
+        LoggingOptions ManuallyRendererConfigure(params Type[] preferencesRendererTypes);
 
         #endregion
 

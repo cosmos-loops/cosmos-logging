@@ -53,17 +53,17 @@ namespace Cosmos.Logging.Configurations {
             }
         }
 
-        protected Action<LoggingConfigurationBuilder> BeforeBuildAction { get; set; }
+        protected Action<LoggingConfigurationBuilder, ILoggingOptions> BeforeBuildAction { get; set; }
         protected Action<LoggingConfiguration> AfterBuildAction { get; set; }
 
         public virtual LoggingConfiguration Build(ILoggingOptions settings) {
-            BeforeBuildAction?.Invoke(this);
+            BeforeBuildAction?.Invoke(this, settings);
             var loggingConfiguration = new LoggingConfiguration(settings, ConfigurationBuilder.Build());
             AfterBuildAction?.Invoke(loggingConfiguration);
             return loggingConfiguration;
         }
 
-        public void BeforeBuild(Action<LoggingConfigurationBuilder> action) {
+        public void BeforeBuild(Action<LoggingConfigurationBuilder, ILoggingOptions> action) {
             if (action != null) {
                 BeforeBuildAction += action;
             }
@@ -75,11 +75,19 @@ namespace Cosmos.Logging.Configurations {
             }
         }
 
-        protected void ActiveCorePreferencesRenders(LoggingConfigurationBuilder builder) {
-            CoreRenderActivation.ActiveCorePreferencesRenders();
+        protected void ActiveCorePreferencesRenders(LoggingConfigurationBuilder builder, ILoggingOptions settings) {
+            if (settings is LoggingOptions options) {
+                if (options.AutomaticalScanRendererEnabled) {
+                    PreferencesRenderersScanner.Scan();
+                } else {
+                    PreferencesRenderersScanner.Given(options.ManuallyRendererTypes);
+                }
+            } else {
+                PreferencesRenderersScanner.Scan();
+            }
         }
 
-        protected void ActiveMessageTemplatePreheater(LoggingConfigurationBuilder builder) {
+        protected void ActiveMessageTemplatePreheater(LoggingConfigurationBuilder builder, ILoggingOptions settings) {
             MessageTemplateCachePreheaterAction?.Invoke(_messageTemplateCachePreheater);
         }
 

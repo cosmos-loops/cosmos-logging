@@ -18,7 +18,7 @@ namespace Cosmos.Logging.Configurations {
         public override LoggingConfigurationBuilder AddXmlFile(string path) => this;
 
         public override LoggingConfiguration Build(ILoggingOptions settings) {
-            BeforeBuildAction?.Invoke(this);
+            BeforeBuildAction?.Invoke(this, settings);
             var loggingConfiguration = new LoggingConfiguration(settings, _root);
             AfterBuildAction?.Invoke(loggingConfiguration);
             return loggingConfiguration;

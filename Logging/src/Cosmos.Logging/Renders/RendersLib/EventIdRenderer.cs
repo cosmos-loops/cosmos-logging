@@ -6,6 +6,7 @@ using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.Renders.RendersLib {
+    [Renderer("EventId")]
     public class EventIdRenderer : BasicPreferencesRenderer {
 
         public override string Name => "EventId";

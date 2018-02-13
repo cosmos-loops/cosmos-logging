@@ -6,6 +6,7 @@ using Cosmos.Logging.Formattings;
 using Cosmos.Logging.Renders;
 
 namespace Cosmos.Logging.RunsOn.AspNet.RendersLib {
+    [Renderer("AspNetHelloWorld")]
     public class AspNetHelloWorldRenderer : BasicPreferencesRenderer {
 
         private const string Content = "AspNetMvc, Hello World";

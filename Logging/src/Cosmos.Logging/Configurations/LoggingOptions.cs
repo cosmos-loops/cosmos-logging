@@ -99,6 +99,25 @@ namespace Cosmos.Logging.Configurations {
 
         #endregion
 
+        #region Append scan renderers
+
+        internal bool AutomaticalScanRendererEnabled { get; set; } = true;
+
+        internal List<Type> ManuallyRendererTypes { get; set; } = new List<Type>();
+
+        public LoggingOptions AutomaticalScanRenderers() {
+            AutomaticalScanRendererEnabled = true;
+            return this;
+        }
+
+        public LoggingOptions ManuallyRendererConfigure(params Type[] preferencesRendererTypes) {
+            AutomaticalScanRendererEnabled = false;
+            ManuallyRendererTypes.AddRange(preferencesRendererTypes);
+            return this;
+        }
+
+        #endregion
+
         public Dictionary<string, ILoggingSinkOptions> Sinks { get; set; }
     }
 }
