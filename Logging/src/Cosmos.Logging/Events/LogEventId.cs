@@ -1,7 +1,9 @@
 ﻿using System;
 
 namespace Cosmos.Logging.Events {
-    public struct LogEventId {
+    public class LogEventId {
+        public LogEventId() : this(string.Empty) { }
+
         public LogEventId(string name) : this(Guid.NewGuid().ToString(), name) { }
 
         public LogEventId(Guid id, string name) : this(id.ToString(), name) { }
@@ -9,8 +11,9 @@ namespace Cosmos.Logging.Events {
         public LogEventId(int id, string name) : this(id.ToString(), name) { }
 
         public LogEventId(string id, string name) {
+            var baseTime = DateTime.Now;
             Id = id;
-            Timestamp = DateTimeOffset.Now;
+            Timestamp = new DateTimeOffset(baseTime, TimeZoneInfo.Local.GetUtcOffset(baseTime));
             Name = name;
         }
 

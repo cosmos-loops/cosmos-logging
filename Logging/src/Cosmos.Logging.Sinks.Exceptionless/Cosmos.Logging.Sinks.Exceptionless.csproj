@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\..\build\common.ns20-net461-net451.props"/>
-    <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
-        <AssemblyName>Cosmos.Logging.Sinks.Exceptionless</AssemblyName>
-        <PackageId>Cosmos.Logging.Sinks.Exceptionless</PackageId>
-        <Description>The Exceptionless sink for Cosmos.Logging.</Description>
-        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    </PropertyGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj"/>
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Exceptionless" Version="4.2.1982"/>
-    </ItemGroup>
+  <Import Project="..\..\build\common.ns20-net461-net451.props" />
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+    <AssemblyName>Cosmos.Logging.Sinks.Exceptionless</AssemblyName>
+    <PackageId>Cosmos.Logging.Sinks.Exceptionless</PackageId>
+    <Description>The Exceptionless sink for Cosmos.Logging.</Description>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Exceptionless" Version="4.2.1982" />
+  </ItemGroup>
 </Project>

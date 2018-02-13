@@ -40,7 +40,6 @@ namespace Cosmos.Logging {
             serviceImpl.BuildConfiguration();
             serviceImpl.ActiveSinkSettings();
             serviceImpl.ActiveOriginConfiguration();
-            serviceImpl.ActiveNancyPreferencesRenderers();
             serviceImpl.AddDependency(s => s.AddSingleton(Options.Create((LoggingOptions) serviceImpl.ExposeLogSettings())));
             serviceImpl.AddDependency(s => s.AddSingleton(serviceImpl.ExposeLoggingConfiguration()));
         }

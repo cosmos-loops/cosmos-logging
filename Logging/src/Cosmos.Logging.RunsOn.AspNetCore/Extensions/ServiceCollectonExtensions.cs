@@ -29,7 +29,6 @@ namespace Microsoft.Extensions.DependencyInjection {
             servicesImpl.BuildConfiguration();
             servicesImpl.ActiveSinkSettings();
             servicesImpl.ActiveOriginConfiguration();
-            servicesImpl.ActiveAspNetCorePreferencesRenderers();
 
             services.TryAdd(ServiceDescriptor.Singleton(Options.Options.Create((LoggingOptions) servicesImpl.ExposeLogSettings())));
             services.TryAdd(ServiceDescriptor.Singleton(servicesImpl.ExposeLoggingConfiguration()));

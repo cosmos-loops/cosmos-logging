@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Sinks.NLog;
 
 namespace Cosmos.Logging.CollaborativeTesting.NLogAndSampleLog {
     class Program {

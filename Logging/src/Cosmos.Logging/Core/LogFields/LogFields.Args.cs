@@ -3,5 +3,6 @@
         public ArgsField(params object[] args) => Value = args;
         public LogFieldTypes Type => LogFieldTypes.Args;
         public object[] Value { get; }
+        public int Sort { get; set; } = 1;
     }
 }

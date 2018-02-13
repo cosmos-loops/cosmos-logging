@@ -6,6 +6,7 @@ using Cosmos.Logging.Formattings;
 using Cosmos.Logging.Renders;
 
 namespace Cosmos.Logging.RunsOn.Console.RendersLib {
+    [Renderer("ConsoleHelloWorld")]
     public class ConsoleHelloWorldRenderer : BasicPreferencesRenderer {
 
         private const string Content = "Console, Hello World";

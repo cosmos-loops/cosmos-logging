@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Runtime.CompilerServices;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
@@ -18,6 +19,23 @@ namespace Cosmos.Logging {
     public static class LOGGER {
         // ReSharper disable once InconsistentNaming
         internal static bool _initialized = false;
+
+        public static ILogServiceCollection Initialize(string settingPath, FileTypes type) {
+            if (string.IsNullOrWhiteSpace(settingPath)) throw new ArgumentNullException(nameof(settingPath));
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
+            switch (type) {
+                case FileTypes.Json:
+                    builder.AddJsonFile(settingPath, true, true);
+                    break;
+                case FileTypes.Xml:
+                    builder.AddXmlFile(settingPath, true, true);
+                    break;
+                default:
+                    throw new InvalidOperationException("Unknown file type.");
+            }
+
+            return Initialize(builder);
+        }
 
         public static ILogServiceCollection Initialize(IConfigurationBuilder builder = null) {
             if (_initialized) throw new InvalidOperationException("You have initialized Cosmos.Logging.");

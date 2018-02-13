@@ -7,6 +7,7 @@ using Cosmos.Logging.Renders;
 
 namespace Cosmos.Logging.RunsOn.ZKWeb.RendersLib {
     // ReSharper disable once InconsistentNaming
+    [Renderer("ZKWebHelloWorld")]
     public class ZKWebHelloWorldRenderer : BasicPreferencesRenderer {
 
         private const string Content = "ZKWeb, Hello World";

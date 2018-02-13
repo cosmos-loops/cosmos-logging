@@ -6,6 +6,7 @@ using Cosmos.Logging.Formattings;
 using Cosmos.Logging.Renders;
 
 namespace Cosmos.Logging.RunsOn.NancyFX.RendersLib {
+    [Renderer("NancyHelloWorld")]
     public class NancyHelloWorldRenderer : BasicPreferencesRenderer {
 
         private const string Content = "Nancy, Hello World";

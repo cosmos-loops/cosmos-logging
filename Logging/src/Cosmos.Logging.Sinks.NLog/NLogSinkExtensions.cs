@@ -2,16 +2,12 @@
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Core.Payloads;
-using Cosmos.Logging.Sinks.NLog;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using NLog;
-using NLog.Config;
 
-// ReSharper disable once CheckNamespace
-namespace Cosmos.Logging {
+namespace Cosmos.Logging.Sinks.NLog {
     public static class NLogSinkExtensions {
         public static ILogServiceCollection AddNLog(this ILogServiceCollection services, Action<NLogSinkOptions> settingAct = null,
             Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
@@ -27,25 +23,29 @@ namespace Cosmos.Logging {
 
         public static ILogServiceCollection AddNLog(this ILogServiceCollection services, IOptions<NLogSinkOptions> settings,
             Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
-            services.AddSinkSettings<NLogSinkOptions, NLogSinkConfiguration>(settings.Value, (conf, sink) => configAction?.Invoke(conf, sink));
-            services.AddDependency(s => {
-                s.TryAdd(ServiceDescriptor.Scoped<ILogPayloadClient, NLogPayloadClient>());
-                s.TryAdd(ServiceDescriptor.Singleton<ILogPayloadClientProvider, NLogPayloadClientProvider>());
-                s.TryAdd(ServiceDescriptor.Singleton(settings));
-            });
-            if (settings.Value.OriginConfiguration != null) {
-                services.AddOriginConfigAction(root => LogManager.Configuration = settings.Value.OriginConfiguration);
-            } else if (settings.Value.DoesUsedDefaultConfig) {
-                services.AddOriginConfigAction(root => LogManager.Configuration = new DefaultLoggingTarget());
-            } else if (!string.IsNullOrWhiteSpace(settings.Value.OriginConfigFilePath)) {
-                services.AddOriginConfigAction(root => LogManager.Configuration = new XmlLoggingConfiguration(settings.Value.OriginConfigFilePath));
-            }
+
+            RegisterConfiguration(services, settings, configAction);
+
+            RegisterCoreComponents(services, settings);
 
             RegisterCoreComponentsTypes();
 
             return services;
         }
-        
+
+        private static void RegisterConfiguration(ILogServiceCollection services, IOptions<NLogSinkOptions> settings,
+            Action<IConfiguration, NLogSinkConfiguration> configAction = null) {
+            services.AddSinkSettings<NLogSinkOptions, NLogSinkConfiguration>(settings.Value, (conf, sink) => configAction?.Invoke(conf, sink));
+        }
+
+        private static void RegisterCoreComponents(ILogServiceCollection services, IOptions<NLogSinkOptions> settings) {
+            services.AddDependency(s => {
+                s.AddScoped<ILogPayloadClient, NLogPayloadClient>();
+                s.AddSingleton<ILogPayloadClientProvider, NLogPayloadClientProvider>();
+                s.TryAdd(ServiceDescriptor.Singleton(settings));
+            });
+        }
+
         private static void RegisterCoreComponentsTypes() {
             SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<NLogSinkOptions>), false, ServiceLifetime.Singleton));
         }

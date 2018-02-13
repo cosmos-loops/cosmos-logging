@@ -8,5 +8,6 @@
         public LogFieldTypes Type => LogFieldTypes.MessageTemplate;
         public string Value { get; }
         public bool Append { get; }
+        public int Sort { get; set; } = 1;
     }
 }

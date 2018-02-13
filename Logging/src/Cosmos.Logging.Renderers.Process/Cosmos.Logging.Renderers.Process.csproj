@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\build\common.ns20-net461-net451.props" />
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+    <AssemblyName>Cosmos.Logging.Renderers.Process</AssemblyName>
+    <PackageId>Cosmos.Logging.Renderers.Process</PackageId>
+    <Description>Process renderers for Cosmos.Logging.</Description>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
+  </ItemGroup>
+</Project>

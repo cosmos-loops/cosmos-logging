@@ -39,7 +39,6 @@ namespace Cosmos.Logging {
             serviceImpl.BuildConfiguration();
             serviceImpl.ActiveSinkSettings();
             serviceImpl.ActiveOriginConfiguration();
-            serviceImpl.ActiveAspNetPreferencesRenderers();
             serviceImpl.AddDependency(s => s.AddSingleton(provider => new StaticServiceResolveInitialization(provider.GetRequiredService<ILoggingServiceProvider>())));
         }
 

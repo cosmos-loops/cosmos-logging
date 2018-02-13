@@ -5,5 +5,6 @@ namespace Cosmos.Logging.Core.LogFields {
         public LogEventLevelField(LogEventLevel level) => Value = level;
         public LogFieldTypes Type => LogFieldTypes.LogEventLevel;
         public LogEventLevel Value { get; }
+        public int Sort { get; set; } = 1;
     }
 }

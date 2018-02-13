@@ -6,6 +6,7 @@ using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.Renders.RendersLib {
+    [Renderer("CallerLineNumber")]
     public class CallerLineNumberRenderer : BasicPreferencesRenderer {
 
         public override string Name => "CallerLineNumber";

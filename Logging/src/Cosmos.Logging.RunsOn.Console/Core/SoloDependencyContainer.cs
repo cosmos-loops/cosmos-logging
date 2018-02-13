@@ -39,7 +39,6 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
                 servicesImpl.BuildConfiguration();
                 servicesImpl.ActiveSinkSettings();
                 servicesImpl.ActiveOriginConfiguration();
-                servicesImpl.ActiveConsolePreferencesRenderers();
                 servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(Options.Create((LoggingOptions) servicesImpl.ExposeLogSettings()))));
                 servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(servicesImpl.ExposeLoggingConfiguration())));
                 ServiceResolver = servicesImpl.ExposeServices().ToServiceContainer().Build();

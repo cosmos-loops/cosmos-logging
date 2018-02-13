@@ -45,7 +45,7 @@ namespace Cosmos.Logging.MessageTemplates {
             RendingConfiguration renderingOptions, IFormatProvider formatProvider) {
             var stringBuilder = Som(logEventInfo, renderingOptions);
             var position = 0;
-
+            
             for (var current = 0; current < tokens.Length; current++) {
                 var token = tokens[current];
                 if (token.StartPosition > position) {
