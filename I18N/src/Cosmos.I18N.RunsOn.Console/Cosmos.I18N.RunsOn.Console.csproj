@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cosmos.I18N\Cosmos.I18N.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AspectCore.Core" Version="0.2.4" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="0.2.4" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net461'">
+    <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="0.2.4" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net451'">
+    <PackageReference Include="AspectCore.Extensions.DependencyInjection.Backward" Version="0.2.4-beta1" />
+  </ItemGroup>
+</Project>

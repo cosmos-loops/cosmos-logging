@@ -13,8 +13,10 @@ Core repository of [COSMOS LOOPS PROGRAMME](https://github.com/CosmosLoops). Thi
 **First-class projects**
 
 + [Cosmos.One](https://github.com/CosmosLoops/Cosmos.One)
++ [Cosmos.FlameThrower](#) *(intending)*
 + [Cosmos.Walkers](#) *(intending)*
 + [Cosmos.Golhfinea](#) *(intending)*
++ [Cosmos.Sword](#) *(indending)*
 
 **Extra projects:**
 
