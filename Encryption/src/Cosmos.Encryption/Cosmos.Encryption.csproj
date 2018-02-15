@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\build\common.props" />
-  <PropertyGroup>
-    <AssemblyName>Cosmos.Encryption</AssemblyName>
-    <PackageId>Cosmos.Encryption</PackageId>
-    <Description>Cosmos encryption library</Description>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.1-beta1" />
-  </ItemGroup>
+    <Import Project="..\..\build\common.props"/>
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+        <AssemblyName>Cosmos.Encryption</AssemblyName>
+        <PackageId>Cosmos.Encryption</PackageId>
+        <Description>Cosmos encryption library</Description>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="11.0.1-beta1"/>
+    </ItemGroup>
 </Project>
