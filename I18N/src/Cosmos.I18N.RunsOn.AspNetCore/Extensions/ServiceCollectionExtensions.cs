@@ -16,13 +16,13 @@ namespace Microsoft.Extensions.DependencyInjection {
             var options = new I18NOptions();
             optionAct?.Invoke(options);
 
-            var languageManager = new LanguageManager();
-            foreach (var lang in options.RegisteredLanguages) languageManager.RegisterUsedLangage(lang);
-            foreach (var package in options.LanguagePackages) services.AddSingleton(package.Value);
+//            var languageManager = new LanguageManager();
+//            foreach (var lang in options.RegisteredLanguages) languageManager.RegisterUsedLangage(lang);
+//            foreach (var package in options.LanguagePackages) services.AddSingleton(package.Value);
 
-            services.AddSingleton(languageManager);
+//            services.AddSingleton(languageManager);
             services.AddSingleton<ILanguageServiceProvider, AspNetCoreLanguageServiceProvider>();
-            services.AddSingleton(provider => new TranslationProcessor(provider.GetServices<ILanguagePackage>().ToDictionary(package => package.Language.Name)));
+            services.AddSingleton(provider => new TranslationProcessor(provider.GetServices<ILanguagePackage>().ToDictionary(package => package.Language)));
             services.AddSingleton(provider => new StaticProviderHack(provider.GetRequiredService<ILanguageServiceProvider>()));
 
             return services;

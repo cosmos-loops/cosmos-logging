@@ -5,9 +5,9 @@ using Cosmos.I18N.Languages;
 
 namespace Cosmos.I18N.Core {
     public class TranslationProcessor {
-        private readonly Dictionary<string, ILanguagePackage> _languagePackages;
+        private readonly Dictionary<Locale, ILanguagePackage> _languagePackages;
 
-        public TranslationProcessor(Dictionary<string, ILanguagePackage> dictionary) {
+        public TranslationProcessor(Dictionary<Locale, ILanguagePackage> dictionary) {
             _languagePackages = dictionary ?? throw new ArgumentNullException(nameof(dictionary));
         }
 
@@ -17,11 +17,11 @@ namespace Cosmos.I18N.Core {
         }
 
         public virtual string Translate(string langName, string resourceKey, string originText) {
-            return _languagePackages.TryGetValue(langName, out var __pkg) ? __pkg.Translate(resourceKey, originText) : string.Empty;
+            return Translate(langName.ToLocale(), resourceKey, originText);
         }
 
-        public virtual string Translate(ILanguage language, string resourceKey, string originText) {
-            return Translate(language.Name, resourceKey, originText);
+        public virtual string Translate(Locale language, string resourceKey, string originText) {
+            return _languagePackages.TryGetValue(language, out var __pkg) ? __pkg.Translate(resourceKey, originText) : string.Empty;
         }
     }
 }

@@ -6,11 +6,17 @@ namespace Cosmos.I18N.Languages {
         private readonly Dictionary<string, ILanguageResource> _resources = new Dictionary<string, ILanguageResource>();
         private readonly object _lock = new object();
 
-        protected LanguagePackage(ILanguage language) {
-            Language = language ?? throw new ArgumentNullException(nameof(language));
+        protected LanguagePackage(string language) {
+            if (string.IsNullOrWhiteSpace(language)) throw new ArgumentNullException(nameof(language));
+            Language = language.ToLocale();
         }
 
-        public ILanguage Language { get; }
+        protected LanguagePackage(Locale locale) {
+            Language = locale;
+        }
+
+        public Locale Language { get; }
+        
         public IReadOnlyDictionary<string, ILanguageResource> Resources => _resources;
 
         public void AddResource(ILanguageResource resource) {
@@ -29,6 +35,8 @@ namespace Cosmos.I18N.Languages {
             return _resources.TryGetValue(resourceKey, out var resource) ? resource.Translate(text) : string.Empty;
         }
 
+        #region dispose
+
         private bool _disposed;
 
         public void Dispose() {
@@ -43,5 +51,8 @@ namespace Cosmos.I18N.Languages {
 
             _disposed = true;
         }
+
+        #endregion
+
     }
 }

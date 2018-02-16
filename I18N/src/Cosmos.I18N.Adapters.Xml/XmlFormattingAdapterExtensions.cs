@@ -11,8 +11,8 @@ namespace Cosmos.I18N.Adapters.Xml {
             using (var adapter = new XmlFileAdapter(path)) {
                 if (adapter.Process()) {
                     var speaker = adapter.Speak();
-                    var language = services.ExposeLanguageManager.GetLanguage(speaker.Language);
-                    services.ExposeOptions.AddResource(language, LanguageResourceFactory.Create(speaker, language));
+                    var language = speaker.Language;
+                    services.ExposeOptions.AddResource(language, LanguageResourceFactory.Create(speaker));
                 }
             }
 
@@ -26,8 +26,8 @@ namespace Cosmos.I18N.Adapters.Xml {
             using (var adapter = new XmlContentAdapter(originContext)) {
                 if (adapter.Process()) {
                     var speaker = adapter.Speak();
-                    var language = services.ExposeLanguageManager.GetLanguage(speaker.Language);
-                    services.ExposeOptions.AddResource(language, LanguageResourceFactory.Create(speaker, language));
+                    var language = speaker.Language;
+                    services.ExposeOptions.AddResource(language, LanguageResourceFactory.Create(speaker));
                 }
             }
 

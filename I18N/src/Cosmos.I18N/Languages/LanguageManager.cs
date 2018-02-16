@@ -2,41 +2,60 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using EnumsNET;
 
 namespace Cosmos.I18N.Languages {
     public class LanguageManager {
-        private readonly IList<ILanguage> _languages = new List<ILanguage>();
+        private readonly IList<Locale> _usedLanguages = new List<Locale>();
+        private readonly object _langObject = new object();
 
         public LanguageManager() { }
 
+        #region Contains
+
         public bool Contains(string langName) {
-            if (string.IsNullOrWhiteSpace(langName)) return false;
-            return _languages.Any(x => x.Name == langName);
+            return !string.IsNullOrWhiteSpace(langName) && Contains(langName.ToLocale());
         }
 
-        public bool Contains(ILanguage language) {
-            if (language == null) return false;
-            return _languages.Any(x => x.Name == language.Name);
+        public bool Contains(Locale locale) {
+            return _usedLanguages.Contains(locale);
         }
 
-        public ILanguage GetLanguage(string langName) {
-            if (string.IsNullOrWhiteSpace(langName)) return default(ILanguage);
-            return _languages.FirstOrDefault(l => l.Name == langName);
+        #endregion
+
+        #region Get language
+
+        public Locale GetLanguage(string langName) {
+            if (string.IsNullOrWhiteSpace(langName)) return GetCurrentCultureLanguage();
+            if (!Contains(langName)) return GetCurrentCultureLanguage();
+            return langName.ToLocale();
         }
 
-        public ILanguage GetCurrentCultureLanguage() {
-            var cluture = CultureInfo.CurrentCulture;
-            return _languages.FirstOrDefault(l => l.Name == cluture.Name);
+        public Locale GetCurrentCultureLanguage() {
+            return CultureInfo.CurrentCulture.Name.ToLocale();
         }
 
-        public ILanguage GetFirstLanguage() {
-            return _languages.FirstOrDefault();
+        #endregion
+
+        #region Register used language
+
+        public void RegisterUsedLangage(string lang) {
+            if (string.IsNullOrWhiteSpace(lang)) throw new ArgumentNullException(nameof(lang));
+            RegisterUsedLangage(lang.ToLocale());
         }
 
-        public void RegisterUsedLangage(ILanguage language) {
-            if (language == null) throw new ArgumentNullException(nameof(language));
-            if (_languages.Any(x => x.Name == language.Name)) return;
-            _languages.Add(language);
+        public void RegisterUsedLangage(Locale locale) {
+            lock (_langObject) {
+                if (!Contains(locale)) {
+                    _usedLanguages.Add(locale);
+                }
+            }
+        }
+
+        #endregion
+
+        public override string ToString() {
+            return string.Join(",", _usedLanguages.Select(x => x.GetName()));
         }
     }
 }

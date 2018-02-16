@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cosmos.I18N.Languages {
     public interface ILanguagePackage : IDisposable {
-        ILanguage Language { get; }
+        Locale Language { get; }
         IReadOnlyDictionary<string, ILanguageResource> Resources { get; }
         void AddResource(ILanguageResource resource);
         bool CanTranslate(string resourceKey, string text);

@@ -6,15 +6,16 @@ namespace Cosmos.I18N.Languages {
         private readonly Dictionary<int, string> _l;
         private readonly object _l_lock = new object();
 
-        public LanguageResource(string resourceKey) : this(resourceKey, new Dictionary<int, string>()) { }
+        public LanguageResource(Locale locale, string resourceKey) : this(locale, resourceKey, new Dictionary<int, string>()) { }
 
-        public LanguageResource(string resourceKey, Dictionary<int, string> dictionary) {
+        public LanguageResource(Locale locale, string resourceKey, Dictionary<int, string> dictionary) {
             if (string.IsNullOrWhiteSpace(resourceKey)) throw new ArgumentNullException(nameof(resourceKey));
+            BindingTo = locale;
             Name = resourceKey;
             _l = dictionary;
         }
-        
-        public ILanguage BindingLanguage { get; set; }
+
+        public Locale BindingTo { get; set; }
 
         public string Name { get; }
 

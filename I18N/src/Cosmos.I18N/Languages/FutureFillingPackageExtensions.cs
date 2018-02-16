@@ -9,7 +9,7 @@ namespace Cosmos.I18N.Languages {
         public static TPackage Merge<TPackage>(this TPackage target, ILanguagePackage package) where TPackage : class, ILanguagePackage {
             if (package == null) throw new ArgumentNullException(nameof(package));
             if (target == null) throw new ArgumentNullException(nameof(target));
-            if (!package.IsFuture()) throw new ArgumentException($"package '{package.Language.Name}' should be an instance of FutureFillingPackage.");
+            if (!package.IsFuture()) throw new ArgumentException($"package '{package.Language.ToLocaleString()}' should be an instance of FutureFillingPackage.");
 
             foreach (var resource in package.Resources) {
                 target.AddResource(resource.Value);

@@ -37,7 +37,6 @@ namespace Cosmos.I18N.Adapters.Json {
             return SpeakCache ?? throw new InvalidOperationException($"Failed to read file '{Path}'.");
         }
 
-    
 
         private bool _disposed;
 
