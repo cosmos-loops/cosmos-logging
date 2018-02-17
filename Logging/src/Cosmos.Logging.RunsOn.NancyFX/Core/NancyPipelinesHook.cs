@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Extensions;
-using Cosmos.Logging.TemplateStandards;
+using Cosmos.Logging.MessageTemplates.PresetTemplates;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Extensions;

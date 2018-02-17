@@ -1,4 +1,4 @@
-﻿namespace Cosmos.Logging.TemplateStandards {
+﻿namespace Cosmos.Logging.MessageTemplates.PresetTemplates {
         public static class WebTemplateStandard {
         public const string WebLog400 = @"
 FX NAME: {@FxName}

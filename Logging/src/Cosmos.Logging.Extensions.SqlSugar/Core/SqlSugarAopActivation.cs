@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.TemplateStandards;
+using Cosmos.Logging.MessageTemplates.PresetTemplates;
 using SqlSugar;
 
 namespace Cosmos.Logging.Extensions.SqlSugar.Core {

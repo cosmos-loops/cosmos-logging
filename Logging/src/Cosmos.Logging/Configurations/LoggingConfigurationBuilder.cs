@@ -2,8 +2,8 @@
 using System.IO;
 using Cosmos.Logging.Core.ObjectResolving;
 using Cosmos.Logging.MessageTemplates;
+using Cosmos.Logging.MessageTemplates.PresetTemplates;
 using Cosmos.Logging.Renders;
-using Cosmos.Logging.TemplateStandards;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Logging.Configurations {
