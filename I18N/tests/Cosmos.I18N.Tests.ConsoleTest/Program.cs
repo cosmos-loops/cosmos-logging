@@ -11,11 +11,13 @@ namespace Cosmos.I18N.Tests.ConsoleTest {
 
             try {
                 CosmosLocalization.Initialize()
-                    .ToGlobal(c => { })
-                    .AddJsonResourceFrom(Path.Combine(Directory.GetCurrentDirectory(), "Resources/I18N", "Main.zh_CN.json"))
+                    .ToGlobal(c => c.SetPathBase(Directory.GetCurrentDirectory()).SetPathSegment("Resources/I18N"))
+                    .AddJsonResourceFrom("Main.*.json")
                     .AllDone();
 
-                Console.WriteLine(new Text("Hello world", "Main", Locale.zh_CN));
+                Console.WriteLine(new Text("Hello world {0}", "Main", Locale.zh_CN, DateTime.Now));
+                Console.WriteLine(new Text("Hello world {0}", "Main", Locale.en_US, DateTime.Now));
+                Console.WriteLine(new Text("Hello world {0}", "Main", Locale.en_GB, DateTime.Now));
 
                 Console.WriteLine("Hello world");
             }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Cosmos.I18N.Languages;
 
 namespace Cosmos.I18N.Configurations {
@@ -84,5 +83,26 @@ namespace Cosmos.I18N.Configurations {
 
             return ret;
         }
+
+        #region Add base path
+
+        public string PathBase { get; private set; }
+
+        public string PathSegment { get; set; }
+
+        public I18NOptions SetPathBase(string path) {
+            if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException(nameof(path));
+            PathBase = path;
+            return this;
+        }
+
+        public I18NOptions SetPathSegment(string path) {
+            if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException(nameof(path));
+            PathSegment = path;
+            return this;
+        }
+
+        #endregion
+
     }
 }
