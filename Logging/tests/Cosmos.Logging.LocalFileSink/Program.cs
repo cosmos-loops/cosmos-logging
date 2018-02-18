@@ -1,15 +1,17 @@
 ﻿using System;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Sinks.File;
 
-namespace Cosmos.Logging.SampleSinkTests {
-
+namespace Cosmos.Logging.LocalFileSink {
     class Program {
         static void Main(string[] args) {
-
             try {
                 LOGGER.Initialize().RunsOnConsole(o => o.EnableDisplayCallerInfo(ThreeValuedBoolean.False).EnableDisplayEventIdInfo(true))
-                    .AddSampleLog(s => s.UseMinimumLevel(LogEventLevel.Error).EnableDisplayCallerInfo(true))
+                    .AddFIle(s => s
+                        .UseMinimumLevel(LogEventLevel.Error)
+                        .EnableDisplayCallerInfo(true)
+                        .AddStrategy("file.log", interval: RollingInterval.Day, outputTemplate: ""))
                     .AllDone();
 
                 var logger = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
