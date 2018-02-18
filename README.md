@@ -30,7 +30,7 @@ Core repository of [COSMOS LOOPS PROGRAMME](https://github.com/CosmosLoops). Thi
 
 People or projects that have made a great contribution to this project:
 
-+ *Mr.* [Lemon](https://github.com/liuhaoyang)
++ *Mr.* [刘浩杨](https://github.com/liuhaoyang)
 + *Mr.* [何镇汐](https://github.com/UtilCore)
 + *Project* [AsyncQueue](https://github.com/Sunlighter/AsyncQueues)
 
