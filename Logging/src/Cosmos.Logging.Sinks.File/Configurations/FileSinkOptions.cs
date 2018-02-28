@@ -5,7 +5,9 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.File;
+using Cosmos.Logging.Sinks.File.Configurations;
 using Cosmos.Logging.Sinks.File.Core;
+using EnumsNET;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
@@ -112,17 +114,33 @@ namespace Cosmos.Logging {
 
         #region Append writing options
 
-        internal List<FileStrategy> FileStrategiesInternal { get; set; } = new List<FileStrategy>();
+        internal Dictionary<string, OutputOptions> OutputOptionsInternal { get; set; } = new Dictionary<string, OutputOptions>();
+        private readonly List<string> _registeredPath = new List<string>();
 
         public FileSinkOptions AddStrategy(
+            string strategyName,
             string fileName,
-            FilePath pathType = FilePath.Relative,
+            PathType pathType = PathType.Relative,
             RollingInterval interval = RollingInterval.Infinite,
             List<string> namespaceList = null, string outputTemplate = null) {
+            if (string.IsNullOrWhiteSpace(strategyName)) throw new ArgumentNullException(nameof(strategyName));
             if (string.IsNullOrWhiteSpace(fileName)) throw new ArgumentNullException(nameof(fileName));
-            if (FileStrategiesInternal.Any(x => x.FileName == fileName)) throw new ArgumentException("Multiple definitions");
+
+            var u = $"{_registeredPath}-{pathType.GetName()}";
+
+            if (_registeredPath.Contains(u)) throw new ArgumentException("Multiple definitions");
             if (string.IsNullOrWhiteSpace(outputTemplate)) outputTemplate = RealDefaultOutputTemplate;
-            FileStrategiesInternal.Add(new FileStrategy(fileName, pathType, interval, namespaceList, outputTemplate));
+            OutputOptionsInternal.Add(
+                strategyName,
+                new OutputOptions {
+                    Path = fileName,
+                    Template = outputTemplate,
+                    PathType = pathType,
+                    Rolling = interval,
+                    Navigators = namespaceList
+                });
+            _registeredPath.Add(u);
+
             return this;
         }
 

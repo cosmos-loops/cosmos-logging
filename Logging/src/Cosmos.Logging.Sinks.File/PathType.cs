@@ -1,5 +1,5 @@
 ﻿namespace Cosmos.Logging.Sinks.File {
-    public enum FilePath {
+    public enum PathType {
         Absolute,
         Relative
     }

@@ -45,10 +45,6 @@ namespace Cosmos.Logging.Sinks.File {
                         }
                     }
 
-//                    foreach (var token in logEvent.MessageTemplate.Tokens) {
-//                        Console.WriteLine($"token={token}, type={token.TokenRenderType}, rawString={token.RawText}, tokenString={token.ToText()}");
-//                    }
-
                     Console.WriteLine($"[{payload.Name}][{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(logEvent.Level)}] {stringBuilder}");
                 }
             }

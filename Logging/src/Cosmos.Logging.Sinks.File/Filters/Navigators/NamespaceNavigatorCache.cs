@@ -13,8 +13,8 @@ namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
             _root = RootNamespaceNavigation.GetInstance();
         }
 
-        public void Parse(OutputOptions options, out EndValueNamespaceNavigationNode endValueNode) {
-            _namespaceNavigationParser.Parse(options, out endValueNode);
+        public void Parse(string basePath, OutputOptions options, out EndValueNamespaceNavigationNode endValueNode) {
+            _namespaceNavigationParser.Parse(basePath, options, out endValueNode);
         }
 
         public bool Match(string @namespace, out IEnumerable<EndValueNamespaceNavigationNode> valueList) {

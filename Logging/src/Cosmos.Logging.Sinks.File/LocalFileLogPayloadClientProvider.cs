@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Core.Payloads;
+using Cosmos.Logging.Sinks.File.Core;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.File {
@@ -13,7 +14,7 @@ namespace Cosmos.Logging.Sinks.File {
         }
 
         public ILogPayloadClient GetClient() {
-            return new LocalFileLogPayloadClient(_options.Key, _loggingConfiguration.GetSinkConfiguration<FileSinkLogConfiguration>(Internals.Constants.SinkKey));
+            return new LocalFileLogPayloadClient(_options.Key, _loggingConfiguration.GetSinkConfiguration<FileSinkLogConfiguration>(Constants.SinkKey));
         }
     }
 }

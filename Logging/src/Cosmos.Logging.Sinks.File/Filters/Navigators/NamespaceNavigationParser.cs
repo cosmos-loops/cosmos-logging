@@ -7,12 +7,12 @@ using Cosmos.Logging.Sinks.File.Strategies;
 
 namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
     public class NamespaceNavigationParser : IFileSinkNamespaceNavigationParser {
-        public void Parse(OutputOptions options, out EndValueNamespaceNavigationNode endValueNode) {
+        public void Parse(string basePath, OutputOptions options, out EndValueNamespaceNavigationNode endValueNode) {
             if (options == null) throw new ArgumentNullException(nameof(options));
 
             var root = RootNamespaceNavigation.GetInstance();
 
-            var strategy = StrategyFactory.Create(options);
+            var strategy = StrategyFactory.Create(basePath, options);
             endValueNode = new EndValueNamespaceNavigationNode(strategy);
 
             if (IncludeStar(options)) {
