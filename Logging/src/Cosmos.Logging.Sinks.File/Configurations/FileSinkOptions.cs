@@ -5,8 +5,7 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.File;
-using Cosmos.Logging.Sinks.File.Internals;
-using Cosmos.Logging.Sinks.File.OutputTemplates;
+using Cosmos.Logging.Sinks.File.Core;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
@@ -102,10 +101,10 @@ namespace Cosmos.Logging {
 
         #region Append output template
 
-        internal string RealDefaultOutputTemplate { get; set; } = DefaultOutputTemplate.Instance;
+        internal string RealDefaultOutputTemplate { get; set; } = Constants.DefaultOutputTemplate;
 
         public FileSinkOptions SetDefaultOutputTemplate(string template) {
-            RealDefaultOutputTemplate = string.IsNullOrWhiteSpace(template) ? DefaultOutputTemplate.Instance : template;
+            RealDefaultOutputTemplate = string.IsNullOrWhiteSpace(template) ? Constants.DefaultOutputTemplate : template;
             return this;
         }
 
