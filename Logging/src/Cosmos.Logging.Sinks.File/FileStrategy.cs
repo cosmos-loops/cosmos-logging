@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cosmos.Logging.Sinks.File.OutputTemplates;
+using Cosmos.Logging.Sinks.File.Core;
 
 namespace Cosmos.Logging.Sinks.File {
     public class FileStrategy {
@@ -18,7 +18,7 @@ namespace Cosmos.Logging.Sinks.File {
                 NamespaceList = namespaceList.AsReadOnly();
             }
 
-            OutputTemplate = string.IsNullOrWhiteSpace(outputTemplate) ? DefaultOutputTemplate.Instance : outputTemplate;
+            OutputTemplate = string.IsNullOrWhiteSpace(outputTemplate) ? Constants.DefaultOutputTemplate : outputTemplate;
         }
 
         public string FileName { get; }
