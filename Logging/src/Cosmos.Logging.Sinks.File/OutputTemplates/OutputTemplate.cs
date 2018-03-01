@@ -1,18 +1,31 @@
-﻿using System.Collections.Generic;
-using Cosmos.Logging.Sinks.File.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cosmos.Logging.Sinks.File.OutputTemplates {
     public class OutputTemplate {
-        private readonly string _originOutputTemplate;
-        private readonly List<IOutputToken> _tokens;
 
-        public OutputTemplate(string originOutputTemplate) {
-            _originOutputTemplate = string.IsNullOrWhiteSpace(originOutputTemplate) ? Constants.DefaultOutputTemplate : originOutputTemplate;
-            _tokens = new List<IOutputToken>();
+        public static OutputTemplate Empty { get; } = new OutputTemplate(Enumerable.Empty<OutputMessageToken>());
+
+        private readonly string _originOutputTemplate;
+
+        private readonly OutputMessageToken[] _tokens;
+
+        // ReSharper disable PossibleMultipleEnumeration
+        public OutputTemplate(IEnumerable<OutputMessageToken> tokens) : this(string.Join("", tokens), tokens) { }
+
+        public OutputTemplate(string originOutputTemplate, IEnumerable<OutputMessageToken> tokens) {
+            _originOutputTemplate = originOutputTemplate ?? throw new ArgumentNullException(nameof(originOutputTemplate));
+            _tokens = tokens?.ToArray() ?? throw new ArgumentNullException(nameof(tokens));
         }
 
-        public IReadOnlyList<IOutputToken> Tokens => _tokens;
+        public IReadOnlyList<OutputMessageToken> Tokens => _tokens;
 
-        public string OriginTemplate => _originOutputTemplate;
+        public string Text => _originOutputTemplate;
+
+        internal char[] TextArray => Text.ToCharArray();
+
+
+        public override string ToString() => Text;
     }
 }
