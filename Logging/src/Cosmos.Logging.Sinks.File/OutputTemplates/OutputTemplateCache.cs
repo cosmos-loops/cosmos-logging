@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cosmos.Logging.Sinks.File.OutputTemplates {
+    [SuppressMessage("ReSharper", "InconsistentlySynchronizedField")]
     public class OutputTemplateCache : IOutputTemplateParser {
         private readonly IOutputTemplateParser _outputTemplateParser;
         private readonly Hashtable _outputTemplateCache = new Hashtable();
