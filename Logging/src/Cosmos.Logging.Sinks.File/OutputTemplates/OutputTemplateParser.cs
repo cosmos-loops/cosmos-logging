@@ -56,10 +56,12 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
                         var len = Offset();
                         var rawText = Merge(start, len);
                         Follow();
-                        return len == 2
-                            ? new TextOutputMessageToken(rawText, index++, start)
-                            : new PropertyOutputMessageToken(rawText, formatString, paramsString, index++, start);
+
+                        if (len == 2) return new TextOutputMessageToken(rawText, index++, start);
+                        return new PropertyOutputMessageToken(rawText, formatString, paramsString, index++, start);
                     }
+                    
+                    
 
                     Skip();
                 }
