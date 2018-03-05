@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using Cosmos.Logging.Core;
+using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.File.Core;
 using EnumsNET;
 
@@ -24,15 +26,34 @@ namespace Cosmos.Logging.Sinks.File.Strategies {
 
         public PathType PathType => _pathType;
 
-        public string GetFilePath() {
-            return System.IO.Path.Combine(GetRealBasePath(), GetRealTargetPath());
+        public string GetFilePath(ILogEventInfo logEventInfo) {
+            return System.IO.Path.Combine(GetRealBasePath(), GetRealTargetPath(logEventInfo));
         }
 
-        private string GetRealTargetPath() {
+        public string CheckAndGetFilePath(ILogEventInfo logEventInfo) {
+            var targetPath = GetFilePath(logEventInfo);
+
+            if (!System.IO.File.Exists(targetPath)) {
+                var fi = new FileInfo(targetPath);
+                var di = fi.Directory;
+
+                if (di == null) {
+                    return string.Empty;
+                }
+
+                if (!di.Exists) {
+                    di.Create();
+                }
+            }
+
+            return targetPath;
+        }
+
+        private string GetRealTargetPath(ILogEventInfo logEventInfo) {
             var indexOfLastPoint = _path.LastIndexOf('.');
             return indexOfLastPoint < 0
-                ? $"{_path}{_rolling.GetFormat()}"
-                : $"{_path.Substring(0, indexOfLastPoint)}{_rolling.GetFormat()}{_path.Substring(indexOfLastPoint + 1)}";
+                ? $"{_path}{logEventInfo.Timestamp.DateTime.ToString(_rolling.GetFormat())}"
+                : $"{_path.Substring(0, indexOfLastPoint)}{logEventInfo.Timestamp.DateTime.ToString(_rolling.GetFormat())}{_path.Substring(indexOfLastPoint + 1)}";
         }
 
         private string GetRealBasePath() {
