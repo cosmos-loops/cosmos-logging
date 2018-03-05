@@ -6,13 +6,16 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
     public class PropertyOutputMessageToken : OutputMessageToken {
         public readonly string RawFormatText;
         public readonly string RawParamsText;
+        private readonly int ParamsFlagMode;
         public readonly List<FormatEvent> FormatEvents;
 
-        public PropertyOutputMessageToken(string originText, string formatOriginText, string paramsOriginText, int index, int position)
-            : base(originText, index, position, 2) {
+        public PropertyOutputMessageToken(string originText, string formatOriginText, string paramsOriginText,
+            int index, int position, int paramsFlagMode, int fixOriginTextLength = 2)
+            : base(originText, index, position, fixOriginTextLength) {
             FormatEvents = new List<FormatEvent>();
             RawFormatText = formatOriginText;
             RawParamsText = paramsOriginText;
+            ParamsFlagMode = paramsFlagMode;
             Name = MachiningForTokenName(TokenString, 0);
             Format = MachiningForFormat(RawFormatText, FormatEvents);
             Params = MachiningForParams(RawParamsText);
@@ -23,7 +26,7 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
         public string Format { get; }
 
         public string Params { get; }
-        
+
         public override TokenRenderTypes TokenRenderType { get; } = TokenRenderTypes.AsProperty;
 
         public override string ToText() => $"{{{TokenString}}}, format={RawFormatText}, params={RawParamsText}";
@@ -31,7 +34,7 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
         public override string ToString() => ToText();
 
         public override string Render() => ToString();
-        
+
         #region private methods
 
         private static string MachiningForTokenName(string rawText, int position) {
@@ -53,5 +56,6 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
         }
 
         #endregion
+
     }
 }
