@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
+using Cosmos.Logging.Sinks.File.Filters;
 
 namespace Cosmos.Logging.Sinks.File {
     public class LocalFileLogPayloadClient : ILogEventSink, ILogPayloadClient {
@@ -30,6 +31,23 @@ namespace Cosmos.Logging.Sinks.File {
                 var count = legalityEvents.Count;
 
                 foreach (var logEvent in legalityEvents) {
+                    var strategyWrappers = NavigationFilterProcessor.GetValues(logEvent.StateNamespace);
+
+                    if (strategyWrappers == null || !strategyWrappers.Any()) {
+                        continue;
+                    }
+
+                    foreach (var strategy in strategyWrappers.Select(x => x.SavingStrategy)) {
+                        var targetFilePath = strategy.CheckAndGetFilePath(logEvent);
+                        if (string.IsNullOrWhiteSpace(targetFilePath)) continue;
+                        
+                        //渲染Message
+                        
+                        //渲染OutputTemplate
+                        
+                        //写文件
+                    }
+
                     var stringBuilder = new StringBuilder();
                     using (var output = new StringWriter(stringBuilder, _formatProvider)) {
                         logEvent.RenderMessage(output, _sinkConfiguration.Rendering, _formatProvider);
