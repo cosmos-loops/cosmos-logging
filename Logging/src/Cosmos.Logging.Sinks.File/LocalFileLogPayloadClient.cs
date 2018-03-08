@@ -40,30 +40,32 @@ namespace Cosmos.Logging.Sinks.File {
                     foreach (var strategy in strategyWrappers.Select(x => x.SavingStrategy)) {
                         var targetFilePath = strategy.CheckAndGetFilePath(logEvent);
                         if (string.IsNullOrWhiteSpace(targetFilePath)) continue;
-                        
+
                         //渲染Message
+                        var stringBuilder = new StringBuilder();
+                        using (var output = new StringWriter(stringBuilder, _formatProvider)) {
+                            logEvent.RenderMessage(output, _sinkConfiguration.Rendering, _formatProvider);
+                        }
                         
+                        //判断是否需要渲染 extra properties
+
                         //渲染OutputTemplate
-                        
+
                         //写文件
-                    }
 
-                    var stringBuilder = new StringBuilder();
-                    using (var output = new StringWriter(stringBuilder, _formatProvider)) {
-                        logEvent.RenderMessage(output, _sinkConfiguration.Rendering, _formatProvider);
-                    }
 
-                    if (logEvent.ExtraProperties.Count > 0) {
-                        stringBuilder.AppendLine("Extra properties:");
-                        foreach (var extra in logEvent.ExtraProperties) {
-                            var property = extra.Value;
-                            if (property != null) {
-                                stringBuilder.AppendLine($"    {property}");
+                        if (logEvent.ExtraProperties.Count > 0) {
+                            stringBuilder.AppendLine("Extra properties:");
+                            foreach (var extra in logEvent.ExtraProperties) {
+                                var property = extra.Value;
+                                if (property != null) {
+                                    stringBuilder.AppendLine($"    {property}");
+                                }
                             }
                         }
-                    }
 
-                    Console.WriteLine($"[{payload.Name}][{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(logEvent.Level)}] {stringBuilder}");
+                        Console.WriteLine($"[{payload.Name}][{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(logEvent.Level)}] {stringBuilder}");
+                    }
                 }
             }
 #if NET451
