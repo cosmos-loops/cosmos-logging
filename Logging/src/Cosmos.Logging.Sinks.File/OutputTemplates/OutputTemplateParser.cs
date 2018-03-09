@@ -65,10 +65,10 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
                 var formatString = string.Empty;
                 var paramsString = string.Empty;
                 var params_flag_mode = 0;
-                var fixOriginTextLength = 3;
+                var fixOriginTextLength = 2;
                 while (position_offset < length) {
                     if (Next() == char.MinValue) break;
-                    if (Peek() == '}') {
+                    if (Peek() == '}' || Peek() == ' ') {
                         Skip();
                         var start = position;
                         var len = Offset();
@@ -79,7 +79,7 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
                     }
 
                     if (Peek() == ':') {
-                        if (Next() == '}') {
+                        if (Next() == '}' || Next() == ' ') {
                             Skip(2);
                             var start = position;
                             var len = Offset();
@@ -92,7 +92,7 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
                         switch (++colon_counter) {
                             case 1: {
                                 Skip();
-                                formatString = SeparatePropertyRawFormatText(out params_flag_mode, out fixOriginTextLength);
+                                formatString = SeparatePropertyRawFormatText(out params_flag_mode, out fixOriginTextLength, 1, 0);
                                 if (End()) {
                                     return Touch(Offset(), Merge(position, Offset()), position);
                                 }
@@ -103,7 +103,7 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
 
                             case 2: {
                                 Skip();
-                                paramsString = SeparatePropertyRawParamsText(out fixOriginTextLength, 2, 1);
+                                paramsString = SeparatePropertyRawParamsText(out fixOriginTextLength, 1, 0);
                                 if (End()) {
                                     return Touch(Offset(), Merge(position, Offset()), position);
                                 }

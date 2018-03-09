@@ -98,6 +98,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit tests", "Unit tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.LocalFileSink", "tests\Cosmos.Logging.LocalFileSink\Cosmos.Logging.LocalFileSink.csproj", "{6282BFEE-E9E8-400C-8557-128127A4A8E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.File.Tests", "tests\Cosmos.Logging.Sinks.File.Tests\Cosmos.Logging.Sinks.File.Tests.csproj", "{019B408B-4B55-47EB-A6FA-6551AFB34A72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -236,6 +238,10 @@ Global
 		{6282BFEE-E9E8-400C-8557-128127A4A8E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6282BFEE-E9E8-400C-8557-128127A4A8E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6282BFEE-E9E8-400C-8557-128127A4A8E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019B408B-4B55-47EB-A6FA-6551AFB34A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019B408B-4B55-47EB-A6FA-6551AFB34A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019B408B-4B55-47EB-A6FA-6551AFB34A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019B408B-4B55-47EB-A6FA-6551AFB34A72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -281,6 +287,7 @@ Global
 		{2FD19EE9-4E97-4A92-962A-9143BCB95CDC} = {A678CB77-C7CF-4257-869A-C66EF52EB17A}
 		{ED3A5540-1E1D-4AE1-A594-987514D64976} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
 		{6282BFEE-E9E8-400C-8557-128127A4A8E8} = {DA92F6C9-C92A-426E-853D-36654BB8F15C}
+		{019B408B-4B55-47EB-A6FA-6551AFB34A72} = {ED3A5540-1E1D-4AE1-A594-987514D64976}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7494AB0-4276-4102-B112-7BBE0329D263}
