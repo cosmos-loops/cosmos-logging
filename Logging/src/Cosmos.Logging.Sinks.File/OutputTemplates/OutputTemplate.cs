@@ -21,6 +21,8 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
 
         public IReadOnlyList<OutputMessageToken> Tokens => _tokens;
 
+        internal OutputMessageToken[] TokenArray => _tokens;
+
         public string Text => _originOutputTemplate;
 
         internal char[] TextArray => Text.ToCharArray();
