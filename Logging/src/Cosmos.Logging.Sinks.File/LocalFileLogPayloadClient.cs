@@ -37,17 +37,18 @@ namespace Cosmos.Logging.Sinks.File {
                         continue;
                     }
 
+                    //渲染Message
+                    var stringBuilder = new StringBuilder();
+                    using (var output = new StringWriter(stringBuilder, _formatProvider)) {
+                        logEvent.RenderMessage(output, _sinkConfiguration.Rendering, _formatProvider);
+                    }
+
                     foreach (var strategy in strategyWrappers.Select(x => x.SavingStrategy)) {
                         var targetFilePath = strategy.CheckAndGetFilePath(logEvent);
                         if (string.IsNullOrWhiteSpace(targetFilePath)) continue;
 
-                        //渲染Message
-                        var stringBuilder = new StringBuilder();
-                        using (var output = new StringWriter(stringBuilder, _formatProvider)) {
-                            logEvent.RenderMessage(output, _sinkConfiguration.Rendering, _formatProvider);
-                        }
-                        
                         //判断是否需要渲染 extra properties
+                        //检查token
 
                         //渲染OutputTemplate
 
