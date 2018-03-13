@@ -48,6 +48,8 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
                 formatEvents.Add(@event);
             }
 
+            //todo 扩展此处，用来支持 output 独有的格式化指令
+
             return format;
         }
 
