@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cosmos.Logging.Formattings;
 using Cosmos.Logging.MessageTemplates;
+using Cosmos.Logging.Sinks.File.Formatings;
 
 namespace Cosmos.Logging.Sinks.File.OutputTemplates {
     public class PropertyOutputMessageToken : OutputMessageToken {
@@ -44,11 +45,9 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
         }
 
         private static string MachiningForFormat(string format, IList<FormatEvent> formatEvents) {
-            foreach (var @event in FormatCommandFactory.CreateCommandEvent(format)) {
+            foreach (var @event in OutputFormatCommandFactory.CreateCommandEvent(format)) {
                 formatEvents.Add(@event);
             }
-
-            //todo 扩展此处，用来支持 output 独有的格式化指令
 
             return format;
         }
