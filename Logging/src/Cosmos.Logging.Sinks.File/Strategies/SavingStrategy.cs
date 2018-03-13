@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using Cosmos.Logging.Core;
-using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.File.Core;
 using EnumsNET;
 
