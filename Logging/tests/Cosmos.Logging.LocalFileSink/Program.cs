@@ -8,7 +8,7 @@ namespace Cosmos.Logging.LocalFileSink {
         static void Main(string[] args) {
             try {
                 LOGGER.Initialize().RunsOnConsole(o => o.EnableDisplayCallerInfo(ThreeValuedBoolean.False).EnableDisplayEventIdInfo(true))
-                    .AddFIle(s => s
+                    .AddFilelog(s => s
                         .UseMinimumLevel(LogEventLevel.Error)
                         .EnableDisplayCallerInfo(true)
                         .AddStrategy("GeneralStrategy", "file.log", interval: RollingInterval.Day, outputTemplate: ""))

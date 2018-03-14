@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
+using Cosmos.Logging.Sinks.File.Core;
 using Cosmos.Logging.Sinks.File.Filters;
 using Cosmos.Logging.Sinks.File.OutputTemplates;
 
@@ -14,8 +15,11 @@ namespace Cosmos.Logging.Sinks.File {
     public class LocalFileLogPayloadClient : ILogEventSink, ILogPayloadClient {
         private readonly IFormatProvider _formatProvider;
         private readonly FileSinkLogConfiguration _sinkConfiguration;
+        private readonly FileAstronautCache _fileAstronautCache;
 
-        public LocalFileLogPayloadClient(string name, FileSinkLogConfiguration sinkConfiguration, IFormatProvider formatProvider = null) {
+        public LocalFileLogPayloadClient(string name, FileAstronautCache fileAstronautCache,
+            FileSinkLogConfiguration sinkConfiguration, IFormatProvider formatProvider = null) {
+            _fileAstronautCache = fileAstronautCache ?? throw new ArgumentNullException(nameof(fileAstronautCache));
             _sinkConfiguration = sinkConfiguration ?? throw new ArgumentNullException(nameof(sinkConfiguration));
             Name = name;
             Level = sinkConfiguration.GetDefaultMinimumLevel();
@@ -38,7 +42,6 @@ namespace Cosmos.Logging.Sinks.File {
                         continue;
                     }
 
-                    //渲染Message
                     var targetMessageBuilder = new StringBuilder();
                     using (var output = new StringWriter(targetMessageBuilder, _formatProvider)) {
                         logEvent.RenderMessage(output, _sinkConfiguration.Rendering, _formatProvider);
@@ -55,22 +58,12 @@ namespace Cosmos.Logging.Sinks.File {
                         var stringBuilder = new StringBuilder();
                         using (var output = new StringWriter(stringBuilder, _formatProvider)) {
                             OutputTemplateRenderer.Render(strategy.FormattingStrategy.OutputTemplate, output, logEvent, targetMessageBuilder);
-                        }                   
-
-                        //写文件
-
-
-                        if (logEvent.ExtraProperties.Count > 0) {
-                            stringBuilder.AppendLine("Extra properties:");
-                            foreach (var extra in logEvent.ExtraProperties) {
-                                var property = extra.Value;
-                                if (property != null) {
-                                    stringBuilder.AppendLine($"    {property}");
-                                }
-                            }
                         }
 
-                        Console.WriteLine($"[{payload.Name}][{PadLeftByZero()(ix++)(count)('0')}][{GetLevelName()(logEvent.Level)}] {stringBuilder}");
+                        //写文件
+                        if (_fileAstronautCache.TryGetFileAstronaut(strategy, targetFilePath, out var astronaut)) {
+                            //astronaut. ...
+                        }
                     }
                 }
             }
