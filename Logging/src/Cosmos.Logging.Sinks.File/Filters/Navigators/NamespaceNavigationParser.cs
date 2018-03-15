@@ -13,8 +13,14 @@ namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
             var root = RootNamespaceNavigation.GetInstance();
 
             var strategy = StrategyFactory.Create(basePath, options);
+            Console.WriteLine(strategy.Path);
             endValueNode = new EndValueNamespaceNavigationNode(strategy);
 
+            if (IsDefault(options)) {
+                root.SetDefaultNavValue(endValueNode);
+                return;
+            }
+            
             if (IncludeStar(options)) {
                 root.SetAllNavValue(endValueNode);
                 return;
@@ -33,6 +39,10 @@ namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
 
         private static bool IncludeStar(OutputOptions options) {
             return options.Navigators.Contains("*");
+        }
+
+        private static bool IsDefault(OutputOptions options) {
+            return options.Navigators.Contains("Default");
         }
 
         private static IEnumerable<string> GetValidNamespaceList(OutputOptions options) {

@@ -11,15 +11,15 @@ namespace Cosmos.Logging.LocalFileSink {
                     .AddFilelog(s => s
                         .UseMinimumLevel(LogEventLevel.Error)
                         .EnableDisplayCallerInfo(true)
-                        .AddStrategy("GeneralStrategy", "file.log", interval: RollingInterval.Day, outputTemplate: ""))
+                        .AddStrategy("GeneralStrategy", "file.log", interval: RollingInterval.Day))
                     .AllDone();
 
-                var logger = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
+                var logger = LOGGER.GetLogger<Program>();
 
                 logger.LogInformation("hello");
                 logger.LogError("world", ctx => ctx.SetTags("Alex").SetTags("Lewis"));
                 logger.LogError("Nice {@L}", ctx => ctx.SetParameter(new {L = "KK"}));
-                logger.SubmitLogger();
+                //logger.SubmitLogger();
 
                 var future = logger.ToFuture();
 

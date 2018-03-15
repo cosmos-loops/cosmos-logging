@@ -36,6 +36,7 @@ namespace Cosmos.Logging.Sinks.File {
                 var count = legalityEvents.Count;
 
                 foreach (var logEvent in legalityEvents) {
+
                     var strategyWrappers = NavigationFilterProcessor.GetValues(logEvent.StateNamespace);
 
                     if (strategyWrappers == null || !strategyWrappers.Any()) {
@@ -63,6 +64,9 @@ namespace Cosmos.Logging.Sinks.File {
                         //写文件
                         if (_fileAstronautCache.TryGetFileAstronaut(strategy, targetFilePath, out var astronaut)) {
                             //astronaut. ...
+                            Console.WriteLine("渲染模板为：" + strategy.FormattingStrategy.OutputTemplate.Text);
+                            Console.WriteLine("原始结果为：" + targetMessageBuilder);
+                            Console.WriteLine("渲染结果为：" + stringBuilder);
                         }
                     }
                 }

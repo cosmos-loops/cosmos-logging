@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Cosmos.Logging.Sinks.File.Configurations;
 using Cosmos.Logging.Sinks.File.Core.Extensions;
 using Cosmos.Logging.Sinks.File.Filters.Navigators;

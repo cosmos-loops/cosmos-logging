@@ -1,4 +1,5 @@
-﻿using Cosmos.Logging.Configurations;
+﻿using System;
+using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Sinks.File.Configurations;
 using Cosmos.Logging.Sinks.File.Core;
@@ -26,7 +27,7 @@ namespace Cosmos.Logging {
                 }
 
                 foreach (var rule in options.OutputOptionsInternal) {
-                    
+                    NavigationFilterProcessor.SetOutputOption(rule.Key, rule.Value, BasePath);
                 }
             }
 

@@ -52,7 +52,7 @@ namespace Cosmos.Logging.Sinks.File.Strategies {
             var indexOfLastPoint = _path.LastIndexOf('.');
             return indexOfLastPoint < 0
                 ? $"{_path}{logEventInfo.Timestamp.DateTime.ToString(_rolling.GetFormat())}"
-                : $"{_path.Substring(0, indexOfLastPoint)}{logEventInfo.Timestamp.DateTime.ToString(_rolling.GetFormat())}{_path.Substring(indexOfLastPoint + 1)}";
+                : $"{_path.Substring(0, indexOfLastPoint)}{logEventInfo.Timestamp.DateTime.ToString(_rolling.GetFormat())}.{_path.Substring(indexOfLastPoint + 1)}";
         }
 
         private string GetRealBasePath() {

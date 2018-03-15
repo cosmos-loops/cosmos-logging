@@ -93,7 +93,7 @@ namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
                 _namespaceNavigators.Add(root);
             }
         }
-
+        
         private EndValueNamespaceNavigationNode FixedValue(EndValueNamespaceNavigationNode value) {
             if (_registeredEndValueNodeDict.ContainsKey(value.GetHashCode())) {
                 value = _registeredEndValueNodeDict[value.GetHashCode()];

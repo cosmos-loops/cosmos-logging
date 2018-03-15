@@ -130,6 +130,8 @@ namespace Cosmos.Logging {
 
             if (_registeredPath.Contains(u)) throw new ArgumentException("Multiple definitions");
             if (string.IsNullOrWhiteSpace(outputTemplate)) outputTemplate = RealDefaultOutputTemplate;
+            if (namespaceList == null || !namespaceList.Any()) namespaceList = new List<string> {"*"};
+
             OutputOptionsInternal.Add(
                 strategyName,
                 new OutputOptions {
