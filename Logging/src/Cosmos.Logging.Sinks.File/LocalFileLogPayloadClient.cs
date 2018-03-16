@@ -8,6 +8,7 @@ using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
 using Cosmos.Logging.Sinks.File.Core;
+using Cosmos.Logging.Sinks.File.Core.Astronauts;
 using Cosmos.Logging.Sinks.File.Filters;
 using Cosmos.Logging.Sinks.File.OutputTemplates;
 

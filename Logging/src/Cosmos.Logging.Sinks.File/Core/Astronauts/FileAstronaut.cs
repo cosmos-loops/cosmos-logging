@@ -2,8 +2,8 @@
 using System.IO;
 using System.Text;
 
-namespace Cosmos.Logging.Sinks.File.Core {
-    public sealed class FileAstronaut {
+namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
+    public sealed class FileAstronaut : IAstronaut, IFlushableAstronaut {
         private readonly object _syncRoot = new object();
         readonly TextWriter _output;
         readonly FileStream _underlyingStream;
@@ -36,6 +36,10 @@ namespace Cosmos.Logging.Sinks.File.Core {
                 _output.Flush();
                 _underlyingStream.Flush(true);
             }
+        }
+
+        public void Save() {
+            throw new NotImplementedException();
         }
     }
 }

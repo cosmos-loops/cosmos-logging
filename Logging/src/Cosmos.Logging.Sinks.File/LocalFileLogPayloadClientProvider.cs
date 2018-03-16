@@ -1,6 +1,7 @@
 ﻿using System;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Sinks.File.Core;
+using Cosmos.Logging.Sinks.File.Core.Astronauts;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.File {

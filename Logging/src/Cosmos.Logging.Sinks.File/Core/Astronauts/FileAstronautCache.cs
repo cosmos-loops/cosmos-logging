@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cosmos.Logging.Sinks.File.Strategies;
 
-namespace Cosmos.Logging.Sinks.File.Core {
+namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
     public class FileAstronautCache {
         private readonly Dictionary<SavingStrategy, int> _lastSavingPathCache;
         private readonly Dictionary<int, FileAstronaut> _enabledFileAstronautCache;
