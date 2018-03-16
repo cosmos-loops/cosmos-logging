@@ -1,4 +1,4 @@
-﻿namespace Cosmos.Logging.TemplateStandards {
+﻿namespace Cosmos.Logging.MessageTemplates.PresetTemplates {
     public static class OrmTemplateStandard {
         public const string SimpleSqlLog = @"
 ORM NAME: {@OrmName}

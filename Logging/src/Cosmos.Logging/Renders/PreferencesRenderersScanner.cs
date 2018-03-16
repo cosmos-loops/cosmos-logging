@@ -20,7 +20,6 @@ namespace Cosmos.Logging.Renders {
 
         private static void Core(IEnumerable<Type> givenTypes) {
             foreach (var type in givenTypes) {
-                Console.WriteLine(type.FullName);
                 var reflector = type.GetReflector();
                 var sinkMode = PreferencesSinkRendererType.IsAssignableFrom(type);
                 var declareInfos = reflector.GetCustomAttributes<RendererAttribute>().Where(x => !string.IsNullOrWhiteSpace(x.Name)).ToList();
@@ -50,13 +49,11 @@ namespace Cosmos.Logging.Renders {
         private static IEnumerable<Type> GetAllPreferencesRendererTypes() {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().Concat(GetAllUnlinkedAssemblies());
             foreach (var assembly in assemblies) {
-                Console.WriteLine(assembly.FullName);
                 var types = assembly.GetExportedTypes()
                     .Where(t => t.IsClass && t.IsPublic && !t.IsAbstract && PreferencesRendererType.IsAssignableFrom(t))
                     .Where(x => !x.GetReflector().IsDefined<NonScanRendererAttribute>());
                 foreach (var type in types)
                     yield return type;
-
             }
         }
 

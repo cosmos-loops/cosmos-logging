@@ -1,20 +1,20 @@
 <Project>
 
-	<Import Project="version.props" />
+    <Import Project="version.props"/>
 
-	<PropertyGroup Label="Build">
-		<TargetFramework>netstandard2.0</TargetFramework>
-	</PropertyGroup>
+    <PropertyGroup Label="Build">
+        <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+    </PropertyGroup>
 
-	<PropertyGroup Label="Package">
-		<Product>Cosmos.Encryption</Product>
-		<Authors>AlexLEWIS;dotnetcore;StarrySky;Cosmos</Authors>
-		<RepositoryUrl>https://github.com/CosmosLoops/Cosmos/Encryption</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/CosmosLoops/Cosmos/Encryption</PackageProjectUrl>
-		<PackageIconUrl />
-		<PackageLicenseUrl>https://github.com/CosmosLoops/Cosmos/blob/master/LICENSE</PackageLicenseUrl>
-		<PackageTags>StarrySky;Cosmos;Encryption</PackageTags>
-	</PropertyGroup>
+    <PropertyGroup Label="Package">
+        <Product>Cosmos.Encryption</Product>
+        <Authors>AlexLEWIS;dotnetcore;StarrySky;Cosmos</Authors>
+        <RepositoryUrl>https://github.com/CosmosLoops/Cosmos/tree/dev/Encryption</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://github.com/CosmosLoops/Cosmos/tree/dev/Encryption</PackageProjectUrl>
+        <PackageIconUrl>https://avatars2.githubusercontent.com/u/25580633?s=200</PackageIconUrl>
+        <PackageLicenseUrl>http://www.opensource.org/licenses/mit-license.php</PackageLicenseUrl>
+        <PackageTags>StarrySky;Cosmos;Encryption</PackageTags>
+    </PropertyGroup>
 
 </Project>

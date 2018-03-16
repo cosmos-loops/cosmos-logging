@@ -13,6 +13,6 @@
     <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Exceptionless" Version="4.2.1982" />
+    <PackageReference Include="Exceptionless" Version="4.2.1989" />
   </ItemGroup>
 </Project>

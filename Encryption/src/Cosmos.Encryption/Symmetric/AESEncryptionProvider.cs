@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using Cosmos.Encryption.Abstractions;
@@ -40,7 +39,6 @@ namespace Cosmos.Encryption {
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
         /// <param name="salt">The key salt to use to derive the key.</param>
         /// <param name="iv">The initialization iv (IV) to use to derive the key.</param>
-        /// <param name="mode"></param>
         /// <returns>The encrypted string.</returns>
         public static string Encrypt(string data, string pwd, string iv = null, string salt = null, Encoding encoding = null,
             AESKeySizeTypes keySize = AESKeySizeTypes.L256) {

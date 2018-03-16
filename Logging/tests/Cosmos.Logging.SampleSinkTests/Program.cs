@@ -1,7 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Sinks.SampleLogSink;
 
 namespace Cosmos.Logging.SampleSinkTests {
 

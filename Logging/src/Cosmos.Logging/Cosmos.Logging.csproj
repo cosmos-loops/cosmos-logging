@@ -17,8 +17,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AspectCore.Core" Version="0.3.0" />
-    <PackageReference Include="AspectCore.Extensions.Reflection" Version="0.3.0" />
+    <PackageReference Include="AspectCore.Core" Version="0.3.1" />
+    <PackageReference Include="AspectCore.Extensions.Reflection" Version="0.3.1" />
     <PackageReference Include="Enums.NET" Version="2.3.1" />
     <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
   </ItemGroup>

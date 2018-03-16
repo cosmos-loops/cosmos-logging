@@ -2,7 +2,7 @@
 using System.Web;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Extensions;
-using Cosmos.Logging.TemplateStandards;
+using Cosmos.Logging.MessageTemplates.PresetTemplates;
 
 namespace Cosmos.Logging.RunsOn.AspNet.Core.Handlers {
     internal static class MvcTraceLoggingHandler {

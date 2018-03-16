@@ -6,21 +6,23 @@ Core repository of [COSMOS LOOPS PROGRAMME](https://github.com/CosmosLoops). Thi
 
 + [Cosmos.Standard](https://github.com/CosmosLoops/Cosmos/tree/dev/Standard)
 + [Cosmos.Encryption](https://github.com/CosmosLoops/Cosmos/tree/dev/Encryption)
-+ [Cosmos.Logging](https://github.com/CosmosLoops/Cosmos/tree/dev/Logging)
-+ [Cosmos.I18N](#) *(intending)*
++ [Cosmos.Logging](https://github.com/CosmosLoops/Cosmos/tree/dev/Logging) **(WIP)**
++ [Cosmos.I18N](https://github.com/CosmosLoops/Cosmos/tree/dev/I18N) **(WIP)**
 + [Cosmos.Data](#) *(intending)*
 
 **First-class projects**
 
-+ [Cosmos.One](https://github.com/CosmosLoops/Cosmos.One)
++ [Cosmos.One](https://github.com/CosmosLoops/Cosmos.One) *(intending)*
++ [Cosmos.FlameThrower](#) *(intending)*
 + [Cosmos.Walkers](#) *(intending)*
 + [Cosmos.Golhfinea](#) *(intending)*
++ [Cosmos.Sword](#) *(indending)*
 
 **Extra projects:**
 
-+ [Cosmos.AspNet.Extensions](https://github.com/CosmosLoops/Cosmos.Web.Extensions/tree/master/AspNet)
-+ [Cosmos.AspNetCore.Extensions](https://github.com/CosmosLoops/Cosmos.Web.Extensions/tree/master/AspNetCore)
-+ [Cosmos.Nancy.Extensions](https://github.com/CosmosLoops/Cosmos.Web.Extensions/tree/master/Nancy)
++ [Cosmos.AspNet.Extensions](https://github.com/CosmosLoops/Web.Extensions/tree/master/AspNet) **(WIP)**
++ [Cosmos.AspNetCore.Extensions](https://github.com/CosmosLoops/Web.Extensions/tree/master/AspNetCore) **(WIP)**
++ [Cosmos.Nancy.Extensions](https://github.com/CosmosLoops/Web.Extensions/tree/master/Nancy) **(WIP)**
 
 * * *
 
@@ -28,7 +30,7 @@ Core repository of [COSMOS LOOPS PROGRAMME](https://github.com/CosmosLoops). Thi
 
 People or projects that have made a great contribution to this project:
 
-+ *Mr.* [Lemon](https://github.com/liuhaoyang)
++ *Mr.* [刘浩杨](https://github.com/liuhaoyang)
 + *Mr.* [何镇汐](https://github.com/UtilCore)
 + *Project* [AsyncQueue](https://github.com/Sunlighter/AsyncQueues)
 

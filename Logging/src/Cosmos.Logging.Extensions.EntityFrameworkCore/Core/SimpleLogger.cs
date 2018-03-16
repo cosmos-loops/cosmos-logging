@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.MessageTemplates.PresetTemplates;
 
 namespace Cosmos.Logging.Extensions.EntityFrameworkCore.Core {
     internal class SimpleLogger {
@@ -20,7 +21,7 @@ namespace Cosmos.Logging.Extensions.EntityFrameworkCore.Core {
                 Sql = sqlText,
                 UserInfo = userInfo
             };
-            _logger.LogDebug(eventId, TemplateStandards.OrmTemplateStandard.SimpleSqlLog, loggingObj, memberName);
+            _logger.LogDebug(eventId, OrmTemplateStandard.SimpleSqlLog, loggingObj, memberName);
         }
     }
 }

@@ -16,15 +16,21 @@ namespace Cosmos.Logging.Filters.Navigators {
             var nss = @namespace.Split('.');
             var index = 0;
             do {
-                if (string.CompareOrdinal(currentNav.NamespaceFragment, "*") == 0) return true;
-                if (string.CompareOrdinal(nss[index], currentNav.NamespaceFragment) != 0) return false;
+                if (string.CompareOrdinal(currentNav.NamespaceFragment, "*") == 0) {
+                    value = currentNav.GetValue();
+                    return true;
+                }
+
+                if (string.CompareOrdinal(nss[index], currentNav.NamespaceFragment) != 0){
+                    return false;
+                }
+
                 if (index + 1 < nss.Length && !currentNav.HasNextNav()) {
                     value = currentNav.GetValue();
                     return true;
                 }
 
-                currentNav = currentNav.GetNextNav(nss[index + 1]);
-                index++;
+                currentNav = currentNav.GetNextNav(nss[++index]);
 
             } while (index < nss.Length);
 

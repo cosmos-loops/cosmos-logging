@@ -1,6 +1,4 @@
-﻿using Cosmos.Logging.MessageTemplates;
-
-namespace Cosmos.Logging.TemplateStandards {
+﻿namespace Cosmos.Logging.MessageTemplates.PresetTemplates {
     internal static class TemplateStandardsActivation {
         public static void RegisterToMessageTemplateCachePreheater(MessageTemplateCachePreheater preheater) {
             preheater.AddStandardsInternal(OrmTemplateStandard.Normal);

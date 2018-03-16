@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Interception;
 using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.TemplateStandards;
+using Cosmos.Logging.MessageTemplates.PresetTemplates;
 
 namespace Cosmos.Logging.Extensions.EntityFramework.Core {
     public partial class EfIntegrationLoggerInterceptor {

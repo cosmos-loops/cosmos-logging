@@ -15,8 +15,8 @@ namespace Cosmos.Logging.MessageTemplates {
 
         // ReSharper disable PossibleMultipleEnumeration
         public MessageTemplate(IEnumerable<MessageTemplateToken> tokens) : this(string.Join("", tokens), tokens) { }
+        
         // ReSharper enable PossibleMultipleEnumeration
-
         public MessageTemplate(string messageTemplate, IEnumerable<MessageTemplateToken> tokens) {
             Text = messageTemplate ?? throw new ArgumentNullException(nameof(messageTemplate));
             _tokens = tokens?.OrderBy(o => o.Index).ToArray() ?? throw new ArgumentNullException(nameof(tokens));
