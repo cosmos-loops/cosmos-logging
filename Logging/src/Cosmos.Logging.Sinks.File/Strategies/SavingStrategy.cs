@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Sinks.File.Core;
 using EnumsNET;
@@ -9,17 +10,26 @@ namespace Cosmos.Logging.Sinks.File.Strategies {
         private readonly string _basePath;
         private readonly PathType _pathType;
         private readonly RollingInterval _rolling;
+        private readonly TimeSpan? _flushToDiskInterval;
 
-        public SavingStrategy(string path, RollingInterval rolling, string basePath, PathType pathType) {
+        public SavingStrategy(
+            string path,
+            RollingInterval rolling,
+            TimeSpan? flushToDiskInterval,
+            string basePath,
+            PathType pathType) {
             _path = path;
             _rolling = rolling;
             _basePath = basePath;
             _pathType = pathType;
+            _flushToDiskInterval = flushToDiskInterval;
         }
 
         public string Path => _path;
 
         public RollingInterval Rolling => _rolling;
+
+        public TimeSpan? FlushToDiskInterval => _flushToDiskInterval;
 
         public FormattingStrategy FormattingStrategy { get; set; }
 

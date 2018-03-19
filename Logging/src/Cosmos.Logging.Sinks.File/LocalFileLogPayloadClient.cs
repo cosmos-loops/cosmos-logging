@@ -8,6 +8,7 @@ using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
 using Cosmos.Logging.Sinks.File.Core;
+using Cosmos.Logging.Sinks.File.Core.Astronauts;
 using Cosmos.Logging.Sinks.File.Filters;
 using Cosmos.Logging.Sinks.File.OutputTemplates;
 
@@ -63,10 +64,13 @@ namespace Cosmos.Logging.Sinks.File {
 
                         //写文件
                         if (_fileAstronautCache.TryGetFileAstronaut(strategy, targetFilePath, out var astronaut)) {
-                            //astronaut. ...
-                            Console.WriteLine("渲染模板为：" + strategy.FormattingStrategy.OutputTemplate.Text);
-                            Console.WriteLine("原始结果为：" + targetMessageBuilder);
-                            Console.WriteLine("渲染结果为：" + stringBuilder);
+                            using (FileAstronautRemover.UsingRegister(targetFilePath, astronaut)) {
+                                astronaut.Save(stringBuilder);
+                                //astronaut. ...
+                                Console.WriteLine("渲染模板为：" + strategy.FormattingStrategy.OutputTemplate.Text);
+                                Console.WriteLine("原始结果为：" + targetMessageBuilder);
+                                Console.WriteLine("渲染结果为：" + stringBuilder);
+                            }
                         }
                     }
                 }

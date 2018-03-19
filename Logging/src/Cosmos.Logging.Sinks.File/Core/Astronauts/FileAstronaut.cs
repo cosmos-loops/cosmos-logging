@@ -2,8 +2,8 @@
 using System.IO;
 using System.Text;
 
-namespace Cosmos.Logging.Sinks.File.Core {
-    public sealed class FileAstronaut {
+namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
+    public sealed class FileAstronaut : IAstronaut, IFlushableAstronaut, IDisposable {
         private readonly object _syncRoot = new object();
         readonly TextWriter _output;
         readonly FileStream _underlyingStream;
@@ -36,6 +36,34 @@ namespace Cosmos.Logging.Sinks.File.Core {
                 _output.Flush();
                 _underlyingStream.Flush(true);
             }
+        }
+
+        public void CloseFile() {
+            lock (_syncRoot) {
+                _output.Dispose();
+                _underlyingStream?.Dispose();
+                _sizeLimitedStream?.Dispose();
+            }
+        }
+
+        public void Save(StringBuilder stringBuilder) {
+            if (stringBuilder == null) throw new ArgumentNullException(nameof(stringBuilder));
+            lock (_syncRoot) {
+                if (_fileSizeLimitBytes != null) {
+                    if (_sizeLimitedStream.CountedLength >= _fileSizeLimitBytes.Value) {
+                        return;
+                    }
+                }
+
+                _output.Write(stringBuilder.ToString());
+                if (!_buffered) {
+                    _output.Flush();
+                }
+            }
+        }
+
+        public void Dispose() {
+            CloseFile();
         }
     }
 }
