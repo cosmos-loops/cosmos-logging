@@ -65,6 +65,7 @@ namespace Cosmos.Logging.Sinks.File {
                         //写文件
                         if (_fileAstronautCache.TryGetFileAstronaut(strategy, targetFilePath, out var astronaut)) {
                             using (FileAstronautRemover.UsingRegister(targetFilePath, astronaut)) {
+                                astronaut.Save(stringBuilder);
                                 //astronaut. ...
                                 Console.WriteLine("渲染模板为：" + strategy.FormattingStrategy.OutputTemplate.Text);
                                 Console.WriteLine("原始结果为：" + targetMessageBuilder);

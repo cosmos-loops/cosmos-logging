@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
@@ -20,7 +21,20 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
 
 
         private static void ClearUnusefulAstrinaut() {
-            
+            lock (_syncCounter) {
+                var hashCodeList = _astronautCounter.Where(x => x.Value < 1 && _astronautDeleted.ContainsKey(x.Key)).Select(x => x.Key).ToList();
+                if (hashCodeList.Any()) {
+                    foreach (var hashCode in hashCodeList) {
+                        _astronautCounter.Remove(hashCode);
+                        if (_astronautRegisterTable.TryGetValue(hashCode, out var astronaut)) {
+                            (astronaut as IDisposable)?.Dispose();
+                        }
+
+                        _astronautRegisterTable.Remove(hashCode);
+                        _astronautDeleted.Remove(hashCode);
+                    }
+                }
+            }
         }
 
         public static void WaitToRemove(int hashcode, IAstronaut astronaut) {

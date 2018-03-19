@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Sinks.File;
@@ -10,7 +11,7 @@ namespace Cosmos.Logging.LocalFileSink {
                 LOGGER.Initialize().RunsOnConsole(o => o.EnableDisplayCallerInfo(ThreeValuedBoolean.False).EnableDisplayEventIdInfo(true))
                     .AddFilelog(s => s
                         .UseMinimumLevel(LogEventLevel.Error)
-                        .AddStrategy("GeneralStrategy", @"x\logs\file.log", interval: RollingInterval.Day))
+                        .AddStrategy("GeneralStrategy", @"x\logs\file.log", interval: RollingInterval.Minute))
                     .AllDone();
 
                 var logger = LOGGER.GetLogger<Program>();
@@ -19,6 +20,8 @@ namespace Cosmos.Logging.LocalFileSink {
                 logger.LogError("world", ctx => ctx.SetTags("Alex").SetTags("Lewis"));
                 logger.LogError("Nice {@L}", ctx => ctx.SetParameter(new {L = "KK"}));
                 //logger.SubmitLogger();
+
+                Thread.Sleep(TimeSpan.FromMinutes(1));
 
                 var future = logger.ToFuture();
 
