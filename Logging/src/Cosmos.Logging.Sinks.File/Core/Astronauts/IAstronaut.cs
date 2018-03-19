@@ -1,5 +1,7 @@
-﻿namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
+﻿using System.Text;
+
+namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
     public interface IAstronaut {
-        void Save();
+        void Save(StringBuilder stringBuilder);
     }
 }
