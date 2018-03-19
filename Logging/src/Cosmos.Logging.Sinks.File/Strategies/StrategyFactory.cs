@@ -13,10 +13,10 @@ namespace Cosmos.Logging.Sinks.File.Strategies {
         public static SavingStrategy Create(string basePath, OutputOptions options) {
             if (options == null) throw new ArgumentNullException(nameof(options));
 
-            var saving = new SavingStrategy(options.Path, options.Rolling, basePath, options.PathType) {
+            var saving = new SavingStrategy(options.Path, options.Rolling, options.FlushToDiskInterval, basePath, options.PathType) {
                 FormattingStrategy = GetFormattingStrategy(options)
             };
-            
+
             return saving;
         }
 

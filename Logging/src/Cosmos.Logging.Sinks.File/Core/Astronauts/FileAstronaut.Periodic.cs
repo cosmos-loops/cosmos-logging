@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading;
 using Cosmos.Logging.Core;
 
@@ -34,8 +35,8 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
             (_astronaut as IDisposable)?.Dispose();
         }
 
-        public void Save() {
-            _astronaut.Save();
+        public void Save(StringBuilder stringBuilder) {
+            _astronaut.Save(stringBuilder);
             Interlocked.Exchange(ref _flushRequired, 1);
         }
     }
