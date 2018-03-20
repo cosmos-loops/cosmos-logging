@@ -11,7 +11,7 @@ namespace Cosmos.Logging.LocalFileSink {
                 LOGGER.Initialize().RunsOnConsole(o => o.EnableDisplayCallerInfo(ThreeValuedBoolean.False).EnableDisplayEventIdInfo(true))
                     .AddFilelog(s => s
                         .UseMinimumLevel(LogEventLevel.Error)
-                        .AddStrategy("GeneralStrategy", @"x\logs\file.log", interval: RollingInterval.Minute))
+                        .AddStrategy("GeneralStrategy", @"x\logs\file.log", rollingInterval: RollingInterval.Minute))
                     .AllDone();
 
                 var logger = LOGGER.GetLogger<Program>();

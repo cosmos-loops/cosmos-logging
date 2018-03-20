@@ -23,6 +23,7 @@ dotnet pack src/Cosmos.Logging.RunsOn.ZKWeb -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Logging.Sinks.Exceptionless -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Logging.Sinks.Log4Net -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Logging.Sinks.NLog -c Release -o ../../nuget_pub
+dotnet pack src/Cosmos.Logging.Sinks.File -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Logging.Renderers.Environment -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Logging.Renderers.Process -c Release -o ../../nuget_pub
 

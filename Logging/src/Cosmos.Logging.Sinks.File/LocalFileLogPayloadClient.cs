@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
-using Cosmos.Logging.Sinks.File.Core;
 using Cosmos.Logging.Sinks.File.Core.Astronauts;
 using Cosmos.Logging.Sinks.File.Filters;
 using Cosmos.Logging.Sinks.File.OutputTemplates;
@@ -33,8 +32,6 @@ namespace Cosmos.Logging.Sinks.File {
         public Task WriteAsync(ILogPayload payload, CancellationToken cancellationToken = default(CancellationToken)) {
             if (payload != null) {
                 var legalityEvents = LogEventSinkFilter.Filter(payload, _sinkConfiguration).ToList();
-                var ix = 0;
-                var count = legalityEvents.Count;
 
                 foreach (var logEvent in legalityEvents) {
 
@@ -66,10 +63,6 @@ namespace Cosmos.Logging.Sinks.File {
                         if (_fileAstronautCache.TryGetFileAstronaut(strategy, targetFilePath, out var astronaut)) {
                             using (FileAstronautRemover.UsingRegister(targetFilePath, astronaut)) {
                                 astronaut.Save(stringBuilder);
-                                //astronaut. ...
-                                Console.WriteLine("渲染模板为：" + strategy.FormattingStrategy.OutputTemplate.Text);
-                                Console.WriteLine("原始结果为：" + targetMessageBuilder);
-                                Console.WriteLine("渲染结果为：" + stringBuilder);
                             }
                         }
                     }
@@ -81,9 +74,5 @@ namespace Cosmos.Logging.Sinks.File {
             return Task.CompletedTask;
 #endif
         }
-
-        private static Func<int, Func<int, Func<char, string>>> PadLeftByZero() => i => count => c => i.ToString().PadLeft(count, c);
-
-        private static Func<LogEventLevel?, string> GetLevelName() => l => EnumsNET.Enums.GetName(l ?? LogEventLevel.Off);
     }
 }
