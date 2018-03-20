@@ -122,7 +122,7 @@ namespace Cosmos.Logging {
             string fileName,
             PathType pathType = PathType.Relative,
             TimeSpan? flushToDiskInterval = null,
-            RollingInterval interval = RollingInterval.Infinite,
+            RollingInterval rollingInterval = RollingInterval.Infinite,
             List<string> namespaceList = null, string outputTemplate = null) {
             if (string.IsNullOrWhiteSpace(strategyName)) throw new ArgumentNullException(nameof(strategyName));
             if (string.IsNullOrWhiteSpace(fileName)) throw new ArgumentNullException(nameof(fileName));
@@ -140,7 +140,7 @@ namespace Cosmos.Logging {
                     Template = outputTemplate,
                     PathType = pathType,
                     FlushToDiskInterval = flushToDiskInterval,
-                    Rolling = interval,
+                    Rolling = rollingInterval,
                     Navigators = namespaceList
                 });
             _registeredPath.Add(u);
