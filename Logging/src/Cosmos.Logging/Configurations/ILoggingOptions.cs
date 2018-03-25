@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Renders;
 
 namespace Cosmos.Logging.Configurations {
     public interface ILoggingOptions {
