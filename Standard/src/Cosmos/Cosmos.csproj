@@ -2,7 +2,7 @@
   <Import Project="..\..\build\common.props" />
   <PropertyGroup>
     <AssemblyName>Cosmos</AssemblyName>
-    <PackageId>Cosmos</PackageId>
+    <PackageId>Cosmos.Core</PackageId>
     <Description>Cosmos base library</Description>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -13,5 +13,8 @@
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="0.2.4" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
     <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cosmos.Abstractions\Cosmos.Abstractions.csproj" />
   </ItemGroup>
 </Project>

@@ -1,17 +1,11 @@
 ﻿using System.Collections.Generic;
+using Cosmos.Abstractions;
 
-namespace Cosmos.Verba.Boolean
-{
+namespace Cosmos.Verba.Boolean {
     /// <summary>
     /// Interface for boolean verba
     /// </summary>
-    public interface IBooleanVerba
-    {
-        /// <summary>
-        /// Verba name
-        /// </summary>
-        string VerbaName { get; }
-
+    public interface IBooleanVerba : IVerba {
         /// <summary>
         /// True alias list
         /// </summary>
