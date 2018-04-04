@@ -10,6 +10,10 @@
     <RootNamespace>Cosmos</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AspectCore.Extensions.Reflection" Version="0.3.1" />
+    <PackageReference Include="FluentValidation" Version="7.4.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Cosmos.Extensions\Cosmos.Extensions.csproj" />
     <ProjectReference Include="..\Cosmos\Cosmos.csproj" />
   </ItemGroup>

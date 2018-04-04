@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Cosmos {
     // ReSharper disable InconsistentNaming
@@ -26,6 +27,7 @@ namespace Cosmos {
                 flag = EMPTY_FLAG;
             }
 
+            ExtraData = new Dictionary<string, object>();
             Code = errorCode;
             Flag = flag;
         }
@@ -33,6 +35,8 @@ namespace Cosmos {
         public long Code { get; }
 
         public string Flag { get; }
+
+        public Dictionary<string, object> ExtraData { get; }
 
         public virtual string GetFullMessage() => $"{Code}:({Flag}){Message}";
     }
