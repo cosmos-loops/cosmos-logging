@@ -1,17 +1,14 @@
-﻿namespace Cosmos.Judgements
-{
+﻿namespace Cosmos.Judgements {
     /// <summary>
     /// Numeric Judgement Utilities
     /// </summary>
-    public static class NumericJudgement
-    {
+    public static class NumericJudgement {
         /// <summary>
         /// To judge whether the string is integer or not
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static bool IsInt32(string str)
-        {
+        public static bool IsInt32(string str) {
             return int.TryParse(str, out _);
         }
 
@@ -20,8 +17,7 @@
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static bool IsNumeric(string str)
-        {
+        public static bool IsNumeric(string str) {
             return decimal.TryParse(str, out _);
         }
 
@@ -32,8 +28,7 @@
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool IsBetween(short value, short left, short right)
-        {
+        public static bool IsBetween(short value, short left, short right) {
             return value >= left && value <= right;
         }
 
@@ -44,8 +39,7 @@
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool IsBetween(int value, int left, int right)
-        {
+        public static bool IsBetween(int value, int left, int right) {
             return value >= left && value <= right;
         }
 
@@ -56,8 +50,7 @@
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool IsBetween(long value, long left, long right)
-        {
+        public static bool IsBetween(long value, long left, long right) {
             return value >= left && value <= right;
         }
 
@@ -68,8 +61,7 @@
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool IsBetween(float value, float left, float right)
-        {
+        public static bool IsBetween(float value, float left, float right) {
             return value >= left && value <= right;
         }
 
@@ -80,8 +72,7 @@
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool IsBetween(double value, double left, double right)
-        {
+        public static bool IsBetween(double value, double left, double right) {
             return value >= left && value <= right;
         }
 
@@ -92,8 +83,7 @@
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool IsBetween(decimal value, decimal left, decimal right)
-        {
+        public static bool IsBetween(decimal value, decimal left, decimal right) {
             return value >= left && value <= right;
         }
     }

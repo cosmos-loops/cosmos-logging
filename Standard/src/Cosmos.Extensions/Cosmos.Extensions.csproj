@@ -7,10 +7,10 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <RootNamespace>Cosmos</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DeepCopy" Version="1.0.3" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.1" />
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>

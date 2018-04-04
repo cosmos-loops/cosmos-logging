@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Cosmos
-{
+namespace Cosmos {
     /// <summary>
     /// Judgement extensions
     /// </summary>
-    public static class JudgementExtensions
-    {
+    public static class JudgementExtensions {
         /// <summary>
         /// 判断指定日期是否为今天
         /// </summary>

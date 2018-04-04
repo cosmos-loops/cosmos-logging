@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Cosmos.Extensions
-{
+namespace Cosmos.Extensions {
     /// <summary>
     /// 随机数扩展方法
     /// </summary>
-    public static class RandomExtensions
-    {
+    public static class RandomExtensions {
         /// <summary>
         /// 随机返回 True 或 False
         /// </summary>
@@ -21,14 +19,13 @@ namespace Cosmos.Extensions
         /// <typeparam name="T"> 枚举 </typeparam>
         /// <param name="random"></param>
         /// <returns> 枚举对象的成员 </returns>
-        public static T NextEnum<T>(this Random random) where T : struct
-        {
+        public static T NextEnum<T>(this Random random) where T : struct {
             var type = typeof(T);
             if (!type.GetTypeInfo().IsEnum) throw new InvalidOperationException();
 
             var array = Enum.GetValues(type);
             var index = random.Next(array.GetLowerBound(0), array.GetUpperBound(0) + 1);
-            return (T)array.GetValue(index);
+            return (T) array.GetValue(index);
         }
 
         /// <summary>
@@ -37,8 +34,7 @@ namespace Cosmos.Extensions
         /// <param name="random"></param>
         /// <param name="length"> 字节长度 </param>
         /// <returns></returns>
-        public static byte[] NextBytes(this Random random, int length)
-        {
+        public static byte[] NextBytes(this Random random, int length) {
             var data = new byte[length];
             random.NextBytes(data);
             return data;
@@ -73,7 +69,7 @@ namespace Cosmos.Extensions
         /// <param name="maxValue"> 时间截止 </param>
         /// <returns></returns>
         public static DateTime NextDateTime(this Random random, DateTime minValue, DateTime maxValue)
-            => new DateTime(minValue.Ticks + (long)((maxValue.Ticks - minValue.Ticks) * random.NextDouble()));
+            => new DateTime(minValue.Ticks + (long) ((maxValue.Ticks - minValue.Ticks) * random.NextDouble()));
 
         /// <summary>
         /// 随机返回一个时间

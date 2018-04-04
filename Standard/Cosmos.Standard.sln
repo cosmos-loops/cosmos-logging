@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CF634BA0-51EE-4B4A-AB50-5DA72FCD3B6B}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet.config = NuGet.config
+		PublishToMyGet.bat = PublishToMyGet.bat
 		Publish.bat = Publish.bat
 	EndProjectSection
 EndProject

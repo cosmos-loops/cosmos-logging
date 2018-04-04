@@ -1,23 +1,19 @@
 ﻿using System;
 using Cosmos.Extensions;
 
-namespace Cosmos
-{
+namespace Cosmos {
     /// <summary>
     /// Numeric arguments checking
     /// </summary>
-    public static partial class Preconditions
-    {
+    public static partial class Preconditions {
         /// <summary>
         /// 检查整数是否为负
         /// </summary>
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegative(int argument, string argumentName, string message = null)
-        {
-            if (argument < 0)
-            {
+        public static void IsNotNegative(int argument, string argumentName, string message = null) {
+            if (argument < 0) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative.");
             }
         }
@@ -28,8 +24,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegative(int? argument, string argumentName, string message = null)
-        {
+        public static void IsNotNegative(int? argument, string argumentName, string message = null) {
             IsNotNegative(argument.SafeValue(), argumentName, message);
         }
 
@@ -39,10 +34,8 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegativeOrZero(int argument, string argumentName, string message = null)
-        {
-            if (argument <= 0)
-            {
+        public static void IsNotNegativeOrZero(int argument, string argumentName, string message = null) {
+            if (argument <= 0) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative or zero.");
             }
         }
@@ -53,8 +46,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegativeOrZero(int? argument, string argumentName, string message = null)
-        {
+        public static void IsNotNegativeOrZero(int? argument, string argumentName, string message = null) {
             IsNotNegativeOrZero(argument.SafeValue(), argumentName, message);
         }
 
@@ -66,10 +58,8 @@ namespace Cosmos
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotOutOfRange(int argument, int min, int max, string argumentName, string message = null)
-        {
-            if (!Judgements.NumericJudgement.IsBetween(argument, min, max))
-            {
+        public static void IsNotOutOfRange(int argument, int min, int max, string argumentName, string message = null) {
+            if (!Judgements.NumericJudgement.IsBetween(argument, min, max)) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} is not between {min} and {max}.");
             }
         }
@@ -82,8 +72,7 @@ namespace Cosmos
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotOutOfRange(int? argument, int min, int max, string argumentName, string message = null)
-        {
+        public static void IsNotOutOfRange(int? argument, int min, int max, string argumentName, string message = null) {
             IsNotOutOfRange(argument.SafeValue(), min, max, argumentName, message);
         }
 
@@ -93,10 +82,8 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegative(long argument, string argumentName, string message = null)
-        {
-            if (argument < 0)
-            {
+        public static void IsNotNegative(long argument, string argumentName, string message = null) {
+            if (argument < 0) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative or zero.");
             }
         }
@@ -107,8 +94,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegative(long? argument, string argumentName, string message = null)
-        {
+        public static void IsNotNegative(long? argument, string argumentName, string message = null) {
             IsNotNegative(argument.SafeValue(), argumentName, message);
         }
 
@@ -118,10 +104,8 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegativeOrZero(long argument, string argumentName, string message = null)
-        {
-            if (argument <= 0)
-            {
+        public static void IsNotNegativeOrZero(long argument, string argumentName, string message = null) {
+            if (argument <= 0) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative or zero.");
             }
         }
@@ -132,8 +116,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegativeOrZero(long? argument, string argumentName, string message = null)
-        {
+        public static void IsNotNegativeOrZero(long? argument, string argumentName, string message = null) {
             IsNotNegativeOrZero(argument.SafeValue(), argumentName, message);
         }
 
@@ -145,10 +128,8 @@ namespace Cosmos
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotOutOfRange(long argument, long min, long max, string argumentName, string message = null)
-        {
-            if (!Judgements.NumericJudgement.IsBetween(argument, min, max))
-            {
+        public static void IsNotOutOfRange(long argument, long min, long max, string argumentName, string message = null) {
+            if (!Judgements.NumericJudgement.IsBetween(argument, min, max)) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} is not between {min} and {max}.");
             }
         }
@@ -161,8 +142,7 @@ namespace Cosmos
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotOutOfRange(long? argument, long min, long max, string argumentName, string message = null)
-        {
+        public static void IsNotOutOfRange(long? argument, long min, long max, string argumentName, string message = null) {
             IsNotOutOfRange(argument.SafeValue(), min, max, argumentName, message);
         }
 
@@ -172,10 +152,8 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegative(float argument, string argumentName, string message = null)
-        {
-            if (argument < 0)
-            {
+        public static void IsNotNegative(float argument, string argumentName, string message = null) {
+            if (argument < 0) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative.");
             }
         }
@@ -186,8 +164,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegative(float? argument, string argumentName, string message = null)
-        {
+        public static void IsNotNegative(float? argument, string argumentName, string message = null) {
             IsNotNegative(argument.SafeValue(), argumentName, message);
         }
 
@@ -197,10 +174,8 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegativeOrZero(float argument, string argumentName, string message = null)
-        {
-            if (argument <= 0)
-            {
+        public static void IsNotNegativeOrZero(float argument, string argumentName, string message = null) {
+            if (argument <= 0) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative or zero.");
             }
         }
@@ -211,8 +186,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegativeOrZero(float? argument, string argumentName, string message = null)
-        {
+        public static void IsNotNegativeOrZero(float? argument, string argumentName, string message = null) {
             IsNotNegativeOrZero(argument.SafeValue(), argumentName, message);
         }
 
@@ -224,10 +198,8 @@ namespace Cosmos
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotOutOfRange(float argument, float min, float max, string argumentName, string message = null)
-        {
-            if (!Judgements.NumericJudgement.IsBetween(argument, min, max))
-            {
+        public static void IsNotOutOfRange(float argument, float min, float max, string argumentName, string message = null) {
+            if (!Judgements.NumericJudgement.IsBetween(argument, min, max)) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} is not between {min} and {max}.");
             }
         }
@@ -240,8 +212,7 @@ namespace Cosmos
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotOutOfRange(float? argument, float min, float max, string argumentName, string message = null)
-        {
+        public static void IsNotOutOfRange(float? argument, float min, float max, string argumentName, string message = null) {
             IsNotOutOfRange(argument.SafeValue(), min, max, argumentName, message);
         }
 
@@ -251,10 +222,8 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegative(double argument, string argumentName, string message = null)
-        {
-            if (argument < 0)
-            {
+        public static void IsNotNegative(double argument, string argumentName, string message = null) {
+            if (argument < 0) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative.");
             }
         }
@@ -265,8 +234,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegative(double? argument, string argumentName, string message = null)
-        {
+        public static void IsNotNegative(double? argument, string argumentName, string message = null) {
             IsNotNegative(argument.SafeValue(), argumentName, message);
         }
 
@@ -276,10 +244,8 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegativeOrZero(double argument, string argumentName, string message = null)
-        {
-            if (argument <= 0)
-            {
+        public static void IsNotNegativeOrZero(double argument, string argumentName, string message = null) {
+            if (argument <= 0) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative or zero.");
             }
         }
@@ -290,8 +256,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegativeOrZero(double? argument, string argumentName, string message = null)
-        {
+        public static void IsNotNegativeOrZero(double? argument, string argumentName, string message = null) {
             IsNotNegativeOrZero(argument.SafeValue(), argumentName, message);
         }
 
@@ -303,10 +268,8 @@ namespace Cosmos
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotOutOfRange(double argument, double min, double max, string argumentName, string message = null)
-        {
-            if (!Judgements.NumericJudgement.IsBetween(argument, min, max))
-            {
+        public static void IsNotOutOfRange(double argument, double min, double max, string argumentName, string message = null) {
+            if (!Judgements.NumericJudgement.IsBetween(argument, min, max)) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} is not between {min} and {max}.");
             }
         }
@@ -319,8 +282,7 @@ namespace Cosmos
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotOutOfRange(double? argument, double min, double max, string argumentName, string message = null)
-        {
+        public static void IsNotOutOfRange(double? argument, double min, double max, string argumentName, string message = null) {
             IsNotOutOfRange(argument.SafeValue(), min, max, argumentName, message);
         }
 
@@ -330,10 +292,8 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegative(decimal argument, string argumentName, string message = null)
-        {
-            if (argument < 0)
-            {
+        public static void IsNotNegative(decimal argument, string argumentName, string message = null) {
+            if (argument < 0) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative.");
             }
         }
@@ -344,8 +304,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegative(decimal? argument, string argumentName, string message = null)
-        {
+        public static void IsNotNegative(decimal? argument, string argumentName, string message = null) {
             IsNotNegative(argument.SafeValue(), argumentName, message);
         }
 
@@ -355,10 +314,8 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegativeOrZero(decimal argument, string argumentName, string message = null)
-        {
-            if (argument <= 0)
-            {
+        public static void IsNotNegativeOrZero(decimal argument, string argumentName, string message = null) {
+            if (argument <= 0) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative or zero.");
             }
         }
@@ -369,8 +326,7 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotNegativeOrZero(decimal? argument, string argumentName, string message = null)
-        {
+        public static void IsNotNegativeOrZero(decimal? argument, string argumentName, string message = null) {
             IsNotNegativeOrZero(argument.SafeValue(), argumentName, message);
         }
 
@@ -382,10 +338,8 @@ namespace Cosmos
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotOutOfRange(decimal argument, decimal min, decimal max, string argumentName, string message = null)
-        {
-            if (!Judgements.NumericJudgement.IsBetween(argument, min, max))
-            {
+        public static void IsNotOutOfRange(decimal argument, decimal min, decimal max, string argumentName, string message = null) {
+            if (!Judgements.NumericJudgement.IsBetween(argument, min, max)) {
                 throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} is not between {min} and {max}.");
             }
         }
@@ -398,8 +352,7 @@ namespace Cosmos
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void IsNotOutOfRange(decimal? argument, decimal min, decimal max, string argumentName, string message = null)
-        {
+        public static void IsNotOutOfRange(decimal? argument, decimal min, decimal max, string argumentName, string message = null) {
             IsNotOutOfRange(argument.SafeValue(), min, max, argumentName, message);
         }
     }

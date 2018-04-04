@@ -3,17 +3,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-namespace Cosmos
-{
-    public static class Reflections
-    {
+namespace Cosmos {
+    public static class Reflections {
         /// <summary>
         /// 获取描述
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
         /// <param name="memberName">成员名称</param>
-        public static string GetDescription<T>(string memberName)
-        {
+        public static string GetDescription<T>(string memberName) {
             return GetDescription(Types.Of<T>(), memberName);
         }
 
@@ -22,10 +19,8 @@ namespace Cosmos
         /// </summary>
         /// <param name="typeinfo">类型</param>
         /// <param name="memberName">成员名称</param>
-        public static string GetDescription(TypeInfo typeinfo, string memberName)
-        {
-            if (typeinfo == null)
-            {
+        public static string GetDescription(TypeInfo typeinfo, string memberName) {
+            if (typeinfo == null) {
                 return string.Empty;
             }
 
@@ -39,8 +34,7 @@ namespace Cosmos
         /// </summary>
         /// <param name="type">类型</param>
         /// <param name="memberName">成员名称</param>
-        public static string GetDescription(Type type, string memberName)
-        {
+        public static string GetDescription(Type type, string memberName) {
             return GetDescription(type.GetTypeInfo(), memberName);
         }
 
@@ -50,12 +44,11 @@ namespace Cosmos
         /// <param name="typeinfo">类型</param>
         /// <param name="field">成员</param>
         /// <returns></returns>
-        public static string GetDescription(TypeInfo typeinfo, FieldInfo field)
-        {
-            if (typeinfo == null || field == null)
-            {
+        public static string GetDescription(TypeInfo typeinfo, FieldInfo field) {
+            if (typeinfo == null || field == null) {
                 return string.Empty;
             }
+
             var attribute = field.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault() as DescriptionAttribute;
             return attribute == null ? field.Name : attribute.Description;
         }
@@ -65,8 +58,7 @@ namespace Cosmos
         /// </summary>
         /// <param name="type">类型</param>
         /// <param name="field">成员</param>
-        public static string GetDescription(Type type, FieldInfo field)
-        {
+        public static string GetDescription(Type type, FieldInfo field) {
             return GetDescription(type.GetTypeInfo(), field);
         }
     }

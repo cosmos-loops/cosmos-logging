@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Cosmos.Extensions
-{
-    public static class JsonDateTimeHelper
-    {
+namespace Cosmos.Extensions {
+    public static class JsonDateTimeHelper {
         /// <summary>
         /// 处理Json的时间格式为正常格式
         /// </summary>

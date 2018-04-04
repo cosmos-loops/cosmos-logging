@@ -1,10 +1,8 @@
-﻿namespace Cosmos
-{
+﻿namespace Cosmos {
     /// <summary>
     /// Double arguments checking extensions
     /// </summary>
-    public static partial class PreconditionsExtensions
-    {
+    public static partial class PreconditionsExtensions {
         /// <summary>
         /// 检查双精度浮点数是否超界
         /// </summary>

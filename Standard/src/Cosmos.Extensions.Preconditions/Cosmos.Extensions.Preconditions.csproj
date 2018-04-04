@@ -13,7 +13,4 @@
     <ProjectReference Include="..\Cosmos.Extensions\Cosmos.Extensions.csproj" />
     <ProjectReference Include="..\Cosmos\Cosmos.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NETStandard.Library" Version="2.0.1" />
-  </ItemGroup>
 </Project>
