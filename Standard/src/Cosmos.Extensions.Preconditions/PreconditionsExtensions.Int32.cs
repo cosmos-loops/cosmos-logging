@@ -1,10 +1,8 @@
-﻿namespace Cosmos
-{
+﻿namespace Cosmos {
     /// <summary>
     /// Integer arguments checking extensions
     /// </summary>
-    public static partial class PreconditionsExtensions
-    {
+    public static partial class PreconditionsExtensions {
         /// <summary>
         /// 检查指定数字是否超界
         /// </summary>

@@ -1,16 +1,13 @@
 ﻿using System.Collections.Generic;
 
-namespace Cosmos.Verba.Boolean
-{
+namespace Cosmos.Verba.Boolean {
     /// <summary>
     /// Default global boolean verba
     /// </summary>
-    public class DefaultBooleanVerba : IBooleanVerba
-    {
+    public class DefaultBooleanVerba : IBooleanVerba {
         private static readonly DefaultBooleanVerba m_singletonInstance;
 
-        static DefaultBooleanVerba()
-        {
+        static DefaultBooleanVerba() {
             m_singletonInstance = new DefaultBooleanVerba();
         }
 
@@ -29,11 +26,11 @@ namespace Cosmos.Verba.Boolean
         /// <summary>
         /// True alias list
         /// </summary>
-        public IList<string> TrueVerbaList { get; } = new List<string>() { "1", "yes", "yep", "ok" };
+        public IList<string> TrueVerbaList { get; } = new List<string>() {"1", "yes", "yep", "ok"};
 
         /// <summary>
         /// False alias list
         /// </summary>
-        public IList<string> FalseVerbaList { get; } = new List<string>() { "0", "no", "nope" };
+        public IList<string> FalseVerbaList { get; } = new List<string>() {"0", "no", "nope"};
     }
 }

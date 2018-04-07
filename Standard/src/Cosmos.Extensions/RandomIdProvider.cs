@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Text;
 
-namespace Cosmos
-{
+namespace Cosmos {
     /// <summary>
     /// Random Id Provider
     /// </summary>
-    public static class RandomIdProvider
-    {
+    public static class RandomIdProvider {
         /// <summary>
         /// All numbers from 0 to 9
         /// </summary>
@@ -41,13 +39,11 @@ namespace Cosmos
         public static string Create(string format, string dict = ALLWORDS) => new RandomId(format, dict).Create();
     }
 
-    internal sealed class RandomId : IFormattable
-    {
+    internal sealed class RandomId : IFormattable {
         // ReSharper disable once InconsistentNaming
         private const string ONE = "{0}";
 
-        private static readonly Func<int, string> ToFormat = length =>
-        {
+        private static readonly Func<int, string> ToFormat = length => {
             var sb = new StringBuilder(length * 3);
             for (var i = 0; i < length; i++)
                 sb.Append(ONE);
@@ -68,8 +64,7 @@ namespace Cosmos
         /// </summary>
         /// <param name="format">生成Id格式</param>
         /// <param name="dict">随机字符字典,默认字典为0-9a-zA-Z</param>
-        public RandomId(string format, string dict = RandomIdProvider.ALLWORDS)
-        {
+        public RandomId(string format, string dict = RandomIdProvider.ALLWORDS) {
             _dict = dict;
             _format = format;
             _rMax = dict.Length;
@@ -77,8 +72,7 @@ namespace Cosmos
 
         /// <summary> 生成Id
         /// </summary>
-        public string Create()
-        {
+        public string Create() {
             return string.Format(_format, this);
         }
 
@@ -86,11 +80,11 @@ namespace Cosmos
 
         private static readonly Random Rand = new Random();
 
-        string IFormattable.ToString(string format, IFormatProvider formatProvider)
-        {
+        string IFormattable.ToString(string format, IFormatProvider formatProvider) {
             return _dict[Rand.Next(0, _rMax)].ToString();
         }
 
         #endregion IFormattable 成员
+
     }
 }

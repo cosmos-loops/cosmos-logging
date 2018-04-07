@@ -4,13 +4,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Cosmos.Extensions
-{
+namespace Cosmos.Extensions {
     /// <summary>
     /// Type extensions
     /// </summary>
-    public static class TypeExtensions
-    {
+    public static class TypeExtensions {
         /// <summary>
         /// Get non-nullable inderlying <see cref="Type"/>
         /// </summary>
@@ -57,25 +55,21 @@ namespace Cosmos.Extensions
         /// </summary>
         /// <param name="typeinfo"></param>
         /// <returns></returns>
-        public static string ToComputeSignature(this TypeInfo typeinfo)
-        {
+        public static string ToComputeSignature(this TypeInfo typeinfo) {
             var sb = new StringBuilder();
-            if (typeinfo.IsGenericType)
-            {
+            if (typeinfo.IsGenericType) {
                 sb.Append(typeinfo.GetGenericTypeDefinition().FullName)
                     .Append("[");
 
                 var genericArgs = typeinfo.GetGenericArguments().ToTypeInfo().ToList();
-                for (var i = 0; i < genericArgs.Count(); i++)
-                {
+                for (var i = 0; i < genericArgs.Count(); i++) {
                     sb.Append(genericArgs[i].ToComputeSignature());
                     if (i != genericArgs.Count() - 1)
                         sb.Append(", ");
                 }
+
                 sb.Append("]");
-            }
-            else
-            {
+            } else {
                 if (!string.IsNullOrEmpty(typeinfo.FullName))
                     sb.Append(typeinfo.FullName);
                 else if (!string.IsNullOrEmpty(typeinfo.Name))
@@ -83,6 +77,7 @@ namespace Cosmos.Extensions
                 else
                     sb.Append(typeinfo);
             }
+
             return sb.ToString();
         }
 
@@ -117,25 +112,23 @@ namespace Cosmos.Extensions
         /// <param name="definition"></param>
         /// <param name="typeinfo"></param>
         /// <returns></returns>
-        public static TypeInfo FindGenericTypeInfo(this TypeInfo definition, TypeInfo typeinfo)
-        {
+        public static TypeInfo FindGenericTypeInfo(this TypeInfo definition, TypeInfo typeinfo) {
             var objectTypeInfo = typeof(object).GetTypeInfo();
-            while (typeinfo != null && typeinfo != objectTypeInfo)
-            {
+            while (typeinfo != null && typeinfo != objectTypeInfo) {
                 if (typeinfo.IsGenericType && typeinfo.GetGenericTypeDefinition().GetTypeInfo() == definition)
                     return typeinfo;
 
-                if (definition.IsInterface)
-                {
-                    foreach (var type in typeinfo.GetInterfaces())
-                    {
+                if (definition.IsInterface) {
+                    foreach (var type in typeinfo.GetInterfaces()) {
                         var typeinfo2 = FindGenericTypeInfo(definition, type.GetTypeInfo());
                         if (typeinfo2 != null)
                             return typeinfo2;
                     }
                 }
+
                 typeinfo = typeinfo.BaseType.GetTypeInfo();
             }
+
             return null;
         }
 

@@ -1,12 +1,10 @@
 ﻿using System;
 
-namespace Cosmos
-{
+namespace Cosmos {
     /// <summary>
     /// DateTime arguments checking extensions
     /// </summary>
-    public static partial class PreconditionsExtensions
-    {
+    public static partial class PreconditionsExtensions {
         /// <summary>
         /// 检查是否为合法时间
         /// </summary>

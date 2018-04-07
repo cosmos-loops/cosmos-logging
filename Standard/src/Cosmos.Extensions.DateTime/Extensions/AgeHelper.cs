@@ -1,12 +1,10 @@
 ﻿using System;
 
-namespace Cosmos.Extensions
-{
+namespace Cosmos.Extensions {
     /// <summary>
     /// Age helper
     /// </summary>
-    public static class AgeHelper
-    {
+    public static class AgeHelper {
         /// <summary>
         /// 根据生日计算年纪
         /// </summary>
@@ -20,8 +18,7 @@ namespace Cosmos.Extensions
         /// <param name="birthday">     </param>
         /// <param name="referenceDate"></param>
         /// <returns></returns>
-        public static int Calculate(DateTime birthday, DateTime referenceDate)
-        {
+        public static int Calculate(DateTime birthday, DateTime referenceDate) {
             var years = referenceDate.Year - birthday.Year;
             if (referenceDate.Month < birthday.Month || (referenceDate.Month == birthday.Month && referenceDate.Day < birthday.Day))
                 --years;

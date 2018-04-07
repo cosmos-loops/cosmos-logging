@@ -12,6 +12,7 @@ dotnet pack src/Cosmos.Extensions -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Extensions.DateTime -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Extensions.Collections -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Extensions.Preconditions -c Release -o ../../nuget_pub
+dotnet pack src/Cosmos.Abstractions -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Standard -c Release -o ../../nuget_pub
 
 for /R "nuget_pub" %%s in (*symbols.nupkg) do (
@@ -22,7 +23,7 @@ echo.
 echo.
 
 set /p key=input key:
-set source=https://www.myget.org/F/alexinea/api/v2/package
+set source=https://api.nuget.org/v3/index.json
 
 for /R "nuget_pub" %%s in (*.nupkg) do ( 
     call nuget push %%s %key% -Source %source%	

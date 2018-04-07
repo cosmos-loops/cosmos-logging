@@ -6,7 +6,6 @@ using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
-using Cosmos.Logging.MessageTemplates;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Cosmos.Logging.RunsOn.AspNetCore.Core;

@@ -4,21 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Cosmos.Conversions.Scale
-{
+namespace Cosmos.Conversions.Scale {
     /// <summary>
     /// Hexadecimal Conversion Utilities
     /// </summary>
-    public static class HexadecimalConversion
-    {
+    public static class HexadecimalConversion {
         /// <summary>
         /// Convert from hexadecimal to decimalism
         /// </summary>
         /// <example>in: 2E; out: 46</example>
         /// <param name="hex"></param>
         /// <returns></returns>
-        public static int ToDecimalism(string hex)
-        {
+        public static int ToDecimalism(string hex) {
             return Convert.ToInt32(hex, 16);
         }
 
@@ -28,8 +25,7 @@ namespace Cosmos.Conversions.Scale
         /// <example>in: 2E; out: 101110</example>
         /// <param name="hex"></param>
         /// <returns></returns>
-        public static string ToBinary(string hex)
-        {
+        public static string ToBinary(string hex) {
             return DecimalismConversion.ToBinary(ToDecimalism(hex));
         }
 
@@ -39,8 +35,7 @@ namespace Cosmos.Conversions.Scale
         /// <example>in: 2E3D; out: result[0] is 46, result[1] is 61</example>
         /// <param name="hex"></param>
         /// <returns></returns>
-        public static byte[] ToBytes(string hex)
-        {
+        public static byte[] ToBytes(string hex) {
             var mc = Regex.Matches(hex, @"(?i)[\da-f]{2}");
             return (from Match m in mc select Convert.ToByte(m.Value, 16)).ToArray();
         }
@@ -51,19 +46,15 @@ namespace Cosmos.Conversions.Scale
         /// <param name="hex"></param>
         /// <param name="encodingName">encoding name, default is "utf-8"</param>
         /// <returns></returns>
-        public static string ToString(string hex, string encodingName = "utf-8")
-        {
+        public static string ToString(string hex, string encodingName = "utf-8") {
             hex = hex.Replace(" ", "");
-            if (string.IsNullOrWhiteSpace(hex))
-            {
+            if (string.IsNullOrWhiteSpace(hex)) {
                 return "";
             }
 
             var bytes = new byte[hex.Length / 2];
-            for (var i = 0; i < hex.Length; i += 2)
-            {
-                if (!byte.TryParse(hex.Substring(i, 2), NumberStyles.HexNumber, null, out bytes[i / 2]))
-                {
+            for (var i = 0; i < hex.Length; i += 2) {
+                if (!byte.TryParse(hex.Substring(i, 2), NumberStyles.HexNumber, null, out bytes[i / 2])) {
                     bytes[i / 2] = 0;
                 }
             }
@@ -78,8 +69,7 @@ namespace Cosmos.Conversions.Scale
         /// <param name="str"></param>
         /// <param name="encodingName">encoding name, default is "utf-8"</param>
         /// <returns></returns>
-        public static string FromString(string str, string encodingName = "utf-8")
-        {
+        public static string FromString(string str, string encodingName = "utf-8") {
             return BitConverter.ToString(Encoding.GetEncoding(encodingName).GetBytes(str)).Replace("-", " ");
         }
     }

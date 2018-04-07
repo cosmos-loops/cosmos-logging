@@ -1,9 +1,7 @@
 ﻿using System;
 
-namespace Cosmos
-{
-    public static class Types
-    {
+namespace Cosmos {
+    public static class Types {
         /// <summary>
         /// 获取类型，对可空类型进行处理
         /// </summary>

@@ -10,7 +10,6 @@
     <RootNamespace>Cosmos</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetCore.Collections.Paginable" Version="1.0.0-beta1-20170804" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.1" />
+    <PackageReference Include="DotNetCore.Collections.Paginable" Version="1.0.1" />
   </ItemGroup>
 </Project>
