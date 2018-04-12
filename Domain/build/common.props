@@ -1,0 +1,20 @@
+<Project>
+
+    <Import Project="version.props"/>
+
+    <PropertyGroup Label="Build">
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Package">
+        <Product>Cosmos.Domain</Product>
+        <Authors>AlexLEWIS;dotnetcore;StarrySky;Cosmos</Authors>
+        <RepositoryUrl>https://github.com/cosmos-loops/Cosmos/tree/dev/Domain</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://github.com/cosmos-loops/Cosmos/tree/dev/Domain</PackageProjectUrl>
+        <PackageIconUrl>https://avatars2.githubusercontent.com/u/25580633?s=200</PackageIconUrl>
+        <PackageLicenseUrl>http://www.opensource.org/licenses/mit-license.php</PackageLicenseUrl>
+        <PackageTags>StarrySky;Cosmos;Domain;DDD</PackageTags>
+    </PropertyGroup>
+
+</Project>
