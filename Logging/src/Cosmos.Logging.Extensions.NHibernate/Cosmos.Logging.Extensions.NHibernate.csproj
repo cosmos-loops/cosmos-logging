@@ -13,6 +13,6 @@
     <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NHibernate" Version="5.1.0" />
+    <PackageReference Include="NHibernate" Version="5.1.1" />
   </ItemGroup>
 </Project>

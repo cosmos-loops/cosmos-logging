@@ -25,20 +25,20 @@ namespace Cosmos.Logging.Renderers.Environment {
         public static IReadOnlyList<Type> Default => _default;
 
         public static void ActiveEnvironmentPreferencesRenders() {
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentCommandLine>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentCurrentDirectory>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentCurrentThreadId>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentMachineName>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentOsBits>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentOsName>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentOsVersion>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentOsStandardVersion>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentOsInterimVersion>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentProcessBits>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentStackTrace>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentSystemProcessorCount>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentUserDomainName>();
-            PreferencesRenderManager.AddPreferencesRenderer<EnvironmentUserName>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentCommandLine>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentCurrentDirectory>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentCurrentThreadId>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentMachineName>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentOsBits>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentOsName>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentOsVersion>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentOsStandardVersion>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentOsInterimVersion>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentProcessBits>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentStackTrace>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentSystemProcessorCount>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentUserDomainName>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EnvironmentUserName>();
         }
     }
 }

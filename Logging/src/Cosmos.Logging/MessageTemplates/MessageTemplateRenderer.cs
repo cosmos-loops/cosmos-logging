@@ -179,8 +179,8 @@ namespace Cosmos.Logging.MessageTemplates {
         private static IPreferencesRenderer GetPreferencesRender(PropertyToken token) {
             if (token == null) return NullPreferencesRenderer.Instance;
             var render = string.IsNullOrWhiteSpace(token.Prefix)
-                ? PreferencesRenderManager.GetRender(token.Name)
-                : PreferencesRenderManager.GetRender(token.Prefix, token.Name);
+                ? PreferencesRenderersManager.GetRender(token.Name)
+                : PreferencesRenderersManager.GetRender(token.Prefix, token.Name);
             return render;
         }
 
