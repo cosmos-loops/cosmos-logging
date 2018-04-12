@@ -28,17 +28,17 @@ namespace Cosmos.Logging.Renders {
                 var instance = constructorInfo.GetReflector().Invoke();
                 if (declareInfos.Any()) {
                     if (sinkMode && instance is IPreferencesSinkRenderer sinkRenderer) {
-                        PreferencesRenderManager.AddPreferencesSinkRenderer(declareInfos.Select(x => (x.SinkPrefix, x.Name)).ToList(), sinkRenderer);
+                        PreferencesRenderersManager.AddPreferencesSinkRenderer(declareInfos.Select(x => (x.SinkPrefix, x.Name)).ToList(), sinkRenderer);
                     } else if (instance is IPreferencesRenderer renderer) {
-                        PreferencesRenderManager.AddPreferencesRenderer(declareInfos.Select(x => x.Name).ToList(), renderer);
+                        PreferencesRenderersManager.AddPreferencesRenderer(declareInfos.Select(x => x.Name).ToList(), renderer);
                     } else {
                         throw new InvalidOperationException("Unknown renderer.");
                     }
                 } else {
                     if (sinkMode && instance is IPreferencesSinkRenderer sinkRenderer) {
-                        PreferencesRenderManager.AddPreferencesSinkRenderer(sinkRenderer);
+                        PreferencesRenderersManager.AddPreferencesSinkRenderer(sinkRenderer);
                     } else if (instance is IPreferencesRenderer renderer) {
-                        PreferencesRenderManager.AddPreferencesRenderer(renderer);
+                        PreferencesRenderersManager.AddPreferencesRenderer(renderer);
                     } else {
                         throw new InvalidOperationException("Unknown renderer.");
                     }

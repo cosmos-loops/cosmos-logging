@@ -5,7 +5,7 @@ using Cosmos.Logging.RunsOn.AspNet.RendersLib;
 namespace Cosmos.Logging.RunsOn.AspNet.Core {
     public static class RenderActivation {
         public static void ActiveAspNetPreferencesRenderers(this ILogServiceCollection services) {
-            PreferencesRenderManager.AddPreferencesRenderer<AspNetHelloWorldRenderer>();
+            PreferencesRenderersManager.AddPreferencesRenderer<AspNetHelloWorldRenderer>();
         }
     }
 }

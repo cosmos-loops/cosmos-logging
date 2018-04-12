@@ -29,23 +29,23 @@ namespace Cosmos.Logging.Renderers.Process {
         public static IReadOnlyList<Type> Default => _default;
 
         public static void ActiveEnvironmentPreferencesRenders() {
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessBasePriority>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessPagedMemorySize>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessNonpagedSystemMemorySize>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessPagedSystemMemorySize>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessVirtualMemorySize>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessPrivateMemorySize>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessName>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessId>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessSessionId>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessStartInfoArguments>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessStartInfoDomain>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessStartInfoFileName>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessStartInfoWorkingDirectory>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessStartTime>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessSystemProcessorTime>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessUserProcessorTime>();
-            PreferencesRenderManager.AddPreferencesRenderer<ProcessWorkingSet>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessBasePriority>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessPagedMemorySize>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessNonpagedSystemMemorySize>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessPagedSystemMemorySize>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessVirtualMemorySize>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessPrivateMemorySize>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessName>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessId>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessSessionId>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessStartInfoArguments>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessStartInfoDomain>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessStartInfoFileName>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessStartInfoWorkingDirectory>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessStartTime>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessSystemProcessorTime>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessUserProcessorTime>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ProcessWorkingSet>();
         }
     }
 }

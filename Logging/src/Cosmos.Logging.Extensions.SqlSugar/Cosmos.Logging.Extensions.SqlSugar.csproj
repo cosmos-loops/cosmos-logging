@@ -13,13 +13,13 @@
     <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="sqlSugarCore" Version="4.6.4.6" />
+    <PackageReference Include="sqlSugarCore" Version="4.6.4.7" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net461'">
-    <PackageReference Include="sqlSugar" Version="4.6.4.6" />
+    <PackageReference Include="sqlSugar" Version="4.6.4.7" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net451'">
-    <PackageReference Include="sqlSugar" Version="4.6.4.6" />
+    <PackageReference Include="sqlSugar" Version="4.6.4.7" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="sqlSugar" Version="4.6.4.7" />

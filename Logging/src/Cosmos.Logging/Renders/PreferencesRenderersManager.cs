@@ -5,14 +5,14 @@ using System.Linq;
 
 namespace Cosmos.Logging.Renders {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public static class PreferencesRenderManager {
+    public static class PreferencesRenderersManager {
         private static readonly Dictionary<string, IPreferencesRenderer> _preferencesRenders;
         private static readonly Dictionary<string, Dictionary<string, IPreferencesSinkRenderer>> _preferencesSinkRenders;
         private static readonly object _preferencesRendersLock = new object();
         private static readonly object _preferencesSinkRendersLock = new object();
         private static readonly object _preferencesSinkRendersAliasLock = new object();
 
-        static PreferencesRenderManager() {
+        static PreferencesRenderersManager() {
             _preferencesRenders = new Dictionary<string, IPreferencesRenderer>();
             _preferencesSinkRenders = new Dictionary<string, Dictionary<string, IPreferencesSinkRenderer>>();
         }
