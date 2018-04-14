@@ -25,7 +25,7 @@ namespace Cosmos.Data.EntityFrameworkCore {
         /// Current DbSession
         /// 当前会话
         /// </summary>
-        protected internal TDbSession CurrentSession { get; }
+        public TDbSession CurrentSession { get; }
 
         /// <summary>
         /// Commit
@@ -77,7 +77,7 @@ namespace Cosmos.Data.EntityFrameworkCore {
         /// Flag whether use uow or not
         /// 标记是否启用 UoW 模式，若启用，则本标记置为 true
         /// </summary>
-        public bool Suppress { get; protected internal set; }
+        public bool Suppress { get; set; }
 
         /// <summary>
         /// Set true value to need-to-commit flag

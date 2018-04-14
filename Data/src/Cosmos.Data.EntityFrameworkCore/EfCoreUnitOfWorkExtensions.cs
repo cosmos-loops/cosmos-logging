@@ -11,5 +11,14 @@ namespace Cosmos.Data.EntityFrameworkCore {
             repository.Suppress = true;
             return new EfCoreUnitOfWork(repository.CurrentSession, origin);
         }
+
+        public static EfCoreUnitOfWork CreateUnitOfWork<TDbSession>(
+            this IEfCoreRepository<TDbSession> repository)
+            where TDbSession : EfCoreDbSession<TDbSession>, IEfCoreDbSession {
+            var origin = repository.CurrentSession.AutoTransactionsEnabled;
+            repository.CurrentSession.AutoTransactionsEnabled = false;
+            repository.Suppress = true;
+            return new EfCoreUnitOfWork(repository.CurrentSession, origin);
+        }
     }
 }
