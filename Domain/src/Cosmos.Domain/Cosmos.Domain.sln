@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Domain", "Cosmos.Domain.csproj", "{DA6A71A0-2E14-414E-81AA-469FC3A0A57A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2E6AA0C2-21DE-466F-A4B8-4AD2C5F8FAD1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA6A71A0-2E14-414E-81AA-469FC3A0A57A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA6A71A0-2E14-414E-81AA-469FC3A0A57A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA6A71A0-2E14-414E-81AA-469FC3A0A57A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA6A71A0-2E14-414E-81AA-469FC3A0A57A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DA6A71A0-2E14-414E-81AA-469FC3A0A57A} = {2E6AA0C2-21DE-466F-A4B8-4AD2C5F8FAD1}
+	EndGlobalSection
+EndGlobal
