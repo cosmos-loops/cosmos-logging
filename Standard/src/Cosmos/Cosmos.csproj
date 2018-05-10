@@ -9,7 +9,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.Reflection" Version="0.3.1" />
+    <PackageReference Include="AspectCore.Extensions.Reflection" Version="0.4.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
     <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
   </ItemGroup>

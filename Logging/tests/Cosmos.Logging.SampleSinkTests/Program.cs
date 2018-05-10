@@ -3,7 +3,6 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.SampleSinkTests {
-
     class Program {
         static void Main(string[] args) {
 
