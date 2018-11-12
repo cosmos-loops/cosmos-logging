@@ -1,10 +1,12 @@
 ﻿using System;
 
-namespace Cosmos {
+namespace Cosmos
+{
     /// <summary>
     /// Timestamp
     /// </summary>
-    public class TimeStamp {
+    public class TimeStamp
+    {
         protected long m_timestamp;
         protected DateTime m_datetime;
 
@@ -12,7 +14,8 @@ namespace Cosmos {
         public TimeStamp(long timestamp) : this(FromTimestampFunc(timestamp), timestamp) { }
         public TimeStamp(DateTime dt) : this(dt, ToTimestampFunc(dt)) { }
 
-        private TimeStamp(DateTime dt, long timestamp) {
+        private TimeStamp(DateTime dt, long timestamp)
+        {
             m_timestamp = timestamp;
             m_datetime = dt;
         }
@@ -40,12 +43,14 @@ namespace Cosmos {
     /// <summary>
     /// Unix timestamp
     /// </summary>
-    public class UnixTimeStamp : TimeStamp {
+    public class UnixTimeStamp : TimeStamp
+    {
         public UnixTimeStamp() : this(DateTime.Now) { }
         public UnixTimeStamp(long timestamp) : this(FromUnixTimestampFunc(timestamp), timestamp) { }
         public UnixTimeStamp(DateTime dt) : this(dt, ToUnixTimestampFunc(dt)) { }
 
-        private UnixTimeStamp(DateTime dt, long timestamp) {
+        private UnixTimeStamp(DateTime dt, long timestamp)
+        {
             m_timestamp = timestamp;
             m_datetime = dt;
         }
