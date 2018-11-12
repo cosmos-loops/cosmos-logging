@@ -12,4 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Cosmos\Cosmos.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentDateTime" Version="1.15.0" />
+  </ItemGroup>
 </Project>
