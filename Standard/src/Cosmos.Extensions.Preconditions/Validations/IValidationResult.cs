@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using FluentValidation.Results;
 
-namespace Cosmos.Validations {
-    public interface IValidationResult : IEnumerable<ValidationResult> {
+namespace Cosmos.Validations
+{
+    public interface IValidationResult : IEnumerable<ValidationResult>
+    {
         int Count { get; }
 
         bool IsValid { get; }

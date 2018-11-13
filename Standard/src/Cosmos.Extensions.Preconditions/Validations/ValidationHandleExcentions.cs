@@ -1,12 +1,16 @@
 ﻿using System.Linq;
 
-namespace Cosmos.Validations {
-    public static class ValidationHandleExcentions {
-        public static ValidationHandleOperation Handle(this ValidationResultCollection collection) {
+namespace Cosmos.Validations
+{
+    public static class ValidationHandleExcentions
+    {
+        public static ValidationHandleOperation Handle(this ValidationResultCollection collection)
+        {
             return new ValidationHandleOperation(collection);
         }
 
-        public static ValidationHandleOperation HandleAll(this ValidationHandleOperation op, IValidationHandler handler) {
+        public static ValidationHandleOperation HandleAll(this ValidationHandleOperation op, IValidationHandler handler)
+        {
             op.CheckNull(nameof(op));
             handler.CheckNull(nameof(handler));
 
@@ -15,7 +19,8 @@ namespace Cosmos.Validations {
             return op;
         }
 
-        public static ValidationHandleOperation HandleForSuccess(this ValidationHandleOperation op, IValidationHandler handler) {
+        public static ValidationHandleOperation HandleForSuccess(this ValidationHandleOperation op, IValidationHandler handler)
+        {
             op.CheckNull(nameof(op));
             handler.CheckNull(nameof(handler));
 
@@ -24,7 +29,8 @@ namespace Cosmos.Validations {
             return op;
         }
 
-        public static ValidationHandleOperation HandleForFailure(this ValidationHandleOperation op, IValidationHandler handler) {
+        public static ValidationHandleOperation HandleForFailure(this ValidationHandleOperation op, IValidationHandler handler)
+        {
             op.CheckNull(nameof(op));
             handler.CheckNull(nameof(handler));
 
@@ -34,7 +40,8 @@ namespace Cosmos.Validations {
         }
 
         public static ValidationHandleOperation HandleForStrategy(this ValidationHandleOperation op, string name,
-            IValidationHandler handler) {
+            IValidationHandler handler)
+        {
             op.CheckNull(nameof(op));
             handler.CheckNull(nameof(handler));
 

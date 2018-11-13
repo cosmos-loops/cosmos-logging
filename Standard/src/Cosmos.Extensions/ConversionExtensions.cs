@@ -3,18 +3,21 @@ using System.Reflection;
 using System.Text;
 using Cosmos.Extensions;
 
-namespace Cosmos {
+namespace Cosmos
+{
     /// <summary>
     /// Conversion extensions
     /// </summary>
-    public static class ConversionExtensions {
+    public static class ConversionExtensions
+    {
         /// <summary>
         /// 把对象类型转换为指定类型
         /// </summary>
         /// <param name="value"></param>
         /// <param name="conversionType"></param>
         /// <returns></returns>
-        public static object CastTo(this object value, Type conversionType) {
+        public static object CastTo(this object value, Type conversionType)
+        {
             return Conversions.ObjectConversion.To(value, conversionType);
         }
 
@@ -25,7 +28,8 @@ namespace Cosmos {
         /// <param name="conversionType"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static object CastTo(this object value, Type conversionType, object defaultValue) {
+        public static object CastTo(this object value, Type conversionType, object defaultValue)
+        {
             return Conversions.ObjectConversion.To(value, conversionType, defaultValue);
         }
 
@@ -35,7 +39,8 @@ namespace Cosmos {
         /// <param name="value"></param>
         /// <param name="conversionType"></param>
         /// <returns></returns>
-        public static object CastTo(this object value, TypeInfo conversionType) {
+        public static object CastTo(this object value, TypeInfo conversionType)
+        {
             return Conversions.ObjectConversion.To(value, conversionType);
         }
 
@@ -46,7 +51,8 @@ namespace Cosmos {
         /// <param name="conversionType"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static object CastTo(this object value, TypeInfo conversionType, object defaultValue) {
+        public static object CastTo(this object value, TypeInfo conversionType, object defaultValue)
+        {
             return Conversions.ObjectConversion.To(value, conversionType, defaultValue);
         }
 
@@ -56,7 +62,8 @@ namespace Cosmos {
         /// <typeparam name="T">动态类型</typeparam>
         /// <param name="value">要转化的源对象</param>
         /// <returns>转化后的指定类型对象，转化失败时返回指定的默认值</returns>
-        public static T CastTo<T>(this object value) {
+        public static T CastTo<T>(this object value)
+        {
             return Conversions.ObjectConversion.To<T>(value);
         }
 
@@ -67,7 +74,8 @@ namespace Cosmos {
         /// <param name="value">要转化的源对象</param>
         /// <param name="defaultValue">转化失败返回的指定默认值</param>
         /// <returns>转化后的指定类型对象，转化失败时返回指定的默认值</returns>
-        public static T CastTo<T>(this object value, T defaultValue) {
+        public static T CastTo<T>(this object value, T defaultValue)
+        {
             return Conversions.ObjectConversion.To<T>(value, defaultValue);
         }
 
@@ -80,7 +88,8 @@ namespace Cosmos {
         /// <typeparam name="TTo"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static TTo CastTo<TFrom, TTo>(this TFrom value) {
+        public static TTo CastTo<TFrom, TTo>(this TFrom value)
+        {
             return CastTo(value, default(TTo));
         }
 
@@ -93,28 +102,33 @@ namespace Cosmos {
         /// <param name="value"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static TTo CastTo<TFrom, TTo>(this TFrom value, TTo defaultValue) {
+        public static TTo CastTo<TFrom, TTo>(this TFrom value, TTo defaultValue)
+        {
             object result;
             var fromType = typeof(TFrom);
             var toType = typeof(TTo);
-            try {
+            try
+            {
 
                 #region CastToString
 
                 //如果从 Int32 转换为字符，使用 Int32.CastToString(defaultValue) 方法
-                if (fromType == typeof(int) && toType == typeof(string)) {
+                if (fromType == typeof(int) && toType == typeof(string))
+                {
                     int @int;
                     int.TryParse(value.SafeString(), out @int);
                     result = @int.CastToString(defaultValue.SafeString("0"));
                 }
                 //如果从 Decimal 转换为字符，使用 Decimal.CastToString(defaultValue) 方法
-                else if (fromType == typeof(decimal) && toType == typeof(string)) {
+                else if (fromType == typeof(decimal) && toType == typeof(string))
+                {
                     decimal @decimal;
                     decimal.TryParse(value.SafeString(), out @decimal);
                     result = @decimal.CastToString(defaultValue.SafeString("0.00"));
                 }
                 //如果从 Double 转换为字符，使用 Double.CastToString(defaultValue) 方法
-                else if (fromType == typeof(double) && toType == typeof(string)) {
+                else if (fromType == typeof(double) && toType == typeof(string))
+                {
                     double @double;
                     double.TryParse(value.SafeString(), out @double);
                     result = @double.CastToString(defaultValue.SafeString("0.0"));
@@ -125,11 +139,13 @@ namespace Cosmos {
                 #region CastToDateTime
 
                 //如果从 String 转换为 DateTime?，使用 String.CastToDateTime(defaultValue) 方法
-                else if (fromType == typeof(string) && toType == typeof(DateTime?)) {
+                else if (fromType == typeof(string) && toType == typeof(DateTime?))
+                {
                     result = value.SafeString().CastToNullableDateTime(defaultValue.SafeDateTime());
                 }
                 //如果从 String 转换为 DateTime，使用 String.CastToDateTime(defaultValue) 方法
-                else if (fromType == typeof(string) && toType == typeof(DateTime)) {
+                else if (fromType == typeof(string) && toType == typeof(DateTime))
+                {
                     result = value.SafeString().CastToDateTime(defaultValue.SafeDateTime(DateTime.Now));
                 }
 
@@ -138,7 +154,8 @@ namespace Cosmos {
                 #region CastToEnum
 
                 //如果从 String 转换为枚举，使用 String.CastToEnum(defaultValue, false) 方法
-                else if (fromType == typeof(string) && toType.GetTypeInfo().IsEnum) {
+                else if (fromType == typeof(string) && toType.GetTypeInfo().IsEnum)
+                {
                     result = value.SafeString().CastToEnum(defaultValue);
                 }
 
@@ -147,7 +164,8 @@ namespace Cosmos {
                 #region CastToGuid
 
                 //如果从 String 转换为 Guid，使用 String.CastToGuid() 方法
-                else if (fromType == typeof(string) && toType == typeof(Guid)) {
+                else if (fromType == typeof(string) && toType == typeof(Guid))
+                {
                     var @string = value.SafeString();
                     result = @string.CastToGuid(defaultValue.SafeGuid().SafeValue());
                 }
@@ -157,14 +175,16 @@ namespace Cosmos {
                 #region Default Func
 
                 //默认方法
-                else {
+                else
+                {
                     result = value.CastTo<TTo>(defaultValue);
                 }
 
                 #endregion Default Func
 
             }
-            catch {
+            catch
+            {
                 result = defaultValue;
             }
 
@@ -183,7 +203,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="number">数值</param>
         /// <param name="defaultValue">空值显示的默认文本</param>
-        public static string CastToString(this int number, string defaultValue = "") {
+        public static string CastToString(this int number, string defaultValue = "")
+        {
             return number == 0 ? defaultValue : number.ToString();
         }
 
@@ -193,7 +214,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="number">数值</param>
         /// <param name="defaultValue">空值显示的默认文本</param>
-        public static string CastToString(this int? number, string defaultValue = "") {
+        public static string CastToString(this int? number, string defaultValue = "")
+        {
             return CastToString(number.SafeValue(), defaultValue);
         }
 
@@ -206,7 +228,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="number">数值</param>
         /// <param name="defaultValue">空值显示的默认文本</param>
-        public static string CastToString(this decimal number, string defaultValue = "") {
+        public static string CastToString(this decimal number, string defaultValue = "")
+        {
             return number == 0 ? defaultValue : $"{number:0.##}";
         }
 
@@ -219,7 +242,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="number">数值</param>
         /// <param name="defaultValue">空值显示的默认文本</param>
-        public static string CastToString(this double number, string defaultValue = "") {
+        public static string CastToString(this double number, string defaultValue = "")
+        {
             return $"{number:0.##}";
         }
 
@@ -235,12 +259,14 @@ namespace Cosmos {
         /// <param name="format"></param>
         /// <param name="delimiter"></param>
         /// <returns></returns>
-        public static string CastToString<T>(this T[] array, string format, string delimiter) {
+        public static string CastToString<T>(this T[] array, string format, string delimiter)
+        {
             if (array == null || array.Length == 0) return string.Empty;
             if (string.IsNullOrEmpty(format)) format = "{0}";
 
             var builder = new StringBuilder();
-            for (var index = 0; index < array.Length; ++index) {
+            for (var index = 0; index < array.Length; ++index)
+            {
                 if (index != 0) builder.Append(delimiter);
                 builder.AppendFormat(format, array[index]);
             }
@@ -257,7 +283,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="object"></param>
         /// <returns></returns>
-        public static string CastToString(this object @object) {
+        public static string CastToString(this object @object)
+        {
             return Conversions.ObjectConversion.ToString(@object);
         }
 
@@ -275,7 +302,8 @@ namespace Cosmos {
         /// <param name="string"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static DateTime CastToDateTime(this string @string, DateTime defaultValue = default(DateTime)) {
+        public static DateTime CastToDateTime(this string @string, DateTime defaultValue = default(DateTime))
+        {
             return Conversions.ObjectConversion.ToDateTime(@string, defaultValue);
         }
 
@@ -285,7 +313,8 @@ namespace Cosmos {
         /// <param name="string"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static DateTime? CastToNullableDateTime(this string @string, DateTime? defaultValue = null) {
+        public static DateTime? CastToNullableDateTime(this string @string, DateTime? defaultValue = null)
+        {
             return Conversions.ObjectConversion.ToNullableDateTime(@string, defaultValue);
         }
 
@@ -302,7 +331,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="string"></param>
         /// <returns></returns>
-        public static Guid CastToGuid(this string @string) {
+        public static Guid CastToGuid(this string @string)
+        {
             return Conversions.GuidConversion.ToGuid(@string);
         }
 
@@ -312,7 +342,8 @@ namespace Cosmos {
         /// <param name="string"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static Guid CastToGuid(this string @string, Guid defaultValue) {
+        public static Guid CastToGuid(this string @string, Guid defaultValue)
+        {
             return Conversions.GuidConversion.ToNullableGuid(@string).SafeValue(defaultValue);
         }
 
@@ -330,7 +361,8 @@ namespace Cosmos {
         /// <typeparam name="TEnum">枚举类型</typeparam>
         /// <param name="string"></param>
         /// <returns></returns>
-        public static TEnum CastToEnum<TEnum>(this string @string) {
+        public static TEnum CastToEnum<TEnum>(this string @string)
+        {
             return CastToEnum<TEnum>(@string, false);
         }
 
@@ -341,13 +373,16 @@ namespace Cosmos {
         /// <param name="string">     </param>
         /// <param name="ignorecase"> 是否区分大小写 </param>
         /// <returns></returns>
-        public static TEnum CastToEnum<TEnum>(this string @string, bool ignorecase) {
-            if (string.IsNullOrWhiteSpace(@string)) {
+        public static TEnum CastToEnum<TEnum>(this string @string, bool ignorecase)
+        {
+            if (string.IsNullOrWhiteSpace(@string))
+            {
                 throw new ArgumentNullException(nameof(@string));
             }
 
             var t = typeof(TEnum);
-            if (!t.GetTypeInfo().IsEnum) {
+            if (!t.GetTypeInfo().IsEnum)
+            {
                 throw new ArgumentException(nameof(@string));
             }
 
@@ -361,7 +396,8 @@ namespace Cosmos {
         /// <param name="string"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static TEnum CastToEnum<TEnum>(this string @string, TEnum defaultValue) {
+        public static TEnum CastToEnum<TEnum>(this string @string, TEnum defaultValue)
+        {
             return CastToEnum(@string, defaultValue, false);
         }
 
@@ -373,12 +409,15 @@ namespace Cosmos {
         /// <param name="defaultValue"></param>
         /// <param name="ignorecase">是否区分大小写</param>
         /// <returns></returns>
-        public static TEnum CastToEnum<TEnum>(this string @string, TEnum defaultValue, bool ignorecase) {
-            if (string.IsNullOrWhiteSpace(@string)) {
+        public static TEnum CastToEnum<TEnum>(this string @string, TEnum defaultValue, bool ignorecase)
+        {
+            if (string.IsNullOrWhiteSpace(@string))
+            {
                 throw new ArgumentNullException(nameof(@string));
             }
 
-            if (defaultValue == null) {
+            if (defaultValue == null)
+            {
                 throw new ArgumentNullException(nameof(defaultValue));
             }
 
@@ -386,14 +425,17 @@ namespace Cosmos {
 
             var t = typeof(TEnum);
             // ReSharper disable once InvertIf
-            if (!t.GetTypeInfo().IsEnum) {
+            if (!t.GetTypeInfo().IsEnum)
+            {
                 throw new ArgumentException(nameof(@string));
             }
 
-            try {
+            try
+            {
                 result = (TEnum) Enum.Parse(t, @string, ignorecase);
             }
-            catch {
+            catch
+            {
                 // ignored
             }
 
@@ -413,7 +455,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="string"></param>
         /// <returns></returns>
-        public static int CastToInt(this string @string) {
+        public static int CastToInt(this string @string)
+        {
             return Conversions.NumericConversion.ToInt32(@string);
         }
 
@@ -423,7 +466,8 @@ namespace Cosmos {
         /// <param name="string"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static int CastToInt(this string @string, int defaultValue) {
+        public static int CastToInt(this string @string, int defaultValue)
+        {
             return Conversions.NumericConversion.ToNullableInt32(@string).SafeValue(defaultValue);
         }
 
@@ -436,7 +480,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="string"></param>
         /// <returns></returns>
-        public static double CastToDouble(this string @string) {
+        public static double CastToDouble(this string @string)
+        {
             return Conversions.NumericConversion.ToDouble(@string);
         }
 
@@ -446,7 +491,8 @@ namespace Cosmos {
         /// <param name="string"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static double CastToDouble(this string @string, double defaultValue) {
+        public static double CastToDouble(this string @string, double defaultValue)
+        {
             return Conversions.NumericConversion.ToNullableDouble(@string).SafeValue(defaultValue);
         }
 
@@ -459,7 +505,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="string"></param>
         /// <returns></returns>
-        public static decimal CastToDecimal(this string @string) {
+        public static decimal CastToDecimal(this string @string)
+        {
             return Conversions.NumericConversion.ToDecimal(@string);
         }
 
@@ -469,7 +516,8 @@ namespace Cosmos {
         /// <param name="string"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static decimal CastToDecimal(this string @string, decimal defaultValue) {
+        public static decimal CastToDecimal(this string @string, decimal defaultValue)
+        {
             return Conversions.NumericConversion.ToNullableDecimal(@string).SafeValue(defaultValue);
         }
 

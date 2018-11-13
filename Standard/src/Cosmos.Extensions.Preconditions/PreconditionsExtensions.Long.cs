@@ -1,8 +1,10 @@
-﻿namespace Cosmos {
+﻿namespace Cosmos
+{
     /// <summary>
     /// Long arguments checking extensions
     /// </summary>
-    public static partial class PreconditionsExtensions {
+    public static partial class PreconditionsExtensions
+    {
         /// <summary>
         /// 检查长整型是否超界
         /// </summary>

@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using FluentValidation.Results;
 
-namespace Cosmos.Validations {
-    public sealed class ValidationHandleOperation {
+namespace Cosmos.Validations
+{
+    public sealed class ValidationHandleOperation
+    {
         private readonly ValidationResultCollection _collection;
 
-        public ValidationHandleOperation(ValidationResultCollection collection) {
+        public ValidationHandleOperation(ValidationResultCollection collection)
+        {
             _collection = collection ?? throw new ArgumentNullException(nameof(collection));
         }
 
-        internal void Handle(IValidationHandler handler, Action<IEnumerable<ValidationResult>> filterFunc = null) {
+        internal void Handle(IValidationHandler handler, Action<IEnumerable<ValidationResult>> filterFunc = null)
+        {
             handler.CheckNull(nameof(handler));
             var coll = filterFunc == null ? _collection : _collection.Filter(filterFunc);
 
@@ -20,7 +24,8 @@ namespace Cosmos.Validations {
             handler.Handle(coll);
         }
 
-        internal void Handle(IValidationHandler handler, string strategyName) {
+        internal void Handle(IValidationHandler handler, string strategyName)
+        {
             handler.CheckNull(nameof(handler));
             var coll = _collection.Filter(strategyName);
 
@@ -31,7 +36,8 @@ namespace Cosmos.Validations {
         }
 
         public void RaiseException<TException>(Action<TException, ValidationResultCollection> appendAction = null)
-            where TException : CosmosException, new() {
+            where TException : CosmosException, new()
+        {
             _collection.RaiseException(appendAction);
         }
     }

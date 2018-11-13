@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Cosmos.Extensions {
+namespace Cosmos.Extensions
+{
     /// <summary>
     /// Safty value and nullable value extensions
     /// </summary>
-    public static class SafeAndNullableExtensions {
+    public static class SafeAndNullableExtensions
+    {
         /// <summary>
         /// 安全返回值
         /// </summary>
@@ -45,7 +47,8 @@ namespace Cosmos.Extensions {
         /// <param name="object"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static string SafeString(this object @object, string defaultValue) {
+        public static string SafeString(this object @object, string defaultValue)
+        {
             var @string = @object.SafeString();
             return string.IsNullOrWhiteSpace(@string) ? defaultValue : @string;
         }

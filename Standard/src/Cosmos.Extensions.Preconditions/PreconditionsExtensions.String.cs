@@ -1,18 +1,22 @@
 ﻿using System;
 
-namespace Cosmos {
+namespace Cosmos
+{
     /// <summary>
     /// String arguments checking extensions
     /// </summary>
-    public static partial class PreconditionsExtensions {
+    public static partial class PreconditionsExtensions
+    {
         /// <summary>
         /// 检查字符串是否为 null、String.Empty 或 Blank
         /// </summary>
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void CheckNull(this string argument, string argumentName, string message = null) {
-            if (string.IsNullOrWhiteSpace(argument)) {
+        public static void CheckNull(this string argument, string argumentName, string message = null)
+        {
+            if (string.IsNullOrWhiteSpace(argument))
+            {
                 throw new ArgumentNullException(argumentName, $"{nameof(argument)} can not be null or white space.");
             }
         }

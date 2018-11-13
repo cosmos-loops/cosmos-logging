@@ -1,5 +1,7 @@
-﻿namespace Cosmos.Abstractions.Workflow {
-    public interface IDynamicElement {
+﻿namespace Cosmos.Abstractions.Workflow
+{
+    public interface IDynamicElement
+    {
         string Id { get; }
     }
 }

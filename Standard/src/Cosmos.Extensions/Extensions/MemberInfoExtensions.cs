@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Cosmos.Extensions {
-    public static class MemberInfoExtensions {
+namespace Cosmos.Extensions
+{
+    public static class MemberInfoExtensions
+    {
         /// <summary>
         /// To judge the attribute exists or not
         /// </summary>

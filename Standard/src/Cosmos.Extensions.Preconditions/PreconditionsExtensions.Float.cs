@@ -1,8 +1,10 @@
-﻿namespace Cosmos {
+﻿namespace Cosmos
+{
     /// <summary>
     /// Float arguments checking extensions
     /// </summary>
-    public static partial class PreconditionsExtensions {
+    public static partial class PreconditionsExtensions
+    {
         /// <summary>
         /// 检查单精度浮点数是否超界
         /// </summary>

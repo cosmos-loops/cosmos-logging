@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Cosmos.Extensions {
+namespace Cosmos.Extensions
+{
     /// <summary>
     /// 随机数扩展方法
     /// </summary>
-    public static class RandomExtensions {
+    public static class RandomExtensions
+    {
         /// <summary>
         /// 随机返回 True 或 False
         /// </summary>
@@ -19,7 +21,8 @@ namespace Cosmos.Extensions {
         /// <typeparam name="T"> 枚举 </typeparam>
         /// <param name="random"></param>
         /// <returns> 枚举对象的成员 </returns>
-        public static T NextEnum<T>(this Random random) where T : struct {
+        public static T NextEnum<T>(this Random random) where T : struct
+        {
             var type = typeof(T);
             if (!type.GetTypeInfo().IsEnum) throw new InvalidOperationException();
 
@@ -34,7 +37,8 @@ namespace Cosmos.Extensions {
         /// <param name="random"></param>
         /// <param name="length"> 字节长度 </param>
         /// <returns></returns>
-        public static byte[] NextBytes(this Random random, int length) {
+        public static byte[] NextBytes(this Random random, int length)
+        {
             var data = new byte[length];
             random.NextBytes(data);
             return data;

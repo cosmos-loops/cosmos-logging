@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Cosmos {
+namespace Cosmos
+{
     /// <summary>
     /// DateTime Extensions
     /// </summary>
-    public static class DateTimeExtensions {
+    public static class DateTimeExtensions
+    {
         /// <summary>
         /// 获得本月的总天数
         /// </summary>
@@ -20,7 +22,8 @@ namespace Cosmos {
         /// <param name="date"></param>
         /// <param name="weekday"></param>
         /// <returns></returns>
-        public static DateTime GetNextWeekday(this DateTime date, DayOfWeek weekday) {
+        public static DateTime GetNextWeekday(this DateTime date, DayOfWeek weekday)
+        {
             while (date.DayOfWeek != weekday) date = date.AddDays(1);
             return date;
         }
@@ -33,7 +36,8 @@ namespace Cosmos {
         /// <param name="date">   </param>
         /// <param name="weekday"></param>
         /// <returns></returns>
-        public static DateTime GetPreviousWeekday(this DateTime date, DayOfWeek weekday) {
+        public static DateTime GetPreviousWeekday(this DateTime date, DayOfWeek weekday)
+        {
             while (date.DayOfWeek != weekday) date = date.AddDays(-1);
             return date;
         }
@@ -69,9 +73,11 @@ namespace Cosmos {
         /// <param name="date">     </param>
         /// <param name="dayOfWeek"></param>
         /// <returns></returns>
-        public static DateTime GetFirstDayOfMonth(this DateTime date, DayOfWeek dayOfWeek) {
+        public static DateTime GetFirstDayOfMonth(this DateTime date, DayOfWeek dayOfWeek)
+        {
             var dt = date.GetFirstDayOfMonth();
-            while (dt.DayOfWeek != dayOfWeek) {
+            while (dt.DayOfWeek != dayOfWeek)
+            {
                 dt = dt.AddDays(1);
             }
 
@@ -96,9 +102,11 @@ namespace Cosmos {
         /// <param name="date">     </param>
         /// <param name="dayOfWeek"></param>
         /// <returns></returns>
-        public static DateTime GetLastDayOfMonth(this DateTime date, DayOfWeek dayOfWeek) {
+        public static DateTime GetLastDayOfMonth(this DateTime date, DayOfWeek dayOfWeek)
+        {
             var dt = date.GetLastDayOfMonth();
-            while (dt.DayOfWeek != dayOfWeek) {
+            while (dt.DayOfWeek != dayOfWeek)
+            {
                 dt = dt.AddDays(-1);
             }
 
@@ -123,7 +131,8 @@ namespace Cosmos {
         /// <param name="date">       </param>
         /// <param name="cultureInfo"></param>
         /// <returns></returns>
-        public static DateTime GetFirstDayOfWeek(this DateTime date, CultureInfo cultureInfo) {
+        public static DateTime GetFirstDayOfWeek(this DateTime date, CultureInfo cultureInfo)
+        {
             cultureInfo = (cultureInfo ?? CultureInfo.CurrentCulture);
 
             var firstDayOfWeek = cultureInfo.DateTimeFormat.FirstDayOfWeek;
@@ -186,7 +195,8 @@ namespace Cosmos {
         /// <param name="dt1"></param>
         /// <param name="dt2"></param>
         /// <returns></returns>
-        public static int GetMonthDiff(this DateTime dt1, DateTime dt2) {
+        public static int GetMonthDiff(this DateTime dt1, DateTime dt2)
+        {
             var l = dt1 < dt2 ? dt1 : dt2;
             var r = dt1 >= dt2 ? dt1 : dt2;
             return (l.Day == r.Day ? 0 : l.Day > r.Day ? 0 : 1)
@@ -200,7 +210,8 @@ namespace Cosmos {
         /// <param name="dt1"></param>
         /// <param name="dt2"></param>
         /// <returns></returns>
-        public static double GetTotalMonthDiff(this DateTime dt1, DateTime dt2) {
+        public static double GetTotalMonthDiff(this DateTime dt1, DateTime dt2)
+        {
             var l = dt1 < dt2 ? dt1 : dt2;
             var r = dt1 >= dt2 ? dt1 : dt2;
             var lDfM = DateTime.DaysInMonth(l.Year, l.Month);
@@ -402,7 +413,8 @@ namespace Cosmos {
         /// <param name="localDateTime"></param>
         /// <param name="localTimeZone"></param>
         /// <returns></returns>
-        public static DateTimeOffset ToDateTimeOffset(this DateTime localDateTime, TimeZoneInfo localTimeZone) {
+        public static DateTimeOffset ToDateTimeOffset(this DateTime localDateTime, TimeZoneInfo localTimeZone)
+        {
             if (localDateTime.Kind != DateTimeKind.Unspecified)
                 localDateTime = new DateTime(localDateTime.Ticks, DateTimeKind.Unspecified);
 

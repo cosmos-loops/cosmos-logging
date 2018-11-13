@@ -1,6 +1,7 @@
-﻿namespace Cosmos.Abstractions {
-    public interface IVerba {
-
+﻿namespace Cosmos.Abstractions
+{
+    public interface IVerba
+    {
         /// <summary>
         /// Verba name
         /// </summary>
