@@ -44,7 +44,8 @@ namespace Cosmos
         {
             if (argument < DateTime.UtcNow)
             {
-                throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be in past.");
+                throw new ArgumentOutOfRangeException(argumentName, argument,
+                    message ?? $"{nameof(argument)} can not be in past.");
             }
         }
 
@@ -71,7 +72,8 @@ namespace Cosmos
         {
             if (argument > DateTime.UtcNow)
             {
-                throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be in future.");
+                throw new ArgumentOutOfRangeException(argumentName, argument,
+                    message ?? $"{nameof(argument)} can not be in future.");
             }
         }
 
@@ -97,7 +99,8 @@ namespace Cosmos
         {
             if (argument < TimeSpan.Zero)
             {
-                throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative.");
+                throw new ArgumentOutOfRangeException(argumentName, argument,
+                    message ?? $"{nameof(argument)} can not be negative.");
             }
         }
 
@@ -122,7 +125,8 @@ namespace Cosmos
         {
             if (argument <= TimeSpan.Zero)
             {
-                throw new ArgumentOutOfRangeException(argumentName, argument, message ?? $"{nameof(argument)} can not be negative or zero.");
+                throw new ArgumentOutOfRangeException(argumentName, argument,
+                    message ?? $"{nameof(argument)} can not be negative or zero.");
             }
         }
 

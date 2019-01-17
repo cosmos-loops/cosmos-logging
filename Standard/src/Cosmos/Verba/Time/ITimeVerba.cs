@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using Cosmos.Abstractions;
 
-namespace Cosmos.Verba.Time {
+namespace Cosmos.Verba.Time
+{
     /// <summary>
     /// Interface for time verba
     /// </summary>
-    public interface ITimeVerba : IVerba {
+    public interface ITimeVerba : IVerba
+    {
         /// <summary>
         /// Language Keys
         /// </summary>

@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace Cosmos.Verba.Time {
-    public static class TimeVerbaConstant {
+namespace Cosmos.Verba.Time
+{
+    public static class TimeVerbaConstant
+    {
         /// <summary>
         /// 一分钟
         /// </summary>

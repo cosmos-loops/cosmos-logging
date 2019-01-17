@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Globalization;
 
+// ReSharper disable once CheckNamespace
 namespace Cosmos
 {
     /// <summary>
     /// DateTime Extensions
     /// </summary>
-    public static class DateTimeExtensions
+    public static partial class BaseTypeExtensions
     {
         /// <summary>
         /// 获得本月的总天数
@@ -238,7 +239,8 @@ namespace Cosmos
         /// <param name="datetime"></param>
         /// <returns></returns>
         public static int GetWeekOfYear(this DateTime datetime)
-            => GetWeekOfYear(datetime, new DateTimeFormatInfo().CalendarWeekRule, new DateTimeFormatInfo().FirstDayOfWeek);
+            => GetWeekOfYear(datetime, new DateTimeFormatInfo().CalendarWeekRule,
+                new DateTimeFormatInfo().FirstDayOfWeek);
 
         /// <summary>
         /// 获得指定日期所在的周是第几周
@@ -437,5 +439,115 @@ namespace Cosmos
         /// <returns></returns>
         public static DateTime ToLocalDateTime(this DateTimeOffset dateTimeUtc, TimeZoneInfo localTimeZone)
             => TimeZoneInfo.ConvertTime(dateTimeUtc, localTimeZone ?? TimeZoneInfo.Local).DateTime;
+
+        /// <summary>
+        /// 获取当前最后时间（即当天的 23:59:59:999）
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime GetEndOfDay(this DateTime @this)
+        {
+            return new DateTime(@this.Year, @this.Month, @this.Day).AddDays(1).Subtract(new TimeSpan(0, 0, 0, 0, 1));
+        }
+
+        /// <summary>
+        /// 获取当月最后时间（当月最后一天的 23:59:59.999）
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime GetEndOfMonth(this DateTime @this)
+        {
+            return new DateTime(@this.Year, @this.Month, 1).AddMonths(1).Subtract(new TimeSpan(0, 0, 0, 0, 1));
+        }
+
+        /// <summary>
+        /// 获取当周最后时间（当周最后一天的 23:59:59.999）
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="startDayOfWeek"></param>
+        /// <returns></returns>
+        public static DateTime GetEndOfWeek(this DateTime dt, DayOfWeek startDayOfWeek = DayOfWeek.Sunday)
+        {
+            DateTime end = dt;
+            DayOfWeek endDayOfWeek = startDayOfWeek - 1;
+            if (endDayOfWeek < 0)
+            {
+                endDayOfWeek = DayOfWeek.Saturday;
+            }
+
+            if (end.DayOfWeek != endDayOfWeek)
+            {
+                if (endDayOfWeek < end.DayOfWeek)
+                {
+                    end = end.AddDays(7 - (end.DayOfWeek - endDayOfWeek));
+                }
+                else
+                {
+                    end = end.AddDays(endDayOfWeek - end.DayOfWeek);
+                }
+            }
+
+            return new DateTime(end.Year, end.Month, end.Day, 23, 59, 59, 999);
+        }
+
+        /// <summary>
+        /// 获取当年最后时间（当年最后一天的 23:59:59.999）
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime GetEndOfYear(this DateTime @this)
+        {
+            return new DateTime(@this.Year, 1, 1).AddYears(1).Subtract(new TimeSpan(0, 0, 0, 0, 1));
+        }
+
+        public static DateTime SetTime(this DateTime current, int hour)
+        {
+            return SetTime(current, hour, 0, 0, 0);
+        }
+
+        public static DateTime SetTime(this DateTime current, int hour, int minute)
+        {
+            return SetTime(current, hour, minute, 0, 0);
+        }
+
+        public static DateTime SetTime(this DateTime current, int hour, int minute, int second)
+        {
+            return SetTime(current, hour, minute, second, 0);
+        }
+
+        public static DateTime SetTime(this DateTime current, int hour, int minute, int second, int millisecond)
+        {
+            return new DateTime(current.Year, current.Month, current.Day, hour, minute, second, millisecond);
+        }
+
+        /// <summary>
+        /// 转换为 Epoch time span
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static TimeSpan ToEpochTimeSpan(this DateTime @this)
+        {
+            return @this.Subtract(new DateTime(1970, 1, 1));
+        }
+
+        /// <summary>
+        /// 获得明天
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime Tomorrow(this DateTime @this)
+        {
+            return @this.AddDays(1);
+        }
+
+        /// <summary>
+        /// 获取昨天
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime Yesterday(this DateTime @this)
+        {
+            return @this.AddDays(-1);
+        }
     }
 }
