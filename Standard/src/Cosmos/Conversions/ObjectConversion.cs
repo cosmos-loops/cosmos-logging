@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AspectCore.Extensions.Reflection;
 
 namespace Cosmos.Conversions
 {
@@ -15,7 +16,10 @@ namespace Cosmos.Conversions
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string ToString(object obj) => obj?.ToString() ?? string.Empty;
+        public static string ToString(object obj)
+        {
+            return obj?.ToString() ?? string.Empty;
+        }
 
         /// <summary>
         /// Convert from an <see cref="object"/> to another type of <see cref="object"/> instance
@@ -23,7 +27,10 @@ namespace Cosmos.Conversions
         /// <param name="fromObj"></param>
         /// <param name="targetType"></param>
         /// <returns></returns>
-        public static object To(object fromObj, Type targetType) => To(fromObj, targetType, null);
+        public static object To(object fromObj, Type targetType)
+        {
+            return To(fromObj, targetType, targetType.GetDefaultValue());
+        }
 
         /// <summary>
         /// Convert from an <see cref="object"/> to another type of <see cref="object"/> instance
@@ -81,7 +88,10 @@ namespace Cosmos.Conversions
         /// <param name="fromObj"></param>
         /// <param name="targetTypeInfo"></param>
         /// <returns></returns>
-        public static object To(object fromObj, TypeInfo targetTypeInfo) => To(fromObj, targetTypeInfo.AsType(), null);
+        public static object To(object fromObj, TypeInfo targetTypeInfo)
+        {
+            return To(fromObj, targetTypeInfo.AsType(), null);
+        }
 
         /// <summary>
         /// Convert from an <see cref="object"/> to another type of <see cref="object"/> instance
@@ -90,7 +100,10 @@ namespace Cosmos.Conversions
         /// <param name="targetTypeInfo"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static object To(object fromObj, TypeInfo targetTypeInfo, object defaultValue) => To(fromObj, targetTypeInfo.AsType(), defaultValue);
+        public static object To(object fromObj, TypeInfo targetTypeInfo, object defaultValue)
+        {
+            return To(fromObj, targetTypeInfo.AsType(), defaultValue);
+        }
 
         /// <summary>
         /// Convert from an <see cref="object"/> to a <see cref="TTo"/> instance
@@ -98,7 +111,10 @@ namespace Cosmos.Conversions
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObj"></param>
         /// <returns></returns>
-        public static TTo To<TTo>(object fromObj) => To(fromObj, default(TTo));
+        public static TTo To<TTo>(object fromObj)
+        {
+            return To<TTo>(fromObj, default(TTo));
+        }
 
         /// <summary>
         /// Convert from an <see cref="object"/> to a <see cref="TTo"/> instance
@@ -113,7 +129,6 @@ namespace Cosmos.Conversions
             {
                 return (TTo) To(fromObj, typeof(TTo), defaultValue);
             }
-
             catch
             {
                 return defaultValue;

@@ -143,7 +143,10 @@ namespace Cosmos.Conversions
         /// <param name="digits"></param>
         /// <param name="defaultRet"></param>
         /// <returns></returns>
-        public static decimal ToRoundDecimal(object obj, int digits, decimal defaultRet = 0M) => Math.Round(ToDecimal(obj, defaultRet), digits);
+        public static decimal ToRoundDecimal(object obj, int digits, decimal defaultRet = 0M)
+        {
+            return Math.Round(ToDecimal(obj, defaultRet), digits);
+        }
 
         /// <summary>
         /// Convert from an <see cref="object"/> to nullable <see cref="decimal"/>

@@ -14,14 +14,20 @@ namespace Cosmos.Conversions
         /// <param name="base64String"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string ToString(string base64String, Encoding encoding) => encoding.GetString(Convert.FromBase64String(base64String));
+        public static string ToString(string base64String, Encoding encoding)
+        {
+            return encoding.GetString(Convert.FromBase64String(base64String));
+        }
 
         /// <summary>
         /// Convert from bytes to base64 string
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string ToBase64String(byte[] str) => Convert.ToBase64String(str);
+        public static string ToBase64String(byte[] str)
+        {
+            return Convert.ToBase64String(str);
+        }
 
         /// <summary>
         /// Convert from string to base64 string
@@ -29,6 +35,9 @@ namespace Cosmos.Conversions
         /// <param name="str"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string ToBase64String(string str, Encoding encoding) => ToBase64String(encoding.GetBytes(str));
+        public static string ToBase64String(string str, Encoding encoding)
+        {
+            return ToBase64String(encoding.GetBytes(str));
+        }
     }
 }

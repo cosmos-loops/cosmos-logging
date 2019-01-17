@@ -14,7 +14,10 @@ namespace Cosmos.Judgements
         /// </summary>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public static bool IsNull(IEnumerable coll) => coll == null;
+        public static bool IsNull(IEnumerable coll)
+        {
+            return coll == null;
+        }
 
         /// <summary>
         /// To judge whether the collection is null or empty
@@ -35,7 +38,10 @@ namespace Cosmos.Judgements
         /// <typeparam name="T"></typeparam>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public static bool IsNullOrEmpty<T>(IEnumerable<T> coll) => coll == null || !coll.Any();
+        public static bool IsNullOrEmpty<T>(IEnumerable<T> coll)
+        {
+            return coll == null || !coll.Any();
+        }
 
         /// <summary>
         /// To judge whether one collection contains specified count of elements at least
@@ -44,7 +50,10 @@ namespace Cosmos.Judgements
         /// <param name="coll"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public static bool ContainsAtLeast<T>(ICollection<T> coll, int count) => coll?.Count >= count;
+        public static bool ContainsAtLeast<T>(ICollection<T> coll, int count)
+        {
+            return coll?.Count >= count;
+        }
 
         /// <summary>
         /// To judge whether these two collections contain same count of elements
