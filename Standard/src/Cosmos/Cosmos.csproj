@@ -1,22 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\build\common.props" />
-  <PropertyGroup>
-    <AssemblyName>Cosmos</AssemblyName>
-    <PackageId>Cosmos.Core</PackageId>
-    <Description>Cosmos base library</Description>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.Reflection" Version="0.4.0" />
-    <PackageReference Include="Humanizer.Core" Version="2.5.1" />
-    <PackageReference Include="Humanizer.Core.zh-Hans" Version="2.5.1" />
-    <PackageReference Include="Humanizer.Core.zh-Hant" Version="2.5.1" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
-    <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cosmos.Abstractions\Cosmos.Abstractions.csproj" />
-  </ItemGroup>
+    <Import Project="..\..\build\common.props"/>
+    <PropertyGroup>
+        <AssemblyName>Cosmos</AssemblyName>
+        <PackageId>Cosmos.Core</PackageId>
+        <Description>Cosmos base library</Description>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="AspectCore.Extensions.Reflection" Version="1.1.0"/>
+        <PackageReference Include="Enums.NET" Version="2.3.2"/>
+        <PackageReference Include="Humanizer.Core" Version="2.5.16"/>
+        <PackageReference Include="Humanizer.Core.zh-Hans" Version="2.5.16"/>
+        <PackageReference Include="Humanizer.Core.zh-Hant" Version="2.5.16"/>
+        <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1"/>
+        <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Abstractions\Cosmos.Abstractions.csproj"/>
+    </ItemGroup>
 </Project>
