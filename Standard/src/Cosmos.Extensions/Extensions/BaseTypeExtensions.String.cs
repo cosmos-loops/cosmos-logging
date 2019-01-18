@@ -1,11 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Cosmos.Extensions
+// ReSharper disable once CheckNamespace
+namespace Cosmos
 {
     /// <summary>
     /// String extensions
     /// </summary>
-    public static class StringExtensions
+    public static partial class BaseTypeExtensions
     {
         /// <summary>
         /// 根据给定的 splitCode 对字符串进行切割

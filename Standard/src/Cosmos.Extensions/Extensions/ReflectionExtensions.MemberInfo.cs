@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Cosmos.Extensions
+// ReSharper disable once CheckNamespace
+namespace Cosmos
 {
-    public static class MemberInfoExtensions
+    public static partial class ReflectionExtensions
     {
         /// <summary>
         /// To judge the attribute exists or not

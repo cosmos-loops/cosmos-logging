@@ -2,9 +2,10 @@
 using System.Reflection;
 using System.Text;
 
-namespace Cosmos.Extensions
+// ReSharper disable once CheckNamespace
+namespace Cosmos
 {
-    public static class MethodInfoExtensions
+    public static partial class ReflectionExtensions
     {
         /// <summary>
         /// Get full name of method including type name and method name

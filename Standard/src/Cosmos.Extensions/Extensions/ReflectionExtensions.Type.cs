@@ -4,12 +4,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Cosmos.Extensions
+// ReSharper disable once CheckNamespace
+namespace Cosmos
 {
     /// <summary>
     /// Type extensions
     /// </summary>
-    public static class TypeExtensions
+    public static partial class ReflectionExtensions
     {
         /// <summary>
         /// Get non-nullable inderlying <see cref="Type"/>
@@ -151,5 +152,17 @@ namespace Cosmos.Extensions
         /// <returns></returns>
         public static Type FindGenericType(this Type definition, Type type)
             => (FindGenericTypeInfo(definition.GetTypeInfo(), type.GetTypeInfo()))?.AsType();
+
+        public static bool IsAssignableFrom<T>(this object @this)
+        {
+            Type type = @this.GetType();
+            return type.IsAssignableFrom(typeof(T));
+        }
+
+        public static bool IsAssignableFrom(this object @this, Type targetType)
+        {
+            Type type = @this.GetType();
+            return type.IsAssignableFrom(targetType);
+        }
     }
 }

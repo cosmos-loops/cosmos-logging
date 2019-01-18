@@ -27,7 +27,8 @@ namespace Cosmos
             if (untilType == null)
                 throw new ArgumentNullException(nameof(untilType));
             if (!untilType.IsSubclassOf(typeof(Exception)))
-                throw new ArgumentException($"Type '{untilType}' does not devide from {typeof(Exception)}", nameof(untilType));
+                throw new ArgumentException($"Type '{untilType}' does not devide from {typeof(Exception)}",
+                    nameof(untilType));
             if (ex.InnerException == null)
                 return null;
             var exception = ex.Unwrap();

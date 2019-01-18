@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using System.Text;
-using Cosmos.Extensions;
 
+// ReSharper disable once CheckNamespace
 namespace Cosmos
 {
     /// <summary>

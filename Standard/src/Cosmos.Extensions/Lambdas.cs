@@ -254,7 +254,8 @@ namespace Cosmos
         /// <typeparam name="TProperty">属性类型</typeparam>
         /// <typeparam name="TAttribute">特性类型</typeparam>
         /// <param name="propertyExpression">属性表达式</param>
-        public static TAttribute GetAttribute<TEntity, TProperty, TAttribute>(Expression<Func<TEntity, TProperty>> propertyExpression)
+        public static TAttribute GetAttribute<TEntity, TProperty, TAttribute>(
+            Expression<Func<TEntity, TProperty>> propertyExpression)
             where TAttribute : Attribute
         {
             return GetAttribute<TAttribute>(propertyExpression);
@@ -266,7 +267,8 @@ namespace Cosmos
         /// <typeparam name="TProperty">属性类型</typeparam>
         /// <typeparam name="TAttribute">特性类型</typeparam>
         /// <param name="propertyExpression">属性表达式</param>
-        public static TAttribute GetAttribute<TProperty, TAttribute>(Expression<Func<TProperty>> propertyExpression) where TAttribute : Attribute
+        public static TAttribute GetAttribute<TProperty, TAttribute>(Expression<Func<TProperty>> propertyExpression)
+            where TAttribute : Attribute
         {
             return GetAttribute<TAttribute>(propertyExpression);
         }
@@ -282,7 +284,8 @@ namespace Cosmos
         /// <typeparam name="TProperty">属性类型</typeparam>
         /// <typeparam name="TAttribute">特性类型</typeparam>
         /// <param name="propertyExpression">属性表达式</param>
-        public static IEnumerable<TAttribute> GetAttributes<TEntity, TProperty, TAttribute>(Expression<Func<TEntity, TProperty>> propertyExpression)
+        public static IEnumerable<TAttribute> GetAttributes<TEntity, TProperty, TAttribute>(
+            Expression<Func<TEntity, TProperty>> propertyExpression)
             where TAttribute : Attribute
         {
             var memberInfo = GetMember(propertyExpression);

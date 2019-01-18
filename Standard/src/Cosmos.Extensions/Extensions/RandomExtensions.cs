@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Cosmos.Extensions
+// ReSharper disable once CheckNamespace
+namespace Cosmos
 {
     /// <summary>
     /// 随机数扩展方法
@@ -81,5 +82,14 @@ namespace Cosmos.Extensions
         /// <param name="random"></param>
         /// <returns></returns>
         public static DateTime NextDateTime(this Random random) => NextDateTime(random, DateTime.MinValue, DateTime.MaxValue);
+
+        /// <summary>
+        /// 随机获得一个指定范围的结果
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="values"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T OneOf<T>(this Random @this, params T[] values) => values[@this.Next(values.Length)];
     }
 }

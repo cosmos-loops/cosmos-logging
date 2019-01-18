@@ -74,7 +74,8 @@ namespace Cosmos
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
+        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> left,
+            Expression<Func<T, bool>> right)
         {
             if (left == null)
                 return right;
@@ -107,7 +108,8 @@ namespace Cosmos
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
+        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> left,
+            Expression<Func<T, bool>> right)
         {
             if (left == null)
                 return right;
@@ -377,7 +379,8 @@ namespace Cosmos
         {
             if (values == null || values.Length == 0)
                 return Expression.Call(instance, instance.Type.GetTypeInfo().GetMethod(methodName));
-            return Expression.Call(instance, instance.Type.GetTypeInfo().GetMethod(methodName), values.Select(Expression.Constant));
+            return Expression.Call(instance, instance.Type.GetTypeInfo().GetMethod(methodName),
+                values.Select(Expression.Constant));
         }
 
         /// <summary>
@@ -387,11 +390,13 @@ namespace Cosmos
         /// <param name="methodName">方法名</param>
         /// <param name="paramTypes">参数类型列表</param>
         /// <param name="values">参数值列表</param>
-        public static Expression Call(this Expression instance, string methodName, Type[] paramTypes, params object[] values)
+        public static Expression Call(this Expression instance, string methodName, Type[] paramTypes,
+            params object[] values)
         {
             if (values == null || values.Length == 0)
                 return Expression.Call(instance, instance.Type.GetTypeInfo().GetMethod(methodName, paramTypes));
-            return Expression.Call(instance, instance.Type.GetTypeInfo().GetMethod(methodName, paramTypes), values.Select(Expression.Constant));
+            return Expression.Call(instance, instance.Type.GetTypeInfo().GetMethod(methodName, paramTypes),
+                values.Select(Expression.Constant));
         }
 
         #endregion
@@ -408,7 +413,8 @@ namespace Cosmos
         internal static Expression<T> Compose<T>(this Expression<T> first, Expression<T> second,
             Func<Expression, Expression, Expression> merge)
         {
-            var map = first.Parameters.Select((f, i) => new {f, s = second.Parameters[i]}).ToDictionary(p => p.s, p => p.f);
+            var map = first.Parameters.Select((f, i) => new {f, s = second.Parameters[i]})
+                .ToDictionary(p => p.s, p => p.f);
             var secondBody = ParameterRebinder.ReplaceParameters(map, second.Body);
             return Expression.Lambda<T>(merge(first.Body, secondBody), first.Parameters);
         }
@@ -423,7 +429,8 @@ namespace Cosmos
         /// <typeparam name="TDelegate">委托类型</typeparam>
         /// <param name="body">表达式</param>
         /// <param name="parameters">参数列表</param>
-        public static Expression<TDelegate> ToLambda<TDelegate>(this Expression body, params ParameterExpression[] parameters)
+        public static Expression<TDelegate> ToLambda<TDelegate>(this Expression body,
+            params ParameterExpression[] parameters)
         {
             if (body == null)
                 return null;

@@ -1,9 +1,26 @@
 using System;
 
-namespace Cosmos.Extensions
+// ReSharper disable once CheckNamespace
+namespace Cosmos
 {
-    public static class ConditionalActionExtensions
+    public static partial class BaseTypeExtensions
     {
+        public static void IfTrue(this bool @this, Action action)
+        {
+            if (@this)
+            {
+                action?.Invoke();
+            }
+        }
+
+        public static void IfFalse(this bool @this, Action action)
+        {
+            if (!@this)
+            {
+                action?.Invoke();
+            }
+        }
+
         public static void Ifttt(this bool condition, Action @this, Action that)
         {
             if (condition)
@@ -16,20 +33,15 @@ namespace Cosmos.Extensions
             }
         }
 
-        public static void IfTure(this bool condition, Action action)
+
+        public static byte ToBinary(this bool @this)
         {
-            if (condition)
-            {
-                action?.Invoke();
-            }
+            return Convert.ToByte(@this);
         }
 
-        public static void IfFalse(this bool condition, Action action)
+        public static string ToString(this bool @this, string trueString, string falseString)
         {
-            if (!condition)
-            {
-                action?.Invoke();
-            }
+            return @this ? trueString : falseString;
         }
 
         public static void IfNullOrWhiteSpace(this string @string, Action action)
