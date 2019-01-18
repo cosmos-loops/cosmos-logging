@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Cosmos
+namespace Cosmos.IdUtils
 {
     /// <summary>
     /// Random Id Provider
