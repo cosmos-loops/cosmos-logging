@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Cosmos.Extensions;
 
 namespace Cosmos
@@ -49,7 +50,8 @@ namespace Cosmos
         {
             if (Judgements.CollectionJudgement.IsNullOrEmpty(argument))
             {
-                throw new ArgumentNullException(argumentName, message ?? $"{nameof(argument)} can not be null or empty.");
+                throw new ArgumentNullException(argumentName,
+                    message ?? $"{nameof(argument)} can not be null or empty.");
             }
         }
 
@@ -65,7 +67,8 @@ namespace Cosmos
         {
             if (!Judgements.CollectionJudgement.ContainsAtLeast(argument, number))
             {
-                throw new ArgumentOutOfRangeException(argumentName, message ?? $"{nameof(argument)} should has {number} items at least.");
+                throw new ArgumentOutOfRangeException(argumentName,
+                    message ?? $"{nameof(argument)} should has {number} items at least.");
             }
         }
 
@@ -79,7 +82,8 @@ namespace Cosmos
         {
             if (Judgements.GuidJudgement.IsNullOrEmpty(argument))
             {
-                throw new ArgumentNullException(argumentName, message ?? $"{nameof(argument)} can not be null or empty.");
+                throw new ArgumentNullException(argumentName,
+                    message ?? $"{nameof(argument)} can not be null or empty.");
             }
         }
 
@@ -102,10 +106,21 @@ namespace Cosmos
         /// <param name="message"></param>
         public static void IsNotEmpty(string argument, string argumentName, string message = null)
         {
-            if (string.IsNullOrEmpty((argument ?? string.Empty).Trim()))
+            if (string.IsNullOrWhiteSpace((argument ?? string.Empty).Trim()))
             {
                 throw new ArgumentNullException(argumentName, message ?? $"{nameof(argument)} can not be blank.");
             }
+        }
+
+        /// <summary>
+        /// 检查字符串是否为 Blank
+        /// </summary>
+        /// <param name="argument"></param>
+        /// <param name="argumentName"></param>
+        /// <param name="message"></param>
+        public static void IsNotBlank(string argument, string argumentName, string message = null)
+        {
+            IsNotEmpty(argument, argumentName, message);
         }
 
         /// <summary>
@@ -119,7 +134,8 @@ namespace Cosmos
         {
             if (argument.Trim().Length > length)
             {
-                throw new ArgumentOutOfRangeException(argumentName, argument.Trim().Length, message ?? $"{nameof(argument)}'s length can not be greater than {length}.");
+                throw new ArgumentOutOfRangeException(argumentName, argument.Trim().Length,
+                    message ?? $"{nameof(argument)}'s length can not be greater than {length}.");
             }
         }
 

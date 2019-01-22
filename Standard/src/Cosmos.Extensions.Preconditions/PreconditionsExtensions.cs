@@ -54,7 +54,8 @@ namespace Cosmos
         /// <param name="argumentName"></param>
         /// <param name="number"></param>
         /// <param name="message"></param>
-        public static void CheckAtLeast<T>(this ICollection<T> argument, string argumentName, int number, string message = null)
+        public static void CheckAtLeast<T>(this ICollection<T> argument, string argumentName, int number,
+            string message = null)
             => Preconditions.IsAtLeast(argument, argumentName, number, message);
 
         /// <summary>
@@ -65,7 +66,8 @@ namespace Cosmos
         /// <param name="argument"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void CheckNull<TKey, TValue>(this KeyValuePair<TKey, TValue> argument, string argumentName, string message = null)
+        public static void CheckNull<TKey, TValue>(this KeyValuePair<TKey, TValue> argument, string argumentName,
+            string message = null)
         {
             if (string.IsNullOrWhiteSpace(argument.ToString()))
             {

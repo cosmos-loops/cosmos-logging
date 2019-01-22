@@ -30,13 +30,14 @@ namespace Cosmos
         public static void CheckBlank(this string argument, string argumentName, string message = null)
             => Preconditions.IsNotEmpty(argument, argumentName, message);
 
-        /// <summary>
-        ///检查字符串长度是否超界
-        /// </summary>
-        /// <param name="argument"></param>
-        /// <param name="length"></param>
-        /// <param name="argumentName"></param>
-        public static void CheckOutOfLenth(this string argument, int length, string argumentName)
-            => Preconditions.IsNotOutOfLength(argument, length, argumentName);
+        ///  <summary>
+        /// 检查字符串长度是否超界
+        ///  </summary>
+        ///  <param name="argument"></param>
+        ///  <param name="length"></param>
+        ///  <param name="argumentName"></param>
+        ///  <param name="message"></param>
+        public static void CheckOutOfLenth(this string argument, int length, string argumentName, string message = null)
+            => Preconditions.IsNotOutOfLength(argument, length, argumentName, message);
     }
 }
