@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cosmos {
+namespace Cosmos
+{
     // ReSharper disable InconsistentNaming
-    public abstract class CosmosException : Exception {
+    public abstract class CosmosException : Exception
+    {
         protected const string EMPTY_FLAG = "__EMPTY_FLG";
         protected const string DEFAULT_ERROR_MESSAGE = "_DEFAULT_ERROR";
         protected const long DEFAULT_ERROR_CODE = 1001;
@@ -22,8 +24,10 @@ namespace Cosmos {
             : this(errorCode, errorMessage, EMPTY_FLAG, innerException) { }
 
         protected CosmosException(long errorCode, string errorMessage, string flag, Exception innerException = null)
-            : base(errorMessage, innerException) {
-            if (string.IsNullOrWhiteSpace(flag)) {
+            : base(errorMessage, innerException)
+        {
+            if (string.IsNullOrWhiteSpace(flag))
+            {
                 flag = EMPTY_FLAG;
             }
 

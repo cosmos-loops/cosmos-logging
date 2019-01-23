@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cosmos {
+namespace Cosmos
+{
     /// <summary>
     /// 提供一个统一的单例管理入口
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    public class Singleton {
-        static Singleton() {
+    public class Singleton
+    {
+        static Singleton()
+        {
             AllSingletons = new Dictionary<Type, object>();
         }
 
@@ -22,15 +25,18 @@ namespace Cosmos {
     /// </summary>
     /// <typeparam name="T"></typeparam>
     // ReSharper disable once InconsistentNaming
-    public class Singleton<T> : Singleton {
+    public class Singleton<T> : Singleton
+    {
         private static T _instance;
 
         /// <summary>
         /// 单例实例
         /// </summary>
-        public static T Instance {
+        public static T Instance
+        {
             get => _instance;
-            set {
+            set
+            {
                 _instance = value;
                 AllSingletons[typeof(T)] = value;
             }
@@ -42,8 +48,10 @@ namespace Cosmos {
     /// </summary>
     /// <typeparam name="T"></typeparam>
     // ReSharper disable once InconsistentNaming
-    public class SingletonList<T> : Singleton<IList<T>> {
-        static SingletonList() {
+    public class SingletonList<T> : Singleton<IList<T>>
+    {
+        static SingletonList()
+        {
             Singleton<IList<T>>.Instance = new List<T>();
         }
 
@@ -59,8 +67,10 @@ namespace Cosmos {
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     // ReSharper disable once InconsistentNaming
-    public class SingletonDictionary<TKey, TValue> : Singleton<IDictionary<TKey, TValue>> {
-        static SingletonDictionary() {
+    public class SingletonDictionary<TKey, TValue> : Singleton<IDictionary<TKey, TValue>>
+    {
+        static SingletonDictionary()
+        {
             Singleton<Dictionary<TKey, TValue>>.Instance = new Dictionary<TKey, TValue>();
         }
 

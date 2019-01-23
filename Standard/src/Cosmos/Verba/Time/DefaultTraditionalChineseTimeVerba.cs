@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 
-namespace Cosmos.Verba.Time {
-    public class DefaultTraditionalChineseTimeVerba : ITimeVerba {
+namespace Cosmos.Verba.Time
+{
+    public class DefaultTraditionalChineseTimeVerba : ITimeVerba
+    {
         private static readonly DefaultTraditionalChineseTimeVerba m_singletonInstance;
         public const string TaiwanTraditionalChinese = "zh_TW";
         public const string HongKongTraditionalChinese = "zh_HK";
 
-        static DefaultTraditionalChineseTimeVerba() {
+        static DefaultTraditionalChineseTimeVerba()
+        {
             m_singletonInstance = new DefaultTraditionalChineseTimeVerba();
         }
 

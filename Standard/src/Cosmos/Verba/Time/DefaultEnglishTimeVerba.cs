@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace Cosmos.Verba.Time {
-    public class DefaultEnglishTimeVerba : ITimeVerba {
+namespace Cosmos.Verba.Time
+{
+    public class DefaultEnglishTimeVerba : ITimeVerba
+    {
         private static readonly DefaultEnglishTimeVerba m_singletonInstance;
         public const string USEnglish = "en_US";
 
-        static DefaultEnglishTimeVerba() {
+        static DefaultEnglishTimeVerba()
+        {
             m_singletonInstance = new DefaultEnglishTimeVerba();
         }
 

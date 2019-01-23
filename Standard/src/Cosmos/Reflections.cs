@@ -5,15 +5,18 @@ using System.Linq;
 using System.Reflection;
 using AspectCore.Extensions.Reflection;
 
-namespace Cosmos {
-    public static class Reflections {
+namespace Cosmos
+{
+    public static class Reflections
+    {
         /// <summary>
         /// Get description
         /// 获取描述
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static string GetDescription<T>() {
+        public static string GetDescription<T>()
+        {
             return GetDescription(Types.Of<T>());
         }
 
@@ -23,7 +26,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static string GetDescription(Type type) {
+        public static string GetDescription(Type type)
+        {
             return GetDescription(type.GetTypeInfo());
         }
 
@@ -33,7 +37,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static string GetDescription(TypeInfo type) {
+        public static string GetDescription(TypeInfo type)
+        {
             var attribute = GetAttribute<DescriptionAttribute>(type);
             return attribute == null ? type.Name : attribute.Description;
         }
@@ -44,7 +49,8 @@ namespace Cosmos {
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
         /// <param name="memberName">成员名称</param>
-        public static string GetDescription<T>(string memberName) {
+        public static string GetDescription<T>(string memberName)
+        {
             return GetDescription(Types.Of<T>(), memberName);
         }
 
@@ -54,7 +60,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="type">类型</param>
         /// <param name="memberName">成员名称</param>
-        public static string GetDescription(Type type, string memberName) {
+        public static string GetDescription(Type type, string memberName)
+        {
             return GetDescription(type.GetTypeInfo(), memberName);
         }
 
@@ -64,8 +71,10 @@ namespace Cosmos {
         /// </summary>
         /// <param name="typeinfo">类型</param>
         /// <param name="memberName">成员名称</param>
-        public static string GetDescription(TypeInfo typeinfo, string memberName) {
-            if (typeinfo == null) {
+        public static string GetDescription(TypeInfo typeinfo, string memberName)
+        {
+            if (typeinfo == null)
+            {
                 return string.Empty;
             }
 
@@ -80,7 +89,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="memberInfo"></param>
         /// <returns></returns>
-        public static string GetDescription(MemberInfo memberInfo) {
+        public static string GetDescription(MemberInfo memberInfo)
+        {
             if (memberInfo == null)
                 return string.Empty;
             var attribute = GetAttribute<DescriptionAttribute>(memberInfo);
@@ -93,7 +103,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="type">类型</param>
         /// <param name="field">成员</param>
-        public static string GetDescription(Type type, FieldInfo field) {
+        public static string GetDescription(Type type, FieldInfo field)
+        {
             return GetDescription(type.GetTypeInfo(), field);
         }
 
@@ -104,8 +115,10 @@ namespace Cosmos {
         /// <param name="typeinfo">类型</param>
         /// <param name="field">成员</param>
         /// <returns></returns>
-        public static string GetDescription(TypeInfo typeinfo, FieldInfo field) {
-            if (typeinfo == null || field == null) {
+        public static string GetDescription(TypeInfo typeinfo, FieldInfo field)
+        {
+            if (typeinfo == null || field == null)
+            {
                 return string.Empty;
             }
 
@@ -119,7 +132,8 @@ namespace Cosmos {
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static string GetDisplayName<T>() {
+        public static string GetDisplayName<T>()
+        {
             return GetDisplayName(typeof(T));
         }
 
@@ -129,7 +143,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="memberInfo"></param>
         /// <returns></returns>
-        private static string GetDisplayName(MemberInfo memberInfo) {
+        private static string GetDisplayName(MemberInfo memberInfo)
+        {
             if (memberInfo == null)
                 return string.Empty;
             var displayNameAttribute = GetAttribute<DisplayNameAttribute>(memberInfo);
@@ -147,7 +162,8 @@ namespace Cosmos {
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static string GetDescriptionOrDisplayName<T>() {
+        public static string GetDescriptionOrDisplayName<T>()
+        {
             var result = GetDisplayName<T>();
             if (string.IsNullOrWhiteSpace(result))
                 result = GetDescription<T>();
@@ -160,7 +176,8 @@ namespace Cosmos {
         /// </summary>
         /// <param name="memberInfo"></param>
         /// <returns></returns>
-        public static string GetDescriptionOrDisplayName(MemberInfo memberInfo) {
+        public static string GetDescriptionOrDisplayName(MemberInfo memberInfo)
+        {
             var result = GetDisplayName(memberInfo);
             return !string.IsNullOrWhiteSpace(result) ? result : GetDescription(memberInfo);
         }
@@ -172,8 +189,11 @@ namespace Cosmos {
         /// <param name="fieldInfo"></param>
         /// <typeparam name="TAttribute"></typeparam>
         /// <returns></returns>
-        public static TAttribute GetAttribute<TAttribute>(FieldInfo fieldInfo) where TAttribute : Attribute {
-            return fieldInfo == null ? null : fieldInfo.GetReflector().GetCustomAttributes<TAttribute>().FirstOrDefault();
+        public static TAttribute GetAttribute<TAttribute>(FieldInfo fieldInfo) where TAttribute : Attribute
+        {
+            return fieldInfo == null
+                ? null
+                : fieldInfo.GetReflector().GetCustomAttributes<TAttribute>().FirstOrDefault();
         }
 
         /// <summary>
@@ -183,7 +203,8 @@ namespace Cosmos {
         /// <param name="memberInfo"></param>
         /// <typeparam name="TAttribute"></typeparam>
         /// <returns></returns>
-        public static TAttribute GetAttribute<TAttribute>(MemberInfo memberInfo) where TAttribute : Attribute {
+        public static TAttribute GetAttribute<TAttribute>(MemberInfo memberInfo) where TAttribute : Attribute
+        {
             return memberInfo == null ? null : GetAttribute<TAttribute>(memberInfo.GetType());
         }
 
@@ -194,7 +215,8 @@ namespace Cosmos {
         /// <param name="type"></param>
         /// <typeparam name="TAttribute"></typeparam>
         /// <returns></returns>
-        public static TAttribute GetAttribute<TAttribute>(Type type) where TAttribute : Attribute {
+        public static TAttribute GetAttribute<TAttribute>(Type type) where TAttribute : Attribute
+        {
             return type == null ? null : GetAttribute<TAttribute>(type.GetTypeInfo());
         }
 
@@ -205,7 +227,8 @@ namespace Cosmos {
         /// <param name="typeInfo"></param>
         /// <typeparam name="TAttribute"></typeparam>
         /// <returns></returns>
-        public static TAttribute GetAttribute<TAttribute>(TypeInfo typeInfo) where TAttribute : Attribute {
+        public static TAttribute GetAttribute<TAttribute>(TypeInfo typeInfo) where TAttribute : Attribute
+        {
             return typeInfo == null ? null : typeInfo.GetReflector().GetCustomAttributes<TAttribute>().FirstOrDefault();
         }
 
@@ -216,7 +239,8 @@ namespace Cosmos {
         /// <param name="fieldInfo"></param>
         /// <typeparam name="TAttribute"></typeparam>
         /// <returns></returns>
-        public static TAttribute GetRequiredAttribute<TAttribute>(FieldInfo fieldInfo) where TAttribute : Attribute {
+        public static TAttribute GetRequiredAttribute<TAttribute>(FieldInfo fieldInfo) where TAttribute : Attribute
+        {
             return fieldInfo == null ? null : fieldInfo.GetReflector().GetCustomAttribute<TAttribute>();
         }
 
@@ -227,7 +251,8 @@ namespace Cosmos {
         /// <param name="memberInfo"></param>
         /// <typeparam name="TAttribute"></typeparam>
         /// <returns></returns>
-        public static TAttribute GetRequiredAttribute<TAttribute>(MemberInfo memberInfo) where TAttribute : Attribute {
+        public static TAttribute GetRequiredAttribute<TAttribute>(MemberInfo memberInfo) where TAttribute : Attribute
+        {
             return memberInfo == null ? null : GetRequiredAttribute<TAttribute>(memberInfo.GetType());
         }
 
@@ -238,7 +263,8 @@ namespace Cosmos {
         /// <param name="type"></param>
         /// <typeparam name="TAttribute"></typeparam>
         /// <returns></returns>
-        public static TAttribute GetRequiredAttribute<TAttribute>(Type type) where TAttribute : Attribute {
+        public static TAttribute GetRequiredAttribute<TAttribute>(Type type) where TAttribute : Attribute
+        {
             return type == null ? null : GetRequiredAttribute<TAttribute>(type.GetTypeInfo());
         }
 
@@ -249,7 +275,8 @@ namespace Cosmos {
         /// <param name="typeInfo"></param>
         /// <typeparam name="TAttribute"></typeparam>
         /// <returns></returns>
-        public static TAttribute GetRequiredAttribute<TAttribute>(TypeInfo typeInfo) where TAttribute : Attribute {
+        public static TAttribute GetRequiredAttribute<TAttribute>(TypeInfo typeInfo) where TAttribute : Attribute
+        {
             return typeInfo == null ? null : typeInfo.GetReflector().GetCustomAttribute<TAttribute>();
         }
     }

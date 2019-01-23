@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Cosmos.Judgements {
+namespace Cosmos.Judgements
+{
     /// <summary>
     /// Guid Judgement Utilities
     /// </summary>
-    public static class GuidJudgement {
+    public static class GuidJudgement
+    {
         /// <summary>
         /// To judge whether the <see cref="Guid"/> is null or empty
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public static bool IsNullOrEmpty(Guid guid) {
+        public static bool IsNullOrEmpty(Guid guid)
+        {
             return guid == Guid.Empty;
         }
 
@@ -20,7 +23,8 @@ namespace Cosmos.Judgements {
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public static bool IsNullOrEmpty(Guid? guid) {
+        public static bool IsNullOrEmpty(Guid? guid)
+        {
             return guid == null || IsNullOrEmpty(guid.Value);
         }
 
@@ -35,7 +39,8 @@ namespace Cosmos.Judgements {
         /// </summary>
         /// <param name="guidStr"></param>
         /// <returns></returns>
-        public static bool IsValid(string guidStr) {
+        public static bool IsValid(string guidStr)
+        {
             if (string.IsNullOrWhiteSpace(guidStr))
                 return false;
 

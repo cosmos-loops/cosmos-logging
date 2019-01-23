@@ -11,9 +11,13 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DeepCopy" Version="1.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cosmos\Cosmos.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IdUtils" />
   </ItemGroup>
 </Project>

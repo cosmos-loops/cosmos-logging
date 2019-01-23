@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cosmos.Judgements {
+namespace Cosmos.Judgements
+{
     /// <summary>
     /// Collection Judgement Utilities
     /// </summary>
-    public static class CollectionJudgement {
+    public static class CollectionJudgement
+    {
         /// <summary>
         /// To judge whether the collection is null or not
         /// </summary>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public static bool IsNull(IEnumerable coll) {
+        public static bool IsNull(IEnumerable coll)
+        {
             return coll == null;
         }
 
@@ -21,7 +24,8 @@ namespace Cosmos.Judgements {
         /// </summary>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public static bool IsNullOrEmpty(IEnumerable coll) {
+        public static bool IsNullOrEmpty(IEnumerable coll)
+        {
             if (coll == null)
                 return true;
 
@@ -34,7 +38,8 @@ namespace Cosmos.Judgements {
         /// <typeparam name="T"></typeparam>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public static bool IsNullOrEmpty<T>(IEnumerable<T> coll) {
+        public static bool IsNullOrEmpty<T>(IEnumerable<T> coll)
+        {
             return coll == null || !coll.Any();
         }
 
@@ -45,7 +50,8 @@ namespace Cosmos.Judgements {
         /// <param name="coll"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public static bool ContainsAtLeast<T>(ICollection<T> coll, int count) {
+        public static bool ContainsAtLeast<T>(ICollection<T> coll, int count)
+        {
             return coll?.Count >= count;
         }
 
@@ -56,7 +62,8 @@ namespace Cosmos.Judgements {
         /// <param name="leftCcoll"></param>
         /// <param name="rightColl"></param>
         /// <returns></returns>
-        public static bool ContainsEqualCount<T>(ICollection<T> leftCcoll, ICollection<T> rightColl) {
+        public static bool ContainsEqualCount<T>(ICollection<T> leftCcoll, ICollection<T> rightColl)
+        {
             if (leftCcoll == null && rightColl == null)
                 return true;
 

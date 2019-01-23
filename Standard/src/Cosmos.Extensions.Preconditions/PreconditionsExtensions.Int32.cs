@@ -1,8 +1,10 @@
-﻿namespace Cosmos {
+﻿namespace Cosmos
+{
     /// <summary>
     /// Integer arguments checking extensions
     /// </summary>
-    public static partial class PreconditionsExtensions {
+    public static partial class PreconditionsExtensions
+    {
         /// <summary>
         /// 检查指定数字是否超界
         /// </summary>
@@ -11,7 +13,8 @@
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void CheckOutOfRange(this int argument, int min, int max, string argumentName, string message = null)
+        public static void CheckOutOfRange(this int argument, int min, int max, string argumentName,
+            string message = null)
             => Preconditions.IsNotOutOfRange(argument, min, max, argumentName, message);
 
         /// <summary>
@@ -22,7 +25,8 @@
         /// <param name="max"></param>
         /// <param name="argumentName"></param>
         /// <param name="message"></param>
-        public static void CheckOutOfRange(this int? argument, int min, int max, string argumentName, string message = null)
+        public static void CheckOutOfRange(this int? argument, int min, int max, string argumentName,
+            string message = null)
             => Preconditions.IsNotOutOfRange(argument, min, max, argumentName, message);
 
         /// <summary>

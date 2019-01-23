@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 
-namespace Cosmos.Verba.Boolean {
+namespace Cosmos.Verba.Boolean
+{
     /// <summary>
     /// Default global boolean verba
     /// </summary>
-    public class DefaultBooleanVerba : IBooleanVerba {
+    public class DefaultBooleanVerba : IBooleanVerba
+    {
         private static readonly DefaultBooleanVerba m_singletonInstance;
 
-        static DefaultBooleanVerba() {
+        static DefaultBooleanVerba()
+        {
             m_singletonInstance = new DefaultBooleanVerba();
         }
 
