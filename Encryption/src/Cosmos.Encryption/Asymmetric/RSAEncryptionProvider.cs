@@ -1,12 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Security.Cryptography;
 using System.Text;
-using Cosmos.Encryption.Core.Internals.Extensions;
+using Cosmos.Encryption.Core;
 
 // ReSharper disable once CheckNamespace
-namespace Cosmos.Encryption {
+namespace Cosmos.Encryption
+{
     /// <summary>
     /// Asymmetric/RSA encryption.
     /// Reference: Seay Xu
@@ -15,91 +13,63 @@ namespace Cosmos.Encryption {
     ///     https://github.com/myloveCc/NETCore.Encrypt/blob/master/src/NETCore.Encrypt/EncryptProvider.cs
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    public static class RSAEncryptionProvider {
-        public static RSAKey CreateKey(RSAKeySizeTypes size = RSAKeySizeTypes.R2048, RSAKeyTypes keyType = RSAKeyTypes.XML) {
-            using (var rsa = new RSACryptoServiceProvider((int) size)) {
-                var publicKey = keyType == RSAKeyTypes.JSON
-                    ? rsa.ToJsonString(false)
-                    : rsa.ToLvccXmlString(false);
-
-                var privateKey = keyType == RSAKeyTypes.JSON
-                    ? rsa.ToJsonString(true)
-                    : rsa.ToLvccXmlString(true);
-
-                return new RSAKey {
-                    PublicKey = publicKey,
-                    PrivateKey = privateKey,
-                    Exponent = rsa.ExportParameters(false).Exponent.ToHexString(),
-                    Modulus = rsa.ExportParameters(false).Modulus.ToHexString()
-                };
-            }
-        }
-
-        /// <summary>
-        /// Rsa from xml or json string
-        /// </summary>
-        /// <param name="rsaKey"></param>
-        /// <param name="keyType"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        public static RSA RSAFromString(string rsaKey, RSAKeyTypes keyType = RSAKeyTypes.XML) {
-            if (string.IsNullOrEmpty(rsaKey)) {
-                throw new ArgumentNullException(nameof(rsaKey));
-            }
-
-            var rsa = RSA.Create();
-            if (keyType == RSAKeyTypes.XML) {
-                rsa.FromLvccXmlString(rsaKey);
-            } else {
-                rsa.FromJsonString(rsaKey);
-            }
-
-            return rsa;
-        }
-
-        /// <summary>
-        /// Get private key of xml format from certificate file.
-        /// </summary>
-        /// <param name="certFile">The string path of certificate file.</param>
-        /// <param name="password">The string password of certificate file.</param>
-        /// <returns>String private key of xml format.</returns>
-        public static string GetPrivateKey(string certFile, string password) {
-            if (!File.Exists(certFile)) {
-                throw new FileNotFoundException(nameof(certFile));
-            }
-
-            var cert = new X509Certificate2(certFile, password, X509KeyStorageFlags.Exportable);
-            return cert.PrivateKey.ToXmlString(true);
-        }
-
-        /// <summary>
-        /// Get public key of xml format from certificate file.
-        /// </summary>
-        /// <param name="certFile">The string path of certificate file.</param>
-        /// <returns>String public key of xml format.</returns>
-        public static string GetPublicKey(string certFile) {
-            if (!File.Exists(certFile)) {
-                throw new FileNotFoundException(nameof(certFile));
-            }
-
-            var cert = new X509Certificate2(certFile);
-            return cert.PublicKey.Key.ToXmlString(false);
-        }
-
+    public static partial class RSAEncryptionProvider
+    {
         /// <summary>
         /// Encrypt string data with xml/json format.
         /// </summary>
         /// <param name="data">The data to be encrypted.</param>
         /// <param name="publicKey">The public key of xml format.</param>
+        /// <param name="padding"></param>
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
+        /// <param name="sizeType"></param>
         /// <param name="keyType"></param>
         /// <returns>The encrypted data.</returns>
-        public static string Encrypt(string data, string publicKey, Encoding encoding = null, RSAKeyTypes keyType = RSAKeyTypes.XML) {
-            if (encoding == null) {
+        public static string Encrypt(
+            string data,
+            string publicKey,
+            RSAEncryptionPadding padding,
+            Encoding encoding = null,
+            RSAKeySizeTypes sizeType = RSAKeySizeTypes.R2048,
+            RSAKeyTypes keyType = RSAKeyTypes.XML)
+        {
+            if (encoding == null)
+            {
                 encoding = Encoding.UTF8;
             }
 
-            return Encrypt(encoding.GetBytes(data), publicKey, keyType);
+            switch (keyType)
+            {
+                case RSAKeyTypes.XML:
+                {
+                    var util = new RSAXmlUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.Encrypt(data, padding);
+                }
+
+                case RSAKeyTypes.JSON:
+                {
+                    var util = new RSAJsonUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.Encrypt(data, padding);
+                }
+
+                case RSAKeyTypes.Pkcs1:
+                {
+                    var util = new RSAPkcs1Util(encoding, publicKey, keySize: (int) sizeType);
+                    return util.Encrypt(data, padding);
+                }
+
+                case RSAKeyTypes.Pkcs8:
+                {
+                    var util = new RSAPkcs8Util(encoding, publicKey, keySize: (int) sizeType);
+                    return util.Encrypt(data, padding);
+                }
+
+                default:
+                {
+                    var util = new RSAXmlUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.Encrypt(data, padding);
+                }
+            }
         }
 
         /// <summary>
@@ -107,30 +77,102 @@ namespace Cosmos.Encryption {
         /// </summary>
         /// <param name="dataBytes">The data to be encrypted.</param>
         /// <param name="publicKey">The public key of xml format.</param>
+        /// <param name="sizeType"></param>
         /// <param name="keyType"></param>
+        /// <param name="padding"></param>
         /// <returns>The encrypted data.</returns>
-        public static string Encrypt(byte[] dataBytes, string publicKey, RSAKeyTypes keyType = RSAKeyTypes.XML) {
-            using (var rsa = new RSACryptoServiceProvider()) {
-                if (keyType == RSAKeyTypes.XML) {
-                    rsa.FromLvccXmlString(publicKey);
-                } else {
-                    rsa.FromJsonString(publicKey);
+        public static string Encrypt(
+            byte[] dataBytes,
+            string publicKey,
+            RSAEncryptionPadding padding,
+            RSAKeySizeTypes sizeType = RSAKeySizeTypes.R2048,
+            RSAKeyTypes keyType = RSAKeyTypes.XML)
+        {
+            switch (keyType)
+            {
+                case RSAKeyTypes.XML:
+                {
+                    var util = new RSAXmlUtil(Encoding.UTF8, publicKey, keySize: (int) sizeType);
+                    return util.Encrypt(dataBytes, padding);
                 }
 
-                return Convert.ToBase64String(rsa.Encrypt(dataBytes, false));
+                case RSAKeyTypes.JSON:
+                {
+                    var util = new RSAJsonUtil(Encoding.UTF8, publicKey, keySize: (int) sizeType);
+                    return util.Encrypt(dataBytes, padding);
+                }
+
+                case RSAKeyTypes.Pkcs1:
+                {
+                    var util = new RSAPkcs1Util(Encoding.UTF8, publicKey, keySize: (int) sizeType);
+                    return util.Encrypt(dataBytes, padding);
+                }
+
+                case RSAKeyTypes.Pkcs8:
+                {
+                    var util = new RSAPkcs8Util(Encoding.UTF8, publicKey, keySize: (int) sizeType);
+                    return util.Encrypt(dataBytes, padding);
+                }
+
+                default:
+                {
+                    var util = new RSAXmlUtil(Encoding.UTF8, publicKey, keySize: (int) sizeType);
+                    return util.Encrypt(dataBytes, padding);
+                }
             }
         }
+
 
         /// <summary>
         /// Decrypt string data with xml/json format.
         /// </summary>
         /// <param name="data">The data to be encrypted.</param>
         /// <param name="privateKey">The private key of xml format.</param>
+        /// <param name="padding"></param>
         /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
+        /// <param name="sizeType"></param>
         /// <param name="keyType"></param>
         /// <returns>The decrypted data.</returns>
-        public static string Decrypt(string data, string privateKey, Encoding encoding = null, RSAKeyTypes keyType = RSAKeyTypes.XML) {
-            return Decrypt(Convert.FromBase64String(data), privateKey, encoding, keyType);
+        public static string Decrypt(
+            string data,
+            string privateKey,
+            RSAEncryptionPadding padding,
+            Encoding encoding = null,
+            RSAKeySizeTypes sizeType = RSAKeySizeTypes.R2048,
+            RSAKeyTypes keyType = RSAKeyTypes.XML)
+        {
+            switch (keyType)
+            {
+                case RSAKeyTypes.XML:
+                {
+                    var util = new RSAXmlUtil(encoding, null, privateKey, (int) sizeType);
+                    return util.Decrypt(data, padding);
+                }
+
+                case RSAKeyTypes.JSON:
+                {
+                    var util = new RSAJsonUtil(encoding, null, privateKey, (int) sizeType);
+                    return util.Decrypt(data, padding);
+                }
+
+                case RSAKeyTypes.Pkcs1:
+                {
+                    var util = new RSAPkcs1Util(encoding, null, privateKey, (int) sizeType);
+                    return util.Decrypt(data, padding);
+                }
+
+                case RSAKeyTypes.Pkcs8:
+                {
+                    var util = new RSAPkcs8Util(encoding, null, privateKey, (int) sizeType);
+                    return util.Decrypt(data, padding);
+                }
+
+                default:
+                {
+                    var util = new RSAXmlUtil(encoding, null, privateKey, (int) sizeType);
+                    return util.Decrypt(data, padding);
+                }
+            }
         }
 
         /// <summary>
@@ -138,90 +180,179 @@ namespace Cosmos.Encryption {
         /// </summary>
         /// <param name="dataBytes">The data to be encrypted.</param>
         /// <param name="privateKey">The private key of xml format.</param>
-        /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
+        /// <param name="padding"></param>
+        /// <param name="sizeType"></param>
         /// <param name="keyType"></param>
         /// <returns>The decrypted data.</returns>
-        public static string Decrypt(byte[] dataBytes, string privateKey, Encoding encoding = null, RSAKeyTypes keyType = RSAKeyTypes.XML) {
-            if (encoding == null) {
-                encoding = Encoding.UTF8;
-            }
-
-            using (var rsa = new RSACryptoServiceProvider()) {
-                if (keyType == RSAKeyTypes.XML) {
-                    rsa.FromLvccXmlString(privateKey);
-                } else {
-                    rsa.FromJsonString(privateKey);
+        public static string Decrypt(
+            byte[] dataBytes,
+            string privateKey,
+            RSAEncryptionPadding padding,
+            RSAKeySizeTypes sizeType = RSAKeySizeTypes.R2048,
+            RSAKeyTypes keyType = RSAKeyTypes.XML)
+        {
+            switch (keyType)
+            {
+                case RSAKeyTypes.XML:
+                {
+                    var util = new RSAXmlUtil(Encoding.UTF8, null, privateKey, (int) sizeType);
+                    return util.Decrypt(dataBytes, padding);
                 }
 
-                return encoding.GetString(rsa.Decrypt(dataBytes, false));
+                case RSAKeyTypes.JSON:
+                {
+                    var util = new RSAJsonUtil(Encoding.UTF8, null, privateKey, (int) sizeType);
+                    return util.Decrypt(dataBytes, padding);
+                }
+
+                case RSAKeyTypes.Pkcs1:
+                {
+                    var util = new RSAPkcs1Util(Encoding.UTF8, null, privateKey, (int) sizeType);
+                    return util.Decrypt(dataBytes, padding);
+                }
+
+                case RSAKeyTypes.Pkcs8:
+                {
+                    var util = new RSAPkcs8Util(Encoding.UTF8, null, privateKey, (int) sizeType);
+                    return util.Decrypt(dataBytes, padding);
+                }
+
+                default:
+                {
+                    var util = new RSAXmlUtil(Encoding.UTF8, null, privateKey, (int) sizeType);
+                    return util.Decrypt(dataBytes, padding);
+                }
             }
         }
 
-        #region Get hash sign
+        public static string SignatureAsString(
+            string data,
+            string publicKey,
+            HashAlgorithmName hashAlgorithmName,
+            RSASignaturePadding padding,
+            Encoding encoding = null,
+            RSAKeySizeTypes sizeType = RSAKeySizeTypes.R2048,
+            RSAKeyTypes keyType = RSAKeyTypes.XML)
+        {
+            switch (keyType)
+            {
+                case RSAKeyTypes.XML:
+                {
+                    var util = new RSAXmlUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.SignData(data, hashAlgorithmName, padding);
+                }
 
-        /// <summary>
-        /// Get hash sign.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <param name="hash"></param>
-        /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
-        /// <returns></returns>
-        public static bool GetHash(string data, ref byte[] hash, Encoding encoding = null) {
-            if (encoding == null) {
-                encoding = Encoding.UTF8;
+                case RSAKeyTypes.JSON:
+                {
+                    var util = new RSAJsonUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.SignData(data, hashAlgorithmName, padding);
+                }
+
+                case RSAKeyTypes.Pkcs1:
+                {
+                    var util = new RSAPkcs1Util(encoding, publicKey, keySize: (int) sizeType);
+                    return util.SignData(data, hashAlgorithmName, padding);
+                }
+
+                case RSAKeyTypes.Pkcs8:
+                {
+                    var util = new RSAPkcs8Util(encoding, publicKey, keySize: (int) sizeType);
+                    return util.SignData(data, hashAlgorithmName, padding);
+                }
+
+                default:
+                {
+                    var util = new RSAXmlUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.SignData(data, hashAlgorithmName, padding);
+                }
             }
-
-            hash = HashStringFunc()(data)(encoding);
-            return true;
         }
 
-        /// <summary>
-        /// Get hash sign.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <param name="hash"></param>
-        /// <param name="encoding">The <see cref="T:System.Text.Encoding"/>,default is Encoding.UTF8.</param>
-        /// <returns></returns>
-        public static bool GetHash(string data, ref string hash, Encoding encoding = null) {
-            if (encoding == null) {
-                encoding = Encoding.UTF8;
+        public static byte[] Signature(
+            string data,
+            string publicKey,
+            HashAlgorithmName hashAlgorithmName,
+            RSASignaturePadding padding,
+            Encoding encoding = null,
+            RSAKeySizeTypes sizeType = RSAKeySizeTypes.R2048,
+            RSAKeyTypes keyType = RSAKeyTypes.XML)
+        {
+            switch (keyType)
+            {
+                case RSAKeyTypes.XML:
+                {
+                    var util = new RSAXmlUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.SignDataGetBytes(data, hashAlgorithmName, padding);
+                }
+
+                case RSAKeyTypes.JSON:
+                {
+                    var util = new RSAJsonUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.SignDataGetBytes(data, hashAlgorithmName, padding);
+                }
+
+                case RSAKeyTypes.Pkcs1:
+                {
+                    var util = new RSAPkcs1Util(encoding, publicKey, keySize: (int) sizeType);
+                    return util.SignDataGetBytes(data, hashAlgorithmName, padding);
+                }
+
+                case RSAKeyTypes.Pkcs8:
+                {
+                    var util = new RSAPkcs8Util(encoding, publicKey, keySize: (int) sizeType);
+                    return util.SignDataGetBytes(data, hashAlgorithmName, padding);
+                }
+
+                default:
+                {
+                    var util = new RSAXmlUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.SignDataGetBytes(data, hashAlgorithmName, padding);
+                }
             }
-
-            hash = Convert.ToBase64String(HashStringFunc()(data)(encoding));
-            return true;
         }
 
-        private static Func<string, Func<Encoding, byte[]>> HashStringFunc() =>
-            data => encoding => HashAlgorithm.Create("MD5").ComputeHash(encoding.GetBytes(data));
+        public static bool Verify(
+            string data,
+            string publicKey,
+            string signature,
+            HashAlgorithmName hashAlgorithmName,
+            RSASignaturePadding padding,
+            Encoding encoding = null,
+            RSAKeySizeTypes sizeType = RSAKeySizeTypes.R2048,
+            RSAKeyTypes keyType = RSAKeyTypes.XML)
+        {
+            switch (keyType)
+            {
+                case RSAKeyTypes.XML:
+                {
+                    var util = new RSAXmlUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.VerifyData(data, signature, hashAlgorithmName, padding);
+                }
 
-        /// <summary>
-        /// Get hash sign.
-        /// </summary>
-        /// <param name="fs"></param>
-        /// <param name="hash"></param>
-        /// <returns></returns>
-        public static bool GetHash(FileStream fs, ref byte[] hash) {
-            hash = HashFileFunc()(fs);
-            return true;
+                case RSAKeyTypes.JSON:
+                {
+                    var util = new RSAJsonUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.VerifyData(data, signature, hashAlgorithmName, padding);
+                }
+
+                case RSAKeyTypes.Pkcs1:
+                {
+                    var util = new RSAPkcs1Util(encoding, publicKey, keySize: (int) sizeType);
+                    return util.VerifyData(data, signature, hashAlgorithmName, padding);
+                }
+
+                case RSAKeyTypes.Pkcs8:
+                {
+                    var util = new RSAPkcs8Util(encoding, publicKey, keySize: (int) sizeType);
+                    return util.VerifyData(data, signature, hashAlgorithmName, padding);
+                }
+
+                default:
+                {
+                    var util = new RSAXmlUtil(encoding, publicKey, keySize: (int) sizeType);
+                    return util.VerifyData(data, signature, hashAlgorithmName, padding);
+                }
+            }
         }
-
-        /// <summary>
-        /// Get hash sign.
-        /// </summary>
-        /// <param name="fs"></param>
-        /// <param name="hash"></param>
-        /// <returns></returns>
-        public static bool GetHash(FileStream fs, ref string hash) {
-            hash = Convert.ToBase64String(HashFileFunc()(fs));
-            return true;
-        }
-
-        private static Func<FileStream, byte[]> HashFileFunc() => fs => {
-            var ret = HashAlgorithm.Create("MD5").ComputeHash(fs);
-            fs.Close();
-            return ret;
-        };
-
-        #endregion
     }
 }

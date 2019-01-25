@@ -3,13 +3,16 @@ using System.Security.Cryptography;
 using System.Xml;
 using Newtonsoft.Json;
 
-namespace Cosmos.Encryption.Core.Internals.Extensions {
+namespace Cosmos.Encryption.Core.Internals.Extensions
+{
     /// <summary>
     /// Reference: myloveCc
     ///     https://github.com/myloveCc/NETCore.Encrypt/blob/master/src/NETCore.Encrypt/Extensions/Internal/RsaKeyExtensions.cs
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    internal static class RSAKeyExtensions {
+    internal static partial class RSAKeyExtensions
+    {
+
         #region JSON
 
         /// <summary>
@@ -17,25 +20,32 @@ namespace Cosmos.Encryption.Core.Internals.Extensions {
         /// </summary>
         /// <param name="rsa">RSA实例<see cref="RSA"/></param>
         /// <param name="jsonString">RSA的Key序列化JSON字符串</param>
-        internal static void FromJsonString(this RSA rsa, string jsonString) {
-            if (string.IsNullOrEmpty(jsonString)) {
+        internal static void FromJsonString(this RSA rsa, string jsonString)
+        {
+            if (string.IsNullOrEmpty(jsonString))
+            {
                 throw new ArgumentNullException(nameof(jsonString));
             }
 
             var parameters = new RSAParameters();
 
-            try {
+            try
+            {
                 var paramsJson = JsonConvert.DeserializeObject<RSAParametersJson>(jsonString);
 
                 parameters.Modulus = paramsJson.Modulus != null ? Convert.FromBase64String(paramsJson.Modulus) : null;
-                parameters.Exponent = paramsJson.Exponent != null ? Convert.FromBase64String(paramsJson.Exponent) : null;
+                parameters.Exponent =
+                    paramsJson.Exponent != null ? Convert.FromBase64String(paramsJson.Exponent) : null;
                 parameters.P = paramsJson.P != null ? Convert.FromBase64String(paramsJson.P) : null;
                 parameters.Q = paramsJson.Q != null ? Convert.FromBase64String(paramsJson.Q) : null;
                 parameters.DP = paramsJson.DP != null ? Convert.FromBase64String(paramsJson.DP) : null;
                 parameters.DQ = paramsJson.DQ != null ? Convert.FromBase64String(paramsJson.DQ) : null;
-                parameters.InverseQ = paramsJson.InverseQ != null ? Convert.FromBase64String(paramsJson.InverseQ) : null;
+                parameters.InverseQ =
+                    paramsJson.InverseQ != null ? Convert.FromBase64String(paramsJson.InverseQ) : null;
                 parameters.D = paramsJson.D != null ? Convert.FromBase64String(paramsJson.D) : null;
-            } catch {
+            }
+            catch
+            {
                 throw new Exception("Invalid Json RSA key.");
             }
 
@@ -48,10 +58,12 @@ namespace Cosmos.Encryption.Core.Internals.Extensions {
         /// <param name="rsa">RSA实例<see cref="RSA"/></param>
         /// <param name="includePrivateParameters">是否包含私钥</param>
         /// <returns></returns>
-        internal static string ToJsonString(this RSA rsa, bool includePrivateParameters) {
+        internal static string ToJsonString(this RSA rsa, bool includePrivateParameters)
+        {
             var parameters = rsa.ExportParameters(includePrivateParameters);
 
-            var parasJson = new RSAParametersJson() {
+            var parasJson = new RSAParametersJson()
+            {
                 Modulus = parameters.Modulus != null ? Convert.ToBase64String(parameters.Modulus) : null,
                 Exponent = parameters.Exponent != null ? Convert.ToBase64String(parameters.Exponent) : null,
                 P = parameters.P != null ? Convert.ToBase64String(parameters.P) : null,
@@ -74,42 +86,64 @@ namespace Cosmos.Encryption.Core.Internals.Extensions {
         /// </summary>
         /// <param name="rsa">RSA实例<see cref="RSA"/></param>
         /// <param name="xmlString">RSA的Key序列化XML字符串</param>
-        public static void FromLvccXmlString(this RSA rsa, string xmlString) {
+        public static void FromLvccXmlString(this RSA rsa, string xmlString)
+        {
             RSAParameters parameters = new RSAParameters();
 
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(xmlString);
 
-            if (xmlDoc.DocumentElement.Name.Equals("RSAKeyValue")) {
-                foreach (XmlNode node in xmlDoc.DocumentElement.ChildNodes) {
-                    switch (node.Name) {
+            if (xmlDoc.DocumentElement.Name.Equals("RSAKeyValue"))
+            {
+                foreach (XmlNode node in xmlDoc.DocumentElement.ChildNodes)
+                {
+                    switch (node.Name)
+                    {
                         case "Modulus":
-                            parameters.Modulus = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText));
+                            parameters.Modulus = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
                             break;
                         case "Exponent":
-                            parameters.Exponent = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText));
+                            parameters.Exponent = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
                             break;
                         case "P":
-                            parameters.P = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText));
+                            parameters.P = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
                             break;
                         case "Q":
-                            parameters.Q = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText));
+                            parameters.Q = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
                             break;
                         case "DP":
-                            parameters.DP = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText));
+                            parameters.DP = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
                             break;
                         case "DQ":
-                            parameters.DQ = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText));
+                            parameters.DQ = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
                             break;
                         case "InverseQ":
-                            parameters.InverseQ = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText));
+                            parameters.InverseQ = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
                             break;
                         case "D":
-                            parameters.D = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText));
+                            parameters.D = (string.IsNullOrEmpty(node.InnerText)
+                                ? null
+                                : Convert.FromBase64String(node.InnerText));
                             break;
                     }
                 }
-            } else {
+            }
+            else
+            {
                 throw new Exception("Invalid XML RSA key.");
             }
 
@@ -122,7 +156,8 @@ namespace Cosmos.Encryption.Core.Internals.Extensions {
         /// <param name="rsa">RSA实例<see cref="RSA"/></param>
         /// <param name="includePrivateParameters">是否包含私钥</param>
         /// <returns></returns>
-        public static string ToLvccXmlString(this RSA rsa, bool includePrivateParameters) {
+        public static string ToLvccXmlString(this RSA rsa, bool includePrivateParameters)
+        {
             RSAParameters parameters = rsa.ExportParameters(includePrivateParameters);
 
             return string.Format(
@@ -138,5 +173,6 @@ namespace Cosmos.Encryption.Core.Internals.Extensions {
         }
 
         #endregion
+
     }
 }

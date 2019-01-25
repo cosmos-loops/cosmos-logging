@@ -1,9 +1,13 @@
 ﻿// ReSharper disable once CheckNamespace
 
-namespace Cosmos.Encryption {
+namespace Cosmos.Encryption
+{
     // ReSharper disable once InconsistentNaming
-    public enum RSAKeyTypes {
+    public enum RSAKeyTypes
+    {
         XML,
-        JSON
+        JSON,
+        Pkcs1,
+        Pkcs8,
     }
 }
