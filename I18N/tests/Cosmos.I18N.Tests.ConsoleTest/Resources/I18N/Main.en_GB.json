@@ -1,7 +1,0 @@
-﻿{
-  "Language": "en_GB",
-  "Name": "Main",
-  "Contents": {
-    "Hello world {0}": "Hello, World {0:d}"
-  }
-}
