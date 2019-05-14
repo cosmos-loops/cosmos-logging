@@ -1,52 +1,173 @@
-# Cosmos
+# COSMOSLOOPS/Cosmos.Logging
 
-Core repository of [COSMOS LOOPS PROGRAMME](https://github.com/cosmos-loops). This repository currently only includes [Cosmos.Standard](https://github.com/cosmos-loops/Cosmos/tree/dev/Standard)、[Cosmos.Encryption](https://github.com/cosmos-loops/Cosmos/tree/dev/Encryption) and [Cosmos.Logging](https://github.com/cosmos-loops/Cosmos/tree/dev/Logging). This programme 's goal is to provide developers with an all-in-one development experience. Whether it's developing .NET Framework applications or .NET Core applications, Cosmos gives you a silky feel. I believe in the near future, this project will become more exciting.
+Logging component for .NET Core with nice APIs for developers to use. Cosmos.Logging is support for structured logging message in several kinds of .NET applications.
 
-**Inline projects:**
+This repository belongs to [COSMOS LOOPS PROGRAMME](https://github.com/cosmos-loops/).
 
-+ [Cosmos.Standard](https://github.com/cosmos-loops/Cosmos/tree/dev/Standard)
-+ [Cosmos.Encryption](https://github.com/cosmos-loops/Cosmos/tree/dev/Encryption)
-+ [Cosmos.Logging](https://github.com/cosmos-loops/Cosmos/tree/dev/Logging) **(WIP)**
-+ [Cosmos.I18N](https://github.com/cosmos-loops/Cosmos/tree/dev/I18N) **(WIP)**
-+ [Cosmos.Data](https://github.com/cosmos-loops/Cosmos/tree/dev/Data) **(WIP)**
+## Nuget Packages
 
-**First-class projects**
+| Package Name                                                                                                                   | Version                                                                               | Downloads                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| [Cosmos.Logging](https://www.nuget.org/packages/Cosmos.Logging/)                                                               | ![](https://img.shields.io/nuget/v/Cosmos.Logging.svg)                                | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.svg)                                |
+| [Cosmos.Logging.Extensions.Microsoft](https://www.nuget.org/packages/Cosmos.Logging.Extensions.Microsoft/)                     | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Extensions.Microsoft.svg)           | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Extensions.Microsoft.svg)           |
+| [Cosmos.Logging.Extensions.EntityFramework](https://www.nuget.org/packages/Cosmos.Logging.Extensions.EntityFramework/)         | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Extensions.EntityFramework.svg)     | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Extensions.EntityFramework.svg)     |
+| [Cosmos.Logging.Extensions.EntityFrameworkCore](https://www.nuget.org/packages/Cosmos.Logging.Extensions.EntityFrameworkCore/) | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Extensions.EntityFrameworkCore.svg) | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Extensions.EntityFrameworkCore.svg) |
+| [Cosmos.Logging.Extensions.NHibernate](https://www.nuget.org/packages/Cosmos.Logging.Extensions.NHibernate/)                   | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Extensions.NHibernate.svg)          | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Extensions.NHibernate.svg)          |
+| [Cosmos.Logging.Extensions.SqlSugar](https://www.nuget.org/packages/Cosmos.Logging.Extensions.SqlSugar/)                       | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Extensions.SqlSugar.svg)            | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Extensions.SqlSugar.svg)            |
+| [Cosmos.Logging.Extensions.NodaTime](https://www.nuget.org/packages/Cosmos.Logging.Extensions.NodaTime/)                       | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Extensions.NodaTime.svg)            | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Extensions.NodaTime.svg)            |
+| [Cosmos.Logging.RunsOn.AspNet](https://www.nuget.org/packages/Cosmos.Logging.RunsOn.AspNet/)                                   | ![](https://img.shields.io/nuget/v/Cosmos.Logging.RunsOn.AspNet.svg)                  | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.RunsOn.AspNet.svg)                  |
+| [Cosmos.Logging.RunsOn.AspNet.WithAutofac](https://www.nuget.org/packages/Cosmos.Logging.RunsOn.AspNet.WithAutofac/)           | ![](https://img.shields.io/nuget/v/Cosmos.Logging.RunsOn.AspNet.WithAutofac.svg)      | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.RunsOn.AspNet.WithAutofac.svg)      |
+| [Cosmos.Logging.RunsOn.AspNetCore](https://www.nuget.org/packages/Cosmos.Logging.RunsOn.AspNetCore/)                           | ![](https://img.shields.io/nuget/v/Cosmos.Logging.RunsOn.AspNetCore.svg)              | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.RunsOn.AspNetCore.svg)              |
+| [Cosmos.Logging.RunsOn.Console](https://www.nuget.org/packages/Cosmos.Logging.RunsOn.Console/)                                 | ![](https://img.shields.io/nuget/v/Cosmos.Logging.RunsOn.Console.svg)                 | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.RunsOn.Console.svg)                 |
+| [Cosmos.Logging.RunsOn.NancyFX](https://www.nuget.org/packages/Cosmos.Logging.RunsOn.NancyFX/)                                 | ![](https://img.shields.io/nuget/v/Cosmos.Logging.RunsOn.NancyFX.svg)                 | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.RunsOn.NancyFX.svg)                 |
+| [Cosmos.Logging.RunsOn.NancyFX.WithAutofac](https://www.nuget.org/packages/Cosmos.Logging.RunsOn.NancyFX.WithAutofac/)         | ![](https://img.shields.io/nuget/v/Cosmos.Logging.RunsOn.NancyFX.WithAutofac.svg)     | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.RunsOn.NancyFX.WithAutofac.svg)     |
+| [Cosmos.Logging.RunsOn.ZkWeb](https://www.nuget.org/packages/Cosmos.Logging.RunsOn.ZkWeb/)                                     | ![](https://img.shields.io/nuget/v/Cosmos.Logging.RunsOn.ZkWeb.svg)                   | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.RunsOn.ZkWeb.svg)                   |
+| [Cosmos.Logging.Sinks.Exceptionless](https://www.nuget.org/packages/Cosmos.Logging.Sinks.Exceptionless/)                       | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Sinks.Exceptionless.svg)            | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Sinks.Exceptionless.svg)            |
+| [Cosmos.Logging.Sinks.Log4Net](https://www.nuget.org/packages/Cosmos.Logging.Sinks.Log4Net/)                                   | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Sinks.Log4Net.svg)                  | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Sinks.Log4Net.svg)                  |
+| [Cosmos.Logging.Sinks.NLog](https://www.nuget.org/packages/Cosmos.Logging.Sinks.NLog/)                                         | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Sinks.NLog.svg)                     | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Sinks.NLog.svg)                     |
+| [Cosmos.Logging.Sinks.File](https://www.nuget.org/packages/Cosmos.Logging.Sinks.File/)                                         | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Sinks.File.svg)                     | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Sinks.File.svg)                     |
+| [Cosmos.Logging.Renderers.Environment](https://www.nuget.org/packages/Cosmos.Logging.Renderers.Environment/)                   | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Renderers.Environment.svg)          | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Renderers.Environment.svg)          |
+| [Cosmos.Logging.Renderers.Process](https://www.nuget.org/packages/Cosmos.Logging.Renderers.Process/)                           | ![](https://img.shields.io/nuget/v/Cosmos.Logging.Renderers.Process.svg)              | ![](https://img.shields.io/nuget/dt/Cosmos.Logging.Renderers.Process.svg)              |
 
-+ [Cosmos.One](https://github.com/cosmos-loops/Cosmos.One) *(intending)*
-+ [Cosmos.FlameThrower](#) *(intending)*
-+ [Cosmos.WalkingFlowers](#) *(intending)*
-+ [Cosmos.Golhfinea](#) *(intending)*
-+ [Cosmos.Sword](#) *(indending)*
+## Usage
 
-**Extra projects:**
+### Install the package
 
-+ [Cosmos.AspNet.Extensions](https://github.com/cosmos-loops/Web.Extensions/tree/master/AspNet) **(WIP)**
-  + Cosmos.AspNet.Extensions.Alipay
-  + Cosmos.AspNet.Extensions.WeChat
-  + Cosmos.AspNet.Extensions.AntiXss
-  + Cosmos.AspNet.Extensions.Cors
-  + Cosmos.AspNet.Extensions.HttpActionResults
-  + Cosmos.AspNet.Extensions.ResponseCompression
-  + Cosmos.AspNet.Extensions.ResponseFrameOptions
-+ [Cosmos.AspNetCore.Extensions](https://github.com/cosmos-loops/Web.Extensions/tree/master/AspNetCore) **(WIP)**
-  + Cosmos.AspNetCore.Extensions.Alipay
-  + Cosmos.AspNetCore.Extensions.WeChat
-  + Cosmos.AspNetCore.Extensions.AntiXss
-  + Cosmos.AspNetCore.Extensions.HttpActionResults
-  + Cosmos.AspNetCore.Extensions.HttpMultipartRequest
-  + Cosmos.AspNetCore.Extensions.ResponseCompression
-  + Cosmos.AspNetCore.Extensions.ResponseFrameOptions
-+ [Cosmos.Nancy.Extensions](https://github.com/cosmos-loops/Web.Extensions/tree/master/Nancy) **(WIP)**
-  + Cosmos.Nancy.Extensions.Alipay
-  + Cosmos.Nancy.Extensions.WeChat
-  + Cosmos.Nancy.Extensions.AntiXss
-  + Cosmos.Nancy.Extensions.Cors
-  + Cosmos.Nancy.Extensions.ResponseCompression
-  + Cosmos.Nancy.Extensions.ResponseFrameOptions
-+ [Cosmos.Business.Extensions.SMS](https://github.com/cosmos-open/SMS) **(WIP)**
-+ [Cosmos.Business.Extensions.Mail](#) *(indending)*
+```
+Install-Package Cosmos.Logging
+```
 
-* * *
+Install the specific sink packages, renderer packages or extension packages that you need.
+
+
+### Work in console
+
+Install console package first:
+
+```
+Install-Package Cosmos.Logging.RunsOn.Console
+```
+
+then: (in this case we integrated NLog sink)
+
+```c#
+static void Main(string[] args)
+{
+    //load configuration info
+    var root = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json", true, true)
+        .Build();
+
+    //initialize logger
+    LOGGER.Initialize(root).RunsOnConsole().AddNLog().AddSampleLog().AllDone();
+
+    //submit log manually
+    var logger1 = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
+    logger1.LogWarning("hello， {$Date} {$MachineName}");
+    logger1.SubmitLogger();
+
+    //or submit log automatically
+    var logger2 = LOGGER.GetLogger<Program>();
+    logger2.LogWarning("world");
+
+    //get a future logger
+    var logger3 = LOGGER.GetLogger<Program>().ToFuture();
+
+    //or convert a normal to future logger
+    var logger4 = logger2.ToFuture();
+
+    //or get a future logger directly
+    var logger5 = FUTURE.GetFutureLogger<Program>();
+
+    //and how to use future logger via a nice fluent api
+    logger5.SetLevel(LogEventLevel.Warning)
+        .SetMessage("future log===> Nice {@L}")
+        .SetTags("Alex", "Lewis")
+        .SetParameter(new {L = "KK2"})
+        .SetException(new ArgumentNullException(nameof(args)))
+        .Submit();
+
+    //or you can use a optional params style api in your Applicate-Framework
+    logger5.UseFields(
+        Fields.Level(LogEventLevel.Warning),
+        Fields.Message("future log===> Nice {@L}"),
+        Fields.Tags("Alex", "Lewis"),
+        Fields.Args(new {L = "KK3"}),
+        Fields.Exception(new ArgumentNullException(nameof(args)))).Submit();
+}
+```
+
+### Work with Microsoft ASP.NET Core Mvc
+
+Install aspnetcore package first:
+
+```c#
+Install-Package Cosmos.Logging.RunsOn.AspNetCore
+```
+
+then write code in `Startup.cs`: (in this case, we integrated SqlSugar ORM)
+
+```c#
+public void ConfigureServices(IServiceCollection services)
+{
+    //...
+
+    services.AddCosmosLogging(Configuration, config => config
+            .ToGlobal(o => o.UseMinimumLevel(LogEventLevel.Information))
+            .AddDatabaseIntegration(o => o.UseSqlSugar(sugar => sugar.UseAlias("Everything", LogEventLevel.Verbose)))
+            .AddSampleLog());
+
+    //...
+}
+```
+
+finally, just to writing your code:
+
+```c#
+public class HomeController : Controller
+{
+    private readonly ILoggingServiceProvider _loggingProvider;
+
+    public HomeController(ILoggingServiceProvider loggingProvider) {
+        _loggingProvider = loggingProvider ?? throw new ArgumentNullException(nameof(loggingProvider));
+    }
+
+    // GET
+    public IActionResult Index() {
+        var log = _loggingProvider.GetLogger<HomeController>();
+        log.LogInformation("Nice @ {$Date}");
+        return Content("Nice");
+    }
+}
+
+```
+
+### Work with Microsoft ASP.NET Mvc
+
+Install aspnet package first:
+
+```
+Install-Package Cosmos.Logging.RunsOn.AspNet
+```
+
+or (if you use Autofac as your default IoC container)
+
+```
+Install-Package Cosmos.Logging.RunsOn.AspNet.WithAutofac
+```
+
+then
+
+```c#
+//in Global.asax.cs
+public class Global : HttpApplication
+{
+    //...
+    this.RegisterCosmosLogging(s => s.ToGlobal(c => c.UseMinimumLevel(LogEventLevel.Verbose)).AddSampleLog());
+}
+
+```
 
 ## Thanks
 
@@ -54,12 +175,16 @@ People or projects that have made a great contribution to this project:
 
 + *Mr.* [刘浩杨](https://github.com/liuhaoyang)
 + *Mr.* [何镇汐](https://github.com/UtilCore)
+- _The next one must be you_
 
 ### Organizations and projects
 
-+ *Project* [AsyncQueue](https://github.com/Sunlighter/AsyncQueues)
++ *Project* [AsyncQueue](https://github.com/Sunlighter/AsyncQueues), Apache License 2.0
++ 
+---
 
+## License
 
-* * *
+Member project of [COSMOS LOOPS PROGRAMME](https://github.com/cosmos-loops).
 
-[MIT](https://mit-license.org/)
+[Apache 2.0 License](/LICENSE)
