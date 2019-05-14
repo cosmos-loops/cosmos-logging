@@ -88,7 +88,7 @@ static void Main(string[] args)
         .SetException(new ArgumentNullException(nameof(args)))
         .Submit();
 
-    //or you can use a optional params style api in your Applicate-Framework
+    //or you can use a optional-parameters-style api in your Application-Framework
     logger5.UseFields(
         Fields.Level(LogEventLevel.Warning),
         Fields.Message("future log===> Nice {@L}"),
