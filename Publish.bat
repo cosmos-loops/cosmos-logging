@@ -13,6 +13,7 @@ dotnet pack src/Cosmos.Logging.Extensions.EntityFramework -c Release -o ../../nu
 dotnet pack src/Cosmos.Logging.Extensions.EntityFrameworkCore -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Logging.Extensions.NHibernate -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Logging.Extensions.SqlSugar -c Release -o ../../nuget_pub
+dotnet pack ser/Cosmos.Logging.Extensions.NodaTime -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Logging.RunsOn.AspNet -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Logging.RunsOn.AspNet.WithAutofac -c Release -o ../../nuget_pub
 dotnet pack src/Cosmos.Logging.RunsOn.AspNetCore -c Release -o ../../nuget_pub

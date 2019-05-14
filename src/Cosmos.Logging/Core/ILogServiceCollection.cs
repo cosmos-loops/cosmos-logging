@@ -10,6 +10,7 @@ namespace Cosmos.Logging.Core {
         bool BeGivenConfigurationRoot { get; }
         IServiceCollection ExposeServices();
         ILoggingOptions ExposeLogSettings();
+        LoggingConfiguration ExposeLoggingConfiguration();
         ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction);
 
         ILogServiceCollection AddSinkSettings<TSinkSettings, TSinkConfiguration>(TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> configAct)
