@@ -13,6 +13,6 @@
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="EntityFramework" Version="6.2.0"/>
+        <PackageReference Include="EntityFramework" Version="6.3.0-preview5-19254-05"/>
     </ItemGroup>
 </Project>
