@@ -13,6 +13,6 @@
     <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ZKWeb" Version="2.2.0" />
+    <PackageReference Include="ZKWeb" Version="2.2.1" />
   </ItemGroup>
 </Project>
