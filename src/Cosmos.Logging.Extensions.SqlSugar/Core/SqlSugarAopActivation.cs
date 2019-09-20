@@ -6,54 +6,58 @@ using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates.PresetTemplates;
 using SqlSugar;
 
-namespace Cosmos.Logging.Extensions.SqlSugar.Core {
-    internal static class SqlSugarAopActivation {
+namespace Cosmos.Logging.Extensions.SqlSugar.Core
+{
+    internal static class SqlSugarAopActivation
+    {
         private const string TimestampKey = "COSMOSLOOPS::logging-extra-sqlsugar";
 
         public static void RegisterToSqlSugar(SimpleClient client, SqlSugarInterceptorDescriptor descriptor,
             Action<string, SugarParameter[]> executingAct = null,
             Func<string, SugarParameter[], object> executedAct = null,
             Func<Exception, object> errorAct = null,
-            Func<string, LogEventLevel, bool> filter = null) {
-            RegisterToSqlSugar(client.FullClient, descriptor, executingAct, executedAct, errorAct, filter);
+            Func<string, LogEventLevel, bool> filter = null)
+        {
+            RegisterToSqlSugar(client.AsSugarClient() as SqlSugarClient, descriptor, executingAct, executedAct, errorAct, filter);
         }
 
         public static void RegisterToSqlSugar(SqlSugarClient client, SqlSugarInterceptorDescriptor descriptor,
             Action<string, SugarParameter[]> executingAct = null,
             Func<string, SugarParameter[], object> executedAct = null,
             Func<Exception, object> errorAct = null,
-            Func<string, LogEventLevel, bool> filter = null) {
-            if (client == null) throw new ArgumentNullException(nameof(client));
-            if (descriptor == null) throw new ArgumentNullException(nameof(descriptor));
+            Func<string, LogEventLevel, bool> filter = null)
+        {
+            if (client == null)
+                throw new ArgumentNullException(nameof(client));
+            if (descriptor == null)
+                throw new ArgumentNullException(nameof(descriptor));
 
-            var pinLogEventStarting = client.Context.Ado.LogEventStarting;
-            var pinLogEventCompleted = client.Context.Ado.LogEventCompleted;
-            var pinErrorEvent = client.Context.Ado.ErrorEvent;
+            var aop = client.Aop;
+
+            aop.OnLogExecuting = descriptor.ExposeExecutingInterceptor;
+            aop.OnLogExecuted = descriptor.ExposeExecutedInterceptor;
+            aop.OnError = descriptor.ExposeErrorInterceptor;
+
             Func<string, LogEventLevel, bool> localFilter = (s, l) => (descriptor.ExposeGlobalFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true);
 
-            pinLogEventStarting += descriptor.ExposeExecutingInterceptor;
-            pinLogEventCompleted += descriptor.ExposeExecutedInterceptor;
-            pinErrorEvent += descriptor.ExposeErrorInterceptor;
-
-            pinLogEventStarting += (sql, @params) => InternalExecutingOpt(client, sql, @params, executingAct);
-            pinLogEventCompleted += (sql, @params) => InternalExecutedOpt(descriptor, client, sql, @params, executedAct, localFilter);
-            pinErrorEvent += (exception) => InternalErrorOpt(descriptor, client, exception, errorAct, localFilter);
-
-            client.Context.Ado.LogEventStarting = pinLogEventStarting;
-            client.Context.Ado.LogEventCompleted = pinLogEventCompleted;
-            client.Context.Ado.ErrorEvent = pinErrorEvent;
+            aop.OnLogExecuting = (sql, @params) => InternalExecutingOpt(client, sql, @params, executingAct);
+            aop.OnLogExecuted = (sql, @params) => InternalExecutedOpt(descriptor, client, sql, @params, executedAct, localFilter);
+            aop.OnError = exception => InternalErrorOpt(descriptor, client, exception, errorAct, localFilter);
         }
 
-        private static void InternalExecutingOpt(SqlSugarClient client, string sql, SugarParameter[] @params, Action<string, SugarParameter[]> executingAct = null) {
+        private static void InternalExecutingOpt(SqlSugarClient client, string sql, SugarParameter[] @params, Action<string, SugarParameter[]> executingAct = null)
+        {
             if (client.TempItems == null) client.TempItems = new Dictionary<string, object>();
             executingAct?.Invoke(sql, @params);
             client.TempItems.Add(TimestampKey, DateTime.Now);
         }
 
         private static void InternalExecutedOpt(SqlSugarInterceptorDescriptor descriptor, SqlSugarClient client, string sql,
-            SugarParameter[] @params, Func<string, SugarParameter[], object> executedAct = null, Func<string, LogEventLevel, bool> filter = null) {
+            SugarParameter[] @params, Func<string, SugarParameter[], object> executedAct = null, Func<string, LogEventLevel, bool> filter = null)
+        {
             var ms = 0D;
-            if (client.TempItems.TryGetValue(TimestampKey, out var startStamp) && startStamp is DateTime stamp) {
+            if (client.TempItems.TryGetValue(TimestampKey, out var startStamp) && startStamp is DateTime stamp)
+            {
                 client.TempItems.Remove(TimestampKey);
                 ms = DateTime.Now.Subtract(stamp).TotalMilliseconds;
             }
@@ -62,9 +66,14 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core {
             var userInfo = executedAct?.Invoke(sql, @params) ?? string.Empty;
             var logger = descriptor.ExposeLoggingServiceProvider.GetLogger<SqlSugarClient>(filter, LogEventSendMode.Automatic, descriptor.RenderingOptions);
 
-            if (ms > 1000) {
+            if (ms > 1000)
+            {
+                if (!logger.IsEnabled(LogEventLevel.Warning))
+                    return;
+
                 var eventId = new LogEventId(client.ContextID, EventIdKeys.LongTimeExecuted);
-                loggingParams = new {
+                loggingParams = new
+                {
                     OrmName = Constants.SinkKey,
                     ContextId = client.ContextID,
                     Sql = sql,
@@ -73,9 +82,15 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core {
                     UserInfo = userInfo
                 };
                 logger.LogWarning(eventId, OrmTemplateStandard.LongNormal, loggingParams);
-            } else {
+            }
+            else
+            {
+                if (!logger.IsEnabled(LogEventLevel.Information))
+                    return;
+
                 var eventId = new LogEventId(client.ContextID, EventIdKeys.Executed);
-                loggingParams = new {
+                loggingParams = new
+                {
                     OrmName = Constants.SinkKey,
                     ContextId = client.ContextID,
                     Sql = sql,
@@ -88,21 +103,34 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core {
 
         private static void InternalErrorOpt(SqlSugarInterceptorDescriptor descriptor, SqlSugarClient client, Exception exception,
             Func<Exception, object> errorAct = null,
-            Func<string, LogEventLevel, bool> filter = null) {
+            Func<string, LogEventLevel, bool> filter = null)
+        {
+            var ms = 0D;
+            if (client.TempItems.TryGetValue(TimestampKey, out var startStamp) && startStamp is DateTime stamp)
+            {
+                client.TempItems.Remove(TimestampKey);
+                ms = DateTime.Now.Subtract(stamp).TotalMilliseconds;
+            }
+
             object userInfo = errorAct?.Invoke(exception) ?? string.Empty;
             var logger = descriptor.ExposeLoggingServiceProvider.GetLogger<SqlSugarClient>(filter, LogEventSendMode.Automatic, descriptor.RenderingOptions);
-            var eventId = new LogEventId(client?.ContextID ?? Guid.NewGuid(), EventIdKeys.Error);
-            var realExcepton = exception.Unwrap();
-            var loggingParams = new {
+
+            if (!logger.IsEnabled(LogEventLevel.Error))
+                return;
+
+            var eventId = new LogEventId(client.ContextID, EventIdKeys.Error);
+            var realException = exception.Unwrap();
+            var loggingParams = new
+            {
                 OrmName = Constants.SinkKey,
-                ContextId = "unknown",
+                ContextId = client.ContextID,
                 Sql = "unknown",
                 SqlParams = "unknown",
                 ExceptionType = exception.GetType(),
                 ExceptionMessage = exception.Message,
-                RealExceptionType = realExcepton.GetType(),
-                RealExceptionMessage = realExcepton.Message,
-                UsedTime = "unknown",
+                RealExceptionType = realException.GetType(),
+                RealExceptionMessage = realException.Message,
+                UsedTime = ms,
                 UserInfo = userInfo
             };
             logger.LogError(eventId, exception, OrmTemplateStandard.Error, loggingParams);
