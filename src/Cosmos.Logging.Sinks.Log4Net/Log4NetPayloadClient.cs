@@ -23,7 +23,7 @@ namespace Cosmos.Logging.Sinks.Log4Net {
         public string Name { get; set; }
         public LogEventLevel? Level { get; set; }
 
-        public Task WriteAsync(ILogPayload payload, CancellationToken cancellationToken = default(CancellationToken)) {
+        public Task WriteAsync(ILogPayload payload, CancellationToken cancellationToken = default) {
             if (payload != null) {
                 var legalityEvents = LogEventSinkFilter.Filter(payload, _sinkConfiguration).ToList();
                 var logger = log4net.LogManager.GetLogger(payload.SourceType);
