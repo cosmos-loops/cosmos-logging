@@ -54,7 +54,7 @@ namespace Cosmos.Logging {
                         },
                         faulted => {
                             InternalLogger.WriteLine(
-                                $@"Thrown an exception when insert log event(0) into async queue:{Environment.NewLine}{faulted.Exception.ToUwrapedString()}",
+                                $@"Thrown an exception when insert log event(0) into async queue:{Environment.NewLine}{faulted.Exception.ToUnwrappedString()}",
                                 faulted.Exception);
                             return null;
                         });
@@ -97,7 +97,7 @@ namespace Cosmos.Logging {
                         },
                         faulted => {
                             InternalLogger.WriteLine(
-                                $@"Thrown an exception when dispatch log event from async queue:{Environment.NewLine}{faulted.Exception.ToUwrapedString()}",
+                                $@"Thrown an exception when dispatch log event from async queue:{Environment.NewLine}{faulted.Exception.ToUnwrappedString()}",
                                 faulted.Exception);
                             return null;
                         });
