@@ -12,14 +12,14 @@ namespace Cosmos.Logging {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public static class DbContextOptionsBuilderExtensions {
         private static ILoggingServiceProvider _loggingServiceProvider => EfCoreInterceptorDescriptor.Instance.ExposeLoggingServiceProvider;
-        private static Func<string, LogEventLevel, bool> _gloablFilter => EfCoreInterceptorDescriptor.Instance.ExposeSettings.Filter;
+        private static Func<string, LogEventLevel, bool> _globalFilter => EfCoreInterceptorDescriptor.Instance.ExposeSettings.Filter;
         private static RendingConfiguration UpstreamRenderingOptions => EfCoreInterceptorDescriptor.Instance.ExposeSettings.GetRenderingOptions();
 
         public static DbContextOptionsBuilder UseCosmosLogging(this DbContextOptionsBuilder builder) {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, UpstreamRenderingOptions, _gloablFilter));
+            loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, UpstreamRenderingOptions, _globalFilter));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;
@@ -30,7 +30,7 @@ namespace Cosmos.Logging {
 
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, UpstreamRenderingOptions,
-                (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true)));
+                (s, l) => (_globalFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;
@@ -41,7 +41,7 @@ namespace Cosmos.Logging {
 
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, UpstreamRenderingOptions,
-                (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, LogLevelSwitcher.Switch(l)) ?? true)));
+                (s, l) => (_globalFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, LogLevelSwitcher.Switch(l)) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;
@@ -63,7 +63,7 @@ namespace Cosmos.Logging {
 
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, UpstreamRenderingOptions,
-                (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true)));
+                (s, l) => (_globalFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;
@@ -75,7 +75,7 @@ namespace Cosmos.Logging {
 
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, UpstreamRenderingOptions,
-                (s, l) => (_gloablFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, LogLevelSwitcher.Switch(l)) ?? true)));
+                (s, l) => (_globalFilter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, LogLevelSwitcher.Switch(l)) ?? true)));
             builder.UseLoggerFactory(loggerFactory);
 
             return builder;

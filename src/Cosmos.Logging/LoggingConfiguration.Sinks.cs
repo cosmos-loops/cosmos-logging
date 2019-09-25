@@ -13,13 +13,13 @@ namespace Cosmos.Logging {
         public LogEventLevel GetSinkDefaultMinimumLevel(string sinkName) => NavigationFilterProcessor.GetDefault(sinkName);
 
         public void SetSinkConfiguration<TSinkConfiguration, TSinkSettings>(
-            string sectionName, TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> addtionalAct = null)
+            string sectionName, TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> additionalAct = null)
             where TSinkConfiguration : SinkConfiguration, new() where TSinkSettings : class, ILoggingSinkOptions, new() {
             if (string.IsNullOrWhiteSpace(sectionName)) throw new ArgumentNullException(nameof(sectionName));
             if (settings == null) throw new ArgumentNullException(nameof(settings));
             var section = _loggingConfiguration.GetSection($"Logging:{sectionName}");
             var configuration = section.Get<TSinkConfiguration>() ?? new TSinkConfiguration();
-            addtionalAct?.Invoke(section, configuration);
+            additionalAct?.Invoke(section, configuration);
 
             SetSinkConfiguration(configuration, settings);
         }

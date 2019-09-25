@@ -3,6 +3,6 @@ using System.Threading.Tasks;
 
 namespace Cosmos.Logging.Core.Payloads {
     public interface ILogPayloadClient {
-        Task WriteAsync(ILogPayload payload, CancellationToken cancellationToken = default(CancellationToken));
+        Task WriteAsync(ILogPayload payload, CancellationToken cancellationToken = default);
     }
 }

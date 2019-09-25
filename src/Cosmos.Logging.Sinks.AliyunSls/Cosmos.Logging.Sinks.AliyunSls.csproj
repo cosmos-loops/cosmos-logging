@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\build\common.ns20-net461.props" />
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+        <AssemblyName>Cosmos.Logging.Sinks.AliyunSls</AssemblyName>
+        <PackageId>Cosmos.Logging.Sinks.AliyunSls</PackageId>
+        <Description>Alibaba Cloud (Aliyun) SLS sink for Cosmos.Logging.</Description>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Aliyun.Api.LogService" Version="1.1.0" />
+    </ItemGroup>
+</Project>

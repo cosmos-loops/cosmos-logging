@@ -14,7 +14,7 @@ namespace Cosmos.Logging.Core.Extensions {
             return ex;
         }
 
-        public static string ToUwrapedString(this Exception ex) {
+        public static string ToUnwrappedString(this Exception ex) {
             return ex.Unwrap().Message;
         }
     }

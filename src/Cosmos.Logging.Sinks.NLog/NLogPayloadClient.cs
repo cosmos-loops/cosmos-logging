@@ -24,7 +24,7 @@ namespace Cosmos.Logging.Sinks.NLog {
         public string Name { get; set; }
         public LogEventLevel? Level { get; set; }
 
-        public Task WriteAsync(ILogPayload payload, CancellationToken cancellationToken = default(CancellationToken)) {
+        public Task WriteAsync(ILogPayload payload, CancellationToken cancellationToken = default) {
             if (payload != null) {
                 var legalityEvents = LogEventSinkFilter.Filter(payload, _sinkConfiguration).ToList();
                 var logger = global::NLog.LogManager.GetLogger(payload.Name, payload.SourceType);

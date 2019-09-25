@@ -14,7 +14,7 @@ namespace Cosmos.Logging.RunsOn.NancyFX.Core.Handlers {
 
         public void Handle(HttpStatusCode statusCode, NancyContext context) {
             if (context.Items.TryGetValue(NancyEngine.ERROR_EXCEPTION, out var errorObject) && errorObject is Exception exception) {
-                _logger.LogError(exception, $"{(int) statusCode} - {exception.ToUwrapedString()}");
+                _logger.LogError(exception, $"{(int) statusCode} - {exception.ToUnwrappedString()}");
             }
         }
     }
