@@ -31,7 +31,13 @@ namespace Cosmos.Logging
             {
                 Aliases.MergeAndOverWrite(options.InternalAliases, k => k, v => v.GetName());
                 LogLevel.MergeAndOverWrite(options.InternalNavigatorLogEventLevels, k => k, v => v.GetName());
+            }
+        }
 
+        protected override void PostProcessing(ILoggingSinkOptions settings)
+        {
+            if (settings is AliyunSlsSinkOptions options)
+            {
                 MergeAliyunSlsNativeConfig(options);
             }
         }
@@ -57,10 +63,10 @@ namespace Cosmos.Logging
         {
             if (options.HasLegalNativeConfig(false))
                 return;
-            
-            if(options.HasLegalNativeConfig(true))
+
+            if (options.HasLegalNativeConfig(true))
                 return;
-            
+
             options.UseNativeConfig(Constants.DefaultClient, c =>
             {
                 c.LogStoreName = options.LogStoreName;

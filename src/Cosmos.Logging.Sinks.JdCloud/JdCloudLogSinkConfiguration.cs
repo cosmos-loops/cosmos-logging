@@ -31,7 +31,13 @@ namespace Cosmos.Logging
             {
                 Aliases.MergeAndOverWrite(options.InternalAliases, k => k, v => v.GetName());
                 LogLevel.MergeAndOverWrite(options.InternalNavigatorLogEventLevels, k => k, v => v.GetName());
+            }
+        }
 
+        protected override void PostProcessing(ILoggingSinkOptions settings)
+        {
+            if (settings is JdCloudLogSinkOptions options)
+            {
                 MergeJdCloudNativeConfig(options);
             }
         }

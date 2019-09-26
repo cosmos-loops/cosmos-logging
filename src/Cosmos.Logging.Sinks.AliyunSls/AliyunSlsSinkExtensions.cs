@@ -49,14 +49,16 @@ namespace Cosmos.Logging
 
         private static void RegisterAliyunSlsClients(AliyunSlsSinkOptions options)
         {
-            if(!options.HasLegalNativeConfig(false))
+            if (!options.HasLegalNativeConfig(false))
                 throw new InvalidOperationException("There is no legal Alibaba Cloud (Aliyun) SLS native config.");
-            
+
             if (options.AliyunSlsNativeConfigs.Any())
                 foreach (var kvp in options.AliyunSlsNativeConfigs)
                     AliyunSlsClientManager.SetSlsClient(kvp.Key, kvp.Value);
             else
-                AliyunSlsClientManager.SetSlsClient(Constants.DefaultClient, options.LogStoreName, options.EndPoint, options.ProjectName, options.AccessKeyId, options.AccessKey);
+                AliyunSlsClientManager.SetSlsClient(Constants.DefaultClient,
+                    options.LogStoreName, options.EndPoint, options.ProjectName, options.AccessKeyId, options.AccessKey,
+                    true);
         }
 
         private static void RegisterCoreComponentsTypes()

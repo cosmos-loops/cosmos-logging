@@ -49,14 +49,16 @@ namespace Cosmos.Logging
 
         private static void RegisterJdCloudLogClients(JdCloudLogSinkOptions options)
         {
-            if(!options.HasLegalNativeConfig(false))
+            if (!options.HasLegalNativeConfig(false))
                 throw new InvalidOperationException("There is no legal JD Cloud Log Service native config.");
-            
+
             if (options.JdCloudLogNativeConfigs.Any())
                 foreach (var kvp in options.JdCloudLogNativeConfigs)
                     JdCloudLogClientManager.SetLogClient(kvp.Key, kvp.Value);
             else
-                JdCloudLogClientManager.SetLogClient(Constants.DefaultClient, options.LogStreamName, options.AccessKey, options.SecretKey, options.Security, options.RequestTimeout);
+                JdCloudLogClientManager.SetLogClient(Constants.DefaultClient,
+                    options.LogStreamName, options.AccessKey, options.SecretKey, options.Security, options.RequestTimeout,
+                    true);
         }
 
         private static void RegisterCoreComponentsTypes()

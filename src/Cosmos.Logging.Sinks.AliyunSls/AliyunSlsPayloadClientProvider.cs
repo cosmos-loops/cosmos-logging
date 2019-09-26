@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Core.Payloads;
+using Cosmos.Logging.Sinks.AliyunSls.Internals;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Sinks.AliyunSls
@@ -17,7 +18,7 @@ namespace Cosmos.Logging.Sinks.AliyunSls
 
         public ILogPayloadClient GetClient()
         {
-            return new AliyunSlsPayloadClient(_sinkOptions.Key, _loggingConfiguration.GetSinkConfiguration<AliyunSlsSinkConfiguration>(Internals.Constants.SinkKey));
+            return new AliyunSlsPayloadClient(_sinkOptions.Key, _loggingConfiguration.GetSinkConfiguration<AliyunSlsSinkConfiguration>(Constants.SinkKey));
         }
     }
 }
