@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Cosmos.Logging.ExtraSupports {
     public class ContextData : Dictionary<string, ContextDataItem> {
@@ -54,6 +55,32 @@ namespace Cosmos.Logging.ExtraSupports {
                 if (ContainsKey(data.Key)) continue;
                 Add(data.Key, data.Value);
             }
+        }
+
+        public override string ToString()
+        {
+            if (Count == 0)
+                return string.Empty;
+            
+            var sb = new StringBuilder();
+            var fen = "";
+            
+            sb.Append("[");
+            
+            foreach (var item in this)
+            {
+                if(!item.Value.Output)
+                    continue;
+
+                sb.Append(fen);
+                fen = ",";
+                
+                sb.Append($"{{\"{item.Key}\":\"{item.Value}\"}}");
+            }
+
+            sb.Append("]");
+
+            return sb.ToString();
         }
     }
 }

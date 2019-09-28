@@ -1,7 +1,9 @@
 ﻿using System;
 
 namespace Cosmos.Logging.Events {
-    public class LogEventId {
+    public class LogEventId{
+        private const int DefaultIntegerEventId = 0;
+        
         public LogEventId() : this(string.Empty) { }
 
         public LogEventId(string name) : this(Guid.NewGuid().ToString(), name) { }
@@ -22,5 +24,7 @@ namespace Cosmos.Logging.Events {
         public string Id { get; }
 
         public string Name { get; }
+
+        public int GetIntegerEventId() => int.TryParse(Id, out var ret) ? ret : DefaultIntegerEventId;
     }
 }
