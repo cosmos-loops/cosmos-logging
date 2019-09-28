@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Extensions;
@@ -39,6 +40,8 @@ namespace Cosmos.Logging
             if (settings is JdCloudLogSinkOptions options)
             {
                 MergeJdCloudNativeConfig(options);
+
+                RegisterJdCloudLogClients(options);
             }
         }
 
@@ -77,6 +80,20 @@ namespace Cosmos.Logging
                 c.Security = options.Security;
                 c.IsGeneralClient = true;
             });
+        }
+        
+        private static void RegisterJdCloudLogClients(JdCloudLogSinkOptions options)
+        {
+            if (!options.HasLegalNativeConfig(false))
+                throw new InvalidOperationException("There is no legal JD Cloud Log Service native config.");
+
+            if (options.JdCloudLogNativeConfigs.Any())
+                foreach (var kvp in options.JdCloudLogNativeConfigs)
+                    JdCloudLogClientManager.SetLogClient(kvp.Key, kvp.Value);
+            else
+                JdCloudLogClientManager.SetLogClient(Constants.DefaultClient,
+                    options.LogStreamName, options.AccessKey, options.SecretKey, options.Security, options.RequestTimeout,
+                    true);
         }
     }
 }
