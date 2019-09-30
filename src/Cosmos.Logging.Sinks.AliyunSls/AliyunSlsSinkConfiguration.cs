@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Extensions;
@@ -31,8 +32,16 @@ namespace Cosmos.Logging
             {
                 Aliases.MergeAndOverWrite(options.InternalAliases, k => k, v => v.GetName());
                 LogLevel.MergeAndOverWrite(options.InternalNavigatorLogEventLevels, k => k, v => v.GetName());
+            }
+        }
 
+        protected override void PostProcessing(ILoggingSinkOptions settings)
+        {
+            if (settings is AliyunSlsSinkOptions options)
+            {
                 MergeAliyunSlsNativeConfig(options);
+                
+                RegisterAliyunSlsClients(options);
             }
         }
 
@@ -57,10 +66,10 @@ namespace Cosmos.Logging
         {
             if (options.HasLegalNativeConfig(false))
                 return;
-            
-            if(options.HasLegalNativeConfig(true))
+
+            if (options.HasLegalNativeConfig(true))
                 return;
-            
+
             options.UseNativeConfig(Constants.DefaultClient, c =>
             {
                 c.LogStoreName = options.LogStoreName;
@@ -72,6 +81,20 @@ namespace Cosmos.Logging
             });
 
 
+        }
+        
+        private static void RegisterAliyunSlsClients(AliyunSlsSinkOptions options)
+        {
+            if (!options.HasLegalNativeConfig(false))
+                throw new InvalidOperationException("There is no legal Alibaba Cloud (Aliyun) SLS native config.");
+
+            if (options.AliyunSlsNativeConfigs.Any())
+                foreach (var kvp in options.AliyunSlsNativeConfigs)
+                    AliyunSlsClientManager.SetSlsClient(kvp.Key, kvp.Value);
+            else
+                AliyunSlsClientManager.SetSlsClient(Constants.DefaultClient,
+                    options.LogStoreName, options.EndPoint, options.ProjectName, options.AccessKeyId, options.AccessKey,
+                    true);
         }
     }
 }

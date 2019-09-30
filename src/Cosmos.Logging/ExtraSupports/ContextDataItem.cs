@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Cosmos.Logging.ExtraSupports {
     public class ContextDataItem {
@@ -16,5 +17,20 @@ namespace Cosmos.Logging.ExtraSupports {
         public object Value { get; }
 
         public bool Output { get; }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.Append("{");
+
+            sb.Append($"\"Name\":\"{Name}\",");
+            sb.Append($"\"Type\":\"{ItemType}\",");
+            sb.Append($"\"Value\":\"{Value}\"");
+            
+            sb.Append("}");
+
+            return sb.ToString();
+        }
     }
 }

@@ -10,6 +10,7 @@ using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
+using Cosmos.Logging.Sinks.AliyunSls.Internals;
 using AliyunLogInfo = Aliyun.Api.LogService.Domain.Log.LogInfo;
 using AliyunLogGroup = Aliyun.Api.LogService.Domain.Log.LogGroupInfo;
 
@@ -37,7 +38,7 @@ namespace Cosmos.Logging.Sinks.AliyunSls
             if (payload != null)
             {
                 var legalityEvents = LogEventSinkFilter.Filter(payload, _sinkConfiguration).ToList();
-                var logger = Internals.AliyunSlsClientManager.GetSlsClient(payload.Name, out var logStoreName);
+                var logger = AliyunSlsClientManager.GetSlsClient(payload.Name, out var logStoreName);
 
                 if (logger == null || string.IsNullOrWhiteSpace(logStoreName))
                     return;

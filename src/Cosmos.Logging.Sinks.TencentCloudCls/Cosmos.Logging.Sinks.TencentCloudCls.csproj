@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\build\common.ns20-net461.props" />
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+        <AssemblyName>Cosmos.Logging.Sinks.TencentCloudCls</AssemblyName>
+        <PackageId>Cosmos.Logging.Sinks.TencentCloudCls</PackageId>
+        <Description>Tencent Cloud CLS sink for Cosmos.Logging.</Description>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cosmos.Encryption" Version="0.1.1-alpha6-123080" />
+        <PackageReference Include="Google.Protobuf" Version="3.7.0" />
+        <PackageReference Include="ServiceStack.ProtoBuf" Version="5.5.0" />
+    </ItemGroup>
+</Project>

@@ -48,8 +48,8 @@ namespace Cosmos.Logging.Filters.Navigators {
             }
         }
 
-        public static LogEventLevel GetDefault() => _defaultLevel.TryGetValue("Global", out var ret) ? ret : LogEventLevel.Verbose;
+        public static LogEventLevel GetDefault() => _defaultLevel.TryGetValue("Global", out var ret) ? ret : LevelAlias.Maximum;
 
-        public static LogEventLevel GetDefault(string sinkName) => _defaultLevel.TryGetValue(sinkName, out var ret) ? ret : LogEventLevel.Verbose;
+        public static LogEventLevel GetDefault(string sinkName) => _defaultLevel.TryGetValue(sinkName, out var ret) ? ret : LevelAlias.Maximum;
     }
 }
