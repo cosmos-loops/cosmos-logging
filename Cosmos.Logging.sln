@@ -112,6 +112,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.Tencen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.TomatoLog", "src\Cosmos.Logging.Sinks.TomatoLog\Cosmos.Logging.Sinks.TomatoLog.csproj", "{D5DDCE11-B386-4DBF-A0EB-4250927827DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.Console", "src\Cosmos.Logging.Sinks.Console\Cosmos.Logging.Sinks.Console.csproj", "{E7360C60-B4D3-4582-A27E-B94A0B18DCF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.ConsoleTests", "tests\Cosmos.Logging.ConsoleTests\Cosmos.Logging.ConsoleTests.csproj", "{B64775AE-E8E6-4909-BFE6-DEF215A0BB20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -278,6 +282,14 @@ Global
 		{D5DDCE11-B386-4DBF-A0EB-4250927827DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5DDCE11-B386-4DBF-A0EB-4250927827DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5DDCE11-B386-4DBF-A0EB-4250927827DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7360C60-B4D3-4582-A27E-B94A0B18DCF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7360C60-B4D3-4582-A27E-B94A0B18DCF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7360C60-B4D3-4582-A27E-B94A0B18DCF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7360C60-B4D3-4582-A27E-B94A0B18DCF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B64775AE-E8E6-4909-BFE6-DEF215A0BB20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B64775AE-E8E6-4909-BFE6-DEF215A0BB20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B64775AE-E8E6-4909-BFE6-DEF215A0BB20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B64775AE-E8E6-4909-BFE6-DEF215A0BB20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -330,6 +342,8 @@ Global
 		{91802EC4-D85A-4139-A792-D950D5FBDD5F} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
 		{7753AD61-EF8C-4801-8161-506AADC4A20C} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
 		{D5DDCE11-B386-4DBF-A0EB-4250927827DF} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
+		{E7360C60-B4D3-4582-A27E-B94A0B18DCF9} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
+		{B64775AE-E8E6-4909-BFE6-DEF215A0BB20} = {DA92F6C9-C92A-426E-853D-36654BB8F15C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7494AB0-4276-4102-B112-7BBE0329D263}
