@@ -26,15 +26,21 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
         {
             if (settings is ExceptionOptions options)
             {
-                RegisterExtensionDestructuringProcessor(options, this);
+                RegisterDestructuringOptions(options, this);
+                RegisterExceptionDestructuringProcessor();
             }
         }
 
-        private static void RegisterExtensionDestructuringProcessor(ExceptionOptions options, ExceptionConfiguration configuration)
+        private static void RegisterDestructuringOptions(ExceptionOptions options, ExceptionConfiguration configuration)
         {
             var final = FinalDestructuringOptions.Create(options, configuration);
-
             FinalDestructuringOptions.Current = final;
+        }
+
+        private static void RegisterExceptionDestructuringProcessor()
+        {
+            var processor = new ExceptionDestructuringProcessor();
+            ExceptionDestructuringContainer.SetInstance(processor);
         }
     }
 }

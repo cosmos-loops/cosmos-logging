@@ -1,10 +1,8 @@
 ﻿using System;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Components;
-using Cosmos.Logging.Events;
 using Cosmos.Logging.Extensions.Exceptions.Configurations;
 using Cosmos.Logging.Extensions.Exceptions.Core;
-using EnumsNET;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
