@@ -4,7 +4,7 @@ using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates;
 
 namespace Cosmos.Logging.Core.ObjectResolving {
-    public class MessageParameterProcessor : IMessagePropertyFactory {
+    public class MessageParameterProcessor : IMessagePropertyFactory, IShortcutPropertyFactory {
         private readonly MessageTemplateCache _messageTemplateParser = new MessageTemplateCache(new MessageTemplateParser());
         private readonly MessageParameterResolver _messageParameterResolver;
         private readonly PropertyBinder _propertyBinder;
@@ -24,6 +24,10 @@ namespace Cosmos.Logging.Core.ObjectResolving {
 
         public MessageProperty CreateProperty(string name, object value, PropertyResolvingMode mode, int positionalValue = 0) {
             return _messageParameterResolver.CreateProperty(name, value, mode, positionalValue);
+        }
+
+        public MessageProperty CreateProperty(string name, object value, bool destructureObject = false) {
+            return CreateProperty(name, value, destructureObject ? PropertyResolvingMode.Destructure : PropertyResolvingMode.Default);
         }
     }
 }

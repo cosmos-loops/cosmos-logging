@@ -26,6 +26,7 @@ namespace Cosmos.Logging {
 
         private static void RegisterCoreComponents(AspNetLogServiceCollection serviceImpl) {
             serviceImpl.AddDependency(s => s.AddSingleton<ILoggingServiceProvider, AspNetLoggingServiceProvider>());
+            serviceImpl.AddDependency(s => s.AddSingleton<IPropertyFactoryAccessor, ShortcutPropertyFactoryAccessor>());
             serviceImpl.BuildConfiguration();
             serviceImpl.ActiveSinkSettings();
             serviceImpl.ActiveOriginConfiguration();

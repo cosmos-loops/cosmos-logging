@@ -24,6 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection {
 
             services.TryAdd(ServiceDescriptor.Scoped<IHttpContextAccessor, HttpContextAccessor>());
             services.TryAdd(ServiceDescriptor.Singleton<ILoggingServiceProvider, AspNetCoreLoggingServiceProvider>());
+            services.TryAdd(ServiceDescriptor.Singleton<IPropertyFactoryAccessor, ShortcutPropertyFactoryAccessor>());
             services.TryAdd(ServiceDescriptor.Singleton(typeof(ILogger<>), typeof(AspNetCoreLoggerWrapper<>)));
 
             servicesImpl.BuildConfiguration();

@@ -37,6 +37,7 @@ namespace Cosmos.Logging {
 
         private static void RegisterCoreComponents(NancyLogServiceCollection serviceImpl) {
             serviceImpl.AddDependency(s => s.AddSingleton<ILoggingServiceProvider, NancyLoggingServiceProvider>());
+            serviceImpl.AddDependency(s => s.AddSingleton<IPropertyFactoryAccessor, ShortcutPropertyFactoryAccessor>());
             serviceImpl.BuildConfiguration();
             serviceImpl.ActiveSinkSettings();
             serviceImpl.ActiveOriginConfiguration();

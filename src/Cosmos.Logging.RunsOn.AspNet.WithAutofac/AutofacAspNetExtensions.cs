@@ -45,6 +45,7 @@ namespace Cosmos.Logging {
         private static void UpdateAutofacContainer(ContainerBuilder builder, AutofacAspNetServiceCollection serviceImpl) {
             builder.Populate(serviceImpl.ExposeServices());
             builder.RegisterType<AspNetLoggingServiceProvider>().As<ILoggingServiceProvider>().SingleInstance();
+            builder.RegisterType<ShortcutPropertyFactoryAccessor>().As<IPropertyFactoryAccessor>().SingleInstance();
             builder.RegisterInstance(Options.Create((LoggingOptions) serviceImpl.ExposeLogSettings()));
             builder.RegisterInstance(serviceImpl.ExposeLoggingConfiguration());
         }

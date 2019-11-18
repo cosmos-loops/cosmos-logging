@@ -16,6 +16,8 @@ namespace Cosmos.Logging.Events {
         private readonly Dictionary<(int position, PropertyResolvingMode mode), MessagePropertyValue> _positionalProperties;
         private readonly Dictionary<string, ExtraMessageProperty> _extraMessageProperties;
 
+        private readonly IShortcutPropertyFactory _messageParameterProcessorShortcut;
+
         internal LogEvent() {
             _logEventContext = null;
             _namedProperties = null;
@@ -36,7 +38,8 @@ namespace Cosmos.Logging.Events {
             Dictionary<(string name, PropertyResolvingMode mode), MessageProperty> namedMessageProperties,
             Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> positionalMessageProperties,
             LogEventContext logEventContext,
-            ContextData contextData = null) {
+            ContextData contextData = null,
+            IShortcutPropertyFactory messageProcessorShortcut = null) {
 
             if (namedMessageProperties == null) throw new ArgumentNullException(nameof(namedMessageProperties));
             if (positionalMessageProperties == null) throw new ArgumentNullException(nameof(positionalMessageProperties));
@@ -57,6 +60,8 @@ namespace Cosmos.Logging.Events {
             _contextData = contextData == null ? new ContextData() : new ContextData(contextData);
             if (exception != null && !_contextData.HasException()) _contextData.SetException(exception);
             _contextData.ImportUpstreamContextData(_logEventContext.ExposeContextData());
+
+            _messageParameterProcessorShortcut = messageProcessorShortcut;
 
             UpdateProperty(namedMessageProperties, positionalMessageProperties);
 
@@ -123,6 +128,25 @@ namespace Cosmos.Logging.Events {
                 _extraMessageProperties[property.Name] = property;
         }
 
+        public void AddExtraPropertyIfAbsent(ExtraMessageProperty property) {
+            if (property != null && !string.IsNullOrWhiteSpace(property.Name) && !_extraMessageProperties.ContainsKey(property.Name))
+                _extraMessageProperties[property.Name] = property;
+        }
+
+        public void AddExtraProperty(string name, object value, bool destructureObject = false) {
+            if (!string.IsNullOrWhiteSpace(name)) {
+                var property = _messageParameterProcessorShortcut.CreateProperty(name, value, destructureObject);
+                AddExtraProperty(new ExtraMessageProperty(property));
+            }
+        }
+
+        public void AddExtraPropertyIfAbsent(string name, object value, bool destructureObject = false) {
+            if (!string.IsNullOrWhiteSpace(name)) {
+                var property = _messageParameterProcessorShortcut.CreateProperty(name, value, destructureObject);
+                AddExtraPropertyIfAbsent(new ExtraMessageProperty(property));
+            }
+        }
+
         public void RemoveExtraProperty(string name) {
             if (_extraMessageProperties.ContainsKey(name))
                 _extraMessageProperties.Remove(name);
@@ -135,6 +159,5 @@ namespace Cosmos.Logging.Events {
         public IReadOnlyDictionary<string, ExtraMessageProperty> ExtraProperties => _extraMessageProperties;
 
         #endregion
-
     }
 }

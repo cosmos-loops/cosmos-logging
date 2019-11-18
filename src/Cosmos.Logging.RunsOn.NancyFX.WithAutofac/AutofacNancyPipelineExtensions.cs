@@ -41,6 +41,7 @@ namespace Cosmos.Logging {
             container.Update(builder => {
                 builder.Populate(serviceImpl.ExposeServices());
                 builder.RegisterType<NancyLoggingServiceProvider>().As<ILoggingServiceProvider>().SingleInstance();
+                builder.RegisterType<ShortcutPropertyFactoryAccessor>().As<IPropertyFactoryAccessor>().SingleInstance();
                 builder.RegisterInstance(Options.Create((LoggingOptions) serviceImpl.ExposeLogSettings()));
                 builder.RegisterInstance(serviceImpl.ExposeLoggingConfiguration());
             });
