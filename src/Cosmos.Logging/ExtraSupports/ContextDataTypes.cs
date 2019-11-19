@@ -1,5 +1,6 @@
 ﻿namespace Cosmos.Logging.ExtraSupports {
     public class ContextDataTypes {
-        public static readonly string Exception = "__COSMOS_EXCEPTION";
+        public const string Exception = "__COSMOS_EXCEPTION";
+        public const string ExceptionDetail = "__COSMOS_EXCEPTION_DETAIL";
     }
 }
