@@ -32,9 +32,12 @@ namespace Cosmos.Logging
         private static ILogServiceCollection UseExceptionExtensionsCore(ILogServiceCollection service, IOptions<ExceptionOptions> settings,
             Action<IConfiguration, ExceptionConfiguration, LoggingConfiguration> config = null)
         {
+            var exceptionDestructuringAccessor = new ExceptionDestructuringAccessor();
+
             service.AddExtraSinkSettings<ExceptionOptions, ExceptionConfiguration>(settings.Value, (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
             service.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
-            service.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton<IExceptionDestructuringAccessor>(new ExceptionDestructuringAccessor())));
+            service.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton<IExceptionDestructuringAccessor>(exceptionDestructuringAccessor)));
+            service.AddEnricher(new ExceptionEnricher(exceptionDestructuringAccessor.Get()));
 
             RegisterCoreComponentsTypes();
 

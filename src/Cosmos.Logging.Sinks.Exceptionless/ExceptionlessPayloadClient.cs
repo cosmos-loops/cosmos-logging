@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Enrichers;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
@@ -33,6 +34,7 @@ namespace Cosmos.Logging.Sinks.Exceptionless {
                 var source = payload.SourceType.FullName;
                 using (var logger = ExceptionlessClient.Default) {
                     foreach (var logEvent in legalityEvents) {
+                        LogEventEnricherManager.Enricher(logEvent);
                         var exception = logEvent.Exception;
                         var level = LogLevelSwitcher.Switch(logEvent.Level);
                         var stringBuilder = new StringBuilder();

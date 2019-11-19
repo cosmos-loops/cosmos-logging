@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Enrichers;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
@@ -12,6 +15,7 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
     public class SampleLogPayloadClient : ILogEventSink, ILogPayloadClient {
         private readonly IFormatProvider _formatProvider;
         private readonly SampleLogConfiguration _sinkConfiguration;
+        //private readonly IEnumerable<ILogEventEnricher> _enrichers;
 
         public SampleLogPayloadClient(string name, SampleLogConfiguration sinkConfiguration, IFormatProvider formatProvider = null) {
             _sinkConfiguration = sinkConfiguration ?? throw new ArgumentNullException(nameof(sinkConfiguration));
@@ -30,6 +34,9 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
                 var count = legalityEvents.Count;
 
                 foreach (var logEvent in legalityEvents) {
+                    
+                    LogEventEnricherManager.Enricher(logEvent);
+                    
                     var stringBuilder = new StringBuilder();
                     using (var output = new StringWriter(stringBuilder, _formatProvider)) {
                         logEvent.RenderMessage(output, _sinkConfiguration.Rendering, _formatProvider);

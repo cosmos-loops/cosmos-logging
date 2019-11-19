@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Enrichers;
 using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -57,6 +58,11 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
 
         public ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction) {
             dependencyAction?.Invoke(_serviceCollection);
+            return this;
+        }
+
+        public ILogServiceCollection AddEnricher(ILogEventEnricher enricher) {
+            _loggingConfiguration.SetEnricher(enricher);
             return this;
         }
 

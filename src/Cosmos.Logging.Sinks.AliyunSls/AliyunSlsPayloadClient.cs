@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Aliyun.Api.LogService.Domain.Log;
 using Aliyun.Api.LogService.Infrastructure.Protocol;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Enrichers;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
@@ -51,6 +52,8 @@ namespace Cosmos.Logging.Sinks.AliyunSls
 
                 foreach (var logEvent in legalityEvents)
                 {
+                    LogEventEnricherManager.Enricher(logEvent);
+                    
                     var stringBuilder = new StringBuilder();
                     using (var output = new StringWriter(stringBuilder, _formatProvider))
                     {

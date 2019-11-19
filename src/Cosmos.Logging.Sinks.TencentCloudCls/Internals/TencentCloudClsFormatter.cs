@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Enrichers;
 using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.ExtraSupports;
@@ -29,6 +30,7 @@ namespace Cosmos.Logging.Sinks.TencentCloudCls.Internals
 
                 try
                 {
+                    LogEventEnricherManager.Enricher(logEvent);
                     var contents = GetLogEventContents(logEvent, rendingConfiguration, formatProvider);
                     log.Contents.AddRange(contents);
                     log.Time = logEvent.Timestamp.ToUnixTimeMilliseconds();
@@ -67,6 +69,12 @@ namespace Cosmos.Logging.Sinks.TencentCloudCls.Internals
             if (logEvent.Exception != null)
             {
                 contents.AddContent("Exception", logEvent.Exception.ToUnwrappedString());
+
+//                if (logEvent.ContextData.HasExceptionDetail())
+//                {
+//                    var wrapper = logEvent.ContextData.GetExceptionDetails();
+//                    contents.AddContent(wrapper.RootName, wrapper.Detils.ToJson());
+//                }
             }
 
             if (logEvent.ExtraProperties.Count > 0)
