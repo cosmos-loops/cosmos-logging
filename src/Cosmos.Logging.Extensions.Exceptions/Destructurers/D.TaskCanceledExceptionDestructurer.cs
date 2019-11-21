@@ -7,6 +7,8 @@ namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
 {
     public class TaskCanceledExceptionDestructurer : OperationCanceledExceptionDestructurer
     {
+        public override Type[] TargetTypes => new[] {typeof(TaskCanceledException)};
+
         public override void Destructure(
             Exception exception,
             IExceptionPropertyBag propertyBag,
