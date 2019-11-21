@@ -17,6 +17,7 @@ namespace Cosmos.Logging.RunsOn.NancyFX.Core {
         private readonly Dictionary<string, ILoggingSinkOptions> _sinkSettings;
         private object _sinkUpdateLock = new object();
         private Action<IConfigurationRoot> _originConfigAction;
+        private readonly List<Func<ILogEventEnricher>> _additionalEnricherProviders;
         
         protected internal NancyLogServiceCollection() {
             _configurationBuilder = new LoggingConfigurationBuilder();
@@ -24,6 +25,7 @@ namespace Cosmos.Logging.RunsOn.NancyFX.Core {
             _serviceCollection = new ServiceCollection();
             _settings = new LoggingOptions();
             _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
+            _additionalEnricherProviders = new List<Func<ILogEventEnricher>>();
 
             BeGivenConfigurationBuilder = _configurationBuilder.InitializedByGivenBuilder;
             BeGivenConfigurationRoot = false;
@@ -44,8 +46,8 @@ namespace Cosmos.Logging.RunsOn.NancyFX.Core {
             return this;
         }
 
-        public ILogServiceCollection AddEnricher(ILogEventEnricher enricher) {
-            _loggingConfiguration.SetEnricher(enricher);
+        public ILogServiceCollection AddEnricher(Func<ILogEventEnricher> enricherProvider) {
+            _additionalEnricherProviders.Add(enricherProvider);
             return this;
         }
 
@@ -121,6 +123,14 @@ namespace Cosmos.Logging.RunsOn.NancyFX.Core {
 
         protected internal void ActiveOriginConfiguration() {
             _originConfigAction?.Invoke(_loggingConfiguration.Configuration);
+        }
+
+        protected internal void ActiveLogEventEnrichers()
+        {
+            foreach (var provider in _additionalEnricherProviders)
+            {
+                _loggingConfiguration.SetEnricher(provider.Invoke());
+            }
         }
     }
 }

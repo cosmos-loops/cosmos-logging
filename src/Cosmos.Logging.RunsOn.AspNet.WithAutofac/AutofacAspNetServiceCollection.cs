@@ -13,5 +13,9 @@ namespace Cosmos.Logging.RunsOn.AspNet.WithAutofac {
         internal new void ActiveOriginConfiguration() {
             base.ActiveOriginConfiguration();
         }
+
+        internal new void ActiveLogEventEnrichers() {
+            base.ActiveLogEventEnrichers();
+        }
     }
 }

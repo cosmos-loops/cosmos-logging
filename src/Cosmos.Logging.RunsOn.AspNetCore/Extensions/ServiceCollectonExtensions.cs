@@ -39,10 +39,15 @@ namespace Microsoft.Extensions.DependencyInjection {
                 services.TryAdd(ServiceDescriptor.Singleton<ISecInitializingActivation>(provider => {
                     var initializingActivationImpl = new AspNetCoreSecInitializingActivation();
                     initializingActivationImpl.AppendAction(() => StaticServiceResolver.SetResolver(provider.GetRequiredService<ILoggingServiceProvider>()));
+                    initializingActivationImpl.AppendAction(() => servicesImpl.ActiveLogEventEnrichers());
                     return initializingActivationImpl;
                 }));
             } else {
-                services.TryAdd(ServiceDescriptor.Singleton(provider => new StaticServiceResolveInitialization(provider.GetRequiredService<ILoggingServiceProvider>())));
+                services.TryAdd(ServiceDescriptor.Singleton(provider => 
+                    new StaticServiceResolveInitialization(
+                        provider.GetRequiredService<ILoggingServiceProvider>(),
+                        servicesImpl.ActiveLogEventEnrichers
+                        )));
             }
 
 

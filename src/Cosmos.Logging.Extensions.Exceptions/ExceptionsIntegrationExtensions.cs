@@ -37,7 +37,7 @@ namespace Cosmos.Logging
             service.AddExtraSinkSettings<ExceptionOptions, ExceptionConfiguration>(settings.Value, (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
             service.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
             service.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton<IExceptionDestructuringAccessor>(exceptionDestructuringAccessor)));
-            service.AddEnricher(new ExceptionEnricher(exceptionDestructuringAccessor.Get()));
+            service.AddEnricher(() => new ExceptionEnricher(exceptionDestructuringAccessor.Get()));
 
             RegisterCoreComponentsTypes();
 

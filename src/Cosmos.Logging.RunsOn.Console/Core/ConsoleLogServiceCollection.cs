@@ -18,6 +18,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         private readonly Dictionary<string, ILoggingSinkOptions> _sinkSettings;
         private object _sinkUpdateLock = new object();
         private Action<IConfigurationRoot> _originConfigAction;
+        private readonly List<Func<ILogEventEnricher>> _additionalEnricherProviders;
 
         // ReSharper disable once UnusedMember.Local
         private ConsoleLogServiceCollection() { }
@@ -30,6 +31,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
             _serviceCollection = services ?? throw new ArgumentNullException(nameof(services));
             _settings = new LoggingOptions();
             _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
+            _additionalEnricherProviders = new List<Func<ILogEventEnricher>>();
 
             BeGivenConfigurationBuilder = _configurationBuilder.InitializedByGivenBuilder;
             BeGivenConfigurationRoot = false;
@@ -41,6 +43,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
             _serviceCollection = services ?? throw new ArgumentNullException(nameof(services));
             _settings = new LoggingOptions();
             _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
+            _additionalEnricherProviders = new List<Func<ILogEventEnricher>>();
 
             BeGivenConfigurationBuilder = _configurationBuilder.InitializedByGivenBuilder;
             BeGivenConfigurationRoot = true;
@@ -61,8 +64,8 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
             return this;
         }
 
-        public ILogServiceCollection AddEnricher(ILogEventEnricher enricher) {
-            _loggingConfiguration.SetEnricher(enricher);
+        public ILogServiceCollection AddEnricher(Func<ILogEventEnricher> enricherProvider) {
+            _additionalEnricherProviders.Add(enricherProvider);
             return this;
         }
 
@@ -138,6 +141,14 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
 
         internal void ActiveOriginConfiguration() {
             _originConfigAction?.Invoke(_loggingConfiguration.Configuration);
+        }
+
+        internal void ActiveLogEventEnrichers()
+        {
+            foreach (var provider in _additionalEnricherProviders)
+            {
+                _loggingConfiguration.SetEnricher(provider.Invoke());
+            }
         }
     }
 }

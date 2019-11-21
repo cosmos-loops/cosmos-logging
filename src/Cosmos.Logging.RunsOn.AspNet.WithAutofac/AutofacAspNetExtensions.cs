@@ -6,9 +6,9 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.RunsOn.AspNet;
 using Cosmos.Logging.RunsOn.AspNet.WithAutofac;
-using Cosmos.Logging.RunsOn.AspNet.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using SoloDependencyContainer = Cosmos.Logging.RunsOn.AspNet.WithAutofac.Core.SoloDependencyContainer;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
@@ -33,6 +33,8 @@ namespace Cosmos.Logging {
             RegisterCoreComponents(serviceImpl);
 
             UpdateAutofacContainer(builder, serviceImpl);
+
+            builder.RegisterBuildCallback(c => serviceImpl.ActiveLogEventEnrichers());
         }
 
         private static void RegisterCoreComponents(AutofacAspNetServiceCollection serviceImpl) {

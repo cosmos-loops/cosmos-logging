@@ -21,6 +21,8 @@ namespace Cosmos.Logging {
 
             BuildSoloContainer(serviceImpl);
 
+            RegisterEnricherComponents(serviceImpl);
+
             UpdateStaticProvider();
         }
 
@@ -32,6 +34,10 @@ namespace Cosmos.Logging {
             serviceImpl.ActiveOriginConfiguration();
             serviceImpl.AddDependency(s => s.AddSingleton(Options.Create((LoggingOptions) serviceImpl.ExposeLogSettings())));
             serviceImpl.AddDependency(s => s.AddSingleton(serviceImpl.ExposeLoggingConfiguration()));
+        }
+
+        private static void RegisterEnricherComponents(AspNetLogServiceCollection serviceImpl) {
+            serviceImpl.ActiveLogEventEnrichers();
         }
 
         private static void BuildSoloContainer(ILogServiceCollection serviceImpl) {

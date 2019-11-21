@@ -14,7 +14,7 @@ namespace Cosmos.Logging.Core {
         LoggingConfiguration ExposeLoggingConfiguration();
         ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction);
 
-        ILogServiceCollection AddEnricher(ILogEventEnricher enricher);
+        ILogServiceCollection AddEnricher(Func<ILogEventEnricher> enricherProvider);
 
         ILogServiceCollection AddSinkSettings<TSinkSettings, TSinkConfiguration>(TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> configAct)
             where TSinkSettings : class, ILoggingSinkOptions, new()

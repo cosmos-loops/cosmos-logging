@@ -30,6 +30,8 @@ namespace Cosmos.Logging {
 
             StaticServiceResolver.SetResolver(ioc.Resolve<ILoggingServiceProvider>());
 
+            serviceImpl.ActiveLogEventEnrichers();
+
             return ioc;
         }
     }

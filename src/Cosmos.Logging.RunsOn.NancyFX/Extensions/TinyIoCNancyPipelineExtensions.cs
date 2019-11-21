@@ -32,6 +32,8 @@ namespace Cosmos.Logging {
 
             NancyPipelinesHook.RegisterLoggingHandlers(pipelines);
 
+            RegisterEnricherComponents(serviceImpl);
+
             return pipelines;
         }
 
@@ -43,6 +45,10 @@ namespace Cosmos.Logging {
             serviceImpl.ActiveOriginConfiguration();
             serviceImpl.AddDependency(s => s.AddSingleton(Options.Create((LoggingOptions) serviceImpl.ExposeLogSettings())));
             serviceImpl.AddDependency(s => s.AddSingleton(serviceImpl.ExposeLoggingConfiguration()));
+        }
+
+        private static void RegisterEnricherComponents(NancyLogServiceCollection serviceImpl) {
+            serviceImpl.ActiveLogEventEnrichers();
         }
 
         private static void BuildSoloContainer(ILogServiceCollection serviceImpl) {
