@@ -42,7 +42,8 @@ namespace Cosmos.Logging.Sinks.SampleLogSink {
                         logEvent.RenderMessage(output, _sinkConfiguration.Rendering, _formatProvider);
                     }
 
-                    if (logEvent.ExtraProperties.Count > 0) {
+                    if (logEvent.ExtraProperties.Count > 0)                     {
+                        stringBuilder.AppendLine();
                         stringBuilder.AppendLine("Extra properties:");
                         foreach (var extra in logEvent.ExtraProperties) {
                             var property = extra.Value;

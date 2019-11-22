@@ -159,5 +159,9 @@ namespace Cosmos.Logging.Events {
         public IReadOnlyDictionary<string, ExtraMessageProperty> ExtraProperties => _extraMessageProperties;
 
         #endregion
+        
+        public  LogEvent ToLogEvent()=>this;
+        
+        public  IContextualLogEvent ToContextualLogEvent()=>this;
     }
 }
