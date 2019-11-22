@@ -58,17 +58,19 @@ namespace Cosmos.Logging.Renders.RendersLib
                 case "T":
                 {
                     __processNewList(ref withNewLine);
-                    builder.Append(targetException.GetType().FullName);
+                    var @namespace = targetException.GetType().Namespace;
+                    @namespace = string.IsNullOrWhiteSpace(@namespace) ? string.Empty : $"{@namespace}.";
+                    builder.Append($"{@namespace}.{targetException.GetType().FullName}");
                     break;
                 }
-                
+
                 case "M":
                 {
                     __processNewList(ref withNewLine);
                     builder.Append(targetException.Message);
                     break;
                 }
-                
+
                 case "D":
                 {
                     __processNewList(ref withNewLine);
@@ -86,7 +88,7 @@ namespace Cosmos.Logging.Renders.RendersLib
 
                     break;
                 }
-                
+
                 case "S":
                 {
                     __processNewList(ref withNewLine);
