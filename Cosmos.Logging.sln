@@ -116,6 +116,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Sinks.Consol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.ConsoleTests", "tests\Cosmos.Logging.ConsoleTests\Cosmos.Logging.ConsoleTests.csproj", "{B64775AE-E8E6-4909-BFE6-DEF215A0BB20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.Exceptions", "src\Cosmos.Logging.Extensions.Exceptions\Cosmos.Logging.Extensions.Exceptions.csproj", "{A81EDE74-027D-4D08-AB8A-3237E72B0974}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.ExceptionTests", "tests\Cosmos.Logging.ExceptionTests\Cosmos.Logging.ExceptionTests.csproj", "{1E18BB99-9F88-4E83-919A-0C6DE4302C68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -290,6 +294,14 @@ Global
 		{B64775AE-E8E6-4909-BFE6-DEF215A0BB20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B64775AE-E8E6-4909-BFE6-DEF215A0BB20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B64775AE-E8E6-4909-BFE6-DEF215A0BB20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A81EDE74-027D-4D08-AB8A-3237E72B0974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A81EDE74-027D-4D08-AB8A-3237E72B0974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A81EDE74-027D-4D08-AB8A-3237E72B0974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A81EDE74-027D-4D08-AB8A-3237E72B0974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E18BB99-9F88-4E83-919A-0C6DE4302C68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E18BB99-9F88-4E83-919A-0C6DE4302C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E18BB99-9F88-4E83-919A-0C6DE4302C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E18BB99-9F88-4E83-919A-0C6DE4302C68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -344,6 +356,8 @@ Global
 		{D5DDCE11-B386-4DBF-A0EB-4250927827DF} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
 		{E7360C60-B4D3-4582-A27E-B94A0B18DCF9} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
 		{B64775AE-E8E6-4909-BFE6-DEF215A0BB20} = {DA92F6C9-C92A-426E-853D-36654BB8F15C}
+		{A81EDE74-027D-4D08-AB8A-3237E72B0974} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{1E18BB99-9F88-4E83-919A-0C6DE4302C68} = {DA92F6C9-C92A-426E-853D-36654BB8F15C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7494AB0-4276-4102-B112-7BBE0329D263}
