@@ -12,7 +12,7 @@ namespace Cosmos.Logging.Core.Payloads {
             _logPayloadClientProviders = logPayloadClientProviders ?? throw new ArgumentNullException(nameof(logPayloadClientProviders));
         }
 
-        public async Task SendAsync(ILogPayload payload, CancellationToken cancellationToken = default(CancellationToken)) {
+        public async Task SendAsync(ILogPayload payload, CancellationToken cancellationToken = default) {
             foreach (var provider in _logPayloadClientProviders) {
                 await provider.GetClient().WriteAsync(payload, cancellationToken);
             }

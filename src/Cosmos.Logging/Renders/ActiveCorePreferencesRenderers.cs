@@ -10,7 +10,8 @@ namespace Cosmos.Logging.Renders {
             typeof(CallerFilePathRenderer),
             typeof(CallerLineNumberRenderer),
             typeof(EventIdRenderer),
-            typeof(EventNameRenderer)
+            typeof(EventNameRenderer),
+            typeof(ExceptionRenderer)
         };
 
         public static IReadOnlyList<Type> Default => _default;
@@ -22,6 +23,7 @@ namespace Cosmos.Logging.Renders {
             PreferencesRenderersManager.AddPreferencesRenderer<CallerLineNumberRenderer>();
             PreferencesRenderersManager.AddPreferencesRenderer<EventIdRenderer>();
             PreferencesRenderersManager.AddPreferencesRenderer<EventNameRenderer>();
+            PreferencesRenderersManager.AddPreferencesRenderer<ExceptionRenderer>();
         }
     }
 }

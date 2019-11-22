@@ -18,6 +18,7 @@ namespace Cosmos.Logging {
             config?.Invoke(serviceImpl);
 
             ioc.Register<ILoggingServiceProvider, ZKWebLoggingServiceProvider>(ReuseType.Singleton);
+            ioc.Register<IPropertyFactoryAccessor, ShortcutPropertyFactoryAccessor>();
 
             serviceImpl.BuildConfiguration();
             serviceImpl.ActiveSinkSettings();
@@ -28,6 +29,8 @@ namespace Cosmos.Logging {
             ioc.RegisterInstance(serviceImpl.ExposeLoggingConfiguration(), ReuseType.Singleton);
 
             StaticServiceResolver.SetResolver(ioc.Resolve<ILoggingServiceProvider>());
+
+            serviceImpl.ActiveLogEventEnrichers();
 
             return ioc;
         }

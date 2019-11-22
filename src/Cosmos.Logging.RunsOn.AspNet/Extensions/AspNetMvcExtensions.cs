@@ -21,16 +21,23 @@ namespace Cosmos.Logging {
 
             BuildSoloContainer(serviceImpl);
 
+            RegisterEnricherComponents(serviceImpl);
+
             UpdateStaticProvider();
         }
 
         private static void RegisterCoreComponents(AspNetLogServiceCollection serviceImpl) {
             serviceImpl.AddDependency(s => s.AddSingleton<ILoggingServiceProvider, AspNetLoggingServiceProvider>());
+            serviceImpl.AddDependency(s => s.AddSingleton<IPropertyFactoryAccessor, ShortcutPropertyFactoryAccessor>());
             serviceImpl.BuildConfiguration();
             serviceImpl.ActiveSinkSettings();
             serviceImpl.ActiveOriginConfiguration();
             serviceImpl.AddDependency(s => s.AddSingleton(Options.Create((LoggingOptions) serviceImpl.ExposeLogSettings())));
             serviceImpl.AddDependency(s => s.AddSingleton(serviceImpl.ExposeLoggingConfiguration()));
+        }
+
+        private static void RegisterEnricherComponents(AspNetLogServiceCollection serviceImpl) {
+            serviceImpl.ActiveLogEventEnrichers();
         }
 
         private static void BuildSoloContainer(ILogServiceCollection serviceImpl) {

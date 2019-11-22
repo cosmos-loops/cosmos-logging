@@ -6,7 +6,7 @@ using Cosmos.Logging.Core.ObjectResolving.Rules;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Core.ObjectResolving {
-    public class MessageParameterResolver : IMessagePropertyFactory, IMessagePropertyValueFactory {
+    public class MessageParameterResolver : IMessagePropertyFactory, IMessagePropertyValueFactory, IShortcutPropertyFactory {
         private readonly int _maxLengthOfString;
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly int _maxLevelOfNestLevelLimited;
@@ -45,6 +45,10 @@ namespace Cosmos.Logging.Core.ObjectResolving {
 
         public MessageProperty CreateProperty(string name, object value, PropertyResolvingMode mode, int positionalValue = -1) {
             return new MessageProperty(name, positionalValue, CreatePropertyValue(value, mode, positionalValue));
+        }
+        
+        public MessageProperty CreateProperty(string name, object value, bool destructureObject = false) {
+            return CreateProperty(name, value, destructureObject ? PropertyResolvingMode.Destructure : PropertyResolvingMode.Default);
         }
 
         public MessagePropertyValue CreatePropertyValue(object value, PropertyResolvingMode mode, int positionalValue = -1) {

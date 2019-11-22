@@ -11,6 +11,7 @@ namespace Cosmos.Logging.Formattings.Helpers {
                 switch (c) {
                     case 'U':
                     case 'w':
+                    case 't':
                         command = c;
                         return true;
                 }
@@ -24,7 +25,8 @@ namespace Cosmos.Logging.Formattings.Helpers {
         public static Func<char, Func<object, IFormatProvider, object>> Format() => c => {
             if (c == 'U') return ToUpperInvariant;
             if (c == 'w') return ToLowerInvariant;
-            throw new ArgumentException("Undefined casing command");
+            if (c == 't') return ToTitleInvariant;
+            return ReturnOneself;
         };
 
         private static object ToUpperInvariant(object value, IFormatProvider formatProvider = null) {
@@ -40,6 +42,29 @@ namespace Cosmos.Logging.Formattings.Helpers {
                 return s.ToLowerInvariant();
             }
 
+            return value;
+        }
+
+        private static object ToTitleInvariant(object value, IFormatProvider formatProvider = null)
+        {
+            if (value is string s)
+            {
+                if (s.Length == 0)
+                    return s;
+
+                if (s.Length == 1)
+                    return $"{s[0]}".ToUpperInvariant();
+
+                if (s.Length > 1)
+                    return $"{$"{s[0]}".ToUpperInvariant()}{s.Substring(1, s.Length-1)}";
+
+                return s;
+            }
+            
+            return value;
+        }
+
+        private static object ReturnOneself(object value, IFormatProvider formatProvider = null) {
             return value;
         }
     }

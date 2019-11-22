@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.Renders {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -23,8 +24,11 @@ namespace Cosmos.Logging.Renders {
             // ReSharper disable once InconsistentlySynchronizedField
             if (!_preferencesRenders.ContainsKey(ignoreCaseName)) {
                 lock (_preferencesRendersLock) {
-                    if (!_preferencesRenders.ContainsKey(ignoreCaseName))
+                    if (!_preferencesRenders.ContainsKey(ignoreCaseName)) {
                         _preferencesRenders.Add(ignoreCaseName, renderer);
+                        if (renderer.CustomFormatProvider != null)
+                            CustomFormatProviderManager.Add(renderer.CustomFormatProvider.CreateCommandEvent);
+                    }
                 }
             }
         }

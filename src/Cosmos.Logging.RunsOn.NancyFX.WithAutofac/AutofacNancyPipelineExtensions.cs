@@ -27,6 +27,8 @@ namespace Cosmos.Logging {
             UpdateStaticProvider(container);
 
             NancyPipelinesHook.RegisterLoggingHandlers(pipelines);
+            
+            RegisterEnricherComponents(serviceImpl);
 
             return pipelines;
         }
@@ -37,10 +39,15 @@ namespace Cosmos.Logging {
             serviceImpl.ActiveOriginConfiguration();
         }
 
+        private static void RegisterEnricherComponents(AutofacNancyLogServiceCollection serviceImpl) {
+            serviceImpl.ActiveLogEventEnrichers();
+        }
+
         private static void UpdateAutofacContainer(ILifetimeScope container, AutofacNancyLogServiceCollection serviceImpl) {
             container.Update(builder => {
                 builder.Populate(serviceImpl.ExposeServices());
                 builder.RegisterType<NancyLoggingServiceProvider>().As<ILoggingServiceProvider>().SingleInstance();
+                builder.RegisterType<ShortcutPropertyFactoryAccessor>().As<IPropertyFactoryAccessor>().SingleInstance();
                 builder.RegisterInstance(Options.Create((LoggingOptions) serviceImpl.ExposeLogSettings()));
                 builder.RegisterInstance(serviceImpl.ExposeLoggingConfiguration());
             });

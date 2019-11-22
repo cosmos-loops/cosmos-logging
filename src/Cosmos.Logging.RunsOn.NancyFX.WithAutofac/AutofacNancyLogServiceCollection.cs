@@ -15,5 +15,9 @@ namespace Cosmos.Logging {
         internal new void ActiveOriginConfiguration() {
             base.ActiveOriginConfiguration();
         }
+        
+        internal new void ActiveLogEventEnrichers() {
+            base.ActiveLogEventEnrichers();
+        }
     }
 }

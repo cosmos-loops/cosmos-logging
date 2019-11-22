@@ -1,5 +1,6 @@
 ﻿using System;
 using Cosmos.Logging.Configurations;
+using Cosmos.Logging.Core.Enrichers;
 using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,8 @@ namespace Cosmos.Logging.Core {
         ILoggingOptions ExposeLogSettings();
         LoggingConfiguration ExposeLoggingConfiguration();
         ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction);
+
+        ILogServiceCollection AddEnricher(Func<ILogEventEnricher> enricherProvider);
 
         ILogServiceCollection AddSinkSettings<TSinkSettings, TSinkConfiguration>(TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> configAct)
             where TSinkSettings : class, ILoggingSinkOptions, new()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
+using Cosmos.Logging.Core.Enrichers;
 using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,7 @@ namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
         private readonly Dictionary<string, ILoggingSinkOptions> _sinkSettings;
         private object _sinkUpdateLock = new object();
         private Action<IConfigurationRoot> _originConfigAction;
+        private readonly List<Func<ILogEventEnricher>> _additionalEnricherProviders;
 
         private AspNetCoreLogServiceCollection() { }
 
@@ -32,6 +34,7 @@ namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
             _serviceCollection = services ?? throw new ArgumentNullException(nameof(services));
             _settings = new LoggingOptions();
             _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
+            _additionalEnricherProviders = new List<Func<ILogEventEnricher>>();
 
             BeGivenConfigurationBuilder = _configurationBuilder.InitializedByGivenBuilder;
             BeGivenConfigurationRoot = root != null;
@@ -49,6 +52,11 @@ namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
 
         public ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction) {
             dependencyAction?.Invoke(_serviceCollection);
+            return this;
+        }
+
+        public ILogServiceCollection AddEnricher(Func<ILogEventEnricher> enricherProvider) {
+            _additionalEnricherProviders.Add(enricherProvider);
             return this;
         }
 
@@ -121,6 +129,14 @@ namespace Cosmos.Logging.RunsOn.AspNetCore.Core {
 
         internal void ActiveOriginConfiguration() {
             _originConfigAction?.Invoke(_loggingConfiguration.Configuration);
+        }
+
+        internal void ActiveLogEventEnrichers()
+        {
+            foreach (var provider in _additionalEnricherProviders)
+            {
+                _loggingConfiguration.SetEnricher(provider.Invoke());
+            }
         }
     }
 }

@@ -11,5 +11,7 @@ namespace Cosmos.Logging.Core {
         LogEventSendMode SendMode { get; }
         Exception Exception { get; }
         ILogCallerInfo CallerInfo { get; }
+        LogEvent ToLogEvent();
+        IContextualLogEvent ToContextualLogEvent();
     }
 }

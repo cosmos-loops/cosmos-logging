@@ -11,11 +11,27 @@ namespace Cosmos.Logging.ExtraSupports {
 
         public void SetException(Exception exception) => this[ContextDataTypes.Exception] = new ContextDataExceptionItem(exception);
 
+        public void SetExceptionDetail(string rootName, IReadOnlyDictionary<string, object> destructuredObject, Exception exception, bool output) =>
+            this[ContextDataTypes.ExceptionDetail] = new ContextDataExceptionDetail(rootName, destructuredObject, exception, output);
+        
         public bool HasException() => ContainsKey(ContextDataTypes.Exception);
 
+        public bool HasExceptionDetail() => ContainsKey(ContextDataTypes.ExceptionDetail);
+        
         public Exception GetException() {
             if (!HasException()) return null;
             return this[ContextDataTypes.Exception] as ContextDataExceptionItem;
+        }
+
+        public (string RootName, IReadOnlyDictionary<string, object> DestructuredObject) GetExceptionDetail()
+        {
+            if (!HasExceptionDetail()) return (string.Empty, null);
+            return this[ContextDataTypes.ExceptionDetail] as ContextDataExceptionDetail;
+        }
+
+        public string GetExceptionDetailName()
+        {
+            return GetExceptionDetail().RootName;
         }
 
         #endregion

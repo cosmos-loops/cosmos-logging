@@ -44,14 +44,14 @@ namespace Cosmos.Logging {
 
         public void SetExtraSinkConfiguration<TExtraSinkConfiguration, TExtraSinkSettings>(
             string sectionName, TExtraSinkSettings settings,
-            Action<IConfiguration, TExtraSinkConfiguration, LoggingConfiguration> addtionalAct = null)
+            Action<IConfiguration, TExtraSinkConfiguration, LoggingConfiguration> additionalAct = null)
             where TExtraSinkSettings : class, ILoggingSinkOptions, new()
             where TExtraSinkConfiguration : SinkConfiguration, new() {
             if (string.IsNullOrWhiteSpace(sectionName)) throw new ArgumentNullException(nameof(sectionName));
             if (settings == null) throw new ArgumentNullException(nameof(settings));
             var section = _loggingConfiguration.GetSection($"Logging:{sectionName}");
             var configuration = section.Get<TExtraSinkConfiguration>() ?? new TExtraSinkConfiguration();
-            addtionalAct?.Invoke(section, configuration, this);
+            additionalAct?.Invoke(section, configuration, this);
 
             SetSinkConfiguration(configuration, settings);
         }

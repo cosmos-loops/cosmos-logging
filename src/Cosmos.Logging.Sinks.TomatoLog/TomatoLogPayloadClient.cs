@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cosmos.Logging.Core.Enrichers;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters;
@@ -40,6 +41,7 @@ namespace Cosmos.Logging.Sinks.TomatoLog
 
                 foreach (var logEvent in legalityEvents)
                 {
+                    LogEventEnricherManager.Enricher(logEvent);
                     var stringBuilder = new StringBuilder();
                     using (var output = new StringWriter(stringBuilder, _formatProvider))
                     {

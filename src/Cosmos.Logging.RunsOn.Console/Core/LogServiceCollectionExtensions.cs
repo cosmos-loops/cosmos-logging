@@ -34,8 +34,10 @@ namespace Cosmos.Logging {
             LOGGER._initialized = true;
         }
 
-        private static ILogServiceCollection RegisterToRunsOnConsole(this ILogServiceCollection services) {
-            return services.AddDependency(s => s.AddSingleton<ILoggingServiceProvider, ConsoleLoggingServiceProvider>());
+        private static ILogServiceCollection RegisterToRunsOnConsole(this ILogServiceCollection services) { 
+            services.AddDependency(s => s.AddSingleton<ILoggingServiceProvider, ConsoleLoggingServiceProvider>());
+            services.AddDependency(s => s.AddSingleton<IPropertyFactoryAccessor, ShortcutPropertyFactoryAccessor>());
+            return services;
         }
     }
 }

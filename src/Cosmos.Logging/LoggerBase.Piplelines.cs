@@ -38,7 +38,8 @@ namespace Cosmos.Logging {
 
                             var logEvent = new LogEvent(StateNamespace, eventId, level, parsedTemplate, exception,
                                 LogEventSendMode.Automatic, callerInfo, _upstreamRenderingOptions,
-                                namedMessageProperties, positionalMessageProperties, context);
+                                namedMessageProperties, positionalMessageProperties, context, 
+                                messageProcessorShortcut:_messageParameterProcessor);
 
                             if (succeeded.ItemCount >= 1) {
                                 _automaticAsyncQueue.ReleaseWrite(logEvent);
@@ -137,7 +138,8 @@ namespace Cosmos.Logging {
                     out var parsedTemplate, out var namedMessageProperties, out var positionalMessageProperties);
 
                 var logEvent = new LogEvent(StateNamespace, eventId, level, parsedTemplate, exception,
-                    sendMode, callerInfo, _upstreamRenderingOptions, namedMessageProperties, positionalMessageProperties, context);
+                    sendMode, callerInfo, _upstreamRenderingOptions, namedMessageProperties, positionalMessageProperties, context,
+                    messageProcessorShortcut: _messageParameterProcessor);
 
                 Dispatch(logEvent);
 

@@ -35,5 +35,7 @@ namespace Cosmos.Logging.Renders {
 
         public string ToString(IList<Func<object, IFormatProvider, object>> formattingFuncs, string paramsText,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) => string.Empty;
+
+        public virtual CustomFormatProvider CustomFormatProvider => null;
     }
 }
