@@ -28,5 +28,7 @@ namespace Cosmos.Logging.Renders {
 
         void Render(IList<Func<object, IFormatProvider, object>> formattingFuncs, string paramsText, StringBuilder stringBuilder,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null);
+
+        CustomFormatProvider CustomFormatProvider { get; }
     }
 }
