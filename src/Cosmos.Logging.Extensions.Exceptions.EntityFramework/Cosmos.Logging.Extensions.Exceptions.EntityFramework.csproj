@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\build\common.net461-net451.props" />
+    <PropertyGroup>
+        <TargetFrameworks>net461;net451</TargetFrameworks>
+        <AssemblyName>Cosmos.Logging.Extensions.Exceptions.EntityFramework</AssemblyName>
+        <PackageId>Cosmos.Logging.Extensions.Exceptions.EntityFramework</PackageId>
+        <Description>EntityFramework Exceptions extension/enricher for Cosmos.Logging.</Description>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Logging.Extensions.Exceptions\Cosmos.Logging.Extensions.Exceptions.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="EntityFramework" Version="6.4.0-preview3-19553-01" />
+    </ItemGroup>
+</Project>

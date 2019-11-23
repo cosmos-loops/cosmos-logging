@@ -120,6 +120,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.ExceptionTests", "tests\Cosmos.Logging.ExceptionTests\Cosmos.Logging.ExceptionTests.csproj", "{1E18BB99-9F88-4E83-919A-0C6DE4302C68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.Exceptions.SqlServer", "src\Cosmos.Logging.Extensions.Exceptions.SqlServer\Cosmos.Logging.Extensions.Exceptions.SqlServer.csproj", "{F8EDCD14-96E7-44B8-A5D7-125EE6E157FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.Exceptions.MySql", "src\Cosmos.Logging.Extensions.Exceptions.MySql\Cosmos.Logging.Extensions.Exceptions.MySql.csproj", "{C9DEAA84-D32F-4828-9B43-806A75D4A790}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.Exceptions.MySqlConnector", "src\Cosmos.Logging.Extensions.Exceptions.MySqlConnector\Cosmos.Logging.Extensions.Exceptions.MySqlConnector.csproj", "{3CD02265-4C6F-478C-A99A-52FAAD731E08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.Exceptions.EntityFrameworkCore", "src\Cosmos.Logging.Extensions.Exceptions.EntityFrameworkCore\Cosmos.Logging.Extensions.Exceptions.EntityFrameworkCore.csproj", "{E089513A-A862-4B35-B0BE-ECCC7229BC87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enrichers", "Enrichers", "{476882C1-A52F-46CB-B5D2-56AA844AE460}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.Exceptions.EntityFramework", "src\Cosmos.Logging.Extensions.Exceptions.EntityFramework\Cosmos.Logging.Extensions.Exceptions.EntityFramework.csproj", "{34B15CF1-E58B-44A9-9469-FEE3E56B09D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.Exceptions.Sqlite", "src\Cosmos.Logging.Extensions.Exceptions.Sqlite\Cosmos.Logging.Extensions.Exceptions.Sqlite.csproj", "{3D5FECB6-6097-4C82-B216-B711E9F149B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.Exceptions.Oracle", "src\Cosmos.Logging.Extensions.Exceptions.Oracle\Cosmos.Logging.Extensions.Exceptions.Oracle.csproj", "{50115C63-5D77-468E-B640-31D53F702668}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.Exceptions.PostgreSql", "src\Cosmos.Logging.Extensions.Exceptions.PostgreSql\Cosmos.Logging.Extensions.Exceptions.PostgreSql.csproj", "{3E9B9611-5A58-4AF3-8EAD-EC99700A5EC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -302,6 +320,38 @@ Global
 		{1E18BB99-9F88-4E83-919A-0C6DE4302C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E18BB99-9F88-4E83-919A-0C6DE4302C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E18BB99-9F88-4E83-919A-0C6DE4302C68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8EDCD14-96E7-44B8-A5D7-125EE6E157FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8EDCD14-96E7-44B8-A5D7-125EE6E157FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8EDCD14-96E7-44B8-A5D7-125EE6E157FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8EDCD14-96E7-44B8-A5D7-125EE6E157FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9DEAA84-D32F-4828-9B43-806A75D4A790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9DEAA84-D32F-4828-9B43-806A75D4A790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9DEAA84-D32F-4828-9B43-806A75D4A790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9DEAA84-D32F-4828-9B43-806A75D4A790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CD02265-4C6F-478C-A99A-52FAAD731E08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD02265-4C6F-478C-A99A-52FAAD731E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD02265-4C6F-478C-A99A-52FAAD731E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD02265-4C6F-478C-A99A-52FAAD731E08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E089513A-A862-4B35-B0BE-ECCC7229BC87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E089513A-A862-4B35-B0BE-ECCC7229BC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E089513A-A862-4B35-B0BE-ECCC7229BC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E089513A-A862-4B35-B0BE-ECCC7229BC87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34B15CF1-E58B-44A9-9469-FEE3E56B09D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34B15CF1-E58B-44A9-9469-FEE3E56B09D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34B15CF1-E58B-44A9-9469-FEE3E56B09D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34B15CF1-E58B-44A9-9469-FEE3E56B09D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D5FECB6-6097-4C82-B216-B711E9F149B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D5FECB6-6097-4C82-B216-B711E9F149B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D5FECB6-6097-4C82-B216-B711E9F149B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D5FECB6-6097-4C82-B216-B711E9F149B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50115C63-5D77-468E-B640-31D53F702668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50115C63-5D77-468E-B640-31D53F702668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50115C63-5D77-468E-B640-31D53F702668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50115C63-5D77-468E-B640-31D53F702668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E9B9611-5A58-4AF3-8EAD-EC99700A5EC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E9B9611-5A58-4AF3-8EAD-EC99700A5EC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E9B9611-5A58-4AF3-8EAD-EC99700A5EC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E9B9611-5A58-4AF3-8EAD-EC99700A5EC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -356,8 +406,17 @@ Global
 		{D5DDCE11-B386-4DBF-A0EB-4250927827DF} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
 		{E7360C60-B4D3-4582-A27E-B94A0B18DCF9} = {6B34D26B-352B-4EF7-87D6-F353B4CD6AB7}
 		{B64775AE-E8E6-4909-BFE6-DEF215A0BB20} = {DA92F6C9-C92A-426E-853D-36654BB8F15C}
-		{A81EDE74-027D-4D08-AB8A-3237E72B0974} = {94BC7763-6909-438E-92AD-C3E7602541C4}
 		{1E18BB99-9F88-4E83-919A-0C6DE4302C68} = {DA92F6C9-C92A-426E-853D-36654BB8F15C}
+		{476882C1-A52F-46CB-B5D2-56AA844AE460} = {EB80C43D-DCA2-4433-8297-0EFBF7AE5CF5}
+		{A81EDE74-027D-4D08-AB8A-3237E72B0974} = {476882C1-A52F-46CB-B5D2-56AA844AE460}
+		{E089513A-A862-4B35-B0BE-ECCC7229BC87} = {476882C1-A52F-46CB-B5D2-56AA844AE460}
+		{C9DEAA84-D32F-4828-9B43-806A75D4A790} = {476882C1-A52F-46CB-B5D2-56AA844AE460}
+		{3CD02265-4C6F-478C-A99A-52FAAD731E08} = {476882C1-A52F-46CB-B5D2-56AA844AE460}
+		{F8EDCD14-96E7-44B8-A5D7-125EE6E157FF} = {476882C1-A52F-46CB-B5D2-56AA844AE460}
+		{34B15CF1-E58B-44A9-9469-FEE3E56B09D3} = {476882C1-A52F-46CB-B5D2-56AA844AE460}
+		{3D5FECB6-6097-4C82-B216-B711E9F149B2} = {476882C1-A52F-46CB-B5D2-56AA844AE460}
+		{50115C63-5D77-468E-B640-31D53F702668} = {476882C1-A52F-46CB-B5D2-56AA844AE460}
+		{3E9B9611-5A58-4AF3-8EAD-EC99700A5EC2} = {476882C1-A52F-46CB-B5D2-56AA844AE460}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7494AB0-4276-4102-B112-7BBE0329D263}

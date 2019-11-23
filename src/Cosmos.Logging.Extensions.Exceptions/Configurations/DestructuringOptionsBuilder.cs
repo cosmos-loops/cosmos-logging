@@ -61,6 +61,14 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
             return this;
         }
 
+        public DestructuringOptionsBuilder WithDestructurer(IExceptionDestructurer destructurer)
+        {
+            if (destructurer is null)
+                throw new ArgumentNullException(nameof(destructurer));
+            _destructurers.Add(destructurer);
+            return this;
+        }
+
         public DestructuringOptionsBuilder WithDestructurers(IEnumerable<IExceptionDestructurer> destructurers)
         {
             if (destructurers is null)
