@@ -14,6 +14,7 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
     {
         private readonly DestructuringOptionsBuilder _builder;
         private readonly OptionUpdateStatus _builderChangedStatus;
+        private Action<DestructuringOptionsBuilder> _additionalUpdateDestructurerOps { get; set; }
 
         public ExceptionOptions()
         {
@@ -69,21 +70,26 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
             return UseFilter(filter);
         }
 
-        public ExceptionOptions UseDestucturer(IExceptionDestructurer destructurer)
+        public ExceptionOptions UseDestucturer(IExceptionDestructurer destructurer, bool appendMode = true)
         {
-            OpsBuildSetter(b => b.WithDestructurers(new List<IExceptionDestructurer> {destructurer}));
+            if (appendMode)
+                OpsBuildSetter(b => OpsBuildAdditionalUpdate(destructurer));
+            else
+                OpsBuildSetter(b => b.WithDestructurer(destructurer));
             return this;
         }
 
-        public ExceptionOptions UseDestucturer<TDestructurer>() where TDestructurer : class, IExceptionDestructurer, new()
+        public ExceptionOptions UseDestucturer<TDestructurer>(bool appendMode = true) where TDestructurer : class, IExceptionDestructurer, new()
         {
-            var destructurer = new TDestructurer();
-            return UseDestucturer(destructurer);
+            return UseDestucturer(new TDestructurer(), appendMode);
         }
 
-        public ExceptionOptions UseDestucturers(IEnumerable<IExceptionDestructurer> destructurers)
+        public ExceptionOptions UseDestucturers(IEnumerable<IExceptionDestructurer> destructurers, bool appendMode = true)
         {
-            OpsBuildSetter(b => b.WithDestructurers(destructurers));
+            if (appendMode)
+                OpsBuildSetter(b => OpsBuildAdditionalUpdate(destructurers));
+            else
+                OpsBuildSetter(b => b.WithDestructurers(destructurers));
             return this;
         }
 
@@ -100,6 +106,8 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
 
             if (_builder.Filter == null)
                 OpsBuildSetter(b => b.WithDefaultFilter());
+
+            _additionalUpdateDestructurerOps?.Invoke(_builder);
 
             _builderChangedStatus.Built = true;
 
@@ -120,6 +128,24 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
 
             settingAct(_builder);
             changedAct?.Invoke(_builderChangedStatus);
+        }
+
+        private void OpsBuildAdditionalUpdate(IExceptionDestructurer destructurer)
+        {
+            if (destructurer == null)
+                return;
+
+            if (_additionalUpdateDestructurerOps == null)
+                _additionalUpdateDestructurerOps = b => b.WithDestructurer(destructurer);
+        }
+
+        private void OpsBuildAdditionalUpdate(IEnumerable<IExceptionDestructurer> destructurers)
+        {
+            if (destructurers == null)
+                return;
+
+            foreach (var destructure in destructurers)
+                OpsBuildAdditionalUpdate(destructure);
         }
 
         #endregion

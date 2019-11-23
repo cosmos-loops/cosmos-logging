@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\build\common.ns20-net461.props" />
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+        <AssemblyName>Cosmos.Logging.Extensions.Exceptions.MySql</AssemblyName>
+        <PackageId>Cosmos.Logging.Extensions.Exceptions.MySql</PackageId>
+        <Description>MySQL Exceptions extension/enricher for Cosmos.Logging.</Description>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Logging.Extensions.Exceptions\Cosmos.Logging.Extensions.Exceptions.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="MySql.Data" Version="8.0.18" />
+    </ItemGroup>
+</Project>
