@@ -10,9 +10,9 @@
         <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj"/>
+        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="EntityFramework" Version="6.3.0-preview5-19254-05"/>
+        <PackageReference Include="EntityFramework" Version="6.4.0-preview3-19553-01" />
     </ItemGroup>
 </Project>
