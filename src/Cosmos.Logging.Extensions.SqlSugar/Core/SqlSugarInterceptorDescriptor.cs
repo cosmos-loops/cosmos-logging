@@ -6,10 +6,10 @@ using SqlSugar;
 
 namespace Cosmos.Logging.Extensions.SqlSugar.Core {
     public class SqlSugarInterceptorDescriptor {
-        private readonly SqlSugarOptions _settings;
+        private readonly SqlSugarEnricherOptions _settings;
         private readonly ILoggingServiceProvider _loggingServiceProvider;
 
-        public SqlSugarInterceptorDescriptor(ILoggingServiceProvider loggingServiceProvider, IOptions<SqlSugarOptions> settings) {
+        public SqlSugarInterceptorDescriptor(ILoggingServiceProvider loggingServiceProvider, IOptions<SqlSugarEnricherOptions> settings) {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
             _settings = settings?.Value;
         }

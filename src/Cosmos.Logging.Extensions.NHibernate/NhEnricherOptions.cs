@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Extensions.SqlSugar.Core;
-using SqlSugar;
+using Cosmos.Logging.Extensions.NHibernate.Core;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
-    public class SqlSugarOptions : ILoggingSinkOptions<SqlSugarOptions>, ILoggingSinkOptions {
+    public class NhEnricherOptions : ILoggingSinkOptions<NhEnricherOptions>, ILoggingSinkOptions {
 
-        public SqlSugarOptions() { }
+        public NhEnricherOptions() { }
 
         public string Key => Constants.SinkKey;
 
@@ -20,9 +19,9 @@ namespace Cosmos.Logging {
 
         internal LogEventLevel? MinimumLevel { get; set; }
 
-        public SqlSugarOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
+        public NhEnricherOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
 
-        public SqlSugarOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
+        public NhEnricherOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var typeName = TypeNameHelper.GetTypeDisplayName(type);
             if (InternalNavigatorLogEventLevels.ContainsKey(typeName)) {
@@ -34,15 +33,15 @@ namespace Cosmos.Logging {
             return this;
         }
 
-        public SqlSugarOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
+        public NhEnricherOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
-        public SqlSugarOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
+        public NhEnricherOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var @namespace = type.Namespace;
             return UseMinimumLevelForCategoryName(@namespace, level);
         }
 
-        public SqlSugarOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level) {
+        public NhEnricherOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level) {
             if (string.IsNullOrWhiteSpace(categoryName)) throw new ArgumentNullException(nameof(categoryName));
             categoryName = $"{categoryName}.*";
             if (InternalNavigatorLogEventLevels.ContainsKey(categoryName)) {
@@ -54,7 +53,7 @@ namespace Cosmos.Logging {
             return this;
         }
 
-        public SqlSugarOptions UseMinimumLevel(LogEventLevel? level) {
+        public NhEnricherOptions UseMinimumLevel(LogEventLevel? level) {
             MinimumLevel = level;
             return this;
         }
@@ -65,7 +64,7 @@ namespace Cosmos.Logging {
 
         internal readonly Dictionary<string, LogEventLevel> InternalAliases = new Dictionary<string, LogEventLevel>();
 
-        public SqlSugarOptions UseAlias(string alias, LogEventLevel level) {
+        public NhEnricherOptions UseAlias(string alias, LogEventLevel level) {
             if (string.IsNullOrWhiteSpace(alias)) return this;
             if (InternalAliases.ContainsKey(alias)) {
                 InternalAliases[alias] = level;
@@ -78,34 +77,11 @@ namespace Cosmos.Logging {
 
         #endregion
 
-        #region Append Interceptor
-
-        internal Action<Exception> ErrorInterceptorAction { get; set; }
-        internal Action<string, SugarParameter[]> ExecutingInterceptorAction { get; set; }
-        internal Action<string, SugarParameter[]> ExecutedInterceptorAction { get; set; }
-
-        public SqlSugarOptions AddExecutingInterceptor(Action<string, SugarParameter[]> executingInterceptor) {
-            ExecutingInterceptorAction += executingInterceptor ?? throw new ArgumentNullException(nameof(executingInterceptor));
-            return this;
-        }
-
-        public SqlSugarOptions AddExecutedInterceptor(Action<string, SugarParameter[]> executedInterceptor) {
-            ExecutedInterceptorAction += executedInterceptor ?? throw new ArgumentNullException(nameof(executedInterceptor));
-            return this;
-        }
-
-        public SqlSugarOptions AddErrorInterceptor(Action<Exception> errorInterceptor) {
-            ErrorInterceptorAction += errorInterceptor ?? throw new ArgumentNullException(nameof(errorInterceptor));
-            return this;
-        }
-
-        #endregion
-
         #region Appeng filter
 
         internal Func<string, LogEventLevel, bool> Filter { get; set; }
 
-        public SqlSugarOptions UseFilter(Func<string, LogEventLevel, bool> filter) {
+        public NhEnricherOptions UseFilter(Func<string, LogEventLevel, bool> filter) {
             if (filter == null) throw new ArgumentNullException(nameof(filter));
 
             var temp = Filter;
@@ -115,22 +91,22 @@ namespace Cosmos.Logging {
         }
 
         #endregion
-
+        
         #region Append output
 
         private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
 
-        public SqlSugarOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
+        public NhEnricherOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
             _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
             return this;
         }
 
-        public SqlSugarOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled) {
+        public NhEnricherOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled) {
             _renderingOptions.DisplayingEventIdInfoEnabled = displayingEventIdInfoEnabled;
             return this;
         }
-
-        public SqlSugarOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled) {
+        
+        public NhEnricherOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled) {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }

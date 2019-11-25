@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\..\build\common.ns20-net461.props"/>
+    <Import Project="..\..\build\common.ns20-net461.props" />
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
         <AssemblyName>Cosmos.Logging.Extensions.EntityFrameworkCore</AssemblyName>
@@ -10,12 +10,12 @@
         <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Cosmos.Logging.Extensions.Microsoft\Cosmos.Logging.Extensions.Microsoft.csproj"/>
-        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj"/>
+        <ProjectReference Include="..\Cosmos.Logging.Extensions.Microsoft\Cosmos.Logging.Extensions.Microsoft.csproj" />
+        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Alexinea.EntityFrameworkCore.LoggingExposure" Version="2.2.4"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.4"/>
+        <PackageReference Include="Alexinea.EntityFrameworkCore.LoggingExposure" Version="2.2.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.4" />
     </ItemGroup>
 </Project>

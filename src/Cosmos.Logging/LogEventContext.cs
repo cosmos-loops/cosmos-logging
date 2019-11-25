@@ -34,7 +34,7 @@ namespace Cosmos.Logging {
 
         internal LogEventSendMode SendMode { get; private set; } = LogEventSendMode.Customize;
 
-        public LogEventContext FileAutomatically() {
+        public LogEventContext FireAutomatically() {
             SendMode = LogEventSendMode.Automatic;
             return this;
         }

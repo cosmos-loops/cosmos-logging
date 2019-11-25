@@ -11,14 +11,14 @@ using Microsoft.Extensions.Options;
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging
 {
-    public static class FreeSqlExtraSinkExtensions
+    public static class FreeSqlEnricherExtensions
     {
-        public static DatabaseIntegration UseFreeSql(this DatabaseIntegration integration, Action<FreeSqlOptions> settingAct = null,
-            Action<IConfiguration, FreeSqlConfiguration> configAction = null) {
-            var settings = new FreeSqlOptions();
+        public static DatabaseIntegration UseFreeSql(this DatabaseIntegration integration, Action<FreeSqlEnricherOptions> settingAct = null,
+            Action<IConfiguration, FreeSqlEnricherConfiguration> configAction = null) {
+            var settings = new FreeSqlEnricherOptions();
             settingAct?.Invoke(settings);
 
-            void InternalAction(IConfiguration conf, FreeSqlConfiguration sink, LoggingConfiguration configuration) {
+            void InternalAction(IConfiguration conf, FreeSqlEnricherConfiguration sink, LoggingConfiguration configuration) {
                 configAction?.Invoke(conf, sink);
                 if (configuration?.LogLevel != null) {
                     var @namespace = "FreeSql.*";
@@ -36,15 +36,15 @@ namespace Cosmos.Logging
         }
 
 
-        private static DatabaseIntegration UseFreeSqlCore(DatabaseIntegration integration, IOptions<FreeSqlOptions> settings,
-            Action<IConfiguration, FreeSqlConfiguration, LoggingConfiguration> config = null)
+        private static DatabaseIntegration UseFreeSqlCore(DatabaseIntegration integration, IOptions<FreeSqlEnricherOptions> settings,
+            Action<IConfiguration, FreeSqlEnricherConfiguration, LoggingConfiguration> config = null)
         {
             if (integration == null) throw new ArgumentNullException(nameof(integration));
 
             var serviceImpl = integration.ExposeServiceCollectionWrapper;
             if (serviceImpl != null)
             {
-                serviceImpl.AddExtraSinkSettings<FreeSqlOptions, FreeSqlConfiguration>(settings.Value, (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
+                serviceImpl.AddExtraSinkSettings<FreeSqlEnricherOptions, FreeSqlEnricherConfiguration>(settings.Value, (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(typeof(FreeSqlInterceptorDescriptor),
                     provider => new FreeSqlInterceptorDescriptor(provider.GetService<ILoggingServiceProvider>(), settings))));
@@ -57,7 +57,7 @@ namespace Cosmos.Logging
 
         private static void RegisterCoreComponentsTypes()
         {
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<FreeSqlOptions>), false, ServiceLifetime.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<FreeSqlEnricherOptions>), false, ServiceLifetime.Singleton));
             SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(FreeSqlInterceptorDescriptor), false, ServiceLifetime.Singleton));
         }
     }

@@ -7,7 +7,7 @@ using Cosmos.Logging.Extensions.EntityFramework.Core;
 namespace Cosmos.Logging {
     public static class DatabaseExtensions {
         internal static ILoggingServiceProvider LoggingServiceProvider { get; set; }
-        internal static EfSinkOptions Settings { get; set; }
+        internal static EfEnricherOptions Settings { get; set; }
         internal static Func<string, object> GlobalSimpleLoggingInterceptor { get; set; }
 
         public static void UseCosmosLogging(this Database db, Func<string, object> loggerAct = null) {

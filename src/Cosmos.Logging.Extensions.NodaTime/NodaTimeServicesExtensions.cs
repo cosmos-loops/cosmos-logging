@@ -9,7 +9,7 @@ namespace Cosmos.Logging
 {
     public static class NodaTimeServicesExtensions
     {
-        public static ILogServiceCollection ConfigureForNodaTime(this ILogServiceCollection services, IDateTimeZoneProvider provider)
+        public static ILogServiceCollection AddNodaTimeIntegration(this ILogServiceCollection services, IDateTimeZoneProvider provider)
         {
             if (services == null)
                 throw new ArgumentNullException(nameof(services));

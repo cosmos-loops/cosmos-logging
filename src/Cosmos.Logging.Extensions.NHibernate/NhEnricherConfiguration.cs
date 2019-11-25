@@ -1,16 +1,16 @@
 ﻿using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Extensions;
-using Cosmos.Logging.Extensions.EntityFramework.Core;
+using Cosmos.Logging.Extensions.NHibernate.Core;
 using EnumsNET;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
-    public class EfSinkConfiguration : SinkConfiguration {
+    public class NhEnricherConfiguration : SinkConfiguration {
 
-        public EfSinkConfiguration() : base(Constants.SinkKey) { }
+        public NhEnricherConfiguration() : base(Constants.SinkKey) { }
 
         protected override void BeforeProcessing(ILoggingSinkOptions settings) {
-            if (settings is EfSinkOptions options) {
+            if (settings is NhEnricherOptions options) {
                 Aliases.MergeAndOverWrite(options.InternalAliases, k => k, v => v.GetName());
                 LogLevel.MergeAndOverWrite(options.InternalNavigatorLogEventLevels, k => k, v => v.GetName());
             }
