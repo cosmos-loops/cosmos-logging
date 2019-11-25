@@ -1,16 +1,16 @@
 ﻿using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Extensions;
-using Cosmos.Logging.Extensions.SqlSugar.Core;
+using Cosmos.Logging.Extensions.EntityFrameworkCore.Core;
 using EnumsNET;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
-    public class SqlSguarConfiguration : SinkConfiguration {
+    public class EfCoreEnricherConfiguration : SinkConfiguration {
 
-        public SqlSguarConfiguration() : base(Constants.SinkKey) { }
+        public EfCoreEnricherConfiguration() : base(Constants.SinkKey) { }
 
         protected override void BeforeProcessing(ILoggingSinkOptions settings) {
-            if (settings is SqlSugarOptions options) {
+            if (settings is EfCoreEnricherOptions options) {
                 Aliases.MergeAndOverWrite(options.InternalAliases, k => k, v => v.GetName());
                 LogLevel.MergeAndOverWrite(options.InternalNavigatorLogEventLevels, k => k, v => v.GetName());
             }

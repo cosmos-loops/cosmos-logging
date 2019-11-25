@@ -11,13 +11,13 @@ using Microsoft.Extensions.Options;
 
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
-    public static class EfExtraSinkExtensions {
-        public static DatabaseIntegration UseEntityFramework(this DatabaseIntegration integration, Action<EfSinkOptions> settingAct = null,
-            Action<IConfiguration, EfSinkConfiguration> configAction = null) {
-            var settings = new EfSinkOptions();
+    public static class EfEnricherExtensions {
+        public static DatabaseIntegration UseEntityFramework(this DatabaseIntegration integration, Action<EfEnricherOptions> settingAct = null,
+            Action<IConfiguration, EfEnricherConfiguration> configAction = null) {
+            var settings = new EfEnricherOptions();
             settingAct?.Invoke(settings);
 
-            void InternalAction(IConfiguration conf, EfSinkConfiguration sink, LoggingConfiguration configuration) {
+            void InternalAction(IConfiguration conf, EfEnricherConfiguration sink, LoggingConfiguration configuration) {
                 configAction?.Invoke(conf, sink);
                 if (configuration?.LogLevel != null) {
                     AddNamespace($"{typeof(DbContext).Namespace}.*", GetExpectLevelName());
@@ -41,13 +41,13 @@ namespace Cosmos.Logging {
             return UseEntityFrameworkCore(integration, Options.Create(settings), InternalAction);
         }
 
-        private static DatabaseIntegration UseEntityFrameworkCore(DatabaseIntegration integration, IOptions<EfSinkOptions> settings,
-            Action<IConfiguration, EfSinkConfiguration, LoggingConfiguration> config = null) {
+        private static DatabaseIntegration UseEntityFrameworkCore(DatabaseIntegration integration, IOptions<EfEnricherOptions> settings,
+            Action<IConfiguration, EfEnricherConfiguration, LoggingConfiguration> config = null) {
             if (integration == null) throw new ArgumentNullException(nameof(integration));
 
             var serviceImpl = integration.ExposeServiceCollectionWrapper;
             if (serviceImpl != null) {
-                serviceImpl.AddExtraSinkSettings<EfSinkOptions, EfSinkConfiguration>(settings.Value, (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
+                serviceImpl.AddExtraSinkSettings<EfEnricherOptions, EfEnricherConfiguration>(settings.Value, (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(typeof(EfInterceptorDescriptor),
                     provider => new EfInterceptorDescriptor(provider.GetService<ILoggingServiceProvider>(), settings))));
@@ -62,7 +62,7 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterCoreComponentsTypes() {
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<EfSinkOptions>), false, ServiceLifetime.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<EfEnricherOptions>), false, ServiceLifetime.Singleton));
             SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(EfInterceptorDescriptor), false, ServiceLifetime.Singleton));
             SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(EfIntegrationActivation), false, ServiceLifetime.Singleton));
         }

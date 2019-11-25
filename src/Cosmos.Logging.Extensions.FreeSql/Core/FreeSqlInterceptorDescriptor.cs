@@ -8,10 +8,10 @@ namespace Cosmos.Logging.Extensions.FreeSql.Core
 {
     public class FreeSqlInterceptorDescriptor
     {
-        private readonly FreeSqlOptions _settings;
+        private readonly FreeSqlEnricherOptions _settings;
         private readonly ILoggingServiceProvider _loggingServiceProvider;
 
-        public FreeSqlInterceptorDescriptor(ILoggingServiceProvider loggingServiceProvider, IOptions<FreeSqlOptions> settings)
+        public FreeSqlInterceptorDescriptor(ILoggingServiceProvider loggingServiceProvider, IOptions<FreeSqlEnricherOptions> settings)
         {
             _loggingServiceProvider = loggingServiceProvider;
             _settings = settings?.Value;

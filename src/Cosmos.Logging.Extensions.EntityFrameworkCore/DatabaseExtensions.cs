@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Cosmos.Logging {
     public static class DatabaseExtensions {
         private static ILoggingServiceProvider LoggingServiceProvider => EfCoreInterceptorDescriptor.Instance.ExposeLoggingServiceProvider;
-        private static EfCoreSinkOptions Settings => EfCoreInterceptorDescriptor.Instance.ExposeSettings;
+        private static EfCoreEnricherOptions Settings => EfCoreInterceptorDescriptor.Instance.ExposeSettings;
         private static Func<string, object> GlobalSimpleLoggingInterceptor => EfCoreInterceptorDescriptor.Instance.ExposeSettings.SimgleLoggingAction;
         private static RendingConfiguration UpstreamRenderingOptions => EfCoreInterceptorDescriptor.Instance.ExposeSettings.GetRenderingOptions();
 

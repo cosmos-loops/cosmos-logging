@@ -4,10 +4,10 @@ using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.Extensions.EntityFramework.Core {
     internal class EfInterceptorDescriptor {
-        private readonly EfSinkOptions _settings;
+        private readonly EfEnricherOptions _settings;
         private readonly ILoggingServiceProvider _loggingServiceProvider;
 
-        public EfInterceptorDescriptor(ILoggingServiceProvider loggingServiceProvider, IOptions<EfSinkOptions> settings) {
+        public EfInterceptorDescriptor(ILoggingServiceProvider loggingServiceProvider, IOptions<EfEnricherOptions> settings) {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
             _settings = settings?.Value;
         }
@@ -34,6 +34,6 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
 
         internal ILoggingServiceProvider ExposeLoggingServiceProvider => _loggingServiceProvider;
 
-        internal EfSinkOptions ExposeSettings => _settings;
+        internal EfEnricherOptions ExposeSettings => _settings;
     }
 }

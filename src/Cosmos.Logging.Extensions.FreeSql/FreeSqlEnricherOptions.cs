@@ -9,9 +9,9 @@ using FreeSql.Aop;
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging
 {
-    public class FreeSqlOptions : ILoggingSinkOptions<FreeSqlOptions>, ILoggingSinkOptions
+    public class FreeSqlEnricherOptions : ILoggingSinkOptions<FreeSqlEnricherOptions>, ILoggingSinkOptions
     {
-        public FreeSqlOptions() { }
+        public FreeSqlEnricherOptions() { }
 
         public string Key => Constants.SinkKey;
 
@@ -21,9 +21,9 @@ namespace Cosmos.Logging
 
         internal LogEventLevel? MinimumLevel { get; set; }
 
-        public FreeSqlOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
+        public FreeSqlEnricherOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
 
-        public FreeSqlOptions UseMinimumLevelForType(Type type, LogEventLevel level)
+        public FreeSqlEnricherOptions UseMinimumLevelForType(Type type, LogEventLevel level)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var typeName = TypeNameHelper.GetTypeDisplayName(type);
@@ -39,16 +39,16 @@ namespace Cosmos.Logging
             return this;
         }
 
-        public FreeSqlOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
+        public FreeSqlEnricherOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
-        public FreeSqlOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level)
+        public FreeSqlEnricherOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var @namespace = type.Namespace;
             return UseMinimumLevelForCategoryName(@namespace, level);
         }
 
-        public FreeSqlOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level)
+        public FreeSqlEnricherOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level)
         {
             if (string.IsNullOrWhiteSpace(categoryName)) throw new ArgumentNullException(nameof(categoryName));
             categoryName = $"{categoryName}.*";
@@ -64,7 +64,7 @@ namespace Cosmos.Logging
             return this;
         }
 
-        public FreeSqlOptions UseMinimumLevel(LogEventLevel? level)
+        public FreeSqlEnricherOptions UseMinimumLevel(LogEventLevel? level)
         {
             MinimumLevel = level;
             return this;
@@ -76,7 +76,7 @@ namespace Cosmos.Logging
 
         internal readonly Dictionary<string, LogEventLevel> InternalAliases = new Dictionary<string, LogEventLevel>();
 
-        public FreeSqlOptions UseAlias(string alias, LogEventLevel level)
+        public FreeSqlEnricherOptions UseAlias(string alias, LogEventLevel level)
         {
             if (string.IsNullOrWhiteSpace(alias)) return this;
             if (InternalAliases.ContainsKey(alias))
@@ -101,19 +101,19 @@ namespace Cosmos.Logging
 
         internal Action<CurdAfterEventArgs> ExecutedInterceptorAction { get; set; }
 
-        public FreeSqlOptions AddExecutingInterceptor(Action<CurdBeforeEventArgs> executingInterceptor)
+        public FreeSqlEnricherOptions AddExecutingInterceptor(Action<CurdBeforeEventArgs> executingInterceptor)
         {
             ExecutingInterceptorAction += executingInterceptor ?? throw new ArgumentNullException(nameof(executingInterceptor));
             return this;
         }
 
-        public FreeSqlOptions AddExecutedInterceptor(Action<CurdAfterEventArgs> executedInterceptor)
+        public FreeSqlEnricherOptions AddExecutedInterceptor(Action<CurdAfterEventArgs> executedInterceptor)
         {
             ExecutedInterceptorAction += executedInterceptor ?? throw new ArgumentNullException(nameof(executedInterceptor));
             return this;
         }
 
-        public FreeSqlOptions AddErrorInterceptor(Action<Exception, CurdAfterEventArgs> errorInterceptor)
+        public FreeSqlEnricherOptions AddErrorInterceptor(Action<Exception, CurdAfterEventArgs> errorInterceptor)
         {
             ErrorInterceptorAction += errorInterceptor ?? throw new ArgumentNullException(nameof(errorInterceptor));
             return this;
@@ -125,7 +125,7 @@ namespace Cosmos.Logging
 
         internal Func<string, LogEventLevel, bool> Filter { get; set; }
 
-        public FreeSqlOptions UseFilter(Func<string, LogEventLevel, bool> filter)
+        public FreeSqlEnricherOptions UseFilter(Func<string, LogEventLevel, bool> filter)
         {
             if (filter == null) throw new ArgumentNullException(nameof(filter));
 
@@ -141,19 +141,19 @@ namespace Cosmos.Logging
 
         private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
 
-        public FreeSqlOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled)
+        public FreeSqlEnricherOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled)
         {
             _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
             return this;
         }
 
-        public FreeSqlOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled)
+        public FreeSqlEnricherOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled)
         {
             _renderingOptions.DisplayingEventIdInfoEnabled = displayingEventIdInfoEnabled;
             return this;
         }
 
-        public FreeSqlOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled)
+        public FreeSqlEnricherOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled)
         {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
