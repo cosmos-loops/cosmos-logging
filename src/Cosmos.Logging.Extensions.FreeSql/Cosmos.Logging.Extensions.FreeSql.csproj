@@ -13,6 +13,6 @@
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="FreeSql" Version="0.9.16" />
+      <PackageReference Include="FreeSql" Version="0.12.5" />
     </ItemGroup>
 </Project>

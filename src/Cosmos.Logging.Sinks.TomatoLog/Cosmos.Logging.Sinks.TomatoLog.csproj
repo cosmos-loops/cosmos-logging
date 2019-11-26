@@ -38,8 +38,8 @@
 
     <ItemGroup>
         <PackageReference Include="Cosmos.Encryption" Version="0.1.1-alpha6-123080" />
-        <PackageReference Include="Google.Protobuf" Version="3.7.0" />
-        <PackageReference Include="ServiceStack.ProtoBuf" Version="5.5.0" />
+        <PackageReference Include="Google.Protobuf" Version="3.11.0-rc2" />
+        <PackageReference Include="ServiceStack.ProtoBuf" Version="5.7.0" />
         <PackageReference Include="TomatoLog.Client" Version="1.2.0" />
         <PackageReference Include="TomatoLog.Client.Redis" Version="1.2.0" />
         <PackageReference Include="TomatoLog.Client.RabbitMQ" Version="1.2.0" />
