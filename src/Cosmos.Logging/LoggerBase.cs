@@ -67,10 +67,11 @@ namespace Cosmos.Logging {
             LogEventContext context = null, params object[] messageTemplateParameters) {
             if (!IsEnabled(level)) return;
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
+            var cleanMessageTemplateParameters = ArgsHelper.CleanUp(messageTemplateParameters);
             if (IsManuallySendMode(sendMode)) {
-                ParseAndInsertLogEvenDescriptorManually(eventId ?? new LogEventId(), level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
+                ParseAndInsertLogEvenDescriptorManually(eventId ?? new LogEventId(), level, exception, messageTemplate, callerInfo, context, cleanMessageTemplateParameters);
             } else {
-                ParseAndInsertLogEventIntoQueueAutomatically(eventId ?? new LogEventId(), level, exception, messageTemplate, callerInfo, context, messageTemplateParameters);
+                ParseAndInsertLogEventIntoQueueAutomatically(eventId ?? new LogEventId(), level, exception, messageTemplate, callerInfo, context, cleanMessageTemplateParameters);
             }
         }
 
