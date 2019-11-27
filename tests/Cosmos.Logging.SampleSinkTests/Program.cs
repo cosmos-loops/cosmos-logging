@@ -14,6 +14,7 @@ namespace Cosmos.Logging.SampleSinkTests {
                 var logger = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
 
                 logger.LogInformation("hello");
+                logger.LogInformation("hello {0},number={1}", new {A = "1"}, 2);
                 logger.LogError("world", ctx => ctx.SetTags("Alex").SetTags("Lewis"));
                 logger.LogError("Nice {@L}", ctx => ctx.SetParameter(new {L = "KK"}));
                 logger.SubmitLogger();
