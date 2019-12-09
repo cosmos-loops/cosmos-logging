@@ -157,6 +157,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.Extensions.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.Extensions.PostgreSql", "src\Cosmos.Logging.Extensions.PostgreSql\Cosmos.Logging.Extensions.PostgreSql.csproj", "{D6A74CDA-0856-4BD1-A972-026748D54BD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.CorrelationId", "src\Cosmos.Logging.Extensions.CorrelationId\Cosmos.Logging.Extensions.CorrelationId.csproj", "{930E9427-9852-49F0-9747-3949C5F74377}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -375,6 +377,10 @@ Global
 		{D6A74CDA-0856-4BD1-A972-026748D54BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6A74CDA-0856-4BD1-A972-026748D54BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6A74CDA-0856-4BD1-A972-026748D54BD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{930E9427-9852-49F0-9747-3949C5F74377}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{930E9427-9852-49F0-9747-3949C5F74377}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{930E9427-9852-49F0-9747-3949C5F74377}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{930E9427-9852-49F0-9747-3949C5F74377}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -443,6 +449,7 @@ Global
 		{50115C63-5D77-468E-B640-31D53F702668} = {787D8EA2-83CC-4FDE-84A2-515A04B6CF15}
 		{3E9B9611-5A58-4AF3-8EAD-EC99700A5EC2} = {787D8EA2-83CC-4FDE-84A2-515A04B6CF15}
 		{D6A74CDA-0856-4BD1-A972-026748D54BD0} = {998AD5D2-6294-4DDD-9449-E8461DF0B014}
+		{930E9427-9852-49F0-9747-3949C5F74377} = {94BC7763-6909-438E-92AD-C3E7602541C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7494AB0-4276-4102-B112-7BBE0329D263}
