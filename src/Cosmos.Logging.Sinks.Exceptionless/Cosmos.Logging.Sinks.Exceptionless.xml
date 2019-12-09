@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Sinks.Exceptionless</name>
+    </assembly>
+    <members>
+        <member name="M:Cosmos.Logging.Sinks.Exceptionless.Internals.ExceptionlessExtensions.ReadFromConfiguration(Exceptionless.ExceptionlessConfiguration,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Sets the configuration from .net configuration settings.
+            </summary>
+            <param name="config">The configuration object you want to apply the settings to.</param>
+            <param name="settings">The configuration settings</param>
+        </member>
+    </members>
+</doc>

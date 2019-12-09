@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Extensions.Exceptions</name>
+    </assembly>
+    <members>
+        <member name="F:Cosmos.Logging.Extensions.Exceptions.Configurations.DestructuringOptionsBuilder.DefaultIgnoreFilter">
+            <summary>
+            Default filter to ignore Stack trace and target site
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.Exceptions.Configurations.IDestructuringOptions.Name">
+            <summary>
+            Name for the key in log-context for the exception destructured info.
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.Exceptions.Configurations.IDestructuringOptions.DestructureDepth">
+            <summary>
+            Depth at which reflection based destructurer will stop recursive process of children destructuring.
+            Default is <c>10</c>
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.Exceptions.Configurations.IDestructuringOptions.Destructurers">
+            <summary>
+            Destructurers
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.Exceptions.Configurations.IDestructuringOptions.Filter">
+            <summary>
+            Filter
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Core.ExceptionDestructuringProcessor.Process(Cosmos.Logging.Events.LogEvent)">
+            <summary>
+            Destructure the destructured object into LogEvent by built-in property factory
+            </summary>
+            <param name="logEvent"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Core.ExceptionDestructuringProcessor.Process(Cosmos.Logging.Events.LogEvent,Cosmos.Logging.Core.IShortcutPropertyFactory)">
+            <summary>
+            Destructure the destructured object into LogEvent by given property factory.
+            </summary>
+            <param name="logEvent"></param>
+            <param name="factory"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Exceptions.Core.ExceptionPropertyBag">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Core.ExceptionPropertyBag.GetProperties">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Core.ExceptionPropertyBag.AddProperty(System.String,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Core.ExceptionPropertyBag.ContainProperty(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Exceptions.Core.IExceptionPropertyBag">
+            <summary>
+            To contain all properties of a single exception instance.
+            All properties should be added before this bag is requested.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Core.IExceptionPropertyBag.GetProperties">
+            <summary>
+            Gets all properties of the exception instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Core.IExceptionPropertyBag.AddProperty(System.String,System.Object)">
+            <summary>
+            Add property
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Core.IExceptionPropertyBag.ContainProperty(System.String)">
+            <summary>
+            Returns  <c>true</c> if given key is already present in the bag. 
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Exceptions.Destructurers.AggregateExceptionDestructurer">
+            <summary>
+            Aggregate exception destructurer 
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Exceptions.Destructurers.ArgumentExceptionDestructurer">
+            <summary>
+            Argument exception destructurer
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Exceptions.Destructurers.ExceptionDestructurer">
+            <summary>
+            Base destructurer
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Exceptions.Destructurers.IExceptionDestructurer">
+            <summary>
+            Interface that all exception destructurer should implement.
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.Exceptions.Destructurers.IExceptionDestructurer.TargetTypes">
+            <summary>
+            Types of exception that the destructurer can be handle.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Destructurers.IExceptionDestructurer.Destructure(System.Exception,Cosmos.Logging.Extensions.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <summary>
+            To destructure the given <paramref name="exception"/>,
+            the results will be put into <paramref name="propertyBag"/>.
+            </summary>
+            <param name="exception">Exception what should be destructured.</param>
+            <param name="propertyBag">Exception property bag.</param>
+            <param name="destructureExceptionHandle">Function that can be used to destructure inner exceptions if needed.</param>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Exceptions.Filters.IgnorePropertyByNameFilter">
+            <summary>
+            Filter property by name (only). 
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Filters.IgnorePropertyByNameFilter.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cosmos.Logging.Extensions.Exceptions.Filters.IgnorePropertyByNameFilter"/> class.
+            </summary>
+            <param name="propertiesToIgnore">The properties to ignore.</param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Filters.IgnorePropertyByNameFilter.ShouldBeFiltered(System.Exception,System.String,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Exceptions.Filters.IExceptionPropertyFilter">
+            <summary>
+            Interface used for filtering exception properties.
+            Filtering process is global, each property of every exception
+            will go through a configured exception property filter.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Filters.IExceptionPropertyFilter.ShouldBeFiltered(System.Exception,System.String,System.Object)">
+            <summary>
+            Should this property by filtered, no not.
+            </summary>
+            <param name="exception"></param>
+            <param name="propertyName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

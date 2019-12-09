@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Sinks.TomatoLog</name>
+    </assembly>
+    <members>
+        <member name="T:Cosmos.Logging.Sinks.TomatoLog.Core.LogFlowTypes">
+            <summary>
+            Data flow types
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.TomatoLog.Core.LogFlowTypes.Redis">
+            <summary>
+            Use redis (default)
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.TomatoLog.Core.LogFlowTypes.RabbitMq">
+            <summary>
+            Use RabbitMQ
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.TomatoLog.Core.LogFlowTypes.Kafka">
+            <summary>
+            Use Kafka
+            </summary>
+        </member>
+    </members>
+</doc>

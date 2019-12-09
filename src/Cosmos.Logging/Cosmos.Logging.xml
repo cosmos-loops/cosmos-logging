@@ -1,0 +1,2427 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging</name>
+    </assembly>
+    <members>
+        <member name="T:Cosmos.Logging.Configurations.DestructureConfiguration">
+            <summary>
+            Destructure configuration
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Configurations.DestructureConfiguration.AdditionalScalarTypes">
+            <summary>
+            Additional scalar types
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Configurations.DestructureConfiguration.AdditionalDestructureResolveRules">
+            <summary>
+            Additional destructure resolve rules
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.DestructureConfiguration.MaximumLengthOfString">
+            <summary>
+            Gets or sets maximum length of string, default is <c>int.MaxValue</c>.
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.DestructureConfiguration.MaximumLevelOfNestLevelLimited">
+            <summary>
+            Gets or sets maximum level of level-limited, default is <c>10</c>.
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.DestructureConfiguration.MaximumLoopCountForCollection">
+            <summary>
+            Gets or sets maximum loop count for collection, default is <c>int.MaxValue</c>.
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.DestructureConfigurationExtensions">
+            <summary>
+            Extensions for destructure configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.DestructureConfigurationExtensions.With``1(Cosmos.Logging.Core.ILogServiceCollection)">
+            <summary>
+            With destructure resolve rule
+            </summary>
+            <param name="services"></param>
+            <typeparam name="TDestructureResolveRule"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.DestructureConfigurationExtensions.With(Cosmos.Logging.Core.ILogServiceCollection,Cosmos.Logging.Core.ObjectResolving.IDestructureResolveRule)">
+            <summary>
+            With destructure resolve rule
+            </summary>
+            <param name="services"></param>
+            <param name="rule"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.DestructureConfigurationExtensions.AsScalar``1(Cosmos.Logging.Core.ILogServiceCollection)">
+            <summary>
+            As scalar
+            </summary>
+            <param name="services"></param>
+            <typeparam name="TScalarType"></typeparam>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.ILoggingOptions">
+            <summary>
+            Interface for logging options
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use minimum level for type <typeparamref name="T"/>.
+            </summary>
+            <param name="level"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use minimum level for type <paramref name="type"/>.
+            </summary>
+            <param name="type"></param>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use minimum level for category name <typeparamref name="T"/>.
+            </summary>
+            <param name="level"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use minimum level for category name <paramref name="type"/>.
+            </summary>
+            <param name="type"></param>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use minimum level for category name <paramref name="categoryName"/>.
+            </summary>
+            <param name="categoryName"></param>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <summary>
+            Use minimum level
+            </summary>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use alias for given log event level.
+            </summary>
+            <param name="alias"></param>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <summary>
+            Enable display caller info
+            </summary>
+            <param name="displayingCallerInfoEnabled"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <summary>
+            Enable display event-id
+            </summary>
+            <param name="displayingEventIdInfoEnabled"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <summary>
+            Enable display new-line at the end of message (EOM)
+            </summary>
+            <param name="displayingNewLineEomEnabled"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.AutomaticScanRenderers">
+            <summary>
+            Automatic scan renderers
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingOptions.ManuallyRendererConfigure(System.Type[])">
+            <summary>
+            Manually renderer configure
+            </summary>
+            <param name="preferencesRendererTypes"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.ILoggingOptions.Sinks">
+            <summary>
+            Gets or sets all sinks
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.ILoggingSinkOptions">
+            <summary>
+            Interface for logging sink options
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingSinkOptions.GetRenderingOptions">
+            <summary>
+            Get rendering options
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.ILoggingSinkOptions`1">
+            <summary>
+            Interface for logging sink options
+            </summary>
+            <typeparam name="TOptions"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingSinkOptions`1.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use minimum level for type <typeparamref name="T"/>.
+            </summary>
+            <param name="level"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingSinkOptions`1.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use minimum level for type <paramref name="type"/>.
+            </summary>
+            <param name="type"></param>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingSinkOptions`1.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use minimum level for category name <typeparamref name="T"/>.
+            </summary>
+            <param name="level"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingSinkOptions`1.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use minimum level for category name <paramref name="type"/>.
+            </summary>
+            <param name="type"></param>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingSinkOptions`1.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use minimum level for category name <paramref name="categoryName"/>.
+            </summary>
+            <param name="categoryName"></param>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingSinkOptions`1.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <summary>
+            Use minimum level
+            </summary>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingSinkOptions`1.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Use alias for the given log event level
+            </summary>
+            <param name="alias"></param>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingSinkOptions`1.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <summary>
+            Enable display caller info
+            </summary>
+            <param name="displayingCallerInfoEnabled"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingSinkOptions`1.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <summary>
+            Enable display event-id
+            </summary>
+            <param name="displayingEventIdInfoEnabled"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ILoggingSinkOptions`1.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <summary>
+            Enable display new-line at the end of message (EOM).
+            </summary>
+            <param name="displayingNewLineEomEnabled"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.LogEventLevelConverter">
+            <summary>
+            Leg event level converter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.LoggingConfigurationBuilder">
+            <summary>
+            Logging configuration builder
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.#ctor(Microsoft.Extensions.Configuration.IConfigurationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.InitializedByGivenBuilder">
+            <summary>
+            Gets the flag that initialized by given builder
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.AddFile(System.String,Cosmos.Logging.Configurations.FileTypes)">
+            <summary>
+            Add configuration by file path and file type. Current just support json and xml
+            </summary>
+            <param name="path"></param>
+            <param name="fileType"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.AddJsonFile(System.String)">
+            <summary>
+            Add json format configuration file by the given path.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.AddXmlFile(System.String)">
+            <summary>
+            Add xml format configuration file by the given path.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.PreheatMessageTemplates(System.Action{Cosmos.Logging.MessageTemplates.MessageTemplateCachePreheater})">
+            <summary>
+            Preheat message templates
+            </summary>
+            <param name="preheatAct"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.BeforeBuildAction">
+            <summary>
+            Gets or sets action before build
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.AfterBuildAction">
+            <summary>
+            Gets or sets action after build
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.Build(Cosmos.Logging.Configurations.ILoggingOptions)">
+            <summary>
+            Build configuration builder
+            </summary>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.BeforeBuild(System.Action{Cosmos.Logging.Configurations.LoggingConfigurationBuilder,Cosmos.Logging.Configurations.ILoggingOptions})">
+            <summary>
+            Do somethings before build
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.AfterBuild(System.Action{Cosmos.Logging.LoggingConfiguration})">
+            <summary>
+            DO somethings after build
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.ActiveCorePreferencesRenderers(Cosmos.Logging.Configurations.LoggingConfigurationBuilder,Cosmos.Logging.Configurations.ILoggingOptions)">
+            <summary>
+            Active core preferences renderers
+            </summary>
+            <param name="builder"></param>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.ActiveMessageTemplatePreheater(Cosmos.Logging.Configurations.LoggingConfigurationBuilder,Cosmos.Logging.Configurations.ILoggingOptions)">
+            <summary>
+            Active message template preheater
+            </summary>
+            <param name="builder"></param>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.ActiveMessageParameterProcessor(Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Active message parameter processor
+            </summary>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.DisabledConfigurationBuilder">
+            <summary>
+            Disabled configuration builder
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.#ctor(Microsoft.Extensions.Configuration.IConfigurationRoot)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.InitializedByGivenBuilder">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.AddFile(System.String,Cosmos.Logging.Configurations.FileTypes)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.AddJsonFile(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.AddXmlFile(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.Build(Cosmos.Logging.Configurations.ILoggingOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.FileTypes">
+            <summary>
+            Configuration file type
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Configurations.FileTypes.Json">
+            <summary>
+            Json
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Configurations.FileTypes.Xml">
+            <summary>
+            Xml
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.LoggingOptions">
+            <summary>
+            Logging options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.LoggingOptions.Defaults">
+            <summary>
+            Gets default logging options
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.AutomaticScanRenderers">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.LoggingOptions.ManuallyRendererConfigure(System.Type[])">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.LoggingOptions.Sinks">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.RenderingConfiguration">
+            <summary>
+            Rendering configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.RenderingConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.RenderingConfiguration.#ctor(System.Collections.Generic.IDictionary{System.String,System.Nullable{System.Boolean}})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.RenderingConfiguration.#ctor(Cosmos.Logging.Configurations.RenderingConfiguration,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.RenderingConfiguration.DisplayingCallerInfoEnabled">
+            <summary>
+            Gets or sets the enabled state of displaying caller info
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.RenderingConfiguration.DisplayingEventIdInfoEnabled">
+            <summary>
+            Gets or sets the enabled state of displaying log id info
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.RenderingConfiguration.DisplayingNewLineEomEnabled">
+            <summary>
+            Gets or sets the enabled state of displaying new-line at end of message (EOM).
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.RenderingConfiguration.ToCalc(Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            To calc
+            </summary>
+            <param name="downstreamOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.SinkConfiguration">
+            <summary>
+            Sink configuration
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Configurations.SinkConfiguration.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.SinkConfiguration.#ctor(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.SinkConfiguration.LogLevel">
+            <summary>
+            Gets or sets log level
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.SinkConfiguration.Aliases">
+            <summary>
+            Gets or sets aliases
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.SinkConfiguration.NamespaceFilterNavs">
+            <summary>
+            Gets namespace filter navs
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.SinkConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <summary>
+            Before provessing
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.SinkConfiguration.PostProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <summary>
+            Post processing
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.SinkConfiguration.GetDefaultMinimumLevel">
+            <summary>
+            Get default minimum level
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.SinkConfiguration.GetMinimumLevel(System.String)">
+            <summary>
+            Get minimum level
+            </summary>
+            <param name="namespace"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.SinkConfiguration.Rendering">
+            <summary>
+            Gets or sets rendering.
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Configurations.ThreeValuedBoolean">
+            <summary>
+            Three value boolean
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.ThreeValuedBoolean.True">
+            <summary>
+            True
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.ThreeValuedBoolean.False">
+            <summary>
+            False
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Configurations.ThreeValuedBoolean.Default">
+            <summary>
+            Default
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.IContextualLogEvent">
+            <summary>
+            Interface contextual log event
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Core.IContextualLogEvent.Tags">
+            <summary>
+            Gets tags
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.ILogEventInfo">
+            <summary>
+            Interface for log event info
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Core.ILogEventInfo.StateNamespace">
+            <summary>
+            Gets state namespace
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Core.ILogEventInfo.EventId">
+            <summary>
+            Gets event id
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Core.ILogEventInfo.Timestamp">
+            <summary>
+            Gets timespace
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Core.ILogEventInfo.Level">
+            <summary>
+            Gets log event level
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Core.ILogEventInfo.SendMode">
+            <summary>
+            Gets send mode
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Core.ILogEventInfo.Exception">
+            <summary>
+            Gets exception
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Core.ILogEventInfo.CallerInfo">
+            <summary>
+            Gets caller info
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Core.ILogEventInfo.ToLogEvent">
+            <summary>
+            To log event
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Core.ILogEventInfo.ToContextualLogEvent">
+            <summary>
+            To contextual log event
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Core.INamespaceNavigationParser">
+            <summary>
+            Interface for namespace navigation parser
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Core.INamespaceNavigationParser.Parse(System.String,System.String,Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode@)">
+            <summary>
+            Parse
+            </summary>
+            <param name="namespace"></param>
+            <param name="level"></param>
+            <param name="endValueNode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Core.IPropertyFactoryAccessor">
+            <summary>
+            To access IShortcutPropertyFactory implementation for Enricher or other extensions and sinks.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Cosmos.Logging.Core.ObjectResolving.Extensions.TypeFeelerExtensions.IsCompilerGeneratedType(System.Type)" -->
+        <member name="M:Cosmos.Logging.Core.ObjectResolving.Extensions.TypeFeelerExtensions.GetPropertiesRecursive(System.Type)">
+            <summary>
+            One copy from Serilog.
+            Author: Simon Cropp
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.ResultType">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.AcquireReadResult">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.AcquireReadCancelled">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.AcquireReadFaulted">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.AcquireReadSucceeded">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.AcquireReadSucceeded`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.AcquireWriteResult">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.AcquireWriteCancelled">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.AcquireWriteFaulted">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.AcquireWriteSucceeded">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.IQueueSource`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.IQueueSink`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.AsyncQueue`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/AsyncQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.CancellableQueue`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/CancellableQueue.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.CancellableResult`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/CompleteAny.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.CancellableOperation`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/CompleteAny.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.CancellableOperationStarter`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/CompleteAny.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.Utils">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/CompleteAny.cs
+            Author: Sunlighter
+            </summary>
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/Utils.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.IdleDetector">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/IdleDetector.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.Option`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/Option.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.Some`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/Option.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.None`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/Option.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.ParallelWorker">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/ParallelWorker.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.PipelineExtensions">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/PipelineExtensions.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.WorkerTask">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/WorkerTask.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.InputPriorities">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/WorkerTask.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.ForEachInfo`1">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/WorkerTask.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.RoundRobinLoopGenerator">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/WorkerTask.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Piplelines.ExceptionCollector">
+            <summary>
+            One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/WorkerTask.cs
+            Author: Sunlighter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.TypeNameHelper">
+            <summary>
+            One copy from Microsoft.Extensions.Logging
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Events.ILogEventSink">
+            <summary>
+            Interface for log event sink
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.ILogEventSink.Name">
+            <summary>
+            Gets or sets name.
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.ILogEventSink.Level">
+            <summary>
+            Gets or sets log event leel
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Events.IMessageProperty">
+            <summary>
+            Interface for message property
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.IMessageProperty.Name">
+            <summary>
+            Gets property name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.IMessageProperty.Value">
+            <summary>
+            Gets message property value
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Events.LevelAlias">
+            <summary>
+            Descriptive aliases for <see cref="T:Cosmos.Logging.Events.LogEventLevel"/>.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LevelAlias.Minimum">
+            <summary>
+            The least significant level of event.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LevelAlias.Maximum">
+            <summary>
+            The most significant level of event.
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Events.LogEvent">
+            <summary>
+            Log event
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.#ctor(System.String,Cosmos.Logging.Events.LogEventId,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.MessageTemplates.MessageTemplate,System.Exception,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Core.Callers.ILogCallerInfo,Cosmos.Logging.Configurations.RenderingConfiguration,System.Collections.Generic.Dictionary{System.ValueTuple{System.String,Cosmos.Logging.Events.PropertyResolvingMode},Cosmos.Logging.Events.MessageProperty},System.Collections.Generic.Dictionary{System.ValueTuple{System.Int32,Cosmos.Logging.Events.PropertyResolvingMode},Cosmos.Logging.Events.MessageProperty},Cosmos.Logging.LogEventContext,Cosmos.Logging.ExtraSupports.ContextData,Cosmos.Logging.Core.IShortcutPropertyFactory)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.StateNamespace">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.EventId">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.Timestamp">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.Level">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.SendMode">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.Exception">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.MessageTemplate">
+            <summary>
+            Gets message template
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.CallerInfo">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.ContextData">
+            <summary>
+            Gets context data
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.UpstreamRenderingOptions">
+            <summary>
+            Gets upstream rendering options
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.RenderMessage(System.IO.TextWriter,Cosmos.Logging.Configurations.RenderingConfiguration,System.IFormatProvider)">
+            <summary>
+            Render message
+            </summary>
+            <param name="output"></param>
+            <param name="renderingOptions"></param>
+            <param name="provider"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.RenderMessage(Cosmos.Logging.Configurations.RenderingConfiguration,System.IFormatProvider)">
+            <summary>
+            Render message
+            </summary>
+            <param name="renderingOptions"></param>
+            <param name="provider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.GetAdditionalOperations(System.Type,Cosmos.Logging.Core.AdditionalOperationTypes)">
+            <summary>
+            Get additional operations
+            </summary>
+            <param name="flagType"></param>
+            <param name="optType"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.Tags">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.NamedProperties">
+            <summary>
+            Gets named properties
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.PositionalProperties">
+            <summary>
+            Gets positional properties
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.AddExtraProperty(Cosmos.Logging.ExtraSupports.ExtraMessageProperty)">
+            <summary>
+            Add extra property
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.AddExtraPropertyIfAbsent(Cosmos.Logging.ExtraSupports.ExtraMessageProperty)">
+            <summary>
+            Add extra property if absent
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.AddExtraProperty(System.String,System.Object,System.Boolean)">
+            <summary>
+            Add extra property
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="destructureObject"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.AddExtraPropertyIfAbsent(System.String,System.Object,System.Boolean)">
+            <summary>
+            Add extra property if absent
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="destructureObject"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.RemoveExtraProperty(System.String)">
+            <summary>
+            Remove extra property by the given name
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.RemoveAllExtraProperties">
+            <summary>
+            Remove all extra properties
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEvent.ExtraProperties">
+            <summary>
+            Gets all extra properties
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.ToLogEvent">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEvent.ToContextualLogEvent">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Events.LogEventId">
+            <summary>
+            Log event id
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.Guid,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.Int64,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEventId.Timestamp">
+            <summary>
+            Gets timestamp
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEventId.Id">
+            <summary>
+            Gets log event id
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEventId.Name">
+            <summary>
+            Gets log event name
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventId.GetIntegerEventId">
+            <summary>
+            Get integer event id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Events.LogEventLevel">
+            <summary>
+            Log event level
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventLevel.Verbose">
+            <summary>
+            Anything and everything you might want to know about
+            a running block of code.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventLevel.Debug">
+            <summary>
+            Internal system events that aren't necessarily
+            observable from the outside.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventLevel.Information">
+            <summary>
+            The lifeblood of operational intelligence - things
+            happen.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventLevel.Warning">
+            <summary>
+            Service is degraded or endangered.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventLevel.Error">
+            <summary>
+            Functionality is unavailable, invariants are broken
+            or data is lost.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventLevel.Fatal">
+            <summary>
+            If you have a pager, it goes off when one of these
+            occurs.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventLevel.Off">
+            <summary>
+            Do not recode all logs
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Events.LogEventSendMode">
+            <summary>
+            Send mode
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventSendMode.Customize">
+            <summary>
+            Customize
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventSendMode.Automatic">
+            <summary>
+            Automatic
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventSendMode.Manually">
+            <summary>
+            Manually
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Events.ManuallyLogEventDescriptor">
+            <summary>
+            Manually log event descriptor
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.ManuallyLogEventDescriptor.#ctor(Cosmos.Logging.Events.LogEventId,Cosmos.Logging.Events.LogEventLevel,System.Exception,System.String,Cosmos.Logging.Core.Callers.ILogCallerInfo,Cosmos.Logging.LogEventContext,System.Object[])">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Events.ManuallyLogEventDescriptor"/>.
+            </summary>
+            <param name="eventId"></param>
+            <param name="level"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="callerInfo"></param>
+            <param name="context"></param>
+            <param name="messageTemplateParameters"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Events.ManuallyLogEventDescriptor.EventId">
+            <summary>
+            Gets event id
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.ManuallyLogEventDescriptor.Level">
+            <summary>
+            Gets log event level
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.ManuallyLogEventDescriptor.Exception">
+            <summary>
+            Gets exception
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.ManuallyLogEventDescriptor.MessageTemplate">
+            <summary>
+            Gets message template
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.ManuallyLogEventDescriptor.CallerInfo">
+            <summary>
+            Gets caller info
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.ManuallyLogEventDescriptor.Context">
+            <summary>
+            Gets context
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.ManuallyLogEventDescriptor.MessageTemplateParameters">
+            <summary>
+            Gets message template parameters
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Events.MessageProperty">
+            <summary>
+            Message property
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.MessageProperty.#ctor(System.String,System.Int32,Cosmos.Logging.Events.MessagePropertyValue)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.MessageProperty.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.MessageProperty.Value">
+            <inheritdoc />
+        </member>
+        <member name="F:Cosmos.Logging.Events.MessageProperty.PositionalValue">
+            <summary>
+            Positional value
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.MessageProperty.AsNamedProperty">
+            <summary>
+            As named property
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.MessageProperty.AsPositionalProperty">
+            <summary>
+            As positional property
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Events.PropertyResolvingMode">
+            <summary>
+            Property resolving mode
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.PropertyResolvingMode.Default">
+            <summary>
+            将已知的类型和对象转换为 Scalar，将数组/集合类型转换为 Sequence
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.PropertyResolvingMode.Stringify">
+            <summary>
+            将所有类型转换为 String，格式化指令为 S
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.PropertyResolvingMode.Destructure">
+            <summary>
+            将已知类型转换为 Scalar，将对象、数组/集合转换为 Sequence 和 Structure，格式化指令为 D
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Events.MessagePropertyValue">
+            <summary>
+            Message property value
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.MessagePropertyValue.Render(System.IO.TextWriter,System.String,System.IFormatProvider)">
+            <summary>
+            Render
+            </summary>
+            <param name="output"></param>
+            <param name="format"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Events.MessagePropertyValue.Render(System.IO.TextWriter,System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.IFormatProvider)">
+            <summary>
+            Render
+            </summary>
+            <param name="output"></param>
+            <param name="formatFuncs"></param>
+            <param name="originFormat"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Events.MessagePropertyValue.Render(System.IO.TextWriter,System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.IFormatProvider)">
+            <summary>
+            Render
+            </summary>
+            <param name="output"></param>
+            <param name="formatEvents"></param>
+            <param name="originFormat"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Events.MessagePropertyValue.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.IFormatProvider)">
+            <summary>
+            To string
+            </summary>
+            <param name="formatFuncs"></param>
+            <param name="originFormat"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Events.MessagePropertyValue.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.IFormatProvider)">
+            <summary>
+            To string
+            </summary>
+            <param name="formatEvents"></param>
+            <param name="originFormat"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Events.MessagePropertyValue.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            To string
+            </summary>
+            <param name="format"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Events.MessagePropertyValue.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Events.DictionaryValue">
+            <summary>
+            Dictionary value
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.DictionaryValue.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{Cosmos.Logging.Events.ScalarValue,Cosmos.Logging.Events.MessagePropertyValue}})">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.DictionaryValue.Elements">
+            <summary>
+            Gets elements
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.DictionaryValue.Render(System.IO.TextWriter,System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.DictionaryValue.Render(System.IO.TextWriter,System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.DictionaryValue.Render(System.IO.TextWriter,System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Events.ScalarValue">
+            <summary>
+            Scalar value
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.ScalarValue.#ctor(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.ScalarValue.Value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.ScalarValue.Render(System.IO.TextWriter,System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.ScalarValue.Render(System.IO.TextWriter,System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.ScalarValue.Render(System.IO.TextWriter,System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Events.SequenceValue">
+            <summary>
+            Sequence value
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.SequenceValue.#ctor(System.Collections.Generic.IEnumerable{Cosmos.Logging.Events.MessagePropertyValue})">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.SequenceValue.Elements">
+            <summary>
+            Gets all elements
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.SequenceValue.Render(System.IO.TextWriter,System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.SequenceValue.Render(System.IO.TextWriter,System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.SequenceValue.Render(System.IO.TextWriter,System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Events.StructureValue">
+            <summary>
+            Structure value
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.StructureValue.#ctor(System.Collections.Generic.IEnumerable{Cosmos.Logging.Events.MessageProperty},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Events.StructureValue.Flag">
+            <summary>
+            Gets flag
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.StructureValue.Properties">
+            <summary>
+            Gets properties
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.StructureValue.Render(System.IO.TextWriter,System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.StructureValue.Render(System.IO.TextWriter,System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Events.StructureValue.Render(System.IO.TextWriter,System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.ExtraSupports.ContextData">
+            <summary>
+            Logging event context data
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.#ctor(System.Collections.Generic.IDictionary{System.String,Cosmos.Logging.ExtraSupports.ContextDataItem})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.SetException(System.Exception)">
+            <summary>
+            Set exception
+            </summary>
+            <param name="exception"></param>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.SetExceptionDetail(System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Exception,System.Boolean)">
+            <summary>
+            Set exception detail
+            </summary>
+            <param name="rootName"></param>
+            <param name="destructuredObject"></param>
+            <param name="exception"></param>
+            <param name="output"></param>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.HasException">
+            <summary>
+            Has exception
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.HasExceptionDetail">
+            <summary>
+            Has exception detail
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.GetException">
+            <summary>
+            Get exception
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.GetExceptionDetail">
+            <summary>
+            Get exception detail
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.GetExceptionDetailName">
+            <summary>
+            Get exception detail name
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.AddItem(System.String,System.Object,System.Boolean)">
+            <summary>
+            Add item
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="output"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.AddOrUpdateItem(System.String,System.Object,System.Boolean)">
+            <summary>
+            Add or update item
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="output"></param>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextData.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.ExtraSupports.ContextDataExceptionItem">
+            <summary>
+            Log event context data exception item
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextDataExceptionItem.#ctor(System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextDataExceptionItem.GetException">
+            <summary>
+            Get exception
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextDataExceptionItem.op_Implicit(Cosmos.Logging.ExtraSupports.ContextDataExceptionItem)~System.Exception">
+            <summary>
+            ╮(￣▽￣")╭
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.ExtraSupports.ContextDataExceptionDetail">
+            <summary>
+            Log event context data exception detail
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextDataExceptionDetail.#ctor(System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Exception,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextDataExceptionDetail.GetExceptionDetail">
+            <summary>
+            Get exception detail
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextDataExceptionDetail.op_Implicit(Cosmos.Logging.ExtraSupports.ContextDataExceptionDetail)~System.ValueTuple{System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}}">
+            <summary>
+            -________-''
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.ExtraSupports.ContextDataItem">
+            <summary>
+            Log event context data item
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextDataItem.#ctor(System.String,System.Type,System.Object,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.ExtraSupports.ContextDataItem.Name">
+            <summary>
+            Gets name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.ExtraSupports.ContextDataItem.ItemType">
+            <summary>
+            Gets item type
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.ExtraSupports.ContextDataItem.Value">
+            <summary>
+            Gets value
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.ExtraSupports.ContextDataItem.Output">
+            <summary>
+            Output or not.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ContextDataItem.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.ExtraSupports.ContextDataTypes">
+            <summary>
+            Log event context data types
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.ExtraSupports.ContextDataTypes.Exception">
+            <summary>
+            Exception
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.ExtraSupports.ContextDataTypes.ExceptionDetail">
+            <summary>
+            Exception detail
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.ExtraSupports.ExtraMessageProperty">
+            <summary>
+            Extra message property
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ExtraMessageProperty.#ctor(System.String,Cosmos.Logging.Events.MessagePropertyValue)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ExtraMessageProperty.#ctor(Cosmos.Logging.Events.MessageProperty)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.ExtraSupports.ExtraMessageProperty.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.ExtraSupports.ExtraMessageProperty.Value">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ExtraMessageProperty.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.ExtraSupports.ExtraMessagePropertyExtensions">
+            <summary>
+            Extensions for extra message property
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExtraSupports.ExtraMessagePropertyExtensions.AsExtra(Cosmos.Logging.Events.MessageProperty)">
+            <summary>
+            As extra message property
+            </summary>
+            <param name="property"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.DatabaseIntegration">
+            <summary>
+            Database integration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.DatabaseIntegration.#ctor(Cosmos.Logging.Core.ILogServiceCollection)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.DatabaseIntegration.ExposeServiceCollectionWrapper">
+            <summary>
+            Expose service collection wrapper
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.DatabaseIntegrationExtensions">
+            <summary>
+            Extensions for database integration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.DatabaseIntegrationExtensions.AddDatabaseIntegration(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.DatabaseIntegration})">
+            <summary>
+            Add database integration
+            </summary>
+            <param name="service"></param>
+            <param name="integrationAct"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.Filters.LogEventSinkFilter">
+            <summary>
+            Log event sink filter
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.LogEventSinkFilter.Filter(System.Collections.Generic.IEnumerable{Cosmos.Logging.Events.LogEvent},Cosmos.Logging.Configurations.SinkConfiguration)">
+            <summary>
+            Filter
+            </summary>
+            <param name="logEvents"></param>
+            <param name="sinkConfiguration"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Filters.LogEventSinkFilterExtensions">
+            <summary>
+            Extensions for log event sink filter
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.LogEventSinkFilterExtensions.Where(System.Collections.Generic.IEnumerable{Cosmos.Logging.Events.LogEvent},Cosmos.Logging.Configurations.SinkConfiguration)">
+            <summary>
+            Where
+            </summary>
+            <param name="logEvents"></param>
+            <param name="loggingConfiguration"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Filters.Navigators.NamespaceNavigationParser">
+            <summary>
+            Namespace navigation parser
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigationParser.Parse(System.String,System.String,Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode@)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Filters.Navigators.NamespaceNavigator">
+            <summary>
+            Namespace navigator
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.Empty">
+            <summary>
+            Gets an empty instance for <see cref="T:Cosmos.Logging.Filters.Navigators.NamespaceNavigator"/>.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.#ctor(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.NamespaceFragment">
+            <summary>
+            Gets namespace fragment
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.FullNamespaceFragment">
+            <summary>
+            Gets full namespace fragment
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.OriginalNamespaceOnRoot">
+            <summary>
+            Gets original namespace on root
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.GetParentNav">
+            <summary>
+            Get parent navigator
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.GetNextNav(System.String)">
+            <summary>
+            Get next navigator
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.GetNextNavs">
+            <summary>
+            Get next navigators
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.GetValue">
+            <summary>
+            Get value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.SetValue(Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode)">
+            <summary>
+            Set value
+            </summary>
+            <param name="nav"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.HasParentNav">
+            <summary>
+            Has parent navigator
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.HasNextNav">
+            <summary>
+            Has next navigator
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.HasValue">
+            <summary>
+            Has value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.AddChild(Cosmos.Logging.Filters.Navigators.NamespaceNavigator)">
+            <summary>
+            Add child
+            </summary>
+            <param name="nav"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigator.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Filters.Navigators.EmptyNamespaceNavigationNode">
+            <summary>
+            Empty node for namespace navigator
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EmptyNamespaceNavigationNode.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EmptyNamespaceNavigationNode.GetNextNav(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EmptyNamespaceNavigationNode.GetParentNav">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EmptyNamespaceNavigationNode.GetNextNavs">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EmptyNamespaceNavigationNode.GetValue">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EmptyNamespaceNavigationNode.SetValue(Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EmptyNamespaceNavigationNode.HasNextNav">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EmptyNamespaceNavigationNode.HasParentNav">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EmptyNamespaceNavigationNode.HasValue">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EmptyNamespaceNavigationNode.AddChild(Cosmos.Logging.Filters.Navigators.NamespaceNavigator)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode">
+            <summary>
+            End value node for namespace navigator
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode.Null">
+            <summary>
+            Get a null end-value-node for namespace navigator
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode.Default">
+            <summary>
+            Get a default end-value-node for namespace navigator
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode.#ctor(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode.Level">
+            <summary>
+            Gets log event level
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode.GetNextNav(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode.GetNextNavs">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode.GetValue">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode.SetValue(Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode.HasNextNav">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode.HasValue">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode.AddChild(Cosmos.Logging.Filters.Navigators.NamespaceNavigator)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Filters.Navigators.NamespaceNavigatorCache">
+            <summary>
+            Namespace navigator cache
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigatorCache.#ctor(Cosmos.Logging.Core.INamespaceNavigationParser)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigatorCache.Parse(System.String,System.String,Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Filters.Navigators.NamespaceNavigatorCache.Match(System.String,Cosmos.Logging.Filters.Navigators.EndValueNamespaceNavigationNode@)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Formattings.CustomFormatProvider">
+            <summary>
+            Custom format provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Formattings.CustomFormatProvider.CreateCommandEvent(System.String)">
+            <summary>
+            Create command event
+            </summary>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Formattings.CustomFormatProviderManager">
+            <summary>
+            Custom format provider manager
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Formattings.CustomFormatProviderManager.Get">
+            <summary>
+            Get custom format events
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Formattings.FormatCommandFactory">
+            <summary>
+            Format command factory
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Formattings.FormatCommandFactory.CreateCommandFunc(System.String,System.Func{System.String,System.Collections.Generic.IEnumerable{System.Func{System.Object,System.IFormatProvider,System.Object}}})">
+            <summary>
+            Create command func
+            </summary>
+            <param name="format"></param>
+            <param name="customFormatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Formattings.FormatCommandFactory.CreateCommandEvent(System.String)">
+            <summary>
+            Create command event
+            </summary>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Formattings.FormatEvent">
+            <summary>
+            Format event
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Formattings.FormatEvent.Sort">
+            <summary>
+            Sort
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Formattings.FormatEvent.CmdAlias">
+            <summary>
+            Cmd alias
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Formattings.FormatEvent.CmdAlias2">
+            <summary>
+            Cmd alias2
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Formattings.FormatEvent.Command">
+            <summary>
+            Command
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Formattings.FormatEvent.#ctor(System.Char,System.Int32,System.Func{System.Object,System.IFormatProvider,System.Object})">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Formattings.FormatEvent"/>.
+            </summary>
+            <param name="cmdAlias"></param>
+            <param name="sort"></param>
+            <param name="cmd"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Formattings.FormatEvent.#ctor(System.String,System.Int32,System.Func{System.Object,System.IFormatProvider,System.Object})">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Formattings.FormatEvent"/>.
+            </summary>
+            <param name="cmdAlias"></param>
+            <param name="sort"></param>
+            <param name="cmd"></param>
+        </member>
+        <member name="T:Cosmos.Logging.Formattings.Helpers.CasingHelper">
+            <summary>
+            Casing helper
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Formattings.Helpers.CasingHelper.Format">
+            <summary>
+            Format
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Formattings.Helpers.JsonHelper">
+            <summary>
+            Json helper
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Formattings.Helpers.JsonHelper.Format(System.Object,System.IFormatProvider)">
+            <summary>
+            Format
+            </summary>
+            <param name="value"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Formattings.Helpers.PaddingHelper">
+            <summary>
+            Padding helper
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Formattings.Helpers.PaddingHelper.Format">
+            <summary>
+            Format
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Formattings.PropertyResolvingToucher">
+            <summary>
+            Property resolving toucher
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Formattings.PropertyResolvingToucher.Touch(System.String)">
+            <summary>
+            Touch
+            </summary>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Future.FUTURE">
+            <summary>
+            Future Cosmos Logging Entry
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger(System.String,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger(System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="filter"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger(System.String,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="minLevel"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger(System.String,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="minLevel"></param>
+            <param name="filter"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger(System.Type,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="type"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger(System.Type,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="type"></param>
+            <param name="filter"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="type"></param>
+            <param name="minLevel"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="type"></param>
+            <param name="minLevel"></param>
+            <param name="filter"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger``1(Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger``1(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="filter"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger``1(Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="minLevel"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FUTURE.GetFutureLogger``1(Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="minLevel"></param>
+            <param name="filter"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Future.FutureLogEventDescriptor">
+            <summary>
+            Future log event descriptor
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLogEventDescriptor.#ctor(Cosmos.Logging.Core.Callers.ILogCallerInfo,Cosmos.Logging.ExtraSupports.ContextData)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Future.FutureLogEventDescriptor.Level">
+            <summary>
+            Gets or sets log event level
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Future.FutureLogEventDescriptor.MessageTemplate">
+            <summary>
+            Gets or sets message template
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Future.FutureLogEventDescriptor.EventId">
+            <summary>
+            Gets or sets event id
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Future.FutureLogEventDescriptor.Exception">
+            <summary>
+            Gets or sets exception
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Future.FutureLogEventDescriptor.CallerInfo">
+            <summary>
+            Gets caller info
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Future.FutureLogEventDescriptor.Context">
+            <summary>
+            Gets or sets context
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLogEventDescriptor.GetContextData">
+            <summary>
+            Get context data
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Future.FutureLoggerBase">
+            <summary>
+            Future logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.#ctor(Cosmos.Logging.ILogger,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.UseFields(Cosmos.Logging.Core.LogFields.ILogField[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.SetLevel(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.SetException(System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.SetMessage(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.AppendMessage(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.SetParameter(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.SetParameters(System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.SetTags(System.String[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.SetEventId(System.Guid,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.SetEventId(System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.SetEventId(System.Int64,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.SetEventId(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.SetEventId(Cosmos.Logging.Events.LogEventId)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.AppendAdditionalOperation(Cosmos.Logging.Core.IAdditionalOperation)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.Submit">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Future.FutureLoggerBase.Dispose(System.Boolean)">
+            <summary>
+            Dispose
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:Cosmos.Logging.Future.IFutureLogger">
+            <summary>
+            Future logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.UseFields(Cosmos.Logging.Core.LogFields.ILogField[])">
+            <summary>
+            Use fields
+            </summary>
+            <param name="fields"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.SetLevel(Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Set log event level
+            </summary>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.SetException(System.Exception)">
+            <summary>
+            Set excepton
+            </summary>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.SetMessage(System.String)">
+            <summary>
+            Set message
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.AppendMessage(System.String)">
+            <summary>
+            Append message
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.SetParameter(System.Object)">
+            <summary>
+            Set parameter
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.SetParameters(System.Object[])">
+            <summary>
+            Set parameters
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.SetTags(System.String[])">
+            <summary>
+            Set tags
+            </summary>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.SetEventId(Cosmos.Logging.Events.LogEventId)">
+            <summary>
+            Set event id
+            </summary>
+            <param name="eventId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.SetEventId(System.Guid,System.String)">
+            <summary>
+            Set event id
+            </summary>
+            <param name="id"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.SetEventId(System.Int32,System.String)">
+            <summary>
+            Set event id
+            </summary>
+            <param name="id"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.SetEventId(System.Int64,System.String)">
+            <summary>
+            Set event id
+            </summary>
+            <param name="id"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.SetEventId(System.String,System.String)">
+            <summary>
+            Set event id
+            </summary>
+            <param name="id"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.AppendAdditionalOperation(Cosmos.Logging.Core.IAdditionalOperation)">
+            <summary>
+            Append additional operation
+            </summary>
+            <param name="additionalOperation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Future.IFutureLogger.Submit">
+            <summary>
+            Submit
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.MessageTemplates.MessageTemplateRenderer.Som(Cosmos.Logging.Core.ILogEventInfo,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Start of message
+            </summary>
+            <param name="logEventInfo"></param>
+            <param name="renderingOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.MessageTemplates.MessageTemplateRenderer.Eom(System.Text.StringBuilder,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            End of message
+            </summary>
+            <param name="stringBuilder"></param>
+            <param name="renderingOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.MessageTemplates.PresetTemplates.OrmTemplateStandard">
+            <summary>
+            Orm template standard
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.MessageTemplates.PresetTemplates.OrmTemplateStandard.SimpleSqlLog">
+            <summary>
+            Simple sql log
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.MessageTemplates.PresetTemplates.OrmTemplateStandard.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.MessageTemplates.PresetTemplates.OrmTemplateStandard.LongNormal">
+            <summary>
+            Long normal
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.MessageTemplates.PresetTemplates.OrmTemplateStandard.Error">
+            <summary>
+            Error
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.MessageTemplates.PresetTemplates.TemplateStandardsActivation">
+            <summary>
+            Template standards activation
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.MessageTemplates.PresetTemplates.WebTemplateStandard">
+            <summary>
+            Web template standard
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.MessageTemplates.PresetTemplates.WebTemplateStandard.WebLog400">
+            <summary>
+            400
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.MessageTemplates.PresetTemplates.WebTemplateStandard.WebLog500">
+            <summary>
+            500
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.MessageTemplates.PresetTemplates.WebTemplateStandard.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.MessageTemplates.PresetTemplates.WebTemplateStandard.LongNormal">
+            <summary>
+            Long normal
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Output.LevelOutputFormat">
+            <summary>
+            Level output format
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Output.LevelOutputFormat.GetLevelMoniker(Cosmos.Logging.Events.LogEventLevel,System.String,System.IFormatProvider)">
+            <summary>
+            Get level moniker
+            </summary>
+            <param name="value"></param>
+            <param name="format"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Output.OutputProperties">
+            <summary>
+            Output properties
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Output.OutputProperties.MessagePropertyName">
+            <summary>
+            The message of the log event.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Output.OutputProperties.TimestampPropertyName">
+            <summary>
+            The timestamp of the log event.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Output.OutputProperties.LevelPropertyName">
+            <summary>
+            The level of the log event.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Output.OutputProperties.NewLinePropertyName">
+            <summary>
+            A new line
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Output.OutputProperties.ExceptionPropertyName">
+            <summary>
+            The exception in the log event.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Output.OutputProperties.PropertiesPropertyName">
+            <summary>
+            The extra properties of the log event.
+            </summary>
+        </member>
+    </members>
+</doc>
