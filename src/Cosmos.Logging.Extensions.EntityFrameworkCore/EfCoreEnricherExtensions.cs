@@ -12,7 +12,9 @@ using Microsoft.Extensions.Options;
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
     public static class EfCoreEnricherExtensions {
-        public static DatabaseIntegration UseEntityFrameworkCore(this DatabaseIntegration integration, Action<EfCoreEnricherOptions> settingAct = null,
+        public static DatabaseIntegration UseEntityFrameworkCore(
+            this DatabaseIntegration integration,
+            Action<EfCoreEnricherOptions> settingAct = null,
             Action<IConfiguration, EfCoreEnricherConfiguration> configAction = null) {
             var settings = new EfCoreEnricherOptions();
             settingAct?.Invoke(settings);
@@ -31,7 +33,8 @@ namespace Cosmos.Logging {
                     if (string.IsNullOrWhiteSpace(@namespace)) return;
                     if (configuration.LogLevel.ContainsKey(@namespace)) {
                         configuration.LogLevel[@namespace] = expectLevelName;
-                    } else {
+                    }
+                    else {
                         configuration.LogLevel.Add(@namespace, expectLevelName);
                     }
                 }
@@ -44,7 +47,9 @@ namespace Cosmos.Logging {
             return UseEntityFrameworkCoreInternal(integration, Options.Create(settings), InternalAction);
         }
 
-        private static DatabaseIntegration UseEntityFrameworkCoreInternal(DatabaseIntegration integration, IOptions<EfCoreEnricherOptions> settings,
+        private static DatabaseIntegration UseEntityFrameworkCoreInternal(
+            DatabaseIntegration integration,
+            IOptions<EfCoreEnricherOptions> settings,
             Action<IConfiguration, EfCoreEnricherConfiguration, LoggingConfiguration> config = null) {
 
             var serviceImpl = integration.ExposeServiceCollectionWrapper;

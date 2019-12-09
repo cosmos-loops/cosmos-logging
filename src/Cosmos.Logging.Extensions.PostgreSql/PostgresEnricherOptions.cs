@@ -6,10 +6,8 @@ using Cosmos.Logging.Events;
 using Cosmos.Logging.Extensions.PostgreSql.Core;
 
 // ReSharper disable once CheckNamespace
-namespace Cosmos.Logging
-{
-    public class PostgresEnricherOptions : ILoggingSinkOptions<PostgresEnricherOptions>, ILoggingSinkOptions
-    {
+namespace Cosmos.Logging {
+    public class PostgresEnricherOptions : ILoggingSinkOptions<PostgresEnricherOptions>, ILoggingSinkOptions {
         public PostgresEnricherOptions() { }
 
         public string Key => Constants.SinkKey;
@@ -22,16 +20,13 @@ namespace Cosmos.Logging
 
         public PostgresEnricherOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
 
-        public PostgresEnricherOptions UseMinimumLevelForType(Type type, LogEventLevel level)
-        {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+        public PostgresEnricherOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
+            if (type is null) throw new ArgumentNullException(nameof(type));
             var typeName = TypeNameHelper.GetTypeDisplayName(type);
-            if (InternalNavigatorLogEventLevels.ContainsKey(typeName))
-            {
+            if (InternalNavigatorLogEventLevels.ContainsKey(typeName)) {
                 InternalNavigatorLogEventLevels[typeName] = level;
             }
-            else
-            {
+            else {
                 InternalNavigatorLogEventLevels.Add(typeName, level);
             }
 
@@ -40,31 +35,26 @@ namespace Cosmos.Logging
 
         public PostgresEnricherOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
-        public PostgresEnricherOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level)
-        {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+        public PostgresEnricherOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
+            if (type is null) throw new ArgumentNullException(nameof(type));
             var @namespace = type.Namespace;
             return UseMinimumLevelForCategoryName(@namespace, level);
         }
 
-        public PostgresEnricherOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level)
-        {
+        public PostgresEnricherOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level) {
             if (string.IsNullOrWhiteSpace(categoryName)) throw new ArgumentNullException(nameof(categoryName));
             categoryName = $"{categoryName}.*";
-            if (InternalNavigatorLogEventLevels.ContainsKey(categoryName))
-            {
+            if (InternalNavigatorLogEventLevels.ContainsKey(categoryName)) {
                 InternalNavigatorLogEventLevels[categoryName] = level;
             }
-            else
-            {
+            else {
                 InternalNavigatorLogEventLevels.Add(categoryName, level);
             }
 
             return this;
         }
 
-        public PostgresEnricherOptions UseMinimumLevel(LogEventLevel? level)
-        {
+        public PostgresEnricherOptions UseMinimumLevel(LogEventLevel? level) {
             MinimumLevel = level;
             return this;
         }
@@ -75,15 +65,12 @@ namespace Cosmos.Logging
 
         internal readonly Dictionary<string, LogEventLevel> InternalAliases = new Dictionary<string, LogEventLevel>();
 
-        public PostgresEnricherOptions UseAlias(string alias, LogEventLevel level)
-        {
+        public PostgresEnricherOptions UseAlias(string alias, LogEventLevel level) {
             if (string.IsNullOrWhiteSpace(alias)) return this;
-            if (InternalAliases.ContainsKey(alias))
-            {
+            if (InternalAliases.ContainsKey(alias)) {
                 InternalAliases[alias] = level;
             }
-            else
-            {
+            else {
                 InternalAliases.Add(alias, level);
             }
 
@@ -95,11 +82,10 @@ namespace Cosmos.Logging
         #region Append Progres Logging Options
 
         internal bool? IsParameterLoggingEnable { get; set; }
-        
+
         internal bool FinalParameterLoggingEnable { get; set; }
 
-        public PostgresEnricherOptions WithParameter(bool value)
-        {
+        public PostgresEnricherOptions WithParameter(bool value) {
             IsParameterLoggingEnable = value;
             return this;
         }
@@ -110,9 +96,8 @@ namespace Cosmos.Logging
 
         internal Func<string, LogEventLevel, bool> Filter { get; set; }
 
-        public PostgresEnricherOptions UseFilter(Func<string, LogEventLevel, bool> filter)
-        {
-            if (filter == null) throw new ArgumentNullException(nameof(filter));
+        public PostgresEnricherOptions UseFilter(Func<string, LogEventLevel, bool> filter) {
+            if (filter is null) throw new ArgumentNullException(nameof(filter));
 
             var temp = Filter;
             Filter = (s, l) => (temp?.Invoke(s, l) ?? true) && filter(s, l);
@@ -124,27 +109,24 @@ namespace Cosmos.Logging
 
         #region Append output
 
-        private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
+        private readonly RenderingConfiguration _renderingOptions = new RenderingConfiguration();
 
-        public PostgresEnricherOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled)
-        {
+        public PostgresEnricherOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
             _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
             return this;
         }
 
-        public PostgresEnricherOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled)
-        {
+        public PostgresEnricherOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled) {
             _renderingOptions.DisplayingEventIdInfoEnabled = displayingEventIdInfoEnabled;
             return this;
         }
 
-        public PostgresEnricherOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled)
-        {
+        public PostgresEnricherOptions EnableDisplayNewLineEom(bool? displayingNewLineEomEnabled) {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }
 
-        public RendingConfiguration GetRenderingOptions() => _renderingOptions;
+        public RenderingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
 

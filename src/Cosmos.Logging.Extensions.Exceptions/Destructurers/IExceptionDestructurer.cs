@@ -2,13 +2,11 @@ using System;
 using System.Collections.Generic;
 using Cosmos.Logging.Extensions.Exceptions.Core;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
-{
+namespace Cosmos.Logging.Extensions.Exceptions.Destructurers {
     /// <summary>
     /// Interface that all exception destructurer should implement.
     /// </summary>
-    public interface IExceptionDestructurer
-    {
+    public interface IExceptionDestructurer {
         /// <summary>
         /// Types of exception that the destructurer can be handle.
         /// </summary>

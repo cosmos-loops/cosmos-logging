@@ -1,18 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\..\build\common.net461-net451.props" />
+
+    <Import Project="..\..\build\common.ns21-net461-net451.props" />
+
     <PropertyGroup>
-        <TargetFrameworks>net461;net451</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1;netstandard2.1;net461;net451</TargetFrameworks>
+    </PropertyGroup>
+    
+    <PropertyGroup>
         <AssemblyName>Cosmos.Logging.Extensions.EntityFramework</AssemblyName>
         <PackageId>Cosmos.Logging.Extensions.EntityFramework</PackageId>
         <Description>Cosmos.Logging extension for ORM Microsoft EntityFramework 6.</Description>
-        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.EntityFramework.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.EntityFramework.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="EntityFramework" Version="6.4.0" />
+    </ItemGroup>
+    
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="EntityFramework" Version="6.4.0-preview3-19553-01" />
     </ItemGroup>
 </Project>

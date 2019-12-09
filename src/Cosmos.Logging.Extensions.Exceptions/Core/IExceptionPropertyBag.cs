@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Core
-{
+namespace Cosmos.Logging.Extensions.Exceptions.Core {
     /// <summary>
     /// To contain all properties of a single exception instance.
     /// All properties should be added before this bag is requested.
     /// </summary>
-    public interface IExceptionPropertyBag
-    {
+    public interface IExceptionPropertyBag {
         /// <summary>
         /// Gets all properties of the exception instance.
         /// </summary>

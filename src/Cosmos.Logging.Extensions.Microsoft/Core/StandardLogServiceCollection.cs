@@ -26,7 +26,7 @@ namespace Cosmos.Logging.Extensions.Microsoft.Core {
         internal StandardLogServiceCollection(IServiceCollection services) : this(services, null) { }
 
         internal StandardLogServiceCollection(IServiceCollection services, IConfigurationRoot root) {
-            _configurationBuilder = root == null
+            _configurationBuilder = root is null
                 ? new LoggingConfigurationBuilder()
                 : new DisabledConfigurationBuilder(root);
             _configurationBuilderLockedStatus = root != null;
@@ -130,10 +130,8 @@ namespace Cosmos.Logging.Extensions.Microsoft.Core {
             _originConfigAction?.Invoke(_loggingConfiguration.Configuration);
         }
 
-        internal void ActiveLogEventEnrichers()
-        {
-            foreach (var provider in _additionalEnricherProviders)
-            {
+        internal void ActiveLogEventEnrichers() {
+            foreach (var provider in _additionalEnricherProviders) {
                 _loggingConfiguration.SetEnricher(provider.Invoke());
             }
         }

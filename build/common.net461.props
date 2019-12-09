@@ -6,15 +6,8 @@
 		<TargetFramework>net461</TargetFramework>
 	</PropertyGroup>
 
-	<PropertyGroup Label="Package">
-		<Product>Cosmos.Logging</Product>
-		<Authors>AlexLEWIS;dotnetcore;StarrySky;Cosmos</Authors>
-		<RepositoryUrl>https://github.com/cosmos-loops/Cosmos/tree/dev/Logging</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-        <PackageProjectUrl>https://github.com/cosmos-loops/Cosmos/tree/dev/Logging</PackageProjectUrl>
-		<PackageIconUrl>https://avatars2.githubusercontent.com/u/25580633?s=200</PackageIconUrl>
-		<PackageLicenseUrl>http://www.opensource.org/licenses/mit-license.php</PackageLicenseUrl>
-		<PackageTags>StarrySky;Cosmos;Logging</PackageTags>
-	</PropertyGroup>
+	<Import Project="package.props" />
+
+	<Import Project="misc.props" />
 
 </Project>

@@ -5,14 +5,13 @@ using System.Linq;
 using Cosmos.Logging.Extensions.Exceptions.Core;
 
 // ReSharper disable once CheckNamespace
-namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
-{
-    public class SqlExceptionDestructurer : ExceptionDestructurer<SqlException>
-    {
+namespace Cosmos.Logging.Extensions.Exceptions.Destructurers {
+    public class SqlExceptionDestructurer : ExceptionDestructurer<SqlException> {
 
-        protected override void DestructureException(SqlException exception, IExceptionPropertyBag propertyBag,
-            Func<Exception, IReadOnlyDictionary<string, object>> destructureExceptionHandle)
-        {
+        protected override void DestructureException(
+            SqlException exception, 
+            IExceptionPropertyBag propertyBag,
+            Func<Exception, IReadOnlyDictionary<string, object>> destructureExceptionHandle) {
             propertyBag.AddProperty(nameof(SqlException.ClientConnectionId), exception.ClientConnectionId);
             propertyBag.AddProperty(nameof(SqlException.Class), exception.Class);
             propertyBag.AddProperty(nameof(SqlException.LineNumber), exception.LineNumber);

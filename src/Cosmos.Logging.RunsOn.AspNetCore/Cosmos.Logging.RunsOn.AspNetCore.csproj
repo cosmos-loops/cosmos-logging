@@ -1,23 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\build\common.ns20-net461.props" />
-  <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>
-    <AssemblyName>Cosmos.Logging.RunsOn.AspNetCore</AssemblyName>
-    <PackageId>Cosmos.Logging.RunsOn.AspNetCore</PackageId>
-    <Description>The base library for integrating Microsoft ASP.NET Core MVC for Cosmos.Logging.</Description>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cosmos.Logging.Extensions.Microsoft\Cosmos.Logging.Extensions.Microsoft.csproj" />
-    <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
-  </ItemGroup>
+
+    <Import Project="..\..\build\common.c3x-ns20-net461.props"/>
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp3.1;netstandard2.0;net461</TargetFrameworks>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <AssemblyName>Cosmos.Logging.RunsOn.AspNetCore</AssemblyName>
+        <PackageId>Cosmos.Logging.RunsOn.AspNetCore</PackageId>
+        <Description>The base library for integrating Microsoft ASP.NET Core MVC for Cosmos.Logging.</Description>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.RunsOn.AspNetCore.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.RunsOn.AspNetCore.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.0"/>
+        <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.0"/>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0' OR 
+                          '$(TargetFramework)'=='net461'">
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Logging.Extensions.Microsoft\Cosmos.Logging.Extensions.Microsoft.csproj"/>
+        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj"/>
+    </ItemGroup>
 </Project>

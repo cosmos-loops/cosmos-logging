@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-using Cosmos.Logging.Core;
+using Cosmos.Disposables;
 
 namespace Cosmos.Logging.Sinks.Console.Internals
 {

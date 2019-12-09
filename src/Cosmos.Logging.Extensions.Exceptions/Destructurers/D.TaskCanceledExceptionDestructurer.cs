@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cosmos.Logging.Extensions.Exceptions.Core;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
-{
-    public class TaskCanceledExceptionDestructurer : OperationCanceledExceptionDestructurer
-    {
+namespace Cosmos.Logging.Extensions.Exceptions.Destructurers {
+    public class TaskCanceledExceptionDestructurer : OperationCanceledExceptionDestructurer {
         public override Type[] TargetTypes => new[] {typeof(TaskCanceledException)};
 
         public override void Destructure(
             Exception exception,
             IExceptionPropertyBag propertyBag,
-            Func<Exception, IReadOnlyDictionary<string, object>> destructureExceptionHandle)
-        {
+            Func<Exception, IReadOnlyDictionary<string, object>> destructureExceptionHandle) {
             base.Destructure(exception, propertyBag, destructureExceptionHandle);
 
             var tce = (TaskCanceledException) exception;
@@ -21,31 +18,26 @@ namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
             propertyBag.AddProperty(nameof(TaskCanceledException.Task), DestructureTask(tce.Task, destructureExceptionHandle));
         }
 
-        private static object DestructureTask(Task task, Func<Exception, IReadOnlyDictionary<string, object>> innerDestructure)
-        {
-            if (task is null)
-            {
+        private static object DestructureTask(Task task, Func<Exception, IReadOnlyDictionary<string, object>> innerDestructure) {
+            if (task is null) {
                 return "null";
             }
 
-            var taskStatus = task.Status.ToString("G");
+            var taskStatus          = task.Status.ToString("G");
             var taskCreationOptions = task.CreationOptions.ToString("F");
 
-            if (task.IsFaulted && task.Exception != null)
-            {
-                return new
-                {
+            if (task.IsFaulted && task.Exception != null) {
+                return new {
                     task.Id,
-                    Status = taskStatus,
+                    Status          = taskStatus,
                     CreationOptions = taskCreationOptions,
-                    Exception = innerDestructure(task.Exception),
+                    Exception       = innerDestructure(task.Exception),
                 };
             }
 
-            return new
-            {
+            return new {
                 task.Id,
-                Status = taskStatus,
+                Status          = taskStatus,
                 CreationOptions = taskCreationOptions,
             };
         }

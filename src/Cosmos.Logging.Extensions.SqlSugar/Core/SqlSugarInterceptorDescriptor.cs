@@ -22,6 +22,6 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core {
 
         internal ILoggingServiceProvider ExposeLoggingServiceProvider => _loggingServiceProvider;
 
-        internal RendingConfiguration RenderingOptions => _settings?.GetRenderingOptions() ?? new RendingConfiguration();
+        internal RenderingConfiguration RenderingOptions => _settings?.GetRenderingOptions() ?? new RenderingConfiguration();
     }
 }

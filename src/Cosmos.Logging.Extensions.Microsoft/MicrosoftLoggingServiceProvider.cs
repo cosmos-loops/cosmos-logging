@@ -26,7 +26,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         private ILogger GetLoggerCore(Type sourceType, string categoryName, LogEventLevel? level, Func<string, LogEventLevel, bool> filter,
-            LogEventSendMode mode = LogEventSendMode.Customize, RendingConfiguration renderingOptions = null) {
+            LogEventSendMode mode = LogEventSendMode.Customize, RenderingConfiguration renderingOptions = null) {
             var loggerStateNamespace = sourceType == null ? categoryName : TypeNameHelper.GetTypeDisplayName(sourceType);
             var minLevel = level ?? _loggingConfiguration.GetMinimumLevel(loggerStateNamespace);
             return new CosmosLoggerProxy(sourceType ?? typeof(object), minLevel, loggerStateNamespace, filter, mode,
@@ -35,78 +35,78 @@ namespace Cosmos.Logging.Extensions.Microsoft {
 
         public ILogger GetLogger(string categoryName,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(null, categoryName, null, null, mode, renderingOptions);
         }
 
         public ILogger GetLogger(string categoryName, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(null, categoryName, null, filter, mode, renderingOptions);
         }
 
         public ILogger GetLogger(string categoryName, LogEventLevel minLevel,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(null, categoryName, minLevel, null, mode, renderingOptions);
         }
 
         public ILogger GetLogger(string categoryName, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(null, categoryName, minLevel, filter, mode, renderingOptions);
         }
 
         public ILogger GetLogger(Type type,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(type, null, null, null, mode, renderingOptions);
         }
 
         public ILogger GetLogger(Type type, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(type, null, null, filter, mode, renderingOptions);
         }
 
         public ILogger GetLogger(Type type, LogEventLevel minLevel,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(type, null, minLevel, null, mode, renderingOptions);
         }
 
         public ILogger GetLogger(Type type, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(type, null, minLevel, filter, mode, renderingOptions);
         }
 
         public ILogger GetLogger<T>(
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(typeof(T), null, null, null, mode, renderingOptions);
         }
 
         public ILogger GetLogger<T>(Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(typeof(T), null, null, filter, mode, renderingOptions);
         }
 
         public ILogger GetLogger<T>(LogEventLevel minLevel,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(typeof(T), null, minLevel, null, mode, renderingOptions);
         }
 
         public ILogger GetLogger<T>(LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize,
-            RendingConfiguration renderingOptions = null) {
+            RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(typeof(T), null, minLevel, filter, mode, renderingOptions);
         }
 
-       public IFutureLogger GetFutureLogger(string categoryName,
-            RendingConfiguration renderingOptions = null,
+        public IFutureLogger GetFutureLogger(string categoryName,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -114,7 +114,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         public IFutureLogger GetFutureLogger(string categoryName, Func<string, LogEventLevel, bool> filter,
-            RendingConfiguration renderingOptions = null,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -122,7 +122,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         public IFutureLogger GetFutureLogger(string categoryName, LogEventLevel minLevel,
-            RendingConfiguration renderingOptions = null,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -130,7 +130,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         public IFutureLogger GetFutureLogger(string categoryName, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
-            RendingConfiguration renderingOptions = null,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -138,7 +138,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         public IFutureLogger GetFutureLogger(Type type,
-            RendingConfiguration renderingOptions = null,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -146,7 +146,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         public IFutureLogger GetFutureLogger(Type type, Func<string, LogEventLevel, bool> filter,
-            RendingConfiguration renderingOptions = null,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -154,7 +154,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         public IFutureLogger GetFutureLogger(Type type, LogEventLevel minLevel,
-            RendingConfiguration renderingOptions = null,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -162,7 +162,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         public IFutureLogger GetFutureLogger(Type type, LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
-            RendingConfiguration renderingOptions = null,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -170,7 +170,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         public IFutureLogger GetFutureLogger<T>(
-            RendingConfiguration renderingOptions = null,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -178,7 +178,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         public IFutureLogger GetFutureLogger<T>(Func<string, LogEventLevel, bool> filter,
-            RendingConfiguration renderingOptions = null,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -186,7 +186,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         public IFutureLogger GetFutureLogger<T>(LogEventLevel minLevel,
-            RendingConfiguration renderingOptions = null,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
@@ -194,7 +194,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         }
 
         public IFutureLogger GetFutureLogger<T>(LogEventLevel minLevel, Func<string, LogEventLevel, bool> filter,
-            RendingConfiguration renderingOptions = null,
+            RenderingConfiguration renderingOptions = null,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {

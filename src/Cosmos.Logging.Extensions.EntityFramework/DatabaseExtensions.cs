@@ -15,7 +15,7 @@ namespace Cosmos.Logging {
         }
 
         public static void UseCosmosLogging(this Database db, Func<string, LogEventLevel, bool> filter, Func<string, object> loggerAct = null) {
-            if (db == null) throw new ArgumentNullException(nameof(db));
+            if (db is null) throw new ArgumentNullException(nameof(db));
 
             Func<string, LogEventLevel, bool> localFilter = (s, l) => (Settings?.Filter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true);
 

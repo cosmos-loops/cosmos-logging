@@ -5,13 +5,12 @@ using EnumsNET;
 using Npgsql;
 
 // ReSharper disable once CheckNamespace
-namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
-{
-    public class PostgresExceptionDestructurer : ExceptionDestructurer<PostgresException>
-    {
-        protected override void DestructureException(PostgresException exception, IExceptionPropertyBag propertyBag,
-            Func<Exception, IReadOnlyDictionary<string, object>> destructureExceptionHandle)
-        {
+namespace Cosmos.Logging.Extensions.Exceptions.Destructurers {
+    public class PostgresExceptionDestructurer : ExceptionDestructurer<PostgresException> {
+        protected override void DestructureException(
+            PostgresException exception,
+            IExceptionPropertyBag propertyBag,
+            Func<Exception, IReadOnlyDictionary<string, object>> destructureExceptionHandle) {
             propertyBag.AddProperty(nameof(PostgresException.Line), exception.Line);
             propertyBag.AddProperty(nameof(PostgresException.Position), exception.Position);
             propertyBag.AddProperty(nameof(PostgresException.Severity), exception.Severity);

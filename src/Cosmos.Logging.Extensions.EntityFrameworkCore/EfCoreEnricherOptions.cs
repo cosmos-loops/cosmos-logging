@@ -20,11 +20,12 @@ namespace Cosmos.Logging {
         public EfCoreEnricherOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
 
         public EfCoreEnricherOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type is null) throw new ArgumentNullException(nameof(type));
             var typeName = TypeNameHelper.GetTypeDisplayName(type);
             if (InternalNavigatorLogEventLevels.ContainsKey(typeName)) {
                 InternalNavigatorLogEventLevels[typeName] = level;
-            } else {
+            }
+            else {
                 InternalNavigatorLogEventLevels.Add(typeName, level);
             }
 
@@ -34,7 +35,7 @@ namespace Cosmos.Logging {
         public EfCoreEnricherOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
         public EfCoreEnricherOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type is null) throw new ArgumentNullException(nameof(type));
             var @namespace = type.Namespace;
             return UseMinimumLevelForCategoryName(@namespace, level);
         }
@@ -44,7 +45,8 @@ namespace Cosmos.Logging {
             categoryName = $"{categoryName}.*";
             if (InternalNavigatorLogEventLevels.ContainsKey(categoryName)) {
                 InternalNavigatorLogEventLevels[categoryName] = level;
-            } else {
+            }
+            else {
                 InternalNavigatorLogEventLevels.Add(categoryName, level);
             }
 
@@ -66,7 +68,8 @@ namespace Cosmos.Logging {
             if (string.IsNullOrWhiteSpace(alias)) return this;
             if (InternalAliases.ContainsKey(alias)) {
                 InternalAliases[alias] = level;
-            } else {
+            }
+            else {
                 InternalAliases.Add(alias, level);
             }
 
@@ -100,10 +103,10 @@ namespace Cosmos.Logging {
         }
 
         #endregion
-        
+
         #region Append output
 
-        private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
+        private readonly RenderingConfiguration _renderingOptions = new RenderingConfiguration();
 
         public EfCoreEnricherOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
             _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
@@ -115,12 +118,12 @@ namespace Cosmos.Logging {
             return this;
         }
 
-        public EfCoreEnricherOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled) {
+        public EfCoreEnricherOptions EnableDisplayNewLineEom(bool? displayingNewLineEomEnabled) {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }
 
-        public RendingConfiguration GetRenderingOptions() => _renderingOptions;
+        public RenderingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
 

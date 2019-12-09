@@ -1,18 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\build\common.ns20-net461-net451.props" />
+
+  <Import Project="..\..\build\common.ns20-net461-net451.props"/>
+
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net461;net451</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <AssemblyName>Cosmos.Logging.Sinks.NLog</AssemblyName>
     <PackageId>Cosmos.Logging.Sinks.NLog</PackageId>
     <Description>The NLog sink for Cosmos.Logging.</Description>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
-  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>Cosmos.Logging.Sinks.NLog.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DocumentationFile>Cosmos.Logging.Sinks.NLog.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="NLog" Version="4.6.8" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
   </ItemGroup>
 </Project>

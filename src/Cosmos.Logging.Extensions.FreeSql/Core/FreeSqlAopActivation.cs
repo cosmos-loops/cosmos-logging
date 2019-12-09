@@ -6,25 +6,22 @@ using Cosmos.Logging.MessageTemplates.PresetTemplates;
 using FreeSql;
 using FreeSql.Aop;
 
-namespace Cosmos.Logging.Extensions.FreeSql.Core
-{
-    internal static class FreeSqlAopActivation
-    {
-        public static void RegisterToFreeSql(IFreeSql freeSql, FreeSqlInterceptorDescriptor descriptor,
+namespace Cosmos.Logging.Extensions.FreeSql.Core {
+    internal static class FreeSqlAopActivation {
+        public static void RegisterToFreeSql(
+            IFreeSql freeSql, FreeSqlInterceptorDescriptor descriptor,
             Action<CurdBeforeEventArgs> executingAct = null,
             Func<CurdAfterEventArgs, object> executedAct = null,
             Func<Exception, CurdAfterEventArgs, object> errorAct = null,
-            Func<string, LogEventLevel, bool> filter = null)
-        {
-            if (freeSql == null)
+            Func<string, LogEventLevel, bool> filter = null) {
+            if (freeSql is null)
                 throw new ArgumentNullException(nameof(freeSql));
 
             var pinBefore = freeSql.Aop.CurdBefore;
             var pinAfter = freeSql.Aop.CurdAfter;
 
             pinBefore += (s, e) => descriptor.ExposeExecutingInterceptor?.Invoke(e);
-            pinAfter += (s, e) =>
-            {
+            pinAfter += (s, e) => {
                 if (e.Exception == null)
                     descriptor.ExposeExecutedInterceptor?.Invoke(e);
                 else
@@ -40,17 +37,17 @@ namespace Cosmos.Logging.Extensions.FreeSql.Core
             freeSql.Aop.CurdAfter = pinAfter;
         }
 
-        private static void InternalExecutingOpt(CurdBeforeEventArgs args,
-            Action<CurdBeforeEventArgs> executingAct = null)
-        {
+        private static void InternalExecutingOpt(
+            CurdBeforeEventArgs args,
+            Action<CurdBeforeEventArgs> executingAct = null) {
             executingAct?.Invoke(args);
         }
 
-        private static void InternalExecutedOpt(FreeSqlInterceptorDescriptor descriptor, CurdAfterEventArgs args,
+        private static void InternalExecutedOpt(
+            FreeSqlInterceptorDescriptor descriptor, CurdAfterEventArgs args,
             Func<CurdAfterEventArgs, object> executedAct = null,
             Func<Exception, CurdAfterEventArgs, object> errorAct = null,
-            Func<string, LogEventLevel, bool> filter = null)
-        {
+            Func<string, LogEventLevel, bool> filter = null) {
             object loggingParams;
             var errorFlag = args.Exception != null;
             var userInfo = errorFlag
@@ -58,14 +55,12 @@ namespace Cosmos.Logging.Extensions.FreeSql.Core
                 : executedAct?.Invoke(args) ?? string.Empty;
             var logger = descriptor.ExposeLoggingServiceProvider.GetLogger<IAdo>(filter, LogEventSendMode.Automatic, descriptor.RenderingOptions);
 
-            if (!errorFlag && args.ElapsedMilliseconds > 1000)
-            {
+            if (!errorFlag && args.ElapsedMilliseconds > 1000) {
                 if (!logger.IsEnabled(LogEventLevel.Warning))
                     return;
 
                 var eventId = new LogEventId(args.Identifier, EventIdKeys.LongTimeExecuted);
-                loggingParams = new
-                {
+                loggingParams = new {
                     OrmName = Constants.SinkKey,
                     ContextId = args.Identifier,
                     args.Sql,
@@ -75,14 +70,12 @@ namespace Cosmos.Logging.Extensions.FreeSql.Core
                 };
                 logger.LogWarning(eventId, OrmTemplateStandard.LongNormal, loggingParams);
             }
-            else if (!errorFlag)
-            {
+            else if (!errorFlag) {
                 if (!logger.IsEnabled(LogEventLevel.Information))
                     return;
 
                 var eventId = new LogEventId(args.Identifier, EventIdKeys.Executed);
-                loggingParams = new
-                {
+                loggingParams = new {
                     OrmName = Constants.SinkKey,
                     ContextId = args.Identifier,
                     args.Sql,
@@ -91,8 +84,7 @@ namespace Cosmos.Logging.Extensions.FreeSql.Core
                 };
                 logger.LogInformation(eventId, OrmTemplateStandard.Normal, loggingParams);
             }
-            else
-            {
+            else {
                 if (!logger.IsEnabled(LogEventLevel.Error))
                     return;
 
@@ -100,8 +92,7 @@ namespace Cosmos.Logging.Extensions.FreeSql.Core
                 var exception = args.Exception;
                 var realException = exception.Unwrap();
 
-                loggingParams = new
-                {
+                loggingParams = new {
                     OrmName = Constants.SinkKey,
                     ContextId = args.Identifier,
                     args.Sql,

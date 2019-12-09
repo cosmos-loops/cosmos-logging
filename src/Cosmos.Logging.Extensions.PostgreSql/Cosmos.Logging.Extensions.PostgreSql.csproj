@@ -1,18 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
     <Import Project="..\..\build\common.ns20-net461.props" />
+
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net461</TargetFrameworks>
+    </PropertyGroup>
+
+    <PropertyGroup>
         <AssemblyName>Cosmos.Logging.Extensions.PostgreSql</AssemblyName>
         <PackageId>Cosmos.Logging.Extensions.PostgreSql</PackageId>
         <Description>Cosmos.Logging extension for PostgreSql ADO.NET Provider.</Description>
-        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     </PropertyGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
-    </ItemGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.PostgreSql.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.PostgreSql.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="Npgsql" Version="4.1.2" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
 </Project>

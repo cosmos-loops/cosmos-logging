@@ -21,11 +21,12 @@ namespace Cosmos.Logging {
         public EfEnricherOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
 
         public EfEnricherOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type is null) throw new ArgumentNullException(nameof(type));
             var typeName = TypeNameHelper.GetTypeDisplayName(type);
             if (InternalNavigatorLogEventLevels.ContainsKey(typeName)) {
                 InternalNavigatorLogEventLevels[typeName] = level;
-            } else {
+            }
+            else {
                 InternalNavigatorLogEventLevels.Add(typeName, level);
             }
 
@@ -35,7 +36,7 @@ namespace Cosmos.Logging {
         public EfEnricherOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
         public EfEnricherOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type is null) throw new ArgumentNullException(nameof(type));
             var @namespace = type.Namespace;
             return UseMinimumLevelForCategoryName(@namespace, level);
         }
@@ -45,7 +46,8 @@ namespace Cosmos.Logging {
             @namespace = $"{@namespace}.*";
             if (InternalNavigatorLogEventLevels.ContainsKey(@namespace)) {
                 InternalNavigatorLogEventLevels[@namespace] = level;
-            } else {
+            }
+            else {
                 InternalNavigatorLogEventLevels.Add(@namespace, level);
             }
 
@@ -67,7 +69,8 @@ namespace Cosmos.Logging {
             if (string.IsNullOrWhiteSpace(alias)) return this;
             if (InternalAliases.ContainsKey(alias)) {
                 InternalAliases[alias] = level;
-            } else {
+            }
+            else {
                 InternalAliases.Add(alias, level);
             }
 
@@ -131,7 +134,8 @@ namespace Cosmos.Logging {
             return this;
         }
 
-        public EfEnricherOptions AddNonQueryLongTimeExecutedInterceptor(Func<string, DbParameterCollection, DateTime, DateTime, object> executedInterceptor, bool asAppend = false) {
+        public EfEnricherOptions AddNonQueryLongTimeExecutedInterceptor(Func<string, DbParameterCollection, DateTime, DateTime, object> executedInterceptor,
+                                                                        bool asAppend = false) {
             NonQueryLongTimeExecutedInterceptorAction += executedInterceptor ?? throw new ArgumentNullException(nameof(executedInterceptor));
             if (asAppend) {
                 AddNonQueryExecutedInterceptor(executedInterceptor);
@@ -224,7 +228,7 @@ namespace Cosmos.Logging {
 
         #region Append output
 
-        private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
+        private readonly RenderingConfiguration _renderingOptions = new RenderingConfiguration();
 
         public EfEnricherOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
             _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
@@ -236,12 +240,12 @@ namespace Cosmos.Logging {
             return this;
         }
 
-        public EfEnricherOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled) {
+        public EfEnricherOptions EnableDisplayNewLineEom(bool? displayingNewLineEomEnabled) {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }
 
-        public RendingConfiguration GetRenderingOptions() => _renderingOptions;
+        public RenderingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
 

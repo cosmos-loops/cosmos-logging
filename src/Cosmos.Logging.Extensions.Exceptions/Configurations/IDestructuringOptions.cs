@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using Cosmos.Logging.Extensions.Exceptions.Destructurers;
 using Cosmos.Logging.Extensions.Exceptions.Filters;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Configurations
-{
-    public interface IDestructuringOptions
-    {
+namespace Cosmos.Logging.Extensions.Exceptions.Configurations {
+    public interface IDestructuringOptions {
         /// <summary>
         /// Name for the key in log-context for the exception destructured info.
         /// </summary>

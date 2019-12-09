@@ -1,17 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\build\common.net461.props" />
+
+  <Import Project="..\..\build\common.net461.props"/>
+
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <AssemblyName>Cosmos.Logging.RunsOn.AspNet.WithAutofac</AssemblyName>
     <PackageId>Cosmos.Logging.RunsOn.AspNet.WithAutofac</PackageId>
     <Description>The Autofac extension library for integrating Microsoft ASP.NET MVC 5 with Cosmos.Logging.</Description>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cosmos.Logging.RunsOn.AspNet\Cosmos.Logging.RunsOn.AspNet.csproj" />
-  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>Cosmos.Logging.RunsOn.AspNet.WithAutofac.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DocumentationFile>Cosmos.Logging.RunsOn.AspNet.WithAutofac.xml</DocumentationFile>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="Alexinea.Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="Autofac" Version="4.9.4" />
@@ -19,5 +27,9 @@
 
   <ItemGroup>
     <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cosmos.Logging.RunsOn.AspNet\Cosmos.Logging.RunsOn.AspNet.csproj" />
   </ItemGroup>
 </Project>

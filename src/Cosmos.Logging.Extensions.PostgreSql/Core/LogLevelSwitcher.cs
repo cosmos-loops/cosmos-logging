@@ -1,14 +1,10 @@
 using Cosmos.Logging.Events;
 using Npgsql.Logging;
 
-namespace Cosmos.Logging.Extensions.PostgreSql.Core
-{
-    internal static class LogLevelSwitcher
-    {
-        public static NpgsqlLogLevel Switch(LogEventLevel level)
-        {
-            switch (level)
-            {
+namespace Cosmos.Logging.Extensions.PostgreSql.Core {
+    internal static class LogLevelSwitcher {
+        public static NpgsqlLogLevel Switch(LogEventLevel level) {
+            switch (level) {
                 case LogEventLevel.Verbose: return NpgsqlLogLevel.Trace;
                 case LogEventLevel.Debug: return NpgsqlLogLevel.Debug;
                 case LogEventLevel.Information: return NpgsqlLogLevel.Info;
@@ -20,13 +16,11 @@ namespace Cosmos.Logging.Extensions.PostgreSql.Core
             }
         }
 
-        public static LogEventLevel Switch(NpgsqlLogLevel? level)
-        {
+        public static LogEventLevel Switch(NpgsqlLogLevel? level) {
             if (level == null)
                 return LogEventLevel.Off;
 
-            switch (level.Value)
-            {
+            switch (level.Value) {
                 case NpgsqlLogLevel.Trace: return LogEventLevel.Verbose;
                 case NpgsqlLogLevel.Debug: return LogEventLevel.Debug;
                 case NpgsqlLogLevel.Info: return LogEventLevel.Information;

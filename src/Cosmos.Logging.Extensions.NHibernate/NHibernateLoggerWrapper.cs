@@ -2,14 +2,11 @@
 using Cosmos.Logging.Extensions.NHibernate.Core;
 using NHibernate;
 
-namespace Cosmos.Logging.Extensions.NHibernate
-{
-    public class NHibernateLoggerWrapper : INHibernateLogger
-    {
+namespace Cosmos.Logging.Extensions.NHibernate {
+    public class NHibernateLoggerWrapper : INHibernateLogger {
         private readonly ILogger _logger;
 
-        public NHibernateLoggerWrapper(ILogger logger)
-        {
+        public NHibernateLoggerWrapper(ILogger logger) {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -19,8 +16,7 @@ namespace Cosmos.Logging.Extensions.NHibernate
         /// <param name="logLevel"></param>
         /// <param name="state"></param>
         /// <param name="exception"></param>
-        public void Log(NHibernateLogLevel logLevel, NHibernateLogValues state, Exception exception)
-        {
+        public void Log(NHibernateLogLevel logLevel, NHibernateLogValues state, Exception exception) {
             _logger.Log(LogLevelSwitcher.Switch(logLevel), exception, state.ToString());
         }
 

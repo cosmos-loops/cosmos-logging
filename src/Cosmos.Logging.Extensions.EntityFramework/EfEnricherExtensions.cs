@@ -12,7 +12,9 @@ using Microsoft.Extensions.Options;
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
     public static class EfEnricherExtensions {
-        public static DatabaseIntegration UseEntityFramework(this DatabaseIntegration integration, Action<EfEnricherOptions> settingAct = null,
+        public static DatabaseIntegration UseEntityFramework(
+            this DatabaseIntegration integration,
+            Action<EfEnricherOptions> settingAct = null,
             Action<IConfiguration, EfEnricherConfiguration> configAction = null) {
             var settings = new EfEnricherOptions();
             settingAct?.Invoke(settings);
@@ -28,7 +30,8 @@ namespace Cosmos.Logging {
                     if (string.IsNullOrWhiteSpace(@namespace)) return;
                     if (configuration.LogLevel.ContainsKey(@namespace)) {
                         configuration.LogLevel[@namespace] = expectLevelName;
-                    } else {
+                    }
+                    else {
                         configuration.LogLevel.Add(@namespace, expectLevelName);
                     }
                 }
@@ -41,13 +44,16 @@ namespace Cosmos.Logging {
             return UseEntityFrameworkCore(integration, Options.Create(settings), InternalAction);
         }
 
-        private static DatabaseIntegration UseEntityFrameworkCore(DatabaseIntegration integration, IOptions<EfEnricherOptions> settings,
+        private static DatabaseIntegration UseEntityFrameworkCore(
+            DatabaseIntegration integration,
+            IOptions<EfEnricherOptions> settings,
             Action<IConfiguration, EfEnricherConfiguration, LoggingConfiguration> config = null) {
-            if (integration == null) throw new ArgumentNullException(nameof(integration));
+            if (integration is null) throw new ArgumentNullException(nameof(integration));
 
             var serviceImpl = integration.ExposeServiceCollectionWrapper;
             if (serviceImpl != null) {
-                serviceImpl.AddExtraSinkSettings<EfEnricherOptions, EfEnricherConfiguration>(settings.Value, (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
+                serviceImpl.AddExtraSinkSettings<EfEnricherOptions, EfEnricherConfiguration>(settings.Value,
+                    (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(typeof(EfInterceptorDescriptor),
                     provider => new EfInterceptorDescriptor(provider.GetService<ILoggingServiceProvider>(), settings))));

@@ -4,12 +4,9 @@ using Cosmos.Logging.Extensions.Exceptions.Core;
 using Cosmos.Logging.Extensions.Exceptions.Destructurers;
 using Cosmos.Logging.Extensions.Exceptions.Filters;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Configurations
-{
-    public class DestructuringOptionsBuilder : IDestructuringOptions
-    {
-        public static readonly IExceptionDestructurer[] DefaultDestructurers =
-        {
+namespace Cosmos.Logging.Extensions.Exceptions.Configurations {
+    public class DestructuringOptionsBuilder : IDestructuringOptions {
+        public static readonly IExceptionDestructurer[] DefaultDestructurers = {
             new ExceptionDestructurer(),
             new ArgumentExceptionDestructurer(),
             new ArgumentOutOfRangeExceptionDestructurer(),
@@ -41,8 +38,7 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
 
         public IExceptionPropertyFilter Filter { get; private set; }
 
-        public DestructuringOptionsBuilder WithName(string name)
-        {
+        public DestructuringOptionsBuilder WithName(string name) {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException(nameof(name));
 
@@ -50,10 +46,8 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
             return this;
         }
 
-        public DestructuringOptionsBuilder WithDepth(int depth)
-        {
-            if (depth <= 0)
-            {
+        public DestructuringOptionsBuilder WithDepth(int depth) {
+            if (depth <= 0) {
                 throw new ArgumentOutOfRangeException(nameof(depth), depth, "The value of depth must be positive.");
             }
 
@@ -61,31 +55,24 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
             return this;
         }
 
-        public DestructuringOptionsBuilder WithDestructurer(IExceptionDestructurer destructurer)
-        {
-            if (destructurer is null)
-                throw new ArgumentNullException(nameof(destructurer));
+        public DestructuringOptionsBuilder WithDestructurer(IExceptionDestructurer destructurer) {
+            if (destructurer is null) throw new ArgumentNullException(nameof(destructurer));
             _destructurers.Add(destructurer);
             return this;
         }
 
-        public DestructuringOptionsBuilder WithDestructurers(IEnumerable<IExceptionDestructurer> destructurers)
-        {
-            if (destructurers is null)
-                throw new ArgumentNullException(nameof(destructurers));
+        public DestructuringOptionsBuilder WithDestructurers(IEnumerable<IExceptionDestructurer> destructurers) {
+            if (destructurers is null) throw new ArgumentNullException(nameof(destructurers));
             _destructurers.AddRange(destructurers);
             return this;
         }
 
-        public DestructuringOptionsBuilder WithDefaultDestructurer()
-        {
+        public DestructuringOptionsBuilder WithDefaultDestructurer() {
             return WithDestructurers(DefaultDestructurers);
         }
 
-        public DestructuringOptionsBuilder WithFiler(IExceptionPropertyFilter filter)
-        {
-            if (Filter != null)
-            {
+        public DestructuringOptionsBuilder WithFiler(IExceptionPropertyFilter filter) {
+            if (Filter != null) {
                 throw new InvalidOperationException(
                     $"Filter has been set, only one filter can be configured. Use {nameof(CompositePropertyFilter)} or other aggregate to combine filters");
             }
@@ -94,8 +81,7 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
             return this;
         }
 
-        public DestructuringOptionsBuilder WithDefaultFilter()
-        {
+        public DestructuringOptionsBuilder WithDefaultFilter() {
             return WithFiler(DefaultIgnoreFilter);
         }
     }

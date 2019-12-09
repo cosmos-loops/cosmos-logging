@@ -13,10 +13,10 @@ namespace Cosmos.Logging {
     public static class DbContextOptionsBuilderExtensions {
         private static ILoggingServiceProvider _loggingServiceProvider => EfCoreInterceptorDescriptor.Instance.ExposeLoggingServiceProvider;
         private static Func<string, LogEventLevel, bool> _globalFilter => EfCoreInterceptorDescriptor.Instance.ExposeSettings.Filter;
-        private static RendingConfiguration UpstreamRenderingOptions => EfCoreInterceptorDescriptor.Instance.ExposeSettings.GetRenderingOptions();
+        private static RenderingConfiguration UpstreamRenderingOptions => EfCoreInterceptorDescriptor.Instance.ExposeSettings.GetRenderingOptions();
 
         public static DbContextOptionsBuilder UseCosmosLogging(this DbContextOptionsBuilder builder) {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            if (builder is null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, UpstreamRenderingOptions, _globalFilter));
@@ -25,8 +25,9 @@ namespace Cosmos.Logging {
             return builder;
         }
 
-        public static DbContextOptionsBuilder UseCosmosLogging(this DbContextOptionsBuilder builder, Func<string, LogEventLevel, bool> filter) {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+        public static DbContextOptionsBuilder UseCosmosLogging(
+            this DbContextOptionsBuilder builder, Func<string, LogEventLevel, bool> filter) {
+            if (builder is null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, UpstreamRenderingOptions,
@@ -36,8 +37,9 @@ namespace Cosmos.Logging {
             return builder;
         }
 
-        public static DbContextOptionsBuilder UseCosmosLogging(this DbContextOptionsBuilder builder, Func<string, LogLevel, bool> filter) {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+        public static DbContextOptionsBuilder UseCosmosLogging(
+            this DbContextOptionsBuilder builder, Func<string, LogLevel, bool> filter) {
+            if (builder is null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(_loggingServiceProvider, UpstreamRenderingOptions,
@@ -47,8 +49,9 @@ namespace Cosmos.Logging {
             return builder;
         }
 
-        public static DbContextOptionsBuilder UseCosmosLogging(this DbContextOptionsBuilder builder, ILoggingServiceProvider loggingServiceProvider) {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+        public static DbContextOptionsBuilder UseCosmosLogging(
+            this DbContextOptionsBuilder builder, ILoggingServiceProvider loggingServiceProvider) {
+            if (builder is null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, UpstreamRenderingOptions));
@@ -57,9 +60,9 @@ namespace Cosmos.Logging {
             return builder;
         }
 
-        public static DbContextOptionsBuilder UseCosmosLogging(this DbContextOptionsBuilder builder, ILoggingServiceProvider loggingServiceProvider,
-            Func<string, LogEventLevel, bool> filter) {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+        public static DbContextOptionsBuilder UseCosmosLogging(
+            this DbContextOptionsBuilder builder, ILoggingServiceProvider loggingServiceProvider, Func<string, LogEventLevel, bool> filter) {
+            if (builder is null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, UpstreamRenderingOptions,
@@ -69,9 +72,9 @@ namespace Cosmos.Logging {
             return builder;
         }
 
-        public static DbContextOptionsBuilder UseCosmosLogging(this DbContextOptionsBuilder builder, ILoggingServiceProvider loggingServiceProvider,
-            Func<string, LogLevel, bool> filter) {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+        public static DbContextOptionsBuilder UseCosmosLogging(
+            this DbContextOptionsBuilder builder, ILoggingServiceProvider loggingServiceProvider, Func<string, LogLevel, bool> filter) {
+            if (builder is null) throw new ArgumentNullException(nameof(builder));
 
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfCoreLoggerWrapperProvider(loggingServiceProvider, UpstreamRenderingOptions,

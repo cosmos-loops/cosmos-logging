@@ -5,16 +5,13 @@ using Cosmos.Logging.Extensions.NodaTime.Internals;
 using NodaTime;
 
 // ReSharper disable once CheckNamespace
-namespace Cosmos.Logging
-{
-    public static class NodaTimeServicesExtensions
-    {
-        public static ILogServiceCollection AddNodaTimeIntegration(this ILogServiceCollection services, IDateTimeZoneProvider provider)
-        {
-            if (services == null)
+namespace Cosmos.Logging {
+    public static class NodaTimeServicesExtensions {
+        public static ILogServiceCollection AddNodaTimeIntegration(this ILogServiceCollection services, IDateTimeZoneProvider provider) {
+            if (services is null)
                 throw new ArgumentNullException(nameof(services));
 
-            if (provider == null)
+            if (provider is null)
                 throw new ArgumentNullException(nameof(provider));
 
             services.AsScalar<Offset>();

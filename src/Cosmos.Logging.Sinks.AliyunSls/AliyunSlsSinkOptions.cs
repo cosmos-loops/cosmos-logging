@@ -93,7 +93,7 @@ namespace Cosmos.Logging
 
         #region Append output
 
-        private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
+        private readonly RenderingConfiguration _renderingOptions = new RenderingConfiguration();
 
         public AliyunSlsSinkOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled)
         {
@@ -107,13 +107,13 @@ namespace Cosmos.Logging
             return this;
         }
 
-        public AliyunSlsSinkOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled)
+        public AliyunSlsSinkOptions EnableDisplayNewLineEom(bool? displayingNewLineEomEnabled)
         {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }
 
-        public RendingConfiguration GetRenderingOptions() => _renderingOptions;
+        public RenderingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
 

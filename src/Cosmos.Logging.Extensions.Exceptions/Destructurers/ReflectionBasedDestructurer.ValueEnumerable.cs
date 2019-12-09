@@ -2,18 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
-{
-    public partial class ReflectionBasedDestructurer
-    {
+namespace Cosmos.Logging.Extensions.Exceptions.Destructurers {
+    public partial class ReflectionBasedDestructurer {
         private object DestructureValueEnumerable(
             IEnumerable value,
             int level,
             IDictionary<object, IDictionary<string, object>> destructuredObjects,
-            ref int nextCyclicRefId)
-        {
-            if (destructuredObjects.ContainsKey(value))
-            {
+            ref int nextCyclicRefId) {
+            if (destructuredObjects.ContainsKey(value)) {
                 return new Dictionary<string, object> {{REF_LABEL, CYCLIC_REF_MSG}};
             }
 

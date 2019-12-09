@@ -11,14 +11,14 @@ namespace Cosmos.Logging {
         private static ILoggingServiceProvider LoggingServiceProvider => EfCoreInterceptorDescriptor.Instance.ExposeLoggingServiceProvider;
         private static EfCoreEnricherOptions Settings => EfCoreInterceptorDescriptor.Instance.ExposeSettings;
         private static Func<string, object> GlobalSimpleLoggingInterceptor => EfCoreInterceptorDescriptor.Instance.ExposeSettings.SimgleLoggingAction;
-        private static RendingConfiguration UpstreamRenderingOptions => EfCoreInterceptorDescriptor.Instance.ExposeSettings.GetRenderingOptions();
+        private static RenderingConfiguration UpstreamRenderingOptions => EfCoreInterceptorDescriptor.Instance.ExposeSettings.GetRenderingOptions();
 
         public static void UseCosmosLogging(this DbContext db, Func<string, object> loggerAct = null) {
             UseCosmosLogging(db, null, loggerAct);
         }
 
         public static void UseCosmosLogging(this DbContext db, Func<string, LogEventLevel, bool> filter, Func<string, object> loggerAct = null) {
-            if (db == null) throw new ArgumentNullException(nameof(db));
+            if (db is null) throw new ArgumentNullException(nameof(db));
 
             Func<string, LogEventLevel, bool> localFilter = (s, l) => (Settings?.Filter?.Invoke(s, l) ?? true) && (filter?.Invoke(s, l) ?? true);
 

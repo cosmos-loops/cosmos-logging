@@ -10,11 +10,11 @@ namespace Cosmos.Logging.Extensions.EntityFrameworkCore.Core {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
             _settings = settings?.Value;
         }
-        
+
         internal ILoggingServiceProvider ExposeLoggingServiceProvider => _loggingServiceProvider;
 
         internal EfCoreEnricherOptions ExposeSettings => _settings;
-        
+
         internal static EfCoreInterceptorDescriptor Instance { get; set; }
     }
 }

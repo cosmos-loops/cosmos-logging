@@ -6,31 +6,29 @@ using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates.PresetTemplates;
 using SqlSugar;
 
-namespace Cosmos.Logging.Extensions.SqlSugar.Core
-{
-    internal static class SqlSugarAopActivation
-    {
+namespace Cosmos.Logging.Extensions.SqlSugar.Core {
+    internal static class SqlSugarAopActivation {
         private const string TimestampKey = "COSMOSLOOPS::logging-extra-sqlsugar";
 
-        public static void RegisterToSqlSugar(SimpleClient client, SqlSugarInterceptorDescriptor descriptor,
+        public static void RegisterToSqlSugar(
+            SimpleClient client, SqlSugarInterceptorDescriptor descriptor,
             Action<string, SugarParameter[]> executingAct = null,
             Func<string, SugarParameter[], object> executedAct = null,
             Func<Exception, object> errorAct = null,
-            Func<string, LogEventLevel, bool> filter = null)
-        {
+            Func<string, LogEventLevel, bool> filter = null) {
             RegisterToSqlSugar(client.AsSugarClient() as SqlSugarClient, descriptor, executingAct, executedAct, errorAct, filter);
         }
 
-        public static void RegisterToSqlSugar(SqlSugarClient client, SqlSugarInterceptorDescriptor descriptor,
+        public static void RegisterToSqlSugar(
+            SqlSugarClient client,
+            SqlSugarInterceptorDescriptor descriptor,
             Action<string, SugarParameter[]> executingAct = null,
             Func<string, SugarParameter[], object> executedAct = null,
             Func<Exception, object> errorAct = null,
-            Func<string, LogEventLevel, bool> filter = null)
-        {
-            if (client == null)
-                throw new ArgumentNullException(nameof(client));
-            if (descriptor == null)
-                throw new ArgumentNullException(nameof(descriptor));
+            Func<string, LogEventLevel, bool> filter = null) {
+
+            if (client is null) throw new ArgumentNullException(nameof(client));
+            if (descriptor is null) throw new ArgumentNullException(nameof(descriptor));
 
             var aop = client.Aop;
 
@@ -45,19 +43,23 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core
             aop.OnError = exception => InternalErrorOpt(descriptor, client, exception, errorAct, localFilter);
         }
 
-        private static void InternalExecutingOpt(SqlSugarClient client, string sql, SugarParameter[] @params, Action<string, SugarParameter[]> executingAct = null)
-        {
-            if (client.TempItems == null) client.TempItems = new Dictionary<string, object>();
+        private static void InternalExecutingOpt(SqlSugarClient client, string sql, SugarParameter[] @params, Action<string, SugarParameter[]> executingAct = null) {
+            if (client.TempItems is null) client.TempItems = new Dictionary<string, object>();
             executingAct?.Invoke(sql, @params);
             client.TempItems.Add(TimestampKey, DateTime.Now);
         }
 
-        private static void InternalExecutedOpt(SqlSugarInterceptorDescriptor descriptor, SqlSugarClient client, string sql,
-            SugarParameter[] @params, Func<string, SugarParameter[], object> executedAct = null, Func<string, LogEventLevel, bool> filter = null)
-        {
+        private static void InternalExecutedOpt(
+            SqlSugarInterceptorDescriptor descriptor,
+            SqlSugarClient client,
+            string sql,
+            SugarParameter[] @params,
+            Func<string, SugarParameter[], object> executedAct = null,
+            Func<string, LogEventLevel, bool> filter = null) {
+
             var ms = 0D;
-            if (client.TempItems.TryGetValue(TimestampKey, out var startStamp) && startStamp is DateTime stamp)
-            {
+
+            if (client.TempItems.TryGetValue(TimestampKey, out var startStamp) && startStamp is DateTime stamp) {
                 client.TempItems.Remove(TimestampKey);
                 ms = DateTime.Now.Subtract(stamp).TotalMilliseconds;
             }
@@ -66,14 +68,12 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core
             var userInfo = executedAct?.Invoke(sql, @params) ?? string.Empty;
             var logger = descriptor.ExposeLoggingServiceProvider.GetLogger<SqlSugarClient>(filter, LogEventSendMode.Automatic, descriptor.RenderingOptions);
 
-            if (ms > 1000)
-            {
+            if (ms > 1000) {
                 if (!logger.IsEnabled(LogEventLevel.Warning))
                     return;
 
                 var eventId = new LogEventId(client.ContextID, EventIdKeys.LongTimeExecuted);
-                loggingParams = new
-                {
+                loggingParams = new {
                     OrmName = Constants.SinkKey,
                     ContextId = client.ContextID,
                     Sql = sql,
@@ -83,14 +83,12 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core
                 };
                 logger.LogWarning(eventId, OrmTemplateStandard.LongNormal, loggingParams);
             }
-            else
-            {
+            else {
                 if (!logger.IsEnabled(LogEventLevel.Information))
                     return;
 
                 var eventId = new LogEventId(client.ContextID, EventIdKeys.Executed);
-                loggingParams = new
-                {
+                loggingParams = new {
                     OrmName = Constants.SinkKey,
                     ContextId = client.ContextID,
                     Sql = sql,
@@ -101,13 +99,16 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core
             }
         }
 
-        private static void InternalErrorOpt(SqlSugarInterceptorDescriptor descriptor, SqlSugarClient client, Exception exception,
+        private static void InternalErrorOpt(
+            SqlSugarInterceptorDescriptor descriptor,
+            SqlSugarClient client,
+            Exception exception,
             Func<Exception, object> errorAct = null,
-            Func<string, LogEventLevel, bool> filter = null)
-        {
+            Func<string, LogEventLevel, bool> filter = null) {
+
             var ms = 0D;
-            if (client.TempItems.TryGetValue(TimestampKey, out var startStamp) && startStamp is DateTime stamp)
-            {
+
+            if (client.TempItems.TryGetValue(TimestampKey, out var startStamp) && startStamp is DateTime stamp) {
                 client.TempItems.Remove(TimestampKey);
                 ms = DateTime.Now.Subtract(stamp).TotalMilliseconds;
             }
@@ -120,8 +121,7 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core
 
             var eventId = new LogEventId(client.ContextID, EventIdKeys.Error);
             var realException = exception.Unwrap();
-            var loggingParams = new
-            {
+            var loggingParams = new {
                 OrmName = Constants.SinkKey,
                 ContextId = client.ContextID,
                 Sql = "unknown",

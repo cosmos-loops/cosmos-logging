@@ -16,7 +16,8 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
             localAction?.Invoke(command.CommandText, command.Parameters, now);
         }
 
-        private void OnExecuted<TState>(DbCommand command, DbCommandInterceptionContext<TState> interceptionContext,
+        private void OnExecuted<TState>(
+            DbCommand command, DbCommandInterceptionContext<TState> interceptionContext,
             Func<string, DbParameterCollection, DateTime, DateTime, object> specificExecutedAction,
             Func<string, DbParameterCollection, DateTime, DateTime, object> specificLongTimeExecutedAction,
             Func<Exception, string, DbParameterCollection, DateTime, DateTime, object> specificErrorAction,
@@ -33,14 +34,17 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
 
             if (interceptionContext.Exception != null) {
                 OnError(interceptionContext.Exception, command, contextId, stamp, now, ms, specificErrorAction, memberName);
-            } else if (ms > 1000) {
+            }
+            else if (ms > 1000) {
                 OnLongTimeExecuted(command, contextId, stamp, now, ms, specificLongTimeExecutedAction, memberName);
-            } else {
+            }
+            else {
                 OnExecuted(command, contextId, stamp, now, ms, specificExecutedAction, memberName);
             }
         }
 
-        private void OnError(Exception exception, DbCommand command, Guid contextId, DateTime start, DateTime now, double milliseconds,
+        private void OnError(
+            Exception exception, DbCommand command, Guid contextId, DateTime start, DateTime now, double milliseconds,
             Func<Exception, string, DbParameterCollection, DateTime, DateTime, object> specificErrorAction, string memberName) {
             var localFunc = _descriptor.ExposeErrorInterceptor;
             localFunc += specificErrorAction;
@@ -68,7 +72,8 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
             logger.LogError(eventId, exception, OrmTemplateStandard.Error, loggingParams, memberName: memberName);
         }
 
-        private void OnExecuted(DbCommand command, Guid contextId, DateTime start, DateTime now, double milliseconds,
+        private void OnExecuted(
+            DbCommand command, Guid contextId, DateTime start, DateTime now, double milliseconds,
             Func<string, DbParameterCollection, DateTime, DateTime, object> specificExecutedAction, string memberName) {
             var localFunc = _descriptor.ExposeExecutedInterceptor;
             localFunc += specificExecutedAction;
@@ -85,7 +90,8 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
             logger.LogWarning(eventId, OrmTemplateStandard.Normal, loggingParams, memberName: memberName);
         }
 
-        private void OnLongTimeExecuted(DbCommand command, Guid contextId, DateTime start, DateTime now, double milliseconds,
+        private void OnLongTimeExecuted(
+            DbCommand command, Guid contextId, DateTime start, DateTime now, double milliseconds,
             Func<string, DbParameterCollection, DateTime, DateTime, object> specificLongTimeExecutedAction, string memberName) {
             var localFunc = _descriptor.ExposeLongTimeExecutedInterceptor;
             localFunc += specificLongTimeExecutedAction;

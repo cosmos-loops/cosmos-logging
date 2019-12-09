@@ -1,9 +1,7 @@
 using System;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Core.Internals
-{
-    internal static class TypeExtensions
-    {
+namespace Cosmos.Logging.Extensions.Exceptions.Core.Internals {
+    internal static class TypeExtensions {
 #if NETSTANDARD1_3
         public static TypeCode GetTypeCode(this Type type)
         {

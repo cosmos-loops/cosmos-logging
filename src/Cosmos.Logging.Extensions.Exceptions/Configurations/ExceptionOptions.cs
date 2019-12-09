@@ -8,16 +8,13 @@ using Cosmos.Logging.Extensions.Exceptions.Core;
 using Cosmos.Logging.Extensions.Exceptions.Destructurers;
 using Cosmos.Logging.Extensions.Exceptions.Filters;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Configurations
-{
-    public class ExceptionOptions : ILoggingSinkOptions<ExceptionOptions>, ILoggingSinkOptions
-    {
+namespace Cosmos.Logging.Extensions.Exceptions.Configurations {
+    public class ExceptionOptions : ILoggingSinkOptions<ExceptionOptions>, ILoggingSinkOptions {
         private readonly DestructuringOptionsBuilder _builder;
         private readonly OptionUpdateStatus _builderChangedStatus;
         private Action<DestructuringOptionsBuilder> _additionalUpdateDestructurerOps { get; set; }
 
-        public ExceptionOptions()
-        {
+        public ExceptionOptions() {
             _builder = new DestructuringOptionsBuilder();
             _builderChangedStatus = new OptionUpdateStatus();
         }
@@ -26,52 +23,44 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
 
         #region DestructuringOptionsBuilder ops
 
-        public string Name
-        {
+        public string Name {
             get => _builder.Name;
             set => OpsBuildSetter(b => b.WithName(value), c => c.NameChanged = true);
         }
 
-        public int DestructureDepth
-        {
+        public int DestructureDepth {
             get => _builder.DestructureDepth;
             set => OpsBuildSetter(b => b.WithDepth(value), c => c.DepthChanged = true);
         }
 
         public IEnumerable<IExceptionDestructurer> Destructurers => _builder.Destructurers;
 
-        public IExceptionPropertyFilter ExceptionPropertyFilter
-        {
+        public IExceptionPropertyFilter ExceptionPropertyFilter {
             get => _builder.Filter;
             set => OpsBuildSetter(b => b.WithFiler(value));
         }
 
-        public ExceptionOptions UseName(string name)
-        {
+        public ExceptionOptions UseName(string name) {
             Name = name;
             return this;
         }
 
-        public ExceptionOptions UseDestructureDepth(int depth)
-        {
+        public ExceptionOptions UseDestructureDepth(int depth) {
             DestructureDepth = depth;
             return this;
         }
 
-        public ExceptionOptions UseFilter(IExceptionPropertyFilter filter)
-        {
+        public ExceptionOptions UseFilter(IExceptionPropertyFilter filter) {
             ExceptionPropertyFilter = filter;
             return this;
         }
 
-        public ExceptionOptions UseFilter<TFilter>() where TFilter : class, IExceptionPropertyFilter, new()
-        {
+        public ExceptionOptions UseFilter<TFilter>() where TFilter : class, IExceptionPropertyFilter, new() {
             var filter = new TFilter();
             return UseFilter(filter);
         }
 
-        public ExceptionOptions UseDestucturer(IExceptionDestructurer destructurer, bool appendMode = true)
-        {
+        public ExceptionOptions UseDestucturer(IExceptionDestructurer destructurer, bool appendMode = true) {
             if (appendMode)
                 OpsBuildSetter(b => OpsBuildAdditionalUpdate(destructurer));
             else
@@ -79,13 +68,11 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
             return this;
         }
 
-        public ExceptionOptions UseDestucturer<TDestructurer>(bool appendMode = true) where TDestructurer : class, IExceptionDestructurer, new()
-        {
+        public ExceptionOptions UseDestucturer<TDestructurer>(bool appendMode = true) where TDestructurer : class, IExceptionDestructurer, new() {
             return UseDestucturer(new TDestructurer(), appendMode);
         }
 
-        public ExceptionOptions UseDestucturers(IEnumerable<IExceptionDestructurer> destructurers, bool appendMode = true)
-        {
+        public ExceptionOptions UseDestucturers(IEnumerable<IExceptionDestructurer> destructurers, bool appendMode = true) {
             if (appendMode)
                 OpsBuildSetter(b => OpsBuildAdditionalUpdate(destructurers));
             else
@@ -93,10 +80,8 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
             return this;
         }
 
-        internal IDestructuringOptions Build(out OptionUpdateStatus status)
-        {
-            if (_builderChangedStatus.Built)
-            {
+        internal IDestructuringOptions Build(out OptionUpdateStatus status) {
+            if (_builderChangedStatus.Built) {
                 status = _builderChangedStatus;
                 return _builder;
             }
@@ -118,8 +103,7 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
 
         private void OpsBuildSetter(
             Action<DestructuringOptionsBuilder> settingAct,
-            Action<OptionUpdateStatus> changedAct = null)
-        {
+            Action<OptionUpdateStatus> changedAct = null) {
             if (settingAct == null)
                 throw new ArgumentNullException(nameof(settingAct));
 
@@ -130,8 +114,7 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
             changedAct?.Invoke(_builderChangedStatus);
         }
 
-        private void OpsBuildAdditionalUpdate(IExceptionDestructurer destructurer)
-        {
+        private void OpsBuildAdditionalUpdate(IExceptionDestructurer destructurer) {
             if (destructurer == null)
                 return;
 
@@ -139,8 +122,7 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
                 _additionalUpdateDestructurerOps = b => b.WithDestructurer(destructurer);
         }
 
-        private void OpsBuildAdditionalUpdate(IEnumerable<IExceptionDestructurer> destructurers)
-        {
+        private void OpsBuildAdditionalUpdate(IEnumerable<IExceptionDestructurer> destructurers) {
             if (destructurers == null)
                 return;
 
@@ -158,16 +140,13 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
 
         public ExceptionOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
 
-        public ExceptionOptions UseMinimumLevelForType(Type type, LogEventLevel level)
-        {
+        public ExceptionOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var typeName = TypeNameHelper.GetTypeDisplayName(type);
-            if (InternalNavigatorLogEventLevels.ContainsKey(typeName))
-            {
+            if (InternalNavigatorLogEventLevels.ContainsKey(typeName)) {
                 InternalNavigatorLogEventLevels[typeName] = level;
             }
-            else
-            {
+            else {
                 InternalNavigatorLogEventLevels.Add(typeName, level);
             }
 
@@ -176,31 +155,26 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
 
         public ExceptionOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
-        public ExceptionOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level)
-        {
+        public ExceptionOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
             if (type == null) throw new ArgumentNullException(nameof(type));
             var @namespace = type.Namespace;
             return UseMinimumLevelForCategoryName(@namespace, level);
         }
 
-        public ExceptionOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level)
-        {
+        public ExceptionOptions UseMinimumLevelForCategoryName(string categoryName, LogEventLevel level) {
             if (string.IsNullOrWhiteSpace(categoryName)) throw new ArgumentNullException(nameof(categoryName));
             categoryName = $"{categoryName}.*";
-            if (InternalNavigatorLogEventLevels.ContainsKey(categoryName))
-            {
+            if (InternalNavigatorLogEventLevels.ContainsKey(categoryName)) {
                 InternalNavigatorLogEventLevels[categoryName] = level;
             }
-            else
-            {
+            else {
                 InternalNavigatorLogEventLevels.Add(categoryName, level);
             }
 
             return this;
         }
 
-        public ExceptionOptions UseMinimumLevel(LogEventLevel? level)
-        {
+        public ExceptionOptions UseMinimumLevel(LogEventLevel? level) {
             MinimumLevel = level;
             return this;
         }
@@ -211,15 +185,12 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
 
         internal readonly Dictionary<string, LogEventLevel> InternalAliases = new Dictionary<string, LogEventLevel>();
 
-        public ExceptionOptions UseAlias(string alias, LogEventLevel level)
-        {
+        public ExceptionOptions UseAlias(string alias, LogEventLevel level) {
             if (string.IsNullOrWhiteSpace(alias)) return this;
-            if (InternalAliases.ContainsKey(alias))
-            {
+            if (InternalAliases.ContainsKey(alias)) {
                 InternalAliases[alias] = level;
             }
-            else
-            {
+            else {
                 InternalAliases.Add(alias, level);
             }
 
@@ -232,8 +203,7 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
 
         internal Func<string, LogEventLevel, bool> Filter { get; set; }
 
-        public ExceptionOptions UseFilter(Func<string, LogEventLevel, bool> filter)
-        {
+        public ExceptionOptions UseFilter(Func<string, LogEventLevel, bool> filter) {
             if (filter == null) throw new ArgumentNullException(nameof(filter));
 
             var temp = Filter;
@@ -246,32 +216,28 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
 
         #region Append output
 
-        private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
+        private readonly RenderingConfiguration _renderingOptions = new RenderingConfiguration();
 
-        public ExceptionOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled)
-        {
+        public ExceptionOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
             _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
             return this;
         }
 
-        public ExceptionOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled)
-        {
+        public ExceptionOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled) {
             _renderingOptions.DisplayingEventIdInfoEnabled = displayingEventIdInfoEnabled;
             return this;
         }
 
-        public ExceptionOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled)
-        {
+        public ExceptionOptions EnableDisplayNewLineEom(bool? displayingNewLineEomEnabled) {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }
 
-        public RendingConfiguration GetRenderingOptions() => _renderingOptions;
+        public RenderingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
 
-        internal class OptionUpdateStatus
-        {
+        internal class OptionUpdateStatus {
             public bool NameChanged { get; set; }
             public bool DepthChanged { get; set; }
             public bool Built { get; set; }
