@@ -1,9 +1,11 @@
 ﻿using System;
+using Cosmos.IdUtils;
 using Cosmos.Logging;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.RunsOn.AspNetCore;
 using Cosmos.Logging.RunsOn.AspNetCore.Core;
+using Cosmos.Logging.Trace;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection {
             servicesImpl.ActiveSinkSettings();
             servicesImpl.ActiveOriginConfiguration();
 
+            services.AddTraceIdGenerator();
             services.TryAdd(ServiceDescriptor.Singleton(Options.Options.Create((LoggingOptions) servicesImpl.ExposeLogSettings())));
             services.TryAdd(ServiceDescriptor.Singleton(servicesImpl.ExposeLoggingConfiguration()));
             services.TryAdd(ServiceDescriptor.Singleton<ILoggerFactory>(provider => new AspNetCoreLoggerFactory(provider.GetService<ILoggingServiceProvider>())));
@@ -42,12 +45,13 @@ namespace Microsoft.Extensions.DependencyInjection {
                     initializingActivationImpl.AppendAction(() => servicesImpl.ActiveLogEventEnrichers());
                     return initializingActivationImpl;
                 }));
-            } else {
-                services.TryAdd(ServiceDescriptor.Singleton(provider => 
+            }
+            else {
+                services.TryAdd(ServiceDescriptor.Singleton(provider =>
                     new StaticServiceResolveInitialization(
                         provider.GetRequiredService<ILoggingServiceProvider>(),
                         servicesImpl.ActiveLogEventEnrichers
-                        )));
+                    )));
             }
 
 
@@ -59,6 +63,15 @@ namespace Microsoft.Extensions.DependencyInjection {
             initializingActivationImpl?.GetSecProcessing()?.Invoke();
 
             return app;
+        }
+
+        private static void AddTraceIdGenerator(this IServiceCollection services) {
+            services.TryAdd(ServiceDescriptor.Scoped<FallbackTraceIdAccessor, FallbackTraceIdAccessor>());
+
+            if (!ExpectedTraceIdGeneratorName.HasValue()) {
+                services.TryAdd(ServiceDescriptor.Scoped<ILogTraceIdGenerator, AspNetCoreTraceIdGenerator>());
+                ExpectedTraceIdGeneratorName.Value = nameof(AspNetCoreTraceIdGenerator);
+            }
         }
     }
 }

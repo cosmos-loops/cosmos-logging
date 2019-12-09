@@ -1,4 +1,6 @@
 ﻿using System;
+using Cosmos.Logging.Core;
+using Cosmos.Logging.Trace;
 
 namespace Cosmos.Logging.Events {
     /// <summary>
@@ -14,18 +16,19 @@ namespace Cosmos.Logging.Events {
         public LogEventId(string name) : this(Guid.NewGuid().ToString(), name) { }
 
         /// <inheritdoc />
-        public LogEventId(Guid id, string name) : this(id.ToString(), name) { }
+        public LogEventId(Guid id, string name, string traceId = null) : this(id.ToString(), name, traceId) { }
 
         /// <inheritdoc />
-        public LogEventId(int id, string name) : this(id.ToString(), name) { }
+        public LogEventId(int id, string name, string traceId = null) : this(id.ToString(), name, traceId) { }
 
         /// <inheritdoc />
-        public LogEventId(long id, string name) : this(id.ToString(), name) { }
+        public LogEventId(long id, string name, string traceId = null) : this(id.ToString(), name, traceId) { }
 
         /// <inheritdoc />
         public LogEventId(string id, string name, string traceId = null) {
             var baseTime = DateTime.Now;
             Id = id;
+            TraceId = string.IsNullOrWhiteSpace(traceId) ? LogTraceId.Get() : traceId;
             Timestamp = new DateTimeOffset(baseTime, TimeZoneInfo.Local.GetUtcOffset(baseTime));
             Name = name;
         }
