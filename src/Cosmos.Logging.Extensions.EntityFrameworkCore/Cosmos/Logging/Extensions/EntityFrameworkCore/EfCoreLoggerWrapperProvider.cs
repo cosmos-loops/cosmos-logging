@@ -9,25 +9,25 @@ namespace Cosmos.Logging.Extensions.EntityFrameworkCore {
         private readonly ILoggingServiceProvider _loggingServiceProvider;
         private readonly RenderingConfiguration _upstreamRenderingOptions;
         private readonly Func<string, LogEventLevel, bool> _filter;
-        private static readonly Func<string, LogEventLevel, bool> trueFilter = (cat, level) => true;
-        private static readonly Func<string, LogEventLevel, bool> falseFilter = (cat, level) => false;
+        private static readonly Func<string, LogEventLevel, bool> TrueFilter = (cat, level) => true;
+        private static readonly Func<string, LogEventLevel, bool> FalseFilter = (cat, level) => false;
 
         public EfCoreLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider, RenderingConfiguration renderingOptions) {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
             _upstreamRenderingOptions = renderingOptions ?? new RenderingConfiguration();
-            _filter = trueFilter;
+            _filter = TrueFilter;
         }
 
         public EfCoreLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider, RenderingConfiguration renderingOptions, Func<string, LogEventLevel, bool> filter) {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
             _upstreamRenderingOptions = renderingOptions ?? new RenderingConfiguration();
-            _filter = filter ?? trueFilter;
+            _filter = filter ?? TrueFilter;
         }
 
         public EfCoreLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider, RenderingConfiguration renderingOptions, Func<string, LogLevel, bool> filter) {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
             _upstreamRenderingOptions = renderingOptions ?? new RenderingConfiguration();
-            _filter = As(filter) ?? trueFilter;
+            _filter = As(filter) ?? TrueFilter;
         }
 
         public global::Microsoft.Extensions.Logging.ILogger CreateLogger(string categoryName) {

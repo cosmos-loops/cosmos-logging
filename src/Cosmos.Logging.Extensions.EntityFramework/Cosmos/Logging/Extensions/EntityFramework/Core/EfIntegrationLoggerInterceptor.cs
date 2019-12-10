@@ -3,6 +3,9 @@ using System.Data.Common;
 using System.Data.Entity.Infrastructure.Interception;
 
 namespace Cosmos.Logging.Extensions.EntityFramework.Core {
+    /// <summary>
+    /// Cosmos Logging EntityFramework Logger interceptor
+    /// </summary>
     public partial class EfIntegrationLoggerInterceptor : IDbCommandInterceptor {
         private readonly ILoggingServiceProvider _loggingServiceProvider;
         private readonly EfInterceptorDescriptor _descriptor;
@@ -12,6 +15,7 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
             _loggingServiceProvider = descriptor.ExposeLoggingServiceProvider;
         }
 
+        /// <inheritdoc />
         public void NonQueryExecuted(DbCommand command, DbCommandInterceptionContext<int> interceptionContext) {
             OnExecuted(command, interceptionContext,
                 _descriptor.ExposeNonQueryExecutedInterceptor,
@@ -20,10 +24,12 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
                 "NonQueryExecuted");
         }
 
+        /// <inheritdoc />
         public void NonQueryExecuting(DbCommand command, DbCommandInterceptionContext<int> interceptionContext) {
             OnExecuting(command, _descriptor.ExposeNonQueryExecutingInterceptor);
         }
 
+        /// <inheritdoc />
         public void ReaderExecuted(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext) {
             OnExecuted(command, interceptionContext,
                 _descriptor.ExposeReaderExecutedInterceptor,
@@ -32,10 +38,12 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
                 "ReaderExecuted");
         }
 
+        /// <inheritdoc />
         public void ReaderExecuting(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext) {
             OnExecuting(command, _descriptor.ExposeReaderExecutingInterceptor);
         }
 
+        /// <inheritdoc />
         public void ScalarExecuted(DbCommand command, DbCommandInterceptionContext<object> interceptionContext) {
             OnExecuted(command, interceptionContext,
                 _descriptor.ExposeScalarExecutedInterceptor,
@@ -44,6 +52,7 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
                 "ScalarExecuted");
         }
 
+        /// <inheritdoc />
         public void ScalarExecuting(DbCommand command, DbCommandInterceptionContext<object> interceptionContext) {
             OnExecuting(command, _descriptor.ExposeScalarExecutingInterceptor);
         }

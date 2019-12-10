@@ -6,10 +6,13 @@ using Cosmos.Logging.Core;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Extensions.EntityFramework.Core;
 
-// ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
+    /// <summary>
+    /// Cosmos Logging EntityFramework Enricher optons
+    /// </summary>
     public class EfEnricherOptions : ILoggingSinkOptions<EfEnricherOptions>, ILoggingSinkOptions {
 
+        /// <inheritdoc />
         public string Key => Constants.SinkKey;
 
         #region Append log minimum level
@@ -18,8 +21,10 @@ namespace Cosmos.Logging {
 
         internal LogEventLevel? MinimumLevel { get; set; }
 
+        /// <inheritdoc />
         public EfEnricherOptions UseMinimumLevelForType<T>(LogEventLevel level) => UseMinimumLevelForType(typeof(T), level);
 
+        /// <inheritdoc />
         public EfEnricherOptions UseMinimumLevelForType(Type type, LogEventLevel level) {
             if (type is null) throw new ArgumentNullException(nameof(type));
             var typeName = TypeNameHelper.GetTypeDisplayName(type);
@@ -33,14 +38,17 @@ namespace Cosmos.Logging {
             return this;
         }
 
+        /// <inheritdoc />
         public EfEnricherOptions UseMinimumLevelForCategoryName<T>(LogEventLevel level) => UseMinimumLevelForCategoryName(typeof(T), level);
 
+        /// <inheritdoc />
         public EfEnricherOptions UseMinimumLevelForCategoryName(Type type, LogEventLevel level) {
             if (type is null) throw new ArgumentNullException(nameof(type));
             var @namespace = type.Namespace;
             return UseMinimumLevelForCategoryName(@namespace, level);
         }
 
+        /// <inheritdoc />
         public EfEnricherOptions UseMinimumLevelForCategoryName(string @namespace, LogEventLevel level) {
             if (string.IsNullOrWhiteSpace(@namespace)) throw new ArgumentNullException(nameof(@namespace));
             @namespace = $"{@namespace}.*";
@@ -54,6 +62,7 @@ namespace Cosmos.Logging {
             return this;
         }
 
+        /// <inheritdoc />
         public EfEnricherOptions UseMinimumLevel(LogEventLevel? level) {
             MinimumLevel = level;
             return this;
@@ -65,6 +74,7 @@ namespace Cosmos.Logging {
 
         internal readonly Dictionary<string, LogEventLevel> InternalAliases = new Dictionary<string, LogEventLevel>();
 
+        /// <inheritdoc />
         public EfEnricherOptions UseAlias(string alias, LogEventLevel level) {
             if (string.IsNullOrWhiteSpace(alias)) return this;
             if (InternalAliases.ContainsKey(alias)) {
@@ -83,6 +93,11 @@ namespace Cosmos.Logging {
 
         internal Func<string, object> SimgleLoggingAction { get; set; }
 
+        /// <summary>
+        /// Add simple logging interceptor
+        /// </summary>
+        /// <param name="simpleLoggingInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddSimpleLoggingInterceptor(Func<string, object> simpleLoggingInterceptor) {
             SimgleLoggingAction += simpleLoggingInterceptor;
             return this;
@@ -94,16 +109,32 @@ namespace Cosmos.Logging {
         internal Func<string, DbParameterCollection, DateTime, DateTime, object> ExecutedInterceptorAction { get; set; }
         internal Func<string, DbParameterCollection, DateTime, DateTime, object> LongTimeExecutedInterceptorAction { get; set; }
 
+        /// <summary>
+        /// Add executing interceptor
+        /// </summary>
+        /// <param name="executingInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddExecutingInterceptor(Action<string, DbParameterCollection, DateTime> executingInterceptor) {
             ExecutingInterceptorAction += executingInterceptor ?? throw new ArgumentNullException(nameof(executingInterceptor));
             return this;
         }
 
+        /// <summary>
+        /// Add executed interceptor
+        /// </summary>
+        /// <param name="executedInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddExecutedInterceptor(Func<string, DbParameterCollection, DateTime, DateTime, object> executedInterceptor) {
             ExecutedInterceptorAction += executedInterceptor ?? throw new ArgumentNullException(nameof(executedInterceptor));
             return this;
         }
 
+        /// <summary>
+        /// Add long time executed interceptor
+        /// </summary>
+        /// <param name="executedInterceptor"></param>
+        /// <param name="asAppend"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddLongTimeExecutedInterceptor(Func<string, DbParameterCollection, DateTime, DateTime, object> executedInterceptor, bool asAppend = false) {
             LongTimeExecutedInterceptorAction += executedInterceptor ?? throw new ArgumentNullException(nameof(executedInterceptor));
             if (asAppend) {
@@ -113,6 +144,11 @@ namespace Cosmos.Logging {
             return this;
         }
 
+        /// <summary>
+        /// Add error interceptor
+        /// </summary>
+        /// <param name="errorInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddErrorInterceptor(Func<Exception, string, DbParameterCollection, DateTime, DateTime, object> errorInterceptor) {
             ErrorInterceptorAction += errorInterceptor ?? throw new ArgumentNullException(nameof(errorInterceptor));
             return this;
@@ -124,18 +160,34 @@ namespace Cosmos.Logging {
         internal Func<string, DbParameterCollection, DateTime, DateTime, object> NonQueryExecutedInterceptorAction { get; set; }
         internal Func<string, DbParameterCollection, DateTime, DateTime, object> NonQueryLongTimeExecutedInterceptorAction { get; set; }
 
+        /// <summary>
+        /// Add non query executing interceptor
+        /// </summary>
+        /// <param name="executingInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddNonQueryExecutingInterceptor(Action<string, DbParameterCollection, DateTime> executingInterceptor) {
             NonQueryExecutingInterceptorAction += executingInterceptor ?? throw new ArgumentNullException(nameof(executingInterceptor));
             return this;
         }
 
+        /// <summary>
+        /// Add non query executed interceptor
+        /// </summary>
+        /// <param name="executedInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddNonQueryExecutedInterceptor(Func<string, DbParameterCollection, DateTime, DateTime, object> executedInterceptor) {
             NonQueryExecutedInterceptorAction += executedInterceptor ?? throw new ArgumentNullException(nameof(executedInterceptor));
             return this;
         }
 
+        /// <summary>
+        /// Add non query long time executed interceptor
+        /// </summary>
+        /// <param name="executedInterceptor"></param>
+        /// <param name="asAppend"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddNonQueryLongTimeExecutedInterceptor(Func<string, DbParameterCollection, DateTime, DateTime, object> executedInterceptor,
-                                                                        bool asAppend = false) {
+            bool asAppend = false) {
             NonQueryLongTimeExecutedInterceptorAction += executedInterceptor ?? throw new ArgumentNullException(nameof(executedInterceptor));
             if (asAppend) {
                 AddNonQueryExecutedInterceptor(executedInterceptor);
@@ -144,6 +196,11 @@ namespace Cosmos.Logging {
             return this;
         }
 
+        /// <summary>
+        /// Add non query error interceptor
+        /// </summary>
+        /// <param name="errorInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddNonQueryErrorInterceptor(Func<Exception, string, DbParameterCollection, DateTime, DateTime, object> errorInterceptor) {
             NonQueryErrorInterceptorAction += errorInterceptor ?? throw new ArgumentNullException(nameof(errorInterceptor));
             return this;
@@ -155,16 +212,32 @@ namespace Cosmos.Logging {
         internal Func<string, DbParameterCollection, DateTime, DateTime, object> ReaderExecutedInterceptorAction { get; set; }
         internal Func<string, DbParameterCollection, DateTime, DateTime, object> ReaderLongTimeExecutedInterceptorAction { get; set; }
 
+        /// <summary>
+        /// Add reader executing interceptor
+        /// </summary>
+        /// <param name="executingInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddReaderExecutingInterceptor(Action<string, DbParameterCollection, DateTime> executingInterceptor) {
             ReaderExecutingInterceptorAction += executingInterceptor ?? throw new ArgumentNullException(nameof(executingInterceptor));
             return this;
         }
 
+        /// <summary>
+        /// Add reader executed interceptor
+        /// </summary>
+        /// <param name="executedInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddReaderExecutedInterceptor(Func<string, DbParameterCollection, DateTime, DateTime, object> executedInterceptor) {
             ReaderExecutedInterceptorAction += executedInterceptor ?? throw new ArgumentNullException(nameof(executedInterceptor));
             return this;
         }
 
+        /// <summary>
+        /// Add reader long time executed interceptor
+        /// </summary>
+        /// <param name="executedInterceptor"></param>
+        /// <param name="asAppend"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddReaderLongTimeExecutedInterceptor(Func<string, DbParameterCollection, DateTime, DateTime, object> executedInterceptor, bool asAppend = false) {
             ReaderLongTimeExecutedInterceptorAction += executedInterceptor ?? throw new ArgumentNullException(nameof(executedInterceptor));
             if (asAppend) {
@@ -174,6 +247,11 @@ namespace Cosmos.Logging {
             return this;
         }
 
+        /// <summary>
+        /// Add reader error interceptor
+        /// </summary>
+        /// <param name="errorInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddReaderErrorInterceptor(Func<Exception, string, DbParameterCollection, DateTime, DateTime, object> errorInterceptor) {
             ReaderErrorInterceptorAction += errorInterceptor ?? throw new ArgumentNullException(nameof(errorInterceptor));
             return this;
@@ -185,16 +263,32 @@ namespace Cosmos.Logging {
         internal Func<string, DbParameterCollection, DateTime, DateTime, object> ScalarExecutedInterceptorAction { get; set; }
         internal Func<string, DbParameterCollection, DateTime, DateTime, object> ScalarLongTimeExecutedInterceptorAction { get; set; }
 
+        /// <summary>
+        /// Add scalar executing interceptor
+        /// </summary>
+        /// <param name="executingInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddScalarExecutingInterceptor(Action<string, DbParameterCollection, DateTime> executingInterceptor) {
             ScalarExecutingInterceptorAction += executingInterceptor ?? throw new ArgumentNullException(nameof(executingInterceptor));
             return this;
         }
 
+        /// <summary>
+        /// Add scalar executed interceptor
+        /// </summary>
+        /// <param name="executedInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddScalarExecutedInterceptor(Func<string, DbParameterCollection, DateTime, DateTime, object> executedInterceptor) {
             ScalarExecutedInterceptorAction += executedInterceptor ?? throw new ArgumentNullException(nameof(executedInterceptor));
             return this;
         }
 
+        /// <summary>
+        /// Add scalar long time executed interceptor
+        /// </summary>
+        /// <param name="executedInterceptor"></param>
+        /// <param name="asAppend"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddScalarLongTimeExecutedInterceptor(Func<string, DbParameterCollection, DateTime, DateTime, object> executedInterceptor, bool asAppend = false) {
             ScalarLongTimeExecutedInterceptorAction += executedInterceptor ?? throw new ArgumentNullException(nameof(executedInterceptor));
             if (asAppend) {
@@ -204,6 +298,11 @@ namespace Cosmos.Logging {
             return this;
         }
 
+        /// <summary>
+        /// Add scalar error interceptor
+        /// </summary>
+        /// <param name="errorInterceptor"></param>
+        /// <returns></returns>
         public EfEnricherOptions AddScalarErrorInterceptor(Func<Exception, string, DbParameterCollection, DateTime, DateTime, object> errorInterceptor) {
             ScalarErrorInterceptorAction += errorInterceptor ?? throw new ArgumentNullException(nameof(errorInterceptor));
             return this;
@@ -215,6 +314,12 @@ namespace Cosmos.Logging {
 
         internal Func<string, LogEventLevel, bool> Filter { get; set; }
 
+        /// <summary>
+        /// Use filter
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public EfEnricherOptions UseFilter(Func<string, LogEventLevel, bool> filter) {
             if (filter == null) throw new ArgumentNullException(nameof(filter));
 
@@ -230,21 +335,25 @@ namespace Cosmos.Logging {
 
         private readonly RenderingConfiguration _renderingOptions = new RenderingConfiguration();
 
+        /// <inheritdoc />
         public EfEnricherOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
             _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
             return this;
         }
 
+        /// <inheritdoc />
         public EfEnricherOptions EnableDisplayEventIdInfo(bool? displayingEventIdInfoEnabled) {
             _renderingOptions.DisplayingEventIdInfoEnabled = displayingEventIdInfoEnabled;
             return this;
         }
 
+        /// <inheritdoc />
         public EfEnricherOptions EnableDisplayNewLineEom(bool? displayingNewLineEomEnabled) {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }
 
+        /// <inheritdoc />
         public RenderingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion

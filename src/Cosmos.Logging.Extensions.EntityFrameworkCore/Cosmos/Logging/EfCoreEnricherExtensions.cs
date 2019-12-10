@@ -1,4 +1,5 @@
 ﻿using System;
+using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Extensions.EntityFrameworkCore.Core;
@@ -9,9 +10,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
-// ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
+    /// <summary>
+    /// Cosmos Logging EntityFrameworkCore Enricher extensions
+    /// </summary>
     public static class EfCoreEnricherExtensions {
+        /// <summary>
+        /// Use Cosmos Logging EntityFrameworkCore enricher
+        /// </summary>
+        /// <param name="integration"></param>
+        /// <param name="settingAct"></param>
+        /// <param name="configAction"></param>
+        /// <returns></returns>
         public static DatabaseIntegration UseEntityFrameworkCore(
             this DatabaseIntegration integration,
             Action<EfCoreEnricherOptions> settingAct = null,
@@ -52,22 +62,28 @@ namespace Cosmos.Logging {
             IOptions<EfCoreEnricherOptions> settings,
             Action<IConfiguration, EfCoreEnricherConfiguration, LoggingConfiguration> config = null) {
 
-            var serviceImpl = integration.ExposeServiceCollectionWrapper;
-            if (serviceImpl != null) {
-                serviceImpl.AddExtraSinkSettings<EfCoreEnricherOptions, EfCoreEnricherConfiguration>(settings.Value,
-                    (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
-                serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
-                serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(typeof(EfCoreInterceptorDescriptor),
-                    provider => {
-                        var instance = new EfCoreInterceptorDescriptor(provider.GetService<ILoggingServiceProvider>(), settings);
-                        EfCoreInterceptorDescriptor.Instance = instance;
-                        return instance;
-                    })));
+            var services = integration.ExposeServiceCollectionWrapper;
+            if (services != null) {
+                services.AddExtraSinkSettings<EfCoreEnricherOptions, EfCoreEnricherConfiguration>(settings.Value, (c, s, l) => config?.Invoke(c, s, l));
+                services.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
+
+                RegisterEntityFrameworkCoreInterceptor(services, settings);
 
                 RegisterCoreComponentsTypes();
             }
 
             return integration;
+        }
+
+        private static void RegisterEntityFrameworkCoreInterceptor(ILogServiceCollection services, IOptions<EfCoreEnricherOptions> settings) {
+            services.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(typeof(EfCoreInterceptorDescriptor), __efcoreInterceptorFactory)));
+
+            // ReSharper disable once InconsistentNaming
+            object __efcoreInterceptorFactory(IServiceProvider provider) {
+                var instance = new EfCoreInterceptorDescriptor(provider.GetService<ILoggingServiceProvider>(), settings);
+                EfCoreInterceptorDescriptor.Instance = instance;
+                return instance;
+            }
         }
 
         private static void RegisterCoreComponentsTypes() {

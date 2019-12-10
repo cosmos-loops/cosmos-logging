@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Interception;
-using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates.PresetTemplates;
 
