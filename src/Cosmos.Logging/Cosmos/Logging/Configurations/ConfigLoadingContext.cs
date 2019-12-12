@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EnumsNET;
@@ -10,6 +12,13 @@ namespace Cosmos.Logging.Configurations {
     /// Config file load context
     /// </summary>
     public static class ConfigLoadingContext {
+        private static readonly ConcurrentDictionary<(string, string, string, int), MethodInfo> _methodCallingCache;
+        private static readonly Type _stringType = typeof(string);
+
+        static ConfigLoadingContext() {
+            _methodCallingCache = new ConcurrentDictionary<(string, string, string, int), MethodInfo>();
+        }
+
         /// <summary>
         /// Load file
         /// </summary>
@@ -17,7 +26,7 @@ namespace Cosmos.Logging.Configurations {
         /// <param name="path"></param>
         /// <param name="type"></param>
         public static void Load(LoggingConfigurationBuilder builder, string path, FileTypes type) {
-            builder.Configure(b => AppendFileInternal(b, path, type));
+            AppendFileInternal(typeof(LoggingConfigurationBuilder), builder, path, type);
         }
 
         /// <summary>
@@ -27,35 +36,49 @@ namespace Cosmos.Logging.Configurations {
         /// <param name="path"></param>
         /// <param name="type"></param>
         public static void Load(IConfigurationBuilder builder, string path, FileTypes type) {
-            AppendFileInternal(builder, path, type);
+            AppendFileInternal(typeof(IConfigurationBuilder), builder, path, type);
         }
 
-        private static void AppendFileInternal(IConfigurationBuilder builder, string path, FileTypes type) {
-            if (builder is null)
-                throw new ArgumentNullException(nameof(builder));
+        private static void AppendFileInternal(Type callingType, object callingObj, string path, FileTypes fileTypes) {
+            if (callingType is null)
+                throw new ArgumentNullException(nameof(callingType));
             if (string.IsNullOrWhiteSpace(path))
                 throw new ArgumentNullException(nameof(path));
 
-            var method = GetMethod(type);
+            var method = GetMethod(callingType, fileTypes);
 
             if (method is null) {
-                throw new InvalidOperationException($"Cannot resolve the specific FileType '{type.GetName()}'. May not refer to related dependencies.");
+                throw new InvalidOperationException($"Cannot resolve the specific FileType '{fileTypes.GetName()}'. May not refer to related dependencies.");
             }
 
-            method.Invoke(null, new object[] {builder, path});
+            method.Invoke(null, new[] {callingObj, path});
         }
 
-        private static MethodInfo GetMethod(FileTypes type) {
-            var metadata = GetMetadata(type);
-            var assemblyName = DependencyContext.Default.GetDefaultAssemblyNames().FirstOrDefault(x => x.Name == metadata.AssemblyName);
+        private static MethodInfo GetMethod(Type firstParamType, FileTypes fileTypes) {
+            var m = GetMetadata(fileTypes);
+            var h = firstParamType.GetHashCode();
+            var key = (m.AssemblyName, m.ClassNamePrefix, m.MethodName, h);
+            if (_methodCallingCache.TryGetValue(key, out var method))
+                return method;
+
+            var assemblyName = DependencyContext.Default.GetDefaultAssemblyNames().FirstOrDefault(x => x.Name == m.AssemblyName);
 
             if (assemblyName == null)
                 return null;
 
             var assembly = Assembly.Load(assemblyName);
-            var fullName = $"Cosmos.Logging.Configuration.{metadata.ClassNamePrefix}ConfigurationBuilderExtensions";
+            var fullName = $"Cosmos.Logging.Configuration.{m.ClassNamePrefix}ConfigurationBuilderExtensions";
             var clazz = assembly.GetTypes().FirstOrDefault(t => t.FullName == fullName);
-            return clazz?.GetMethod(metadata.MethodName);
+
+            method = clazz?.GetMethod(m.MethodName, new[] {firstParamType, _stringType});
+
+            if (method == null)
+                return null;
+
+            if (_methodCallingCache.TryAdd(key, method))
+                return method;
+
+            throw new InvalidOperationException("Cannot cache the matched method right now.");
         }
 
         private static (string AssemblyName, string ClassNamePrefix, string MethodName) GetMetadata(FileTypes type) {

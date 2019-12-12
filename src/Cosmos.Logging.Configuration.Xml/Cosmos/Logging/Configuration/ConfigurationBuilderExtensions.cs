@@ -14,6 +14,19 @@ namespace Cosmos.Logging.Configuration {
         /// <param name="path"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
+        public static void AddXmlFile(this IConfigurationBuilder builder, string path) {
+            if (builder is null)
+                throw new ArgumentNullException(nameof(builder));
+            builder.AddXmlFile(path, true, true);
+        }
+
+        /// <summary>
+        /// Add xml format configuration file by the given path.
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static LoggingConfigurationBuilder AddXmlFile(this LoggingConfigurationBuilder builder, string path) {
             if (builder is null)
                 throw new ArgumentNullException(nameof(builder));

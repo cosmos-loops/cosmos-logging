@@ -14,6 +14,19 @@ namespace Cosmos.Logging.Configuration {
         /// <param name="path"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
+        public static void AddJsonFile(this IConfigurationBuilder builder, string path) {
+            if (builder is null)
+                throw new ArgumentNullException(nameof(builder));
+            builder.AddJsonFile(path, true, true);
+        }
+
+        /// <summary>
+        /// Add json format configuration file by the given path.
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static LoggingConfigurationBuilder AddJsonFile(this LoggingConfigurationBuilder builder, string path) {
             if (builder is null)
                 throw new ArgumentNullException(nameof(builder));

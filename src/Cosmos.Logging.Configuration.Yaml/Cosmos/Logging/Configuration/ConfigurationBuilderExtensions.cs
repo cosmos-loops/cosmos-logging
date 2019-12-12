@@ -8,6 +8,19 @@ namespace Cosmos.Logging.Configuration {
     /// </summary>
     public static class YamlConfigurationBuilderExtensions {
         /// <summary>
+        /// Add json format configuration file by the given path.
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static void AddYamlFile(this IConfigurationBuilder builder, string path) {
+            if (builder is null)
+                throw new ArgumentNullException(nameof(builder));
+            builder.AddYamlFile(path, true, true);
+        }
+
+        /// <summary>
         /// Add yaml format configuration file by the given path.
         /// </summary>
         /// <param name="builder"></param>

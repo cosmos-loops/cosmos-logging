@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Renderers", "Renderers", "{FCBAEA80-EE13-4E1E-B5B2-6726118B8309}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nromal", "nromal", "{DA92F6C9-C92A-426E-853D-36654BB8F15C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "normal", "normal", "{DA92F6C9-C92A-426E-853D-36654BB8F15C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CollaborativeTesting", "CollaborativeTesting", "{A678CB77-C7CF-4257-869A-C66EF52EB17A}"
 EndProject
@@ -158,6 +158,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging.Extensions.PostgreSql", "src\Cosmos.Logging.Extensions.PostgreSql\Cosmos.Logging.Extensions.PostgreSql.csproj", "{D6A74CDA-0856-4BD1-A972-026748D54BD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Extensions.CorrelationId", "src\Cosmos.Logging.Extensions.CorrelationId\Cosmos.Logging.Extensions.CorrelationId.csproj", "{930E9427-9852-49F0-9747-3949C5F74377}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Configuration Extensions", "0. Configuration Extensions", "{7195DD0E-CE46-43AD-826C-BCEB730A9E3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Configuration.Xml", "src\Cosmos.Logging.Configuration.Xml\Cosmos.Logging.Configuration.Xml.csproj", "{5C7CED81-4550-44D5-AEF9-ABE522588168}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Configuration.Json", "src\Cosmos.Logging.Configuration.Json\Cosmos.Logging.Configuration.Json.csproj", "{D40D10C1-0A0F-462C-83D8-FEA6D1298DA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.Configuration.Yaml", "src\Cosmos.Logging.Configuration.Yaml\Cosmos.Logging.Configuration.Yaml.csproj", "{B4157A13-F6EC-455A-86C0-1D7FC6843BE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "normal2", "normal2", "{7B7F3F75-3425-47A6-9395-610121348FD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos.Logging.ConfigFileLoadingTests", "tests\Cosmos.Logging.ConfigFileLoadingTests\Cosmos.Logging.ConfigFileLoadingTests.csproj", "{8F97A1E8-85BE-421D-8D80-1C2C79C7BEDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -381,6 +393,22 @@ Global
 		{930E9427-9852-49F0-9747-3949C5F74377}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{930E9427-9852-49F0-9747-3949C5F74377}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{930E9427-9852-49F0-9747-3949C5F74377}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C7CED81-4550-44D5-AEF9-ABE522588168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C7CED81-4550-44D5-AEF9-ABE522588168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C7CED81-4550-44D5-AEF9-ABE522588168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C7CED81-4550-44D5-AEF9-ABE522588168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D40D10C1-0A0F-462C-83D8-FEA6D1298DA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D40D10C1-0A0F-462C-83D8-FEA6D1298DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D40D10C1-0A0F-462C-83D8-FEA6D1298DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D40D10C1-0A0F-462C-83D8-FEA6D1298DA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4157A13-F6EC-455A-86C0-1D7FC6843BE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4157A13-F6EC-455A-86C0-1D7FC6843BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4157A13-F6EC-455A-86C0-1D7FC6843BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4157A13-F6EC-455A-86C0-1D7FC6843BE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F97A1E8-85BE-421D-8D80-1C2C79C7BEDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F97A1E8-85BE-421D-8D80-1C2C79C7BEDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F97A1E8-85BE-421D-8D80-1C2C79C7BEDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F97A1E8-85BE-421D-8D80-1C2C79C7BEDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -450,6 +478,12 @@ Global
 		{3E9B9611-5A58-4AF3-8EAD-EC99700A5EC2} = {787D8EA2-83CC-4FDE-84A2-515A04B6CF15}
 		{D6A74CDA-0856-4BD1-A972-026748D54BD0} = {998AD5D2-6294-4DDD-9449-E8461DF0B014}
 		{930E9427-9852-49F0-9747-3949C5F74377} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{7195DD0E-CE46-43AD-826C-BCEB730A9E3C} = {94BC7763-6909-438E-92AD-C3E7602541C4}
+		{5C7CED81-4550-44D5-AEF9-ABE522588168} = {7195DD0E-CE46-43AD-826C-BCEB730A9E3C}
+		{D40D10C1-0A0F-462C-83D8-FEA6D1298DA3} = {7195DD0E-CE46-43AD-826C-BCEB730A9E3C}
+		{B4157A13-F6EC-455A-86C0-1D7FC6843BE0} = {7195DD0E-CE46-43AD-826C-BCEB730A9E3C}
+		{7B7F3F75-3425-47A6-9395-610121348FD7} = {998D869B-FF04-4155-A6D6-23C2330C9C61}
+		{8F97A1E8-85BE-421D-8D80-1C2C79C7BEDC} = {7B7F3F75-3425-47A6-9395-610121348FD7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7494AB0-4276-4102-B112-7BBE0329D263}
