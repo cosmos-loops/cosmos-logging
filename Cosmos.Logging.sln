@@ -36,19 +36,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Exception Enrichers", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{F20A9DA4-B537-4B31-B9E0-F152A44C4178}"
 	ProjectSection(SolutionItems) = preProject
-		build\common.net461-net451.props = build\common.net461-net451.props
-		build\common.net461.props = build\common.net461.props
-		build\common.ns20-net451.props = build\common.ns20-net451.props
-		build\common.ns20-net461-net451.props = build\common.ns20-net461-net451.props
-		build\common.ns20-net461.props = build\common.ns20-net461.props
-		build\common.ns20.props = build\common.ns20.props
-		build\common.ns21-net461-net451.props = build\common.ns21-net461-net451.props
-		build\common.ns21-net461.props = build\common.ns21-net461.props
 		build\misc.props = build\misc.props
 		build\package.props = build\package.props
 		build\version.props = build\version.props
-		build\common.ns20-net461-net452.props = build\common.ns20-net461-net452.props
-		build\common.c3x-ns20-net461.props = build\common.c3x-ns20-net461.props
+		build\common.props = build\common.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos.Logging", "src\Cosmos.Logging\Cosmos.Logging.csproj", "{F04437BF-D39F-4ACF-BCDB-AC6ADF5C87C3}"

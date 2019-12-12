@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    
-    <Import Project="..\..\build\common.ns20-net461.props"/>
+
+    <Import Project="..\..\build\common.props" />
     
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
@@ -10,14 +10,6 @@
         <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
         <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
         <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.Extensions.Microsoft.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.Extensions.Microsoft.xml</DocumentationFile>
     </PropertyGroup>
     
     <ItemGroup>

@@ -4,5 +4,299 @@
         <name>Cosmos.Logging.Extensions.EntityFramework</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.DatabaseExtensions">
+            <summary>
+            Database extensions
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.DatabaseExtensions.UseCosmosLogging(System.Data.Entity.Database,System.Func{System.String,System.Object})">
+            <summary>
+            Use Cosmos Logging
+            </summary>
+            <param name="db"></param>
+            <param name="loggerAct"></param>
+        </member>
+        <member name="M:Cosmos.Logging.DatabaseExtensions.UseCosmosLogging(System.Data.Entity.Database,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},System.Func{System.String,System.Object})">
+            <summary>
+            Use Cosmos Logging
+            </summary>
+            <param name="db"></param>
+            <param name="filter"></param>
+            <param name="loggerAct"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.EfEnricherConfiguration">
+            <summary>
+            Cosmos Logging EntityFramework Enricher coniguration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.EfEnricherExtensions">
+            <summary>
+            Cosmos Logging EntityFramework Enricher extensions
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherExtensions.UseEntityFramework(Cosmos.Logging.DatabaseIntegration,System.Action{Cosmos.Logging.EfEnricherOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.EfEnricherConfiguration})">
+            <summary>
+            Use EntityFramework for Cosmos.Logging
+            </summary>
+            <param name="integration"></param>
+            <param name="settingAct"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.EfEnricherOptions">
+            <summary>
+            Cosmos Logging EntityFramework Enricher optons
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.EfEnricherOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddSimpleLoggingInterceptor(System.Func{System.String,System.Object})">
+            <summary>
+            Add simple logging interceptor
+            </summary>
+            <param name="simpleLoggingInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddExecutingInterceptor(System.Action{System.String,System.Data.Common.DbParameterCollection,System.DateTime})">
+            <summary>
+            Add executing interceptor
+            </summary>
+            <param name="executingInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddExecutedInterceptor(System.Func{System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object})">
+            <summary>
+            Add executed interceptor
+            </summary>
+            <param name="executedInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddLongTimeExecutedInterceptor(System.Func{System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object},System.Boolean)">
+            <summary>
+            Add long time executed interceptor
+            </summary>
+            <param name="executedInterceptor"></param>
+            <param name="asAppend"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddErrorInterceptor(System.Func{System.Exception,System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object})">
+            <summary>
+            Add error interceptor
+            </summary>
+            <param name="errorInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddNonQueryExecutingInterceptor(System.Action{System.String,System.Data.Common.DbParameterCollection,System.DateTime})">
+            <summary>
+            Add non query executing interceptor
+            </summary>
+            <param name="executingInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddNonQueryExecutedInterceptor(System.Func{System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object})">
+            <summary>
+            Add non query executed interceptor
+            </summary>
+            <param name="executedInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddNonQueryLongTimeExecutedInterceptor(System.Func{System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object},System.Boolean)">
+            <summary>
+            Add non query long time executed interceptor
+            </summary>
+            <param name="executedInterceptor"></param>
+            <param name="asAppend"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddNonQueryErrorInterceptor(System.Func{System.Exception,System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object})">
+            <summary>
+            Add non query error interceptor
+            </summary>
+            <param name="errorInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddReaderExecutingInterceptor(System.Action{System.String,System.Data.Common.DbParameterCollection,System.DateTime})">
+            <summary>
+            Add reader executing interceptor
+            </summary>
+            <param name="executingInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddReaderExecutedInterceptor(System.Func{System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object})">
+            <summary>
+            Add reader executed interceptor
+            </summary>
+            <param name="executedInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddReaderLongTimeExecutedInterceptor(System.Func{System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object},System.Boolean)">
+            <summary>
+            Add reader long time executed interceptor
+            </summary>
+            <param name="executedInterceptor"></param>
+            <param name="asAppend"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddReaderErrorInterceptor(System.Func{System.Exception,System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object})">
+            <summary>
+            Add reader error interceptor
+            </summary>
+            <param name="errorInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddScalarExecutingInterceptor(System.Action{System.String,System.Data.Common.DbParameterCollection,System.DateTime})">
+            <summary>
+            Add scalar executing interceptor
+            </summary>
+            <param name="executingInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddScalarExecutedInterceptor(System.Func{System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object})">
+            <summary>
+            Add scalar executed interceptor
+            </summary>
+            <param name="executedInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddScalarLongTimeExecutedInterceptor(System.Func{System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object},System.Boolean)">
+            <summary>
+            Add scalar long time executed interceptor
+            </summary>
+            <param name="executedInterceptor"></param>
+            <param name="asAppend"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.AddScalarErrorInterceptor(System.Func{System.Exception,System.String,System.Data.Common.DbParameterCollection,System.DateTime,System.DateTime,System.Object})">
+            <summary>
+            Add scalar error interceptor
+            </summary>
+            <param name="errorInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.UseFilter(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Use filter
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.EntityFramework.Core.DbParam">
+            <summary>
+            Database params
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.EntityFramework.Core.DbParam.#ctor(System.String,System.Object,System.Data.DbType)">
+            <summary>
+            Create a new DbParam
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="type"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.EntityFramework.Core.DbParam.ParameterName">
+            <summary>
+            Parameter name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.EntityFramework.Core.DbParam.Value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.EntityFramework.Core.DbParam.DbType">
+            <summary>
+            DbType
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.EntityFramework.Core.EfIntegrationLoggerInterceptor">
+            <summary>
+            Cosmos Logging EntityFramework Logger interceptor
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.EntityFramework.Core.EfIntegrationLoggerInterceptor.NonQueryExecuted(System.Data.Common.DbCommand,System.Data.Entity.Infrastructure.Interception.DbCommandInterceptionContext{System.Int32})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.EntityFramework.Core.EfIntegrationLoggerInterceptor.NonQueryExecuting(System.Data.Common.DbCommand,System.Data.Entity.Infrastructure.Interception.DbCommandInterceptionContext{System.Int32})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.EntityFramework.Core.EfIntegrationLoggerInterceptor.ReaderExecuted(System.Data.Common.DbCommand,System.Data.Entity.Infrastructure.Interception.DbCommandInterceptionContext{System.Data.Common.DbDataReader})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.EntityFramework.Core.EfIntegrationLoggerInterceptor.ReaderExecuting(System.Data.Common.DbCommand,System.Data.Entity.Infrastructure.Interception.DbCommandInterceptionContext{System.Data.Common.DbDataReader})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.EntityFramework.Core.EfIntegrationLoggerInterceptor.ScalarExecuted(System.Data.Common.DbCommand,System.Data.Entity.Infrastructure.Interception.DbCommandInterceptionContext{System.Object})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.EntityFramework.Core.EfIntegrationLoggerInterceptor.ScalarExecuting(System.Data.Common.DbCommand,System.Data.Entity.Infrastructure.Interception.DbCommandInterceptionContext{System.Object})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.EntityFramework.Core.EventIdKeys">
+            <summary>
+            Event Id keys
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.EntityFramework.Core.EventIdKeys.Executed">
+            <summary>
+            Executed
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.EntityFramework.Core.EventIdKeys.LongTimeExecuted">
+            <summary>
+            Long time executed
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.EntityFramework.Core.EventIdKeys.Error">
+            <summary>
+            Error
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.EntityFramework.Core.EventIdKeys.SqlExposure">
+            <summary>
+            Sql exposure
+            </summary>
+        </member>
     </members>
 </doc>

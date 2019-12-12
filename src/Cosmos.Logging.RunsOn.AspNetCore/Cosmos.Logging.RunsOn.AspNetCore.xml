@@ -4,5 +4,16 @@
         <name>Cosmos.Logging.RunsOn.AspNetCore</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.RunsOn.AspNetCore.AspNetCoreTraceIdGenerator">
+            <summary>
+            ASP.NET Core Trace id generator
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.AspNetCore.AspNetCoreTraceIdGenerator.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.AspNetCore.AspNetCoreTraceIdGenerator.Create">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

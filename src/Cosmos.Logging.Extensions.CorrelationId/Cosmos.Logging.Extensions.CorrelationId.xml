@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Extensions.CorrelationId</name>
+    </assembly>
+    <members>
+        <member name="M:Cosmos.Logging.Extensions.CorrelationId.CorrelationIdGenerator.#ctor(CorrelationId.ICorrelationContextAccessor)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
