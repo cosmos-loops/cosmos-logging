@@ -1,6 +1,6 @@
 ﻿using System;
+using AspectCore.DependencyInjection;
 using AspectCore.Extensions.DependencyInjection;
-using AspectCore.Injector;
 using Cosmos.IdUtils;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
@@ -44,7 +44,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
                 servicesImpl.AddTraceIdGenerator();
                 servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(Options.Create((LoggingOptions) servicesImpl.ExposeLogSettings()))));
                 servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(servicesImpl.ExposeLoggingConfiguration())));
-                ServiceResolver = servicesImpl.ExposeServices().ToServiceContainer().Build();
+                ServiceResolver = servicesImpl.ExposeServices().ToServiceContext().Build();
                 servicesImpl.ActiveLogEventEnrichers();
                 StaticServiceResolver.SetResolver(ServiceResolver.ResolveRequired<ILoggingServiceProvider>());
             }
