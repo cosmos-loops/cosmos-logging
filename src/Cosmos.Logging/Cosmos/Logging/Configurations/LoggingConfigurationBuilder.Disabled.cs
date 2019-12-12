@@ -17,14 +17,8 @@ namespace Cosmos.Logging.Configurations {
         public override bool InitializedByGivenBuilder => false;
 
         /// <inheritdoc />
-        public override LoggingConfigurationBuilder AddFile(string path, FileTypes fileType) => this;
-
-        /// <inheritdoc />
-        public override LoggingConfigurationBuilder AddJsonFile(string path) => this;
-
-        /// <inheritdoc />
-        public override LoggingConfigurationBuilder AddXmlFile(string path) => this;
-
+        public override LoggingConfigurationBuilder Configure(Action<IConfigurationBuilder> builderAction) => this;
+        
         /// <inheritdoc />
         public override LoggingConfiguration Build(ILoggingOptions settings) {
             BeforeBuildAction?.Invoke(this, settings);

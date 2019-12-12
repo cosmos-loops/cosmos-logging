@@ -11,6 +11,11 @@
         /// <summary>
         /// Xml
         /// </summary>
-        Xml
+        Xml,
+        
+        /// <summary>
+        /// Yaml
+        /// </summary>
+        Yaml,
     }
 }

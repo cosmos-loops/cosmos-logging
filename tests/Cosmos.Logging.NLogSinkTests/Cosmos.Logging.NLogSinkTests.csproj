@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Cosmos.Logging.Configuration.Json\Cosmos.Logging.Configuration.Json.csproj" />
     <ProjectReference Include="..\..\src\Cosmos.Logging.Renderers.Environment\Cosmos.Logging.Renderers.Environment.csproj" />
     <ProjectReference Include="..\..\src\Cosmos.Logging.Renderers.Process\Cosmos.Logging.Renderers.Process.csproj" />
     <ProjectReference Include="..\..\src\Cosmos.Logging.RunsOn.Console\Cosmos.Logging.RunsOn.Console.csproj" />

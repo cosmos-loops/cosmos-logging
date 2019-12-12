@@ -4,6 +4,27 @@
         <name>Cosmos.Logging</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.Configurations.ConfigLoadingContext">
+            <summary>
+            Config file load context
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ConfigLoadingContext.Load(Cosmos.Logging.Configurations.LoggingConfigurationBuilder,System.String,Cosmos.Logging.Configurations.FileTypes)">
+            <summary>
+            Load file
+            </summary>
+            <param name="builder"></param>
+            <param name="path"></param>
+            <param name="type"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Configurations.ConfigLoadingContext.Load(Microsoft.Extensions.Configuration.IConfigurationBuilder,System.String,Cosmos.Logging.Configurations.FileTypes)">
+            <summary>
+            Load file
+            </summary>
+            <param name="builder"></param>
+            <param name="path"></param>
+            <param name="type"></param>
+        </member>
         <member name="T:Cosmos.Logging.Configurations.DestructureConfiguration">
             <summary>
             Destructure configuration
@@ -259,7 +280,7 @@
         </member>
         <member name="T:Cosmos.Logging.Configurations.LogEventLevelConverter">
             <summary>
-            Leg event level converter
+            Log event level converter
             </summary>
         </member>
         <member name="T:Cosmos.Logging.Configurations.LoggingConfigurationBuilder">
@@ -278,27 +299,11 @@
             Gets the flag that initialized by given builder
             </summary>
         </member>
-        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.AddFile(System.String,Cosmos.Logging.Configurations.FileTypes)">
+        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.Configure(System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
             <summary>
-            Add configuration by file path and file type. Current just support json and xml
+            Configure configuretion builder
             </summary>
-            <param name="path"></param>
-            <param name="fileType"></param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentException"></exception>
-        </member>
-        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.AddJsonFile(System.String)">
-            <summary>
-            Add json format configuration file by the given path.
-            </summary>
-            <param name="path"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.AddXmlFile(System.String)">
-            <summary>
-            Add xml format configuration file by the given path.
-            </summary>
-            <param name="path"></param>
+            <param name="builderAction"></param>
             <returns></returns>
         </member>
         <member name="M:Cosmos.Logging.Configurations.LoggingConfigurationBuilder.PreheatMessageTemplates(System.Action{Cosmos.Logging.MessageTemplates.MessageTemplateCachePreheater})">
@@ -367,13 +372,7 @@
         <member name="P:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.InitializedByGivenBuilder">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.AddFile(System.String,Cosmos.Logging.Configurations.FileTypes)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.AddJsonFile(System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.AddXmlFile(System.String)">
+        <member name="M:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.Configure(System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
             <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.Configurations.DisabledConfigurationBuilder.Build(Cosmos.Logging.Configurations.ILoggingOptions)">
@@ -392,6 +391,11 @@
         <member name="F:Cosmos.Logging.Configurations.FileTypes.Xml">
             <summary>
             Xml
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Configurations.FileTypes.Yaml">
+            <summary>
+            Yaml
             </summary>
         </member>
         <member name="T:Cosmos.Logging.Configurations.LoggingOptions">
@@ -537,24 +541,9 @@
             Gets or sets rendering.
             </summary>
         </member>
-        <member name="T:Cosmos.Logging.Configurations.ThreeValuedBoolean">
+        <member name="T:Cosmos.Logging.Core.ExpectedTraceIdGeneratorName">
             <summary>
-            Three value boolean
-            </summary>
-        </member>
-        <member name="P:Cosmos.Logging.Configurations.ThreeValuedBoolean.True">
-            <summary>
-            True
-            </summary>
-        </member>
-        <member name="P:Cosmos.Logging.Configurations.ThreeValuedBoolean.False">
-            <summary>
-            False
-            </summary>
-        </member>
-        <member name="P:Cosmos.Logging.Configurations.ThreeValuedBoolean.Default">
-            <summary>
-            Default
+            Expected trace id generator name
             </summary>
         </member>
         <member name="T:Cosmos.Logging.Core.IContextualLogEvent">
@@ -1017,16 +1006,16 @@
         <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.Guid,System.String)">
+        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.Guid,System.String,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.Int32,System.String)">
+        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.Int32,System.String,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.Int64,System.String)">
+        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.Int64,System.String,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.String,System.String)">
+        <member name="M:Cosmos.Logging.Events.LogEventId.#ctor(System.String,System.String,System.String)">
             <inheritdoc />
         </member>
         <member name="P:Cosmos.Logging.Events.LogEventId.Timestamp">
@@ -1037,6 +1026,11 @@
         <member name="P:Cosmos.Logging.Events.LogEventId.Id">
             <summary>
             Gets log event id
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Events.LogEventId.TraceId">
+            <summary>
+            Gets trace id
             </summary>
         </member>
         <member name="P:Cosmos.Logging.Events.LogEventId.Name">
@@ -2422,6 +2416,66 @@
             <summary>
             The extra properties of the log event.
             </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Trace.ILogTraceIdGenerator">
+            <summary>
+            Interface for Cosmos Logging trace id generator
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Trace.ILogTraceIdGenerator.Create">
+            <summary>
+            Create trace id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Trace.LogTraceId">
+            <summary>
+            Log trace id helper
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Trace.LogTraceIdGenerator">
+            <summary>
+            Log trace id generator helper
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Trace.LogTraceIdGenerator.ScopedUpdate(Cosmos.Logging.Trace.ILogTraceIdGenerator)">
+            <summary>
+            Scoped update
+            </summary>
+            <param name="logTraceIdGenerator"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:Cosmos.Logging.Trace.LogTraceIdGenerator.Current">
+            <summary>
+            Gets current trace id generator
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Trace.SystemTraceIdGenerator">
+            <summary>
+            System trace id generator
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Trace.SystemTraceIdGenerator.#ctor(Cosmos.IdUtils.TraceIdAccessor,Cosmos.Logging.Trace.FallbackTraceIdAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Trace.SystemTraceIdGenerator.Create">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Trace.FallbackTraceIdAccessor">
+            <summary>
+            Fallback trace id accessor
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Trace.FallbackTraceIdAccessor.#ctor">
+            <summary>
+            Create a new <see cref="T:Cosmos.IdUtils.TraceIdAccessor"/> instance.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Trace.FallbackTraceIdAccessor.GetTraceId">
+            <summary>
+            Get Trace Id
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

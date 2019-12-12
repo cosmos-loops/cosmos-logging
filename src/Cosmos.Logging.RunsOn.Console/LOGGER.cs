@@ -23,17 +23,7 @@ namespace Cosmos.Logging {
         public static ILogServiceCollection Initialize(string settingPath, FileTypes type) {
             if (string.IsNullOrWhiteSpace(settingPath)) throw new ArgumentNullException(nameof(settingPath));
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
-            switch (type) {
-                case FileTypes.Json:
-                    builder.AddJsonFile(settingPath, true, true);
-                    break;
-                case FileTypes.Xml:
-                    builder.AddXmlFile(settingPath, true, true);
-                    break;
-                default:
-                    throw new InvalidOperationException("Unknown file type.");
-            }
-
+            ConfigLoadingContext.Load(builder, settingPath, type);
             return Initialize(builder);
         }
 

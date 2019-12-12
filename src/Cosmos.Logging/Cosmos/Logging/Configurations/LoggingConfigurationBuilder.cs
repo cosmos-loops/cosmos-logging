@@ -34,42 +34,14 @@ namespace Cosmos.Logging.Configurations {
         public virtual bool InitializedByGivenBuilder { get; }
 
         /// <summary>
-        /// Add configuration by file path and file type. Current just support json and xml
+        /// Configure configuretion builder
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="fileType"></param>
+        /// <param name="builderAction"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
-        public virtual LoggingConfigurationBuilder AddFile(string path, FileTypes fileType) {
-            switch (fileType) {
-                case FileTypes.Json:
-                    ConfigurationBuilder.AddJsonFile(path, true, true);
-                    break;
-
-                case FileTypes.Xml:
-                    ConfigurationBuilder.AddXmlFile(path, true, true);
-                    break;
-
-                default:
-                    throw new ArgumentException("Dost not support such tile type");
-            }
-
+        public virtual LoggingConfigurationBuilder Configure(Action<IConfigurationBuilder> builderAction) {
+            builderAction?.Invoke(ConfigurationBuilder);
             return this;
         }
-
-        /// <summary>
-        /// Add json format configuration file by the given path.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public virtual LoggingConfigurationBuilder AddJsonFile(string path) => AddFile(path, FileTypes.Json);
-
-        /// <summary>
-        /// Add xml format configuration file by the given path.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public virtual LoggingConfigurationBuilder AddXmlFile(string path) => AddFile(path, FileTypes.Xml);
 
         private Action<MessageTemplateCachePreheater> MessageTemplateCachePreheaterAction { get; set; }
 

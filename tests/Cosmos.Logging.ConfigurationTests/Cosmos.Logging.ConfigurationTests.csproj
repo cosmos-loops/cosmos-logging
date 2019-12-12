@@ -10,8 +10,8 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Cosmos.Logging.Configuration.Json\Cosmos.Logging.Configuration.Json.csproj" />
     <ProjectReference Include="..\..\src\Cosmos.Logging.RunsOn.Console\Cosmos.Logging.RunsOn.Console.csproj" />
     <ProjectReference Include="..\..\src\Cosmos.Logging.Sinks.SampleLogSink\Cosmos.Logging.Sinks.SampleLogSink.csproj" />
   </ItemGroup>
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
 </Project>

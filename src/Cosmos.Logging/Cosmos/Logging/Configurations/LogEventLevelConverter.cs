@@ -2,7 +2,7 @@
 
 namespace Cosmos.Logging.Configurations {
     /// <summary>
-    /// Leg event level converter
+    /// Log event level converter
     /// </summary>
     public static class LogEventLevelConverter {
         internal static LogEventLevel Convert(string level, LogEventLevel defaultLevel = LogEventLevel.Verbose) {
