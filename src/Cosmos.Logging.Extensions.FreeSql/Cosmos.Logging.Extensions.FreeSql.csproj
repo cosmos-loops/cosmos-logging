@@ -19,4 +19,8 @@
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Cosmos\Logging\Extensions\FreeSql" />
+    </ItemGroup>
 </Project>

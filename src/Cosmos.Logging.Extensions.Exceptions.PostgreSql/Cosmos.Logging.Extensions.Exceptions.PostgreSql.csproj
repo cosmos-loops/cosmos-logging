@@ -12,10 +12,7 @@
         <Description>PostgreSql Exceptions extension/enricher for Cosmos.Logging.</Description>
     </PropertyGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1' OR 
-                          '$(TargetFramework)'=='netstandard2.1' OR 
-                          '$(TargetFramework)'=='netstandard2.0' OR 
-                          '$(TargetFramework)'=='net461'">
+    <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1' OR &#xD;&#xA;                          '$(TargetFramework)'=='netstandard2.1' OR &#xD;&#xA;                          '$(TargetFramework)'=='netstandard2.0' OR &#xD;&#xA;                          '$(TargetFramework)'=='net461'">
         <PackageReference Include="Npgsql" Version="4.1.2" />
     </ItemGroup>
 
@@ -25,6 +22,10 @@
     
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging.Extensions.Exceptions\Cosmos.Logging.Extensions.Exceptions.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Cosmos\Logging\Extensions\Exceptions" />
     </ItemGroup>
     
 </Project>
