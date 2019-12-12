@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="..\..\build\common.c3x-ns20-net461.props" />
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp3.1;netstandard2.0;net461</TargetFrameworks>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <AssemblyName>Cosmos.Logging.Extensions.CorrelationId</AssemblyName>
+        <PackageId>Cosmos.Logging.Extensions.CorrelationId</PackageId>
+        <Description>Cosmos.Logging extension for CorrelationId.</Description>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.CorrelationId.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.CorrelationId.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CorrelationId" Version="2.1.0" />
+    </ItemGroup>
+
+</Project>

@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Cosmos.Logging.Configuration.Xml\Cosmos.Logging.Configuration.Xml.csproj" />
     <ProjectReference Include="..\..\src\Cosmos.Logging.RunsOn.Console\Cosmos.Logging.RunsOn.Console.csproj" />
     <ProjectReference Include="..\..\src\Cosmos.Logging.Sinks.Exceptionless\Cosmos.Logging.Sinks.Exceptionless.csproj" />
   </ItemGroup>

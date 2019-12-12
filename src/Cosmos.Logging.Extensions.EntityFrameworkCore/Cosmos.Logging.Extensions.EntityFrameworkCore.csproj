@@ -1,21 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\..\build\common.ns20-net461.props" />
+
+    <Import Project="..\..\build\common.ns20.props" />
+
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <PropertyGroup>
         <AssemblyName>Cosmos.Logging.Extensions.EntityFrameworkCore</AssemblyName>
         <PackageId>Cosmos.Logging.Extensions.EntityFrameworkCore</PackageId>
-        <Description>Cosmos.Logging extension for ORM Microsoft EntityFrameworkCore 2.0.</Description>
-        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+        <Description>Cosmos.Logging extension for ORM Microsoft EntityFrameworkCore.</Description>
     </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.EntityFrameworkCore.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.EntityFrameworkCore.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Alexinea.EntityFrameworkCore.LoggingExposure" Version="3.1.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.0" />
+    </ItemGroup>
+    
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging.Extensions.Microsoft\Cosmos.Logging.Extensions.Microsoft.csproj" />
-        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Alexinea.EntityFrameworkCore.LoggingExposure" Version="2.2.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.4" />
     </ItemGroup>
 </Project>

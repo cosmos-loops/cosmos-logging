@@ -1,14 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\..\build\common.ns20-net461.props" />
+
+    <Import Project="..\..\build\common.ns20-net461-net452.props" />
+
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net461;net452</TargetFrameworks>
+    </PropertyGroup>
+    
+    <PropertyGroup>
         <AssemblyName>Cosmos.Logging.Extensions.Exceptions.MySql</AssemblyName>
         <PackageId>Cosmos.Logging.Extensions.Exceptions.MySql</PackageId>
         <Description>MySQL Exceptions extension/enricher for Cosmos.Logging.</Description>
-        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.Exceptions.MySql.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.Exceptions.MySql.xml</DocumentationFile>
+    </PropertyGroup>
+    
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging.Extensions.Exceptions\Cosmos.Logging.Extensions.Exceptions.csproj" />
     </ItemGroup>

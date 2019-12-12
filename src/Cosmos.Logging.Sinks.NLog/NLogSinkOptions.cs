@@ -107,7 +107,7 @@ namespace Cosmos.Logging {
 
         #region Append output
 
-        private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
+        private readonly RenderingConfiguration _renderingOptions = new RenderingConfiguration();
 
         public NLogSinkOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
             _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
@@ -119,12 +119,12 @@ namespace Cosmos.Logging {
             return this;
         }
 
-        public NLogSinkOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled) {
+        public NLogSinkOptions EnableDisplayNewLineEom(bool? displayingNewLineEomEnabled) {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }
 
-        public RendingConfiguration GetRenderingOptions() => _renderingOptions;
+        public RenderingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
     }

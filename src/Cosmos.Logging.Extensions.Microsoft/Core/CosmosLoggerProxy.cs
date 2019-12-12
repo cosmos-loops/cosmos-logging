@@ -10,8 +10,14 @@ namespace Cosmos.Logging.Extensions.Microsoft.Core {
     [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public class CosmosLoggerProxy : LoggerBase, IFutureableLogger<CosmosFutureLoggerProxy> {
 
-        public CosmosLoggerProxy(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, Func<string, LogEventLevel, bool> filter,
-            LogEventSendMode sendMode, RendingConfiguration renderingOptions, ILogPayloadSender logPayloadSender)
+        public CosmosLoggerProxy(
+            Type sourceType,
+            LogEventLevel minimumLevel,
+            string loggerStateNamespace,
+            Func<string, LogEventLevel, bool> filter,
+            LogEventSendMode sendMode,
+            RenderingConfiguration renderingOptions,
+            ILogPayloadSender logPayloadSender)
             : base(sourceType, minimumLevel, loggerStateNamespace, filter, sendMode, renderingOptions, logPayloadSender) { }
 
         public override IFutureLogger ToFuture(

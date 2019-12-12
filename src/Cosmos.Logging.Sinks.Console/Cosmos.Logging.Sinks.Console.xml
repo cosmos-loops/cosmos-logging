@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Sinks.Console</name>
+    </assembly>
+    <members>
+        <member name="T:Cosmos.Logging.Sinks.Console.IConsole">
+            <summary>
+            Interface of console
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.IConsole.Write(System.String,System.Nullable{System.ConsoleColor},System.Nullable{System.ConsoleColor})">
+            <summary>
+            Write
+            </summary>
+            <param name="message">Log message</param>
+            <param name="background">Background colour</param>
+            <param name="foreground">Foreground colour</param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.IConsole.WriteLine(System.String,System.Nullable{System.ConsoleColor},System.Nullable{System.ConsoleColor})">
+            <summary>
+            Write with new line
+            </summary>
+            <param name="message">Log message</param>
+            <param name="background">Background colour</param>
+            <param name="foreground">Foreground colour</param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.IConsole.Flush">
+            <summary>
+            Flush
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.Internals.UnixConsole">
+            <summary>
+            Unix console
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Internals.UnixConsole.DefaultBackgroundColour">
+            <summary>
+            Default background colour
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Internals.UnixConsole.DefaultForegroundColour">
+            <summary>
+            Default foreground colour
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Internals.UnixConsole._messageHolder">
+            <summary>
+            Log message holder
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.UnixConsole.GetForegroundColour(System.ConsoleColor)">
+            <summary>
+            Get foreground colour
+            </summary>
+            <param name="color">颜色</param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.UnixConsole.GetBackgroundColour(System.ConsoleColor)">
+            <summary>
+            Get background colour
+            </summary>
+            <param name="color">颜色</param>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.Internals.WindowsConsole">
+            <summary>
+            Windows console
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.WindowsConsole.SetColour(System.Nullable{System.ConsoleColor},System.Nullable{System.ConsoleColor})">
+            <summary>
+            Set colour
+            </summary>
+            <param name="background"></param>
+            <param name="foreground"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.WindowsConsole.ResetColour">
+            <summary>
+            Reset colour
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Internals.MessageConsumer.MaxQueuedMessages">
+            <summary>
+            Max count of queue messages
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Internals.MessageConsumer._messageQueue">
+            <summary>
+            Message wrapper queue
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Internals.MessageConsumer._outputTask">
+            <summary>
+            Output async
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Internals.MessageConsumer._console">
+            <summary>
+            Console implementation
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.MessageConsumer.#ctor(Cosmos.Logging.Sinks.Console.IConsole)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.Console.Internals.MessageConsumer"/>.
+            </summary>
+            <param name="console">Console</param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.Internals.MessageWrapper.BackgroundColour">
+            <summary>
+            Background colour
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.Internals.MessageWrapper.ForegroundColour">
+            <summary>
+            Foreground colour
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.Internals.MessageWrapper.RenderedMessage">
+            <summary>
+            Rendered message
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.BaseOutputRenderer`1.Render(Cosmos.Logging.Events.LogEvent)">
+            <summary>
+            Render, and return the length of result
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle">
+            <summary>
+            Elements that styled by console theme.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.Text">
+            <summary>
+            Prominent text, generally content within an event's message.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.SecondaryText">
+            <summary>
+            Boilerplate text, for example items specified in an output template.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.TertiaryText">
+            <summary>
+            De-emphasized text, for example literal text in output templates and
+            punctuation used when writing structured data.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.Invalid">
+            <summary>
+            Output demonstrating some kind of configuration issue, e.g. an invalid
+            message template token.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.Null">
+            <summary>
+            The built-in <see langword="null"/> value.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.Name">
+            <summary>
+            Property and type names.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.String">
+            <summary>
+            Strings.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.Number">
+            <summary>
+            Numbers.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.Boolean">
+            <summary>
+            <see cref="T:System.Boolean"/> values.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.Scalar">
+            <summary>
+            All other scalar values, e.g. <see cref="T:System.Guid"/> instances.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.LevelVerbose">
+            <summary>
+            Level indicator.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.LevelDebug">
+            <summary>
+            Level indicator.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.LevelInformation">
+            <summary>
+            Level indicator.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.LevelWarning">
+            <summary>
+            Level indicator.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.LevelError">
+            <summary>
+            Level indicator.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle.LevelFatal">
+            <summary>
+            Level indicator.
+            </summary>
+        </member>
+    </members>
+</doc>

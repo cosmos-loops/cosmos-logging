@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Configuration.Json</name>
+    </assembly>
+    <members>
+        <member name="T:Cosmos.Logging.Configuration.JsonConfigurationBuilderExtensions">
+            <summary>
+            Extensions for logging configuration builder
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configuration.JsonConfigurationBuilderExtensions.AddJsonFile(Microsoft.Extensions.Configuration.IConfigurationBuilder,System.String)">
+            <summary>
+            Add json format configuration file by the given path.
+            </summary>
+            <param name="builder"></param>
+            <param name="path"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Configuration.JsonConfigurationBuilderExtensions.AddJsonFile(Cosmos.Logging.Configurations.LoggingConfigurationBuilder,System.String)">
+            <summary>
+            Add json format configuration file by the given path.
+            </summary>
+            <param name="builder"></param>
+            <param name="path"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+    </members>
+</doc>

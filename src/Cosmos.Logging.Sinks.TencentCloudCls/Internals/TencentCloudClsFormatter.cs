@@ -17,7 +17,7 @@ namespace Cosmos.Logging.Sinks.TencentCloudCls.Internals
 {
     internal static class TencentCloudClsFormatter
     {
-        public static ClsLogGroupList Format(List<LogEvent> logEvents, RendingConfiguration rendingConfiguration, IFormatProvider formatProvider)
+        public static ClsLogGroupList Format(List<LogEvent> logEvents, RenderingConfiguration renderingConfiguration, IFormatProvider formatProvider)
         {
             if (logEvents == null)
                 throw new ArgumentNullException(nameof(logEvents));
@@ -31,7 +31,7 @@ namespace Cosmos.Logging.Sinks.TencentCloudCls.Internals
                 try
                 {
                     LogEventEnricherManager.Enricher(logEvent);
-                    var contents = GetLogEventContents(logEvent, rendingConfiguration, formatProvider);
+                    var contents = GetLogEventContents(logEvent, renderingConfiguration, formatProvider);
                     log.Contents.AddRange(contents);
                     log.Time = logEvent.Timestamp.ToUnixTimeMilliseconds();
                 }
@@ -49,7 +49,7 @@ namespace Cosmos.Logging.Sinks.TencentCloudCls.Internals
             return logGroupList;
         }
 
-        private static List<ClsContent> GetLogEventContents(LogEvent logEvent, RendingConfiguration rendingConfiguration, IFormatProvider formatProvider)
+        private static List<ClsContent> GetLogEventContents(LogEvent logEvent, RenderingConfiguration renderingConfiguration, IFormatProvider formatProvider)
         {
             var contents = new List<ClsContent>();
 
@@ -61,7 +61,7 @@ namespace Cosmos.Logging.Sinks.TencentCloudCls.Internals
             var stringBuilder = new StringBuilder();
             using (var output = new StringWriter(stringBuilder, formatProvider))
             {
-                logEvent.RenderMessage(output, rendingConfiguration, formatProvider);
+                logEvent.RenderMessage(output, renderingConfiguration, formatProvider);
             }
 
             contents.AddContent("RenderedMessage", stringBuilder.ToString());

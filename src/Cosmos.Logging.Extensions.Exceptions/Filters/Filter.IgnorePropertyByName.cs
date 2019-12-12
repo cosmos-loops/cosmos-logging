@@ -1,13 +1,11 @@
 using System;
 using System.Linq;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Filters
-{
+namespace Cosmos.Logging.Extensions.Exceptions.Filters {
     /// <summary>
     /// Filter property by name (only). 
     /// </summary>
-    public class IgnorePropertyByNameFilter : IExceptionPropertyFilter
-    {
+    public class IgnorePropertyByNameFilter : IExceptionPropertyFilter {
         private readonly string[] _propertiesToIgnore;
 
         /// <summary>
@@ -17,8 +15,7 @@ namespace Cosmos.Logging.Extensions.Exceptions.Filters
         public IgnorePropertyByNameFilter(params string[] propertiesToIgnore) => _propertiesToIgnore = propertiesToIgnore;
 
         /// <inheritdoc />
-        public bool ShouldBeFiltered(Exception exception, string propertyName, object value)
-        {
+        public bool ShouldBeFiltered(Exception exception, string propertyName, object value) {
             if (_propertiesToIgnore is null)
                 return false;
 

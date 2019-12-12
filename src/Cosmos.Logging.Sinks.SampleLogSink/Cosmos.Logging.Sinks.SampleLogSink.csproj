@@ -1,14 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-  <Import Project="..\..\build\common.ns20-net461-net451.props" />
+
+  <Import Project="..\..\build\common.ns20-net461-net451.props"/>
+
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net461;net451</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <AssemblyName>Cosmos.Logging.Sinks.SampleLogSink</AssemblyName>
     <PackageId>Cosmos.Logging.Sinks.SampleLogSink</PackageId>
     <Description>One sample sink library for Cosmos.Logging, only used to demonstrate sink api design.</Description>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>Cosmos.Logging.Sinks.SampleLogSink.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DocumentationFile>Cosmos.Logging.Sinks.SampleLogSink.xml</DocumentationFile>
+  </PropertyGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
   </ItemGroup>

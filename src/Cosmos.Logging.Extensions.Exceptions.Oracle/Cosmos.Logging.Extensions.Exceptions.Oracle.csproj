@@ -1,24 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
     <Import Project="..\..\build\common.ns20-net461-net451.props" />
+
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net461;net451</TargetFrameworks>
+    </PropertyGroup>
+    
+    <PropertyGroup>
         <AssemblyName>Cosmos.Logging.Extensions.Exceptions.Oracle</AssemblyName>
         <PackageId>Cosmos.Logging.Extensions.Exceptions.Oracle</PackageId>
         <Description>Oracle Exceptions extension/enricher for Cosmos.Logging.</Description>
-        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.Exceptions.Oracle.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.Exceptions.Oracle.xml</DocumentationFile>
+    </PropertyGroup>
+    
+    <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1' OR '$(TargetFramework)'=='netstandard2.1' OR '$(TargetFramework)'=='netstandard2.0'">
+        <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.50" />
+    </ItemGroup>
+    
+    <ItemGroup Condition="'$(TargetFramework)'=='net451' OR '$(TargetFramework)'=='net461'">
+        <PackageReference Include="Oracle.ManagedDataAccess" Version="19.5.0" />
+    </ItemGroup>
+    
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging.Extensions.Exceptions\Cosmos.Logging.Extensions.Exceptions.csproj" />
     </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-        <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.50" />
-    </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)'=='net461'">
-        <PackageReference Include="Oracle.ManagedDataAccess" Version="19.5.0" />
-    </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)'=='net451'">
-        <PackageReference Include="Oracle.ManagedDataAccess" Version="19.5.0" />
-    </ItemGroup>
+    
 </Project>

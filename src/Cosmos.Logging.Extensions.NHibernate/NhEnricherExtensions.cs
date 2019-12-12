@@ -12,7 +12,9 @@ using NHibernate;
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
     public static class NhEnricherExtensions {
-        public static DatabaseIntegration UseNHibernate(this DatabaseIntegration integration, Action<NhEnricherOptions> settingAct = null,
+        public static DatabaseIntegration UseNHibernate(
+            this DatabaseIntegration integration,
+            Action<NhEnricherOptions> settingAct = null,
             Action<IConfiguration, NhEnricherConfiguration> configAction = null) {
             var settings = new NhEnricherOptions();
             settingAct?.Invoke(settings);
@@ -27,7 +29,8 @@ namespace Cosmos.Logging {
                     if (string.IsNullOrWhiteSpace(@namespace)) return;
                     if (configuration.LogLevel.ContainsKey(@namespace)) {
                         configuration.LogLevel[@namespace] = expectLevelName;
-                    } else {
+                    }
+                    else {
                         configuration.LogLevel.Add(@namespace, expectLevelName);
                     }
                 }
@@ -40,13 +43,16 @@ namespace Cosmos.Logging {
             return UseNHibernateCore(integration, Options.Create(settings), InternalAction);
         }
 
-        private static DatabaseIntegration UseNHibernateCore(DatabaseIntegration integration, IOptions<NhEnricherOptions> settings,
+        private static DatabaseIntegration UseNHibernateCore(
+            DatabaseIntegration integration,
+            IOptions<NhEnricherOptions> settings,
             Action<IConfiguration, NhEnricherConfiguration, LoggingConfiguration> config = null) {
-            if (integration == null) throw new ArgumentNullException(nameof(integration));
+            if (integration is null) throw new ArgumentNullException(nameof(integration));
 
             var serviceImpl = integration.ExposeServiceCollectionWrapper;
             if (serviceImpl != null) {
-                serviceImpl.AddExtraSinkSettings<NhEnricherOptions, NhEnricherConfiguration>(settings.Value, (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
+                serviceImpl.AddExtraSinkSettings<NhEnricherOptions, NhEnricherConfiguration>(settings.Value,
+                    (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
                 serviceImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(provider =>
                     new StaticServiceResolveInitialization(provider.GetRequiredService<ILoggingServiceProvider>(), settings.Value))));
@@ -56,7 +62,7 @@ namespace Cosmos.Logging {
 
             return integration;
         }
-        
+
         private static void RegisterCoreComponentsTypes() {
             SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<NhEnricherOptions>), false, ServiceLifetime.Singleton));
             SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(StaticServiceResolveInitialization), false, ServiceLifetime.Singleton));

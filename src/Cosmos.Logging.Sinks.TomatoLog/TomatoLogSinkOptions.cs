@@ -92,7 +92,7 @@ namespace Cosmos.Logging.Sinks.TomatoLog
 
         #region Append output
 
-        private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
+        private readonly RenderingConfiguration _renderingOptions = new RenderingConfiguration();
 
         public TomatoLogSinkOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled)
         {
@@ -106,13 +106,13 @@ namespace Cosmos.Logging.Sinks.TomatoLog
             return this;
         }
 
-        public TomatoLogSinkOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled)
+        public TomatoLogSinkOptions EnableDisplayNewLineEom(bool? displayingNewLineEomEnabled)
         {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }
 
-        public RendingConfiguration GetRenderingOptions() => _renderingOptions;
+        public RenderingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
 

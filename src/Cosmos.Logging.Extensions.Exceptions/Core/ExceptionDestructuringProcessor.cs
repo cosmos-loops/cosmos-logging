@@ -6,16 +6,13 @@ using Cosmos.Logging.Extensions.Exceptions.Configurations;
 using Cosmos.Logging.Extensions.Exceptions.Destructurers;
 using Cosmos.Logging.ExtraSupports;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Core
-{
-    public sealed class ExceptionDestructuringProcessor
-    {
+namespace Cosmos.Logging.Extensions.Exceptions.Core {
+    public sealed class ExceptionDestructuringProcessor {
         private readonly IExceptionDestructurer _reflectionBasedDestructurer;
         private readonly Dictionary<Type, IExceptionDestructurer> _destructurers;
         private readonly IDestructuringOptions _destructuringOptions;
 
-        public ExceptionDestructuringProcessor()
-        {
+        public ExceptionDestructuringProcessor() {
             _destructuringOptions = FinalDestructuringOptions.Current;
             if (_destructuringOptions == null)
                 throw new ArgumentException(
@@ -34,13 +31,11 @@ namespace Cosmos.Logging.Extensions.Exceptions.Core
         /// </summary>
         /// <param name="logEvent"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void Process(LogEvent logEvent)
-        {
+        public void Process(LogEvent logEvent) {
             if (logEvent is null)
                 throw new ArgumentNullException(nameof(logEvent));
 
-            if (logEvent.Exception != null)
-            {
+            if (logEvent.Exception != null) {
                 var destructuredObject = Destructure(logEvent.Exception);
 
                 logEvent.AddExtraProperty(_destructuringOptions.Name, destructuredObject, true);
@@ -54,16 +49,14 @@ namespace Cosmos.Logging.Extensions.Exceptions.Core
         /// <param name="logEvent"></param>
         /// <param name="factory"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void Process(LogEvent logEvent, IShortcutPropertyFactory factory)
-        {
+        public void Process(LogEvent logEvent, IShortcutPropertyFactory factory) {
             if (logEvent is null)
                 throw new ArgumentNullException(nameof(logEvent));
 
             if (factory is null)
                 throw new ArgumentNullException(nameof(factory));
 
-            if (logEvent.Exception != null)
-            {
+            if (logEvent.Exception != null) {
                 var destructuredObject = Destructure(logEvent.Exception);
 
                 logEvent.AddExtraProperty(factory.CreateProperty(_destructuringOptions.Name, destructuredObject, true).AsExtra());
@@ -72,17 +65,14 @@ namespace Cosmos.Logging.Extensions.Exceptions.Core
         }
 
 
-        private IReadOnlyDictionary<string, object> Destructure(Exception exception)
-        {
+        private IReadOnlyDictionary<string, object> Destructure(Exception exception) {
             var data = new ExceptionPropertyBag(exception, _destructuringOptions.Filter);
             var type = exception.GetType();
 
-            if (_destructurers.TryGetValue(type, out var destructurer))
-            {
+            if (_destructurers.TryGetValue(type, out var destructurer)) {
                 destructurer.Destructure(exception, data, Destructure);
             }
-            else
-            {
+            else {
                 _reflectionBasedDestructurer.Destructure(exception, data, Destructure);
             }
 

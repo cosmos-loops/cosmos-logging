@@ -1,7 +1,3 @@
-namespace Cosmos.Logging.Extensions.PostgreSql.Core
-{
-    public class EventIdKeys
-    {
-        
-    }
+namespace Cosmos.Logging.Extensions.PostgreSql.Core {
+    public class EventIdKeys { }
 }

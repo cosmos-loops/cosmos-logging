@@ -17,7 +17,7 @@ namespace Cosmos.Logging {
         }
 
         public static ILoggingBuilder AddCosmosLogging(this ILoggingBuilder builder, IConfigurationRoot root, Action<ILogServiceCollection> config = null) {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            if (builder is null) throw new ArgumentNullException(nameof(builder));
 
             var servicesImpl = new StandardLogServiceCollection(builder.Services, root);
 
@@ -29,15 +29,15 @@ namespace Cosmos.Logging {
             servicesImpl.BuildConfiguration();
             servicesImpl.ActiveSinkSettings();
             servicesImpl.ActiveOriginConfiguration();
-            
+
             builder.Services.TryAdd(ServiceDescriptor.Singleton(Options.Create((LoggingOptions) servicesImpl.ExposeLogSettings())));
             builder.Services.TryAdd(ServiceDescriptor.Singleton(servicesImpl.ExposeLoggingConfiguration()));
             builder.Services.TryAdd(ServiceDescriptor.Singleton(typeof(StaticServiceResolveInitialization),
                 provider => new StaticServiceResolveInitialization(
                     provider.GetRequiredService<ILoggingServiceProvider>(),
                     servicesImpl.ActiveLogEventEnrichers
-                    )));
-            
+                )));
+
             return builder;
         }
     }

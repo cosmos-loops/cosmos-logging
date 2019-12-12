@@ -12,7 +12,7 @@ namespace Cosmos.Logging.RunsOn.ZKWeb {
     public class ZKWebLogger : LoggerBase, IFutureableLogger<ZKWebFutureLogger> {
 
         public ZKWebLogger(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, Func<string, LogEventLevel, bool> filter,
-            LogEventSendMode sendMode, RendingConfiguration renderingOptions, ILogPayloadSender logPayloadSender)
+            LogEventSendMode sendMode, RenderingConfiguration renderingOptions, ILogPayloadSender logPayloadSender)
             : base(sourceType, minimumLevel, loggerStateNamespace, filter, sendMode, renderingOptions, logPayloadSender) { }
 
         public override IFutureLogger ToFuture(

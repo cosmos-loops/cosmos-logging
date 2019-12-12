@@ -11,7 +11,7 @@ namespace Cosmos.Logging.RunsOn.NancyFX {
     public class NancyLogger : LoggerBase, IFutureableLogger<NancyFutureLogger> {
 
         public NancyLogger(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, Func<string, LogEventLevel, bool> filter,
-            LogEventSendMode sendMode, RendingConfiguration renderingOptions, ILogPayloadSender logPayloadSender)
+            LogEventSendMode sendMode, RenderingConfiguration renderingOptions, ILogPayloadSender logPayloadSender)
             : base(sourceType, minimumLevel, loggerStateNamespace, filter, sendMode, renderingOptions, logPayloadSender) { }
 
         public override IFutureLogger ToFuture(

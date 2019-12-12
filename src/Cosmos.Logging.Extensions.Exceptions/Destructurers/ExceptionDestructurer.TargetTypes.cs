@@ -1,70 +1,65 @@
 using System;
 using System.Collections.Generic;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
-{
-    public partial class ExceptionDestructurer
-    {
+namespace Cosmos.Logging.Extensions.Exceptions.Destructurers {
+    public partial class ExceptionDestructurer {
         private List<Type> _targetTypesCache;
 
-        private List<Type> GetTargetTypes()
-        {
-            if (_targetTypesCache != null)
-            {
+        private List<Type> GetTargetTypes() {
+            if (_targetTypesCache != null) {
                 return _targetTypesCache;
             }
 
-            var targetTypes = new List<Type>
-            {
+            var targetTypes = new List<Type> {
 #if NET461 || NET472
-                    typeof(Microsoft.SqlServer.Server.InvalidUdtException),
-                    typeof(System.AccessViolationException),
-                    typeof(System.AppDomainUnloadedException),
-                    typeof(System.ApplicationException),
+                typeof(Microsoft.SqlServer.Server.InvalidUdtException),
+                typeof(System.AccessViolationException),
+                typeof(System.AppDomainUnloadedException),
+                typeof(System.ApplicationException),
 #endif
                 typeof(System.ArithmeticException),
                 typeof(System.ArrayTypeMismatchException),
 #if NET461 || NET472
-                        typeof(System.CannotUnloadAppDomainException),
+                typeof(System.CannotUnloadAppDomainException),
 #endif
                 typeof(System.Collections.Generic.KeyNotFoundException),
 #if NET461 || NET472
-                    typeof(System.ComponentModel.Design.CheckoutException),
-                    typeof(System.ComponentModel.InvalidAsynchronousStateException),
-                    typeof(System.ComponentModel.InvalidEnumArgumentException),
-                    typeof(System.Configuration.SettingsPropertyIsReadOnlyException),
-                    typeof(System.Configuration.SettingsPropertyNotFoundException),
-                    typeof(System.Configuration.SettingsPropertyWrongTypeException),
-                    typeof(System.ContextMarshalException),
+                typeof(System.ComponentModel.Design.CheckoutException),
+                typeof(System.ComponentModel.InvalidAsynchronousStateException),
+                typeof(System.ComponentModel.InvalidEnumArgumentException),
+                typeof(System.Configuration.SettingsPropertyIsReadOnlyException),
+                typeof(System.Configuration.SettingsPropertyNotFoundException),
+                typeof(System.Configuration.SettingsPropertyWrongTypeException),
+                typeof(System.ContextMarshalException),
 #endif
 #if NET461 || NET472
-                    typeof(System.Data.ConstraintException),
-                    typeof(System.Data.DataException),
-                    typeof(System.Data.DeletedRowInaccessibleException),
-                    typeof(System.Data.DuplicateNameException),
-                    typeof(System.Data.EvaluateException),
-                    typeof(System.Data.InRowChangingEventException),
-                    typeof(System.Data.InvalidConstraintException),
-                    typeof(System.Data.InvalidExpressionException),
-                    typeof(System.Data.MissingPrimaryKeyException),
-                    typeof(System.Data.NoNullAllowedException),
-                    typeof(System.Data.OperationAbortedException),
-                    typeof(System.Data.ReadOnlyException),
-                    typeof(System.Data.RowNotInTableException),
-                    typeof(System.Data.SqlTypes.SqlAlreadyFilledException),
-                    typeof(System.Data.SqlTypes.SqlNotFilledException),
+                typeof(System.Data.ConstraintException),
+                typeof(System.Data.DataException),
+                typeof(System.Data.DeletedRowInaccessibleException),
+                typeof(System.Data.DuplicateNameException),
+                typeof(System.Data.EvaluateException),
+                typeof(System.Data.InRowChangingEventException),
+                typeof(System.Data.InvalidConstraintException),
+                typeof(System.Data.InvalidExpressionException),
+                typeof(System.Data.MissingPrimaryKeyException),
+                typeof(System.Data.NoNullAllowedException),
+                typeof(System.Data.OperationAbortedException),
+                typeof(System.Data.ReadOnlyException),
+                typeof(System.Data.RowNotInTableException),
+                typeof(System.Data.SqlTypes.SqlAlreadyFilledException),
+                typeof(System.Data.SqlTypes.SqlNotFilledException),
 #endif
 #if NET461 || NET472
-                    typeof(System.Data.StrongTypingException),
-                    typeof(System.Data.SyntaxErrorException),
-                    typeof(System.Data.VersionNotFoundException),
+                typeof(System.Data.StrongTypingException),
+                typeof(System.Data.SyntaxErrorException),
+                typeof(System.Data.VersionNotFoundException),
 #endif
                 typeof(System.DataMisalignedException),
                 typeof(System.DivideByZeroException),
                 typeof(System.DllNotFoundException),
 #if NET461 || NET472
-                    typeof(System.DuplicateWaitObjectException),
-                    typeof(System.EntryPointNotFoundException),
+                typeof(System.DuplicateWaitObjectException),
+                typeof(System.EntryPointNotFoundException),
 #endif
                 typeof(System.Exception),
                 typeof(System.FieldAccessException),
@@ -72,7 +67,7 @@ namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
                 typeof(System.IndexOutOfRangeException),
                 typeof(System.InsufficientExecutionStackException),
 #if NET461 || NET472
-                    typeof(System.InsufficientMemoryException),
+                typeof(System.InsufficientMemoryException),
 #endif
                 typeof(System.InvalidCastException),
                 typeof(System.InvalidOperationException),
@@ -80,27 +75,27 @@ namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
                 typeof(System.InvalidTimeZoneException),
                 typeof(System.IO.DirectoryNotFoundException),
 #if NET461 || NET472
-                    typeof(System.IO.DriveNotFoundException),
+                typeof(System.IO.DriveNotFoundException),
 #endif
                 typeof(System.IO.EndOfStreamException),
 #if NET461 || NET472
-                    typeof(System.IO.InternalBufferOverflowException),
+                typeof(System.IO.InternalBufferOverflowException),
 #endif
                 typeof(System.IO.InvalidDataException),
                 typeof(System.IO.IOException),
 #if NET461 || NET472
-                    typeof(System.IO.IsolatedStorage.IsolatedStorageException),
+                typeof(System.IO.IsolatedStorage.IsolatedStorageException),
 #endif
                 typeof(System.IO.PathTooLongException),
                 typeof(System.MemberAccessException),
                 typeof(System.MethodAccessException),
 #if NET461 || NET472
-                    typeof(System.MulticastNotSupportedException),
+                typeof(System.MulticastNotSupportedException),
 #endif
                 typeof(System.Net.CookieException),
 #if NET461 || NET472
-                    typeof(System.Net.NetworkInformation.PingException),
-                    typeof(System.Net.ProtocolViolationException),
+                typeof(System.Net.NetworkInformation.PingException),
+                typeof(System.Net.ProtocolViolationException),
 #endif
                 typeof(System.NotImplementedException),
                 typeof(System.NotSupportedException),
@@ -111,7 +106,7 @@ namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
                 typeof(System.RankException),
                 typeof(System.Reflection.AmbiguousMatchException),
 #if NET461 || NET472
-                    typeof(System.Reflection.CustomAttributeFormatException),
+                typeof(System.Reflection.CustomAttributeFormatException),
 #endif
 #if !NETSTANDARD1_3
                 typeof(System.Reflection.InvalidFilterCriteriaException),
@@ -128,23 +123,23 @@ namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
                 typeof(System.Runtime.InteropServices.SafeArrayTypeMismatchException),
                 typeof(System.Runtime.InteropServices.SEHException),
 #if NET461 || NET472
-                    typeof(System.Runtime.Remoting.RemotingException),
-                    typeof(System.Runtime.Remoting.RemotingTimeoutException),
-                    typeof(System.Runtime.Remoting.ServerException),
-                    typeof(System.Runtime.Serialization.SerializationException),
-                    typeof(System.Security.Authentication.AuthenticationException),
-                    typeof(System.Security.Authentication.InvalidCredentialException),
+                typeof(System.Runtime.Remoting.RemotingException),
+                typeof(System.Runtime.Remoting.RemotingTimeoutException),
+                typeof(System.Runtime.Remoting.ServerException),
+                typeof(System.Runtime.Serialization.SerializationException),
+                typeof(System.Security.Authentication.AuthenticationException),
+                typeof(System.Security.Authentication.InvalidCredentialException),
 #endif
                 typeof(System.Security.Cryptography.CryptographicException),
 #if NET461 || NET472
-                    typeof(System.Security.Cryptography.CryptographicUnexpectedOperationException),
-                    typeof(System.Security.Policy.PolicyException),
+                typeof(System.Security.Cryptography.CryptographicUnexpectedOperationException),
+                typeof(System.Security.Policy.PolicyException),
 #endif
                 typeof(System.Security.VerificationException),
 #if NET461 || NET472
-                    typeof(System.Security.XmlSyntaxException),
-                    typeof(System.StackOverflowException),
-                    typeof(System.SystemException),
+                typeof(System.Security.XmlSyntaxException),
+                typeof(System.StackOverflowException),
+                typeof(System.SystemException),
 #endif
                 typeof(System.Threading.BarrierPostPhaseException),
                 typeof(System.Threading.LockRecursionException),
@@ -152,46 +147,43 @@ namespace Cosmos.Logging.Extensions.Exceptions.Destructurers
                 typeof(System.Threading.SynchronizationLockException),
                 typeof(System.Threading.Tasks.TaskSchedulerException),
 #if NET461 || NET472
-                    typeof(System.Threading.ThreadInterruptedException),
-                    typeof(System.Threading.ThreadStartException),
-                    typeof(System.Threading.ThreadStateException),
+                typeof(System.Threading.ThreadInterruptedException),
+                typeof(System.Threading.ThreadStartException),
+                typeof(System.Threading.ThreadStateException),
 #endif
                 typeof(System.Threading.WaitHandleCannotBeOpenedException),
                 typeof(System.TimeoutException),
 #if NET461 || NET472
-                    typeof(System.TimeZoneNotFoundException),
+                typeof(System.TimeZoneNotFoundException),
 #endif
                 typeof(System.TypeAccessException),
 #if NET461 || NET472
-                    typeof(System.TypeUnloadedException),
+                typeof(System.TypeUnloadedException),
 #endif
                 typeof(System.UnauthorizedAccessException),
                 typeof(System.UriFormatException)
             };
 
 #if NET461 || NET472
-                foreach (var dangerousType in GetNotHandledByMonoTypes())
-                {
-                    var type = Type.GetType(dangerousType);
-                    if (type != null)
-                    {
-                        targetTypes.Add(type);
-                    }
+            foreach (var dangerousType in GetNotHandledByMonoTypes()) {
+                var type = Type.GetType(dangerousType);
+                if (type != null) {
+                    targetTypes.Add(type);
                 }
+            }
 #endif
             _targetTypesCache = targetTypes;
 
             return targetTypes;
         }
-        
+
 #if NET461 || NET472
         /// <summary>
         /// Get types that are currently not handled by mono and could raise a LoadTypeException.
         /// </summary>
         /// <returns>List of type names.</returns>
         private static string[] GetNotHandledByMonoTypes() =>
-            new string[]
-            {
+            new string[] {
                 "System.Diagnostics.Eventing.Reader.EventLogInvalidDataException, System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "System.Diagnostics.Eventing.Reader.EventLogNotFoundException, System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "System.Diagnostics.Eventing.Reader.EventLogProviderDisabledException, System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",

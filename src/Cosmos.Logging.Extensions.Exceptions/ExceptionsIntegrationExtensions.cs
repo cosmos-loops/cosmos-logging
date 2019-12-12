@@ -9,15 +9,12 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 // ReSharper disable once CheckNamespace
-namespace Cosmos.Logging
-{
-    public static class ExceptionsIntegrationExtensions
-    {
+namespace Cosmos.Logging {
+    public static class ExceptionsIntegrationExtensions {
         public static ILogServiceCollection AddExceptionsIntegration(
             this ILogServiceCollection service,
             Action<ExceptionOptions> exceptionOptionAct = null,
-            Action<IConfiguration, ExceptionConfiguration> configAction = null)
-        {
+            Action<IConfiguration, ExceptionConfiguration> configAction = null) {
             if (service is null)
                 throw new ArgumentNullException(nameof(service));
 
@@ -30,8 +27,7 @@ namespace Cosmos.Logging
         }
 
         private static ILogServiceCollection UseExceptionExtensionsCore(ILogServiceCollection service, IOptions<ExceptionOptions> settings,
-            Action<IConfiguration, ExceptionConfiguration, LoggingConfiguration> config = null)
-        {
+                                                                        Action<IConfiguration, ExceptionConfiguration, LoggingConfiguration> config = null) {
             var exceptionDestructuringAccessor = new ExceptionDestructuringAccessor();
 
             service.AddExtraSinkSettings<ExceptionOptions, ExceptionConfiguration>(settings.Value, (conf, sink, configuration) => config?.Invoke(conf, sink, configuration));
@@ -44,8 +40,7 @@ namespace Cosmos.Logging
             return service;
         }
 
-        private static void RegisterCoreComponentsTypes()
-        {
+        private static void RegisterCoreComponentsTypes() {
             SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<ExceptionOptions>), false, ServiceLifetime.Singleton));
         }
     }

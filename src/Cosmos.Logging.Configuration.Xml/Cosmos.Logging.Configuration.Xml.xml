@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Configuration.Xml</name>
+    </assembly>
+    <members>
+        <member name="T:Cosmos.Logging.Configuration.XmlConfigurationBuilderExtensions">
+            <summary>
+            Extensions for logging configuration builder
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Configuration.XmlConfigurationBuilderExtensions.AddXmlFile(Microsoft.Extensions.Configuration.IConfigurationBuilder,System.String)">
+            <summary>
+            Add xml format configuration file by the given path.
+            </summary>
+            <param name="builder"></param>
+            <param name="path"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Configuration.XmlConfigurationBuilderExtensions.AddXmlFile(Cosmos.Logging.Configurations.LoggingConfigurationBuilder,System.String)">
+            <summary>
+            Add xml format configuration file by the given path.
+            </summary>
+            <param name="builder"></param>
+            <param name="path"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+    </members>
+</doc>

@@ -1,18 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
     <Import Project="..\..\build\common.ns20-net461-net451.props" />
+
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net461;net451</TargetFrameworks>
+    </PropertyGroup>
+    
+    <PropertyGroup>
         <AssemblyName>Cosmos.Logging.Extensions.Exceptions.Sqlite</AssemblyName>
         <PackageId>Cosmos.Logging.Extensions.Exceptions.Sqlite</PackageId>
         <Description>Sqlite Exceptions extension/enricher for Cosmos.Logging.</Description>
-        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.Exceptions.Sqlite.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DocumentationFile>Cosmos.Logging.Extensions.Exceptions.Sqlite.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
+    </ItemGroup>
+    
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging.Extensions.Exceptions\Cosmos.Logging.Extensions.Exceptions.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
     </ItemGroup>
 </Project>

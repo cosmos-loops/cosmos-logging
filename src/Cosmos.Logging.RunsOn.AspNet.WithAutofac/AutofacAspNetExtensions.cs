@@ -2,10 +2,12 @@
 using System.Web;
 using Alexinea.Autofac.Extensions.DependencyInjection;
 using Autofac;
+using Cosmos.IdUtils;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.RunsOn.AspNet;
 using Cosmos.Logging.RunsOn.AspNet.WithAutofac;
+using Cosmos.Logging.Trace;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SoloDependencyContainer = Cosmos.Logging.RunsOn.AspNet.WithAutofac.Core.SoloDependencyContainer;
@@ -48,8 +50,34 @@ namespace Cosmos.Logging {
             builder.Populate(serviceImpl.ExposeServices());
             builder.RegisterType<AspNetLoggingServiceProvider>().As<ILoggingServiceProvider>().SingleInstance();
             builder.RegisterType<ShortcutPropertyFactoryAccessor>().As<IPropertyFactoryAccessor>().SingleInstance();
+            builder.RegisterTraceIdGenerator();
             builder.RegisterInstance(Options.Create((LoggingOptions) serviceImpl.ExposeLogSettings()));
             builder.RegisterInstance(serviceImpl.ExposeLoggingConfiguration());
+        }
+
+        private static void RegisterTraceIdGenerator(this ContainerBuilder builder) {
+            builder.RegisterType<FallbackTraceIdAccessor>().As<FallbackTraceIdAccessor>().InstancePerRequest();
+
+            if (!ExpectedTraceIdGeneratorName.HasValue()) {
+                builder.Register(__traceIdGeneratorFactory).As<ILogTraceIdGenerator>().InstancePerRequest();
+                ExpectedTraceIdGeneratorName.Value = nameof(SystemTraceIdGenerator);
+            }
+
+            // ReSharper disable once InconsistentNaming
+            ILogTraceIdGenerator __traceIdGeneratorFactory(IComponentContext provider) {
+                //1. Get traceIdAccessor and fallbackTraceIdAccessor from ServiceProvider
+                var traceIdAccessor = provider.ResolveOptional<TraceIdAccessor>();
+                var fallbackAccessor = provider.Resolve<FallbackTraceIdAccessor>();
+
+                //2. Create a new instance of SystemTraceIdGenerator
+                var generator = new SystemTraceIdGenerator(traceIdAccessor, fallbackAccessor);
+
+                //3. Scoped update
+                LogTraceIdGenerator.ScopedUpdate(generator);
+
+                //4. Done, and return.
+                return generator;
+            }
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
+using Cosmos.IdUtils;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.RunsOn.ZKWeb;
 using Cosmos.Logging.RunsOn.ZKWeb.Core;
+using Cosmos.Logging.Trace;
 using Microsoft.Extensions.Options;
 using ZKWebStandard.Ioc;
 using ZKWebStandard.Ioc.Extensions;
@@ -25,6 +27,7 @@ namespace Cosmos.Logging {
             serviceImpl.ActiveOriginConfiguration();
 
             ioc.RegisterFromServiceCollection(serviceImpl.ExposeServices());
+            ioc.RegisterTraceIdGenerator();
             ioc.RegisterInstance(Options.Create((LoggingOptions) serviceImpl.ExposeLogSettings()), ReuseType.Singleton);
             ioc.RegisterInstance(serviceImpl.ExposeLoggingConfiguration(), ReuseType.Singleton);
 
@@ -33,6 +36,28 @@ namespace Cosmos.Logging {
             serviceImpl.ActiveLogEventEnrichers();
 
             return ioc;
+        }
+
+        private static void RegisterTraceIdGenerator(this IContainer ioc) {
+            ioc.Register<FallbackTraceIdAccessor, FallbackTraceIdAccessor>(ReuseType.Scoped);
+            if (!ExpectedTraceIdGeneratorName.HasValue()) {
+                ioc.RegisterDelegate(typeof(ILogTraceIdGenerator), () => __traceIdGeneratorFactory(ioc), ReuseType.Scoped);
+                ExpectedTraceIdGeneratorName.Value = nameof(SystemTraceIdGenerator);
+            }
+            ILogTraceIdGenerator __traceIdGeneratorFactory(IContainer provider) {
+                //1. Get traceIdAccessor and fallbackTraceIdAccessor from ServiceProvider
+                var traceIdAccessor = provider.Resolve<TraceIdAccessor>(IfUnresolved.ReturnDefault);
+                var fallbackAccessor = provider.Resolve<FallbackTraceIdAccessor>();
+
+                //2. Create a new instance of SystemTraceIdGenerator
+                var generator = new SystemTraceIdGenerator(traceIdAccessor, fallbackAccessor);
+
+                //3. Scoped update
+                LogTraceIdGenerator.ScopedUpdate(generator);
+
+                //4. Done, and return.
+                return generator;
+            }
         }
     }
 }

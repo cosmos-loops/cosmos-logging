@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Sinks.NLog</name>
+    </assembly>
+    <members>
+        <member name="P:Cosmos.Logging.NLogSinkConfiguration.ConfigFile">
+            <summary>
+            NLog's origin config file path
+            </summary>
+        </member>
+    </members>
+</doc>

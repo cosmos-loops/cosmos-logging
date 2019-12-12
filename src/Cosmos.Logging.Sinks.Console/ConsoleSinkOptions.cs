@@ -91,7 +91,7 @@ namespace Cosmos.Logging.Sinks.Console
 
         #region Append output
 
-        private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
+        private readonly RenderingConfiguration _renderingOptions = new RenderingConfiguration();
 
         public ConsoleSinkOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled)
         {
@@ -105,13 +105,13 @@ namespace Cosmos.Logging.Sinks.Console
             return this;
         }
 
-        public ConsoleSinkOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled)
+        public ConsoleSinkOptions EnableDisplayNewLineEom(bool? displayingNewLineEomEnabled)
         {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }
 
-        public RendingConfiguration GetRenderingOptions() => _renderingOptions;
+        public RenderingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
 

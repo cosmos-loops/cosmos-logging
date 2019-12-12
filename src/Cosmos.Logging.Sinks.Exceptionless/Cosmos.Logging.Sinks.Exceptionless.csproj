@@ -1,18 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <Import Project="..\..\build\common.ns20-net461-net451.props" />
+
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461;net451</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net461;net451</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <AssemblyName>Cosmos.Logging.Sinks.Exceptionless</AssemblyName>
     <PackageId>Cosmos.Logging.Sinks.Exceptionless</PackageId>
     <Description>The Exceptionless sink for Cosmos.Logging.</Description>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
-  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>Cosmos.Logging.Sinks.Exceptionless.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DocumentationFile>Cosmos.Logging.Sinks.Exceptionless.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Exceptionless" Version="4.3.2027" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
   </ItemGroup>
 </Project>

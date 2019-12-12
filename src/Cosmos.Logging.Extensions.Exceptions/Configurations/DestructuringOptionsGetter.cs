@@ -1,11 +1,8 @@
 using Cosmos.Logging.Extensions.Exceptions.Core;
 
-namespace Cosmos.Logging.Extensions.Exceptions.Configurations
-{
-    internal static class DestructuringOptionsGetter
-    {
-        public static string GetRealRootName(ExceptionConfiguration configuration, ExceptionOptions options)
-        {
+namespace Cosmos.Logging.Extensions.Exceptions.Configurations {
+    internal static class DestructuringOptionsGetter {
+        public static string GetRealRootName(ExceptionConfiguration configuration, ExceptionOptions options) {
             //优先级顺序：option > configuration > default value
 
             var destructuringOptions = options.Build(out var status);
@@ -15,8 +12,7 @@ namespace Cosmos.Logging.Extensions.Exceptions.Configurations
             return string.IsNullOrWhiteSpace(rawName) ? Constants.RootName : rawName;
         }
 
-        public static int GetRealDepth(ExceptionConfiguration configuration, ExceptionOptions options)
-        {
+        public static int GetRealDepth(ExceptionConfiguration configuration, ExceptionOptions options) {
             //优先级顺序：option > configuration > default value
 
             var destructuringOptions = options.Build(out var status);

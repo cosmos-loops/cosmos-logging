@@ -11,7 +11,7 @@ namespace Cosmos.Logging.RunsOn.AspNet {
     [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public class AspNetLogger : LoggerBase, IFutureableLogger<AspNetFutureLogger> {
         public AspNetLogger(Type sourceType, LogEventLevel minimumLevel, string loggerStateNamespace, Func<string, LogEventLevel, bool> filter,
-            LogEventSendMode sendMode, RendingConfiguration renderingOptions, ILogPayloadSender logPayloadSender, HttpContext context)
+            LogEventSendMode sendMode, RenderingConfiguration renderingOptions, ILogPayloadSender logPayloadSender, HttpContext context)
             : base(sourceType, minimumLevel, loggerStateNamespace, filter, sendMode, renderingOptions, logPayloadSender) {
             HttpContext = context;
         }

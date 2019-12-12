@@ -4,15 +4,12 @@ using Cosmos.Logging.Events;
 using FreeSql.Aop;
 using Microsoft.Extensions.Options;
 
-namespace Cosmos.Logging.Extensions.FreeSql.Core
-{
-    public class FreeSqlInterceptorDescriptor
-    {
+namespace Cosmos.Logging.Extensions.FreeSql.Core {
+    public class FreeSqlInterceptorDescriptor {
         private readonly FreeSqlEnricherOptions _settings;
         private readonly ILoggingServiceProvider _loggingServiceProvider;
 
-        public FreeSqlInterceptorDescriptor(ILoggingServiceProvider loggingServiceProvider, IOptions<FreeSqlEnricherOptions> settings)
-        {
+        public FreeSqlInterceptorDescriptor(ILoggingServiceProvider loggingServiceProvider, IOptions<FreeSqlEnricherOptions> settings) {
             _loggingServiceProvider = loggingServiceProvider;
             _settings = settings?.Value;
         }
@@ -27,6 +24,6 @@ namespace Cosmos.Logging.Extensions.FreeSql.Core
 
         internal ILoggingServiceProvider ExposeLoggingServiceProvider => _loggingServiceProvider;
 
-        internal RendingConfiguration RenderingOptions => _settings?.GetRenderingOptions() ?? new RendingConfiguration();
+        internal RenderingConfiguration RenderingOptions => _settings?.GetRenderingOptions() ?? new RenderingConfiguration();
     }
 }

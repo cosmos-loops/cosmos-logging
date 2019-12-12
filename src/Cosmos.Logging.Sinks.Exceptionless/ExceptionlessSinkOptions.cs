@@ -23,7 +23,8 @@ namespace Cosmos.Logging {
             var typeName = TypeNameHelper.GetTypeDisplayName(type);
             if (InternalNavigatorLogEventLevels.ContainsKey(typeName)) {
                 InternalNavigatorLogEventLevels[typeName] = level;
-            } else {
+            }
+            else {
                 InternalNavigatorLogEventLevels.Add(typeName, level);
             }
 
@@ -43,7 +44,8 @@ namespace Cosmos.Logging {
             categoryName = $"{categoryName}.*";
             if (InternalNavigatorLogEventLevels.ContainsKey(categoryName)) {
                 InternalNavigatorLogEventLevels[categoryName] = level;
-            } else {
+            }
+            else {
                 InternalNavigatorLogEventLevels.Add(categoryName, level);
             }
 
@@ -65,7 +67,8 @@ namespace Cosmos.Logging {
             if (string.IsNullOrWhiteSpace(alias)) return this;
             if (InternalAliases.ContainsKey(alias)) {
                 InternalAliases[alias] = level;
-            } else {
+            }
+            else {
                 InternalAliases.Add(alias, level);
             }
 
@@ -104,6 +107,13 @@ namespace Cosmos.Logging {
             return this;
         }
 
+        public ExceptionlessSinkOptions UseYamlConfig(string path) {
+            if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException(nameof(path));
+            OriginConfigFilePath = path;
+            OriginConfigFileType = FileTypes.Yaml;
+            return this;
+        }
+
         #endregion
 
         #region Append api key
@@ -116,10 +126,10 @@ namespace Cosmos.Logging {
         }
 
         #endregion
-        
+
         #region Append output
 
-        private readonly RendingConfiguration _renderingOptions = new RendingConfiguration();
+        private readonly RenderingConfiguration _renderingOptions = new RenderingConfiguration();
 
         public ExceptionlessSinkOptions EnableDisplayCallerInfo(bool? displayingCallerInfoEnabled) {
             _renderingOptions.DisplayingCallerInfoEnabled = displayingCallerInfoEnabled;
@@ -131,13 +141,14 @@ namespace Cosmos.Logging {
             return this;
         }
 
-        public ExceptionlessSinkOptions EnableDisplayingNewLineEom(bool? displayingNewLineEomEnabled) {
+        public ExceptionlessSinkOptions EnableDisplayNewLineEom(bool? displayingNewLineEomEnabled) {
             _renderingOptions.DisplayingNewLineEomEnabled = displayingNewLineEomEnabled;
             return this;
         }
 
-        public RendingConfiguration GetRenderingOptions() => _renderingOptions;
+        public RenderingConfiguration GetRenderingOptions() => _renderingOptions;
 
         #endregion
+
     }
 }
