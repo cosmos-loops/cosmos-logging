@@ -11,24 +11,35 @@ namespace Cosmos.Logging.Extensions.Microsoft {
 
         private readonly ILoggingServiceProvider _loggingServiceProvider;
         private readonly Func<string, LogEventLevel, bool> _filter;
-        private static readonly Func<string, LogEventLevel, bool> trueFilter = (cat, level) => true;
-        private static readonly Func<string, LogEventLevel, bool> falseFilter = (cat, level) => false;
+        private static readonly Func<string, LogEventLevel, bool> TrueFilter = (cat, level) => true;
+        private static readonly Func<string, LogEventLevel, bool> FalseFilter = (cat, level) => false;
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="MicrosoftLoggerWrapperProvider"/>.
+        /// </summary>
+        /// <param name="loggingServiceProvider"></param>
         public MicrosoftLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider) {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="MicrosoftLoggerWrapperProvider"/>.
+        /// </summary>
+        /// <param name="loggingServiceProvider"></param>
+        /// <param name="filter"></param>
         public MicrosoftLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider, Func<string, LogEventLevel, bool> filter) {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
-            _filter = filter ?? trueFilter;
+            _filter = filter ?? TrueFilter;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="MicrosoftLoggerWrapperProvider"/>.
+        /// </summary>
+        /// <param name="loggingServiceProvider"></param>
+        /// <param name="filter"></param>
         public MicrosoftLoggerWrapperProvider(ILoggingServiceProvider loggingServiceProvider, Func<string, LogLevel, bool> filter) {
             _loggingServiceProvider = loggingServiceProvider ?? throw new ArgumentNullException(nameof(loggingServiceProvider));
-            _filter = As(filter) ?? trueFilter;
+            _filter = As(filter) ?? TrueFilter;
         }
 
         /// <inheritdoc />

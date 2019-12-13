@@ -22,7 +22,11 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         private readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
         private readonly LoggingConfiguration _loggingConfiguration;
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="MicrosoftLoggingServiceProvider"/>.
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="loggingConfiguration"></param>
         public MicrosoftLoggingServiceProvider(IServiceProvider provider, LoggingConfiguration loggingConfiguration) {
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
             _logPayloadClientProviders = _provider.GetServices<ILogPayloadClientProvider>() ?? Enumerable.Empty<ILogPayloadClientProvider>();

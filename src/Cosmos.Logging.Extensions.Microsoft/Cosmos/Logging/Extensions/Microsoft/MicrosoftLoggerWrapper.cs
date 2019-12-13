@@ -9,16 +9,27 @@ namespace Cosmos.Logging.Extensions.Microsoft {
     /// Microsoft Logger Wrapper
     /// </summary>
     public class MicrosoftLoggerWrapper : global::Microsoft.Extensions.Logging.ILogger {
+        /// <summary>
+        /// Logger
+        /// </summary>
         // ReSharper disable once InconsistentNaming
         protected readonly ILogger _logger;
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="MicrosoftLoggerWrapper"/>
+        /// </summary>
+        /// <param name="loggerServiceProvider"></param>
+        /// <param name="categoryName"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public MicrosoftLoggerWrapper(ILoggingServiceProvider loggerServiceProvider, string categoryName) {
             if (loggerServiceProvider == null) throw new ArgumentNullException(nameof(loggerServiceProvider));
             _logger = loggerServiceProvider.GetLogger(categoryName);
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="MicrosoftLoggerWrapper"/>
+        /// </summary>
+        /// <param name="logger"></param>
         public MicrosoftLoggerWrapper(ILogger logger) {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
