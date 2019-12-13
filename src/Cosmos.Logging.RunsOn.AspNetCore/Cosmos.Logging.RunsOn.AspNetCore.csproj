@@ -29,4 +29,8 @@
         <ProjectReference Include="..\Cosmos.Logging.Extensions.Microsoft\Cosmos.Logging.Extensions.Microsoft.csproj" />
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Microsoft" />
+    </ItemGroup>
 </Project>

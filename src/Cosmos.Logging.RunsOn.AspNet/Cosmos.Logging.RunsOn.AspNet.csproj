@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="..\..\build\common.props"/>
+    <Import Project="..\..\build\common.props" />
 
     <PropertyGroup>
         <TargetFramework>net461</TargetFramework>
@@ -13,11 +13,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Reference Include="System.Web"/>
-        <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7"/>
+        <Reference Include="System.Web" />
+        <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj"/>
+        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@
         <PackageId>Cosmos.Logging.Sinks.TomatoLog</PackageId>
         <Description>Tomato Log sink for Cosmos.Logging.</Description>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
@@ -20,10 +20,6 @@
         <PackageReference Include="TomatoLog.Client" Version="1.2.0" />
         <PackageReference Include="TomatoLog.Client.Redis" Version="1.2.0" />
         <PackageReference Include="TomatoLog.Client.RabbitMQ" Version="1.2.0" />
-        <PackageReference Include="TomatoLog.Client.Kafka" Version="1.2.0" />        
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Configurations" />
+        <PackageReference Include="TomatoLog.Client.Kafka" Version="1.2.0" />
     </ItemGroup>
 </Project>

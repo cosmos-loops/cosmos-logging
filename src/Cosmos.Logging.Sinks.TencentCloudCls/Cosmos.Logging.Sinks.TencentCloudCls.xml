@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <doc>
     <assembly>
         <name>Cosmos.Logging.Sinks.TencentCloudCls</name>
@@ -6,12 +7,13 @@
     <members>
         <member name="T:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Abstractions.IHttpClient">
             <summary>
-            Interface responsible for posting HTTP requests.
+                Interface responsible for posting HTTP requests.
             </summary>
         </member>
-        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Abstractions.IHttpClient.PostAsync(System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+        <member
+            name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Abstractions.IHttpClient.PostAsync(System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
             <summary>
-            Sends a POST request to the specified Uri as an asynchronous operation.
+                Sends a POST request to the specified Uri as an asynchronous operation.
             </summary>
             <param name="requestUri">The Uri the request is sent to.</param>
             <param name="content">The HTTP request content sent to the server.</param>
@@ -20,13 +22,13 @@
         </member>
         <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Authorization.GetAuthorizationString">
             <summary>
-            获取请求 Authorization 头部的授权字符串
+                获取请求 Authorization 头部的授权字符串
             </summary>
             <returns></returns>
         </member>
         <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Signature.GetHttpRequestInfo(System.String,System.String)">
             <summary>
-            
+
             </summary>
             <param name="method">HTTP 请求使用的方法，小写字母，如 get、post等</param>
             <param name="uri">HTTP 请求的资源名称，不包含 query string 部分，如 /logset</param>
@@ -34,7 +36,7 @@
         </member>
         <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Signature.GetStringToSign(System.String,System.String,System.String)">
             <summary>
-            
+
             </summary>
             <param name="q_sign_algorithm">签名算法，目前仅支持 sha1</param>
             <param name="q_sign_time">签名有效起止时间，Unix时间戳，以秒为单位，;分隔</param>
@@ -43,7 +45,7 @@
         </member>
         <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Signature.GetSignKey(System.String,System.String)">
             <summary>
-            
+
             </summary>
             <param name="q_key_time">Unix时间戳，以秒为单位，;分隔</param>
             <param name="secretKey">腾讯云API的SecretKey</param>
@@ -51,7 +53,7 @@
         </member>
         <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Signature.GetSignature(System.String,System.String)">
             <summary>
-            获取签名
+                获取签名
             </summary>
             <param name="stringToSign">StringToSign</param>
             <param name="signKey">SignKey</param>
@@ -59,7 +61,7 @@
         </member>
         <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Signature.GetSignature(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            获取签名字符串
+                获取签名字符串
             </summary>
             <param name="method">HTTP 请求使用的方法，小写字母，如 get、post等</param>
             <param name="uri">HTTP 请求的资源名称，不包含 query string 部分，如 /logset</param>
@@ -80,7 +82,7 @@
         </member>
         <member name="P:TencentCloud.Cls.Log.Time">
             <summary>
-            时间戳，UNIX时间格式
+                时间戳，UNIX时间格式
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.Log.ContentsFieldNumber">
@@ -88,7 +90,7 @@
         </member>
         <member name="P:TencentCloud.Cls.Log.Contents">
             <summary>
-            一条日志里的多个kv组合
+                一条日志里的多个kv组合
             </summary>
         </member>
         <member name="T:TencentCloud.Cls.Log.Types">
@@ -99,7 +101,7 @@
         </member>
         <member name="P:TencentCloud.Cls.Log.Types.Content.Key">
             <summary>
-            每组字段的 key
+                每组字段的 key
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.Log.Types.Content.ValueFieldNumber">
@@ -107,7 +109,7 @@
         </member>
         <member name="P:TencentCloud.Cls.Log.Types.Content.Value">
             <summary>
-            每组字段的 value
+                每组字段的 value
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.LogGroup.LogsFieldNumber">
@@ -115,7 +117,7 @@
         </member>
         <member name="P:TencentCloud.Cls.LogGroup.Logs">
             <summary>
-            多条日志合成的日志数组
+                多条日志合成的日志数组
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.LogGroup.ContextFlowFieldNumber">
@@ -123,7 +125,7 @@
         </member>
         <member name="P:TencentCloud.Cls.LogGroup.ContextFlow">
             <summary>
-            目前暂无效用
+                目前暂无效用
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.LogGroup.FilenameFieldNumber">
@@ -131,7 +133,7 @@
         </member>
         <member name="P:TencentCloud.Cls.LogGroup.Filename">
             <summary>
-            日志文件名
+                日志文件名
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.LogGroup.SourceFieldNumber">
@@ -139,7 +141,7 @@
         </member>
         <member name="P:TencentCloud.Cls.LogGroup.Source">
             <summary>
-            日志来源，一般使用机器IP
+                日志来源，一般使用机器IP
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.LogGroupList.LogGroupList_FieldNumber">
@@ -147,7 +149,7 @@
         </member>
         <member name="P:TencentCloud.Cls.LogGroupList.LogGroupList_">
             <summary>
-            日志组列表
+                日志组列表
             </summary>
         </member>
     </members>

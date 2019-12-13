@@ -58,8 +58,8 @@ namespace Cosmos.Logging.MessageTemplates {
                         RenderPropertyTokenForUserDefinedParameter(propertyToken, property, stringBuilder, logEventInfo, formatProvider);
                     }
                     else if (propertyToken.TokenType == PropertyTokenTypes.PreferencesRender) {
-                        var render = GetPreferencesRender(propertyToken);
-                        RenderPropertyTokenForPreferencesRender(propertyToken, render, stringBuilder, logEventInfo, formatProvider);
+                        var renderer = GetPreferencesRender(propertyToken);
+                        RenderPropertyTokenForPreferencesRender(propertyToken, renderer, stringBuilder, logEventInfo, formatProvider);
                     }
                     else {
                         RenderTextTokenSlim(propertyToken, stringBuilder, logEventInfo, formatProvider);

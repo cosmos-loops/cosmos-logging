@@ -12,10 +12,10 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         static IEnumerable<MessageTemplateToken> Tokenize(string messageTemplate) {
-            var index                 = 0;
-            var position              = 0;
-            var position_offset       = 0;
-            var length                = messageTemplate.Length;
+            var index = 0;
+            var position = 0;
+            var position_offset = 0;
+            var length = messageTemplate.Length;
             var messageTemplate_chars = messageTemplate.ToCharArray();
 
             while (position_offset < length) {
@@ -104,8 +104,8 @@ namespace Cosmos.Logging.MessageTemplates {
                     if (Next() == char.MinValue) break;
                     if (Peek() == '}' && Next() == '}') {
                         Skip(2);
-                        var start   = position;
-                        var len     = Offset();
+                        var start = position;
+                        var len = Offset();
                         var rawText = Merge(start, len);
                         Follow();
                         return len == 4
@@ -120,12 +120,12 @@ namespace Cosmos.Logging.MessageTemplates {
             }
 
             PositionalPropertyToken ParsePositionalProperty() {
-                var colon_counter       = 0;
-                var formatString        = string.Empty;
-                var paramsString        = string.Empty;
-                var params_flag_mode    = 0;
+                var colon_counter = 0;
+                var formatString = string.Empty;
+                var paramsString = string.Empty;
+                var params_flag_mode = 0;
                 var fixOriginTextLength = 2;
-                var char_buffer         = new char[3];
+                var char_buffer = new char[3];
                 var char_buffer_pointer = 0;
                 while (position_offset < length) {
                     if (Peek() == char.MinValue) break;
@@ -135,8 +135,8 @@ namespace Cosmos.Logging.MessageTemplates {
                     }
 
                     if (IsNumber(Peek()) && colon_counter == 0) {
-                        var start   = position;
-                        var len     = Offset();
+                        var start = position;
+                        var len = Offset();
                         var rawText = Merge(start, len);
                         fixOriginTextLength = 1;
                         Follow();
@@ -145,8 +145,8 @@ namespace Cosmos.Logging.MessageTemplates {
 
                     if (Peek() == '}') {
                         Skip();
-                        var start   = position;
-                        var len     = Offset();
+                        var start = position;
+                        var len = Offset();
                         var rawText = Merge(start, len);
                         Follow();
                         return Touch(rawText, start);
@@ -155,8 +155,8 @@ namespace Cosmos.Logging.MessageTemplates {
                     if (Peek() == ':') {
                         if (Next() == '}' || Next() == ' ') {
                             Skip(2);
-                            var start   = position;
-                            var len     = Offset();
+                            var start = position;
+                            var len = Offset();
                             var rawText = Merge(start, len);
                             Follow();
                             return Touch(rawText, start);
@@ -206,10 +206,10 @@ namespace Cosmos.Logging.MessageTemplates {
             }
 
             PropertyToken ParsePreferencesRender() {
-                var colon_counter       = 0;
-                var formatString        = string.Empty;
-                var paramsString        = string.Empty;
-                var params_flag_mode    = 0;
+                var colon_counter = 0;
+                var formatString = string.Empty;
+                var paramsString = string.Empty;
+                var params_flag_mode = 0;
                 var fixOriginTextLength = 3;
                 while (position_offset < length) {
                     if (Next() == char.MinValue) break;
@@ -220,8 +220,8 @@ namespace Cosmos.Logging.MessageTemplates {
 
                     if (Peek() == '}' || Peek() == ' ') {
                         Skip();
-                        var start   = position;
-                        var len     = Offset();
+                        var start = position;
+                        var len = Offset();
                         var rawText = Merge(start, len);
                         Follow();
                         return Touch(rawText, start);
@@ -230,8 +230,8 @@ namespace Cosmos.Logging.MessageTemplates {
                     if (Peek() == ':') {
                         if (Next() == '}' || Next() == ' ') {
                             Skip(2);
-                            var start   = position;
-                            var len     = Offset();
+                            var start = position;
+                            var len = Offset();
                             var rawText = Merge(start, len);
                             Follow();
                             return Touch(rawText, start);
@@ -275,10 +275,10 @@ namespace Cosmos.Logging.MessageTemplates {
             }
 
             PropertyToken ParseUserDefinedParameter() {
-                var colon_counter       = 0;
-                var formatString        = string.Empty;
-                var paramsString        = string.Empty;
-                var params_flag_mode    = 0;
+                var colon_counter = 0;
+                var formatString = string.Empty;
+                var paramsString = string.Empty;
+                var params_flag_mode = 0;
                 var fixOriginTextLength = 3;
                 while (position_offset < length) {
                     if (Next() == char.MinValue) break;
@@ -289,8 +289,8 @@ namespace Cosmos.Logging.MessageTemplates {
 
                     if (Peek() == '}' || Peek() == ' ') {
                         Skip();
-                        var start   = position;
-                        var len     = Offset();
+                        var start = position;
+                        var len = Offset();
                         var rawText = Merge(start, len);
                         Follow();
                         return Touch(rawText, start);
@@ -299,8 +299,8 @@ namespace Cosmos.Logging.MessageTemplates {
                     if (Peek() == ':') {
                         if (Next() == '}' || Next() == ' ') {
                             Skip(2);
-                            var start   = position;
-                            var len     = Offset();
+                            var start = position;
+                            var len = Offset();
                             var rawText = Merge(start, len);
                             Follow();
                             return Touch(rawText, start);
@@ -346,7 +346,7 @@ namespace Cosmos.Logging.MessageTemplates {
 
             string SeparatePropertyRawFormatText(out int paramsFlagMode, out int fixOriginTextLength, int df1 = 3, int df2 = 2) {
                 var start = position_offset;
-                paramsFlagMode      = 0;
+                paramsFlagMode = 0;
                 fixOriginTextLength = df1;
                 while (position_offset < length) {
                     if (Before() == '[' && Next() == ']') {

@@ -27,7 +27,7 @@ namespace Cosmos.Logging.Core {
             where TExtraSinkConfiguration : SinkConfiguration, new();
 
         ILogServiceCollection PreheatMessageTemplates(Action<MessageTemplateCachePreheater> preheatAct);
-        ILogServiceCollection AddOriginConfigAction(Action<IConfiguration> configAction);
+        ILogServiceCollection AddOriginalConfigAction(Action<IConfiguration> configAction);
         ILogServiceCollection ModifyConfigurationBuilder(Action<LoggingConfigurationBuilder> builderAct);
     }
 }

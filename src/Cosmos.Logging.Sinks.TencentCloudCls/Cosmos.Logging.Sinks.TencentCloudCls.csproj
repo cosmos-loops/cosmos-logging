@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    
+
     <Import Project="..\..\build\common.props" />
 
     <PropertyGroup>
@@ -11,7 +11,7 @@
         <PackageId>Cosmos.Logging.Sinks.TencentCloudCls</PackageId>
         <Description>Tencent Cloud CLS sink for Cosmos.Logging.</Description>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
