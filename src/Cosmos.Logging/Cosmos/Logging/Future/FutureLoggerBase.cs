@@ -18,7 +18,13 @@ namespace Cosmos.Logging.Future {
 
         private FutureLogEventDescriptor CurrentDescriptor { get; set; }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="FutureLoggerBase"/>
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="memberName"></param>
+        /// <param name="filePath"></param>
+        /// <param name="lineNumber"></param>
         protected FutureLoggerBase(ILogger logger, [CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0) {
             _internalLogger = logger ?? throw new ArgumentNullException(nameof(logger));
             _loggerLigetimeContextData = new ContextData();

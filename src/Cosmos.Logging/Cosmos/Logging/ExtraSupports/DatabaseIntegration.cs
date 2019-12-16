@@ -9,7 +9,10 @@ namespace Cosmos.Logging {
     public class DatabaseIntegration {
         private readonly ILogServiceCollection _service;
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="DatabaseIntegration"/>
+        /// </summary>
+        /// <param name="service"></param>
         public DatabaseIntegration(ILogServiceCollection service) {
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }

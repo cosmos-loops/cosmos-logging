@@ -29,7 +29,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cosmos.Logging.Core.Piplelines {
-    
+
     /// <summary>
     /// One copy from https://github.com/Sunlighter/AsyncQueues/blob/master/AsyncQueueLib/PipelineExtensions.cs
     /// Author: Sunlighter
@@ -38,6 +38,13 @@ namespace Cosmos.Logging.Core.Piplelines {
     [SuppressMessage("ReSharper", "UnusedVariable")]
     [SuppressMessage("ReSharper", "RedundantLambdaParameterType")]
     public static class PipelineExtensions {
+        /// <summary>
+        /// AsQueueSource
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="capacity"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static IQueueSource<T> AsQueueSource<T>(this IEnumerable<T> items, int? capacity = null) {
             AsyncQueue<T> queue = new AsyncQueue<T>(capacity ?? 2);
 
@@ -54,16 +61,23 @@ namespace Cosmos.Logging.Core.Piplelines {
             return queue;
         }
 
+        /// <summary>
+        /// AsEnumerable
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static IEnumerable<T> AsEnumerable<T>(this IQueueSource<T> queue) {
             BlockingCollection<T> bc = new BlockingCollection<T>();
 
             Func<Task> feed = async delegate {
                 while (true) {
-                    Option<T> item = await queue.Dequeue(CancellationToken.None);
+                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
 
                     if (item.HasValue) {
                         bc.Add(item.Value);
-                    } else break;
+                    }
+                    else break;
                 }
 
                 bc.CompleteAdding();
@@ -89,12 +103,21 @@ namespace Cosmos.Logging.Core.Piplelines {
             }
         }
 
+        /// <summary>
+        /// Select
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="func"></param>
+        /// <param name="capacity"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <returns></returns>
         public static IQueueSource<U> Select<T, U>(this IQueueSource<T> queue, Func<T, Task<U>> func, int? capacity = null) {
             AsyncQueue<U> outQueue = new AsyncQueue<U>(capacity ?? 2);
 
             Func<Task> worker = async delegate {
                 while (true) {
-                    Option<T> item = await queue.Dequeue(CancellationToken.None);
+                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
                     U item2 = await func(item.Value);
                     await outQueue.Enqueue(item2, CancellationToken.None);
@@ -108,12 +131,20 @@ namespace Cosmos.Logging.Core.Piplelines {
             return outQueue;
         }
 
+        /// <summary>
+        /// Where
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="predicate"></param>
+        /// <param name="capacity"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static IQueueSource<T> Where<T>(this IQueueSource<T> queue, Func<T, Task<bool>> predicate, int? capacity = null) {
             AsyncQueue<T> outQueue = new AsyncQueue<T>(capacity ?? 2);
 
             Func<Task> worker = async delegate {
                 while (true) {
-                    Option<T> item = await queue.Dequeue(CancellationToken.None);
+                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
                     if (await predicate(item.Value)) {
                         await outQueue.Enqueue(item.Value, CancellationToken.None);
@@ -128,6 +159,16 @@ namespace Cosmos.Logging.Core.Piplelines {
             return outQueue;
         }
 
+        /// <summary>
+        /// ParallelSelect
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="parallelWorker"></param>
+        /// <param name="func"></param>
+        /// <param name="capacity"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <returns></returns>
         public static IQueueSource<U> ParallelSelect<T, U>(this IQueueSource<T> queue, ParallelWorker parallelWorker, Func<T, Task<U>> func, int? capacity = null) {
             AsyncQueue<U> outQueue = new AsyncQueue<U>(capacity ?? 2);
 
@@ -135,7 +176,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             Func<Task> workPoster = async delegate {
                 while (true) {
-                    Option<T> item = await queue.Dequeue(CancellationToken.None);
+                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
                     T itemValue = item.Value;
 
@@ -166,6 +207,15 @@ namespace Cosmos.Logging.Core.Piplelines {
             return outQueue;
         }
 
+        /// <summary>
+        /// ParallelWhere
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="parallelWorker"></param>
+        /// <param name="predicate"></param>
+        /// <param name="capacity"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static IQueueSource<T> ParallelWhere<T>(this IQueueSource<T> queue, ParallelWorker parallelWorker, Func<T, Task<bool>> predicate, int? capacity = null) {
             AsyncQueue<T> outQueue = new AsyncQueue<T>(capacity ?? 2);
 
@@ -173,7 +223,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             Func<Task> workPoster = async delegate {
                 while (true) {
-                    Option<T> item = await queue.Dequeue(CancellationToken.None);
+                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
                     T itemValue = item.Value;
 
@@ -224,7 +274,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                     }
 
                     return new AcquireReadSucceeded<Tuple<int, T>>(parentSuccess.Offset, sequence);
-                } else {
+                }
+                else {
                     return parentResult;
                 }
             }
@@ -235,6 +286,12 @@ namespace Cosmos.Logging.Core.Piplelines {
             }
         }
 
+        /// <summary>
+        /// Indexed
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static IQueueSource<Tuple<int, T>> Indexed<T>(this IQueueSource<T> queue) {
             return new IndexedSource<T>(queue);
         }
@@ -255,7 +312,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                     AcquireReadSucceeded<T> parentSuccess = (AcquireReadSucceeded<T>) parentResult;
                     ImmutableList<U> sequence = ImmutableList<U>.Empty.AddRange(parentSuccess.Items.Select(func));
                     return new AcquireReadSucceeded<U>(parentSuccess.Offset, sequence);
-                } else {
+                }
+                else {
                     return parentResult;
                 }
             }
@@ -265,10 +323,27 @@ namespace Cosmos.Logging.Core.Piplelines {
             }
         }
 
+        /// <summary>
+        /// SynchronousSelect
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="func"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <returns></returns>
         public static IQueueSource<U> SynchronousSelect<T, U>(this IQueueSource<T> queue, Func<T, U> func) {
             return new SynchronousSelectedSource<T, U>(queue, func);
         }
 
+        /// <summary>
+        /// Reorder
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="getOrder"></param>
+        /// <param name="first"></param>
+        /// <param name="capacity"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static IQueueSource<T> Reorder<T>(this IQueueSource<T> queue, Func<T, int> getOrder, int first, int? capacity = null) {
             AsyncQueue<T> outQueue = new AsyncQueue<T>(capacity ?? 2);
 
@@ -276,7 +351,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 int next = first;
                 ImmutableDictionary<int, T> buffer = ImmutableDictionary<int, T>.Empty;
                 while (true) {
-                    Option<T> item = await queue.Dequeue(CancellationToken.None);
+                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
                     int order = getOrder(item.Value);
                     if (order == next) {
@@ -287,7 +362,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                             buffer = buffer.Remove(next);
                             ++next;
                         }
-                    } else {
+                    }
+                    else {
                         buffer = buffer.Add(order, item.Value);
                     }
                 }
@@ -300,17 +376,36 @@ namespace Cosmos.Logging.Core.Piplelines {
             return outQueue;
         }
 
+        /// <summary>
+        /// OrderedParallelSelect
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="parallelWorker"></param>
+        /// <param name="func"></param>
+        /// <param name="capacity"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <returns></returns>
         public static IQueueSource<U> OrderedParallelSelect<T, U>(this IQueueSource<T> queue, ParallelWorker parallelWorker, Func<T, Task<U>> func, int? capacity = null) {
             Func<Tuple<int, T>, Task<Tuple<int, U>>> func2 = async pair => new Tuple<int, U>(pair.Item1, await func(pair.Item2));
 
             return queue.Indexed().ParallelSelect(parallelWorker, func2, capacity).Reorder(pair => pair.Item1, 0, capacity).SynchronousSelect(pair => pair.Item2);
         }
 
+        /// <summary>
+        /// OrderedParallelWhere
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="parallelWorker"></param>
+        /// <param name="predicate"></param>
+        /// <param name="capacity"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static IQueueSource<T> OrderedParallelWhere<T>(this IQueueSource<T> queue, ParallelWorker parallelWorker, Func<T, Task<bool>> predicate, int? capacity = null) {
             Func<Tuple<int, T>, Task<Tuple<int, T, bool>>> func2 = async pair => new Tuple<int, T, bool>(pair.Item1, pair.Item2, await predicate(pair.Item2));
 
             return queue.Indexed().ParallelSelect(parallelWorker, func2, capacity).Reorder(pair => pair.Item1, 0, capacity).Where(i => Task.FromResult(i.Item3), capacity)
-                .SynchronousSelect(i => i.Item2);
+                        .SynchronousSelect(i => i.Item2);
         }
     }
 }

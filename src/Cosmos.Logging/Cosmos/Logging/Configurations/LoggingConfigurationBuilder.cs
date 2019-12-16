@@ -14,8 +14,10 @@ namespace Cosmos.Logging.Configurations {
         private IConfigurationBuilder ConfigurationBuilder { get; set; }
         private readonly MessageTemplateCachePreheater _messageTemplateCachePreheater = new MessageTemplateCachePreheater();
 
-        /// <inheritdoc />
-        protected LoggingConfigurationBuilder() {
+       /// <summary>
+       /// Create a new instance of <see cref="LoggingConfigurationBuilder"/>.
+       /// </summary>
+       protected LoggingConfigurationBuilder() {
             MessageTemplateCachePreheaterAction = TemplateStandardsActivation.RegisterToMessageTemplateCachePreheater;
             BeforeBuild(ActiveMessageTemplatePreheater);
             BeforeBuild(ActiveCorePreferencesRenderers);

@@ -3,6 +3,9 @@ using System.IO;
 using System.Text;
 
 namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
+    /// <summary>
+    /// File astronaut
+    /// </summary>
     public sealed class FileAstronaut : IAstronaut, IFlushableAstronaut, IDisposable {
         private readonly object _syncRoot = new object();
         readonly TextWriter _output;
@@ -11,6 +14,15 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
         readonly long? _fileSizeLimitBytes;
         readonly bool _buffered;
 
+        /// <summary>
+        /// Create a new instance of <see cref="FileAstronaut"/>.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="fileSizeLimitBytes"></param>
+        /// <param name="encoding"></param>
+        /// <param name="buffered"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public FileAstronaut(string path, long? fileSizeLimitBytes, Encoding encoding = null, bool buffered = false) {
             if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException(nameof(path));
             if (fileSizeLimitBytes.HasValue && fileSizeLimitBytes < 0) throw new ArgumentException("Negative value provided; file size limit must be non-negative.");
@@ -31,6 +43,7 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
             _output = new StreamWriter(output, encoding ?? new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
         }
 
+        /// <inheritdoc />
         public void FlushToDisk() {
             lock (_syncRoot) {
                 _output.Flush();
@@ -38,6 +51,7 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
             }
         }
 
+        /// <inheritdoc />
         public void CloseFile() {
             lock (_syncRoot) {
                 _output.Dispose();
@@ -46,6 +60,7 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
             }
         }
 
+        /// <inheritdoc />
         public void Save(StringBuilder stringBuilder) {
             if (stringBuilder == null) throw new ArgumentNullException(nameof(stringBuilder));
             lock (_syncRoot) {
@@ -62,6 +77,7 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
             }
         }
 
+        /// <inheritdoc />
         public void Dispose() {
             CloseFile();
         }

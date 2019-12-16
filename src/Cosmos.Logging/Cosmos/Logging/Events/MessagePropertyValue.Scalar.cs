@@ -128,6 +128,7 @@ namespace Cosmos.Logging.Events {
             output.Write(value.ToString());
         }
 
+        /// <inheritdoc />
         public override bool Equals(object obj) {
             if (obj is ScalarValue sv) {
                 return Equals(Value, sv.Value);
@@ -136,6 +137,7 @@ namespace Cosmos.Logging.Events {
             return false;
         }
 
+        /// <inheritdoc />
         public override int GetHashCode() {
             return Value == null ? 0 : Value.GetHashCode();
         }

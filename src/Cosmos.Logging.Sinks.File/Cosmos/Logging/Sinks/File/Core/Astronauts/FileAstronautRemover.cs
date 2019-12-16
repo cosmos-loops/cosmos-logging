@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Cosmos.Disposables;
 
 namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
+    /// <summary>
+    /// File astronaut remover
+    /// </summary>
     public static class FileAstronautRemover {
         private static readonly Dictionary<int, IAstronaut> _astronautRegisterTable = new Dictionary<int, IAstronaut>();
         private static readonly Dictionary<int, int> _astronautCounter = new Dictionary<int, int>();
@@ -16,11 +20,11 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
 
         static FileAstronautRemover() {
             var ts = TimeSpan.FromSeconds(10);
-            _timer = new Timer(_ => ClearUnusefulAstrinaut(), null, ts, ts);
+            _timer = new Timer(_ => ClearUselessAstronaut(), null, ts, ts);
         }
 
 
-        private static void ClearUnusefulAstrinaut() {
+        private static void ClearUselessAstronaut() {
             lock (_syncCounter) {
                 var hashCodeList = _astronautCounter.Where(x => x.Value < 1 && _astronautDeleted.ContainsKey(x.Key)).Select(x => x.Key).ToList();
                 if (hashCodeList.Any()) {
@@ -51,7 +55,8 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
             lock (_syncCounter) {
                 if (_astronautCounter.TryGetValue(hashcode, out var counter)) {
                     _astronautCounter[hashcode] = counter + changed;
-                } else if (changed > 0) {
+                }
+                else if (changed > 0) {
                     _astronautCounter.Add(hashcode, changed);
                 }
             }
@@ -68,7 +73,7 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
                 }
             }
 
-            return new DisposeAction(() => UpdateCounter(hashcode, -1));
+            return new DisposableAction(() => UpdateCounter(hashcode, -1));
         }
 
         public static IDisposable UsingRegister(string path, IAstronaut astronaut) {

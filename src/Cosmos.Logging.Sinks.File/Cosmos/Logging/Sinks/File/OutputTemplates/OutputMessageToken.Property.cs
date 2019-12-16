@@ -4,12 +4,32 @@ using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.File.Formatings;
 
 namespace Cosmos.Logging.Sinks.File.OutputTemplates {
+    /// <summary>
+    /// Property output message token
+    /// </summary>
     public class PropertyOutputMessageToken : OutputMessageToken {
+        /// <summary>
+        /// Raw format text
+        /// </summary>
         public readonly string RawFormatText;
+
+        /// <summary>
+        /// Raw params text
+        /// </summary>
         public readonly string RawParamsText;
-        private readonly int ParamsFlagMode;
+
+        /// <summary>
+        /// Params flag mode
+        /// </summary>
+        public readonly int ParamsFlagMode;
+        
+        /// <summary>
+        /// Format events
+        /// </summary>
+
         public readonly List<FormatEvent> FormatEvents;
 
+        /// <inheritdoc />
         public PropertyOutputMessageToken(string originText, string formatOriginText, string paramsOriginText,
             int index, int position, int paramsFlagMode, int fixOriginTextLength = 2)
             : base(originText, index, position, fixOriginTextLength) {
@@ -22,18 +42,31 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
             Params = MachiningForParams(RawParamsText);
         }
 
+        /// <summary>
+        /// Name
+        /// </summary>
         public string Name { get; }
 
+        /// <summary>
+        /// Format
+        /// </summary>
         public string Format { get; }
 
+        /// <summary>
+        /// Params
+        /// </summary>
         public string Params { get; }
 
-        public override TokenRenderTypes TokenRenderType { get; } = TokenRenderTypes.AsProperty;
+        /// <inheritdoc />
+        public override TokenRendererTypes TokenRendererType { get; } = TokenRendererTypes.AsProperty;
 
+        /// <inheritdoc />
         public override string ToText() => $"{{{TokenString}}}, format={RawFormatText}, params={RawParamsText}";
 
+        /// <inheritdoc />
         public override string ToString() => ToText();
 
+        /// <inheritdoc />
         public override string Render() => ToString();
 
         #region private methods

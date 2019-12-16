@@ -15,9 +15,9 @@
 
     <ItemGroup>
         <PackageReference Include="AspectCore.Core" Version="2.0.0" />
-        <PackageReference Include="Cosmos.Extensions.DependencyInjection" Version="0.1.2-alpha1-100002" />
-        <PackageReference Include="Cosmos.Serialization.NewtonsoftJson" Version="0.1.2-alpha1-100002" />
-        <PackageReference Include="Cosmos.Standard" Version="0.1.2-alpha1-100002" />
+        <PackageReference Include="Cosmos.Extensions.DependencyInjection" Version="0.1.2-alpha1-100004" />
+        <PackageReference Include="Cosmos.Serialization.NewtonsoftJson" Version="0.1.2-alpha1-100004" />
+        <PackageReference Include="Cosmos.Standard" Version="0.1.2-alpha1-100004" />
         <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.1.0" />
     </ItemGroup>
 

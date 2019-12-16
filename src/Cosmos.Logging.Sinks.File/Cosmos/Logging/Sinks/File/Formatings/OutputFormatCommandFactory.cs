@@ -4,6 +4,9 @@ using Cosmos.Logging.Formattings;
 using Cosmos.Logging.Sinks.File.Formatings.Helpers;
 
 namespace Cosmos.Logging.Sinks.File.Formatings {
+    /// <summary>
+    /// Output format command factory
+    /// </summary>
     public static class OutputFormatCommandFactory {
         public static IEnumerable<Func<object, IFormatProvider, object>> CreateCommandFunc(string format = null) {
             if (format == null || string.IsNullOrWhiteSpace(format)) yield break;

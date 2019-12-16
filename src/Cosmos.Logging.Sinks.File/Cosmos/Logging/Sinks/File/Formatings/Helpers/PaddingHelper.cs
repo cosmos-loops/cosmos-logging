@@ -1,6 +1,9 @@
 ﻿using System;
 
 namespace Cosmos.Logging.Sinks.File.Formatings.Helpers {
+    /// <summary>
+    /// Padding helper
+    /// </summary>
     public static class PaddingHelper {
         internal static bool Check(out char command, out int width, string format = null) {
             command = char.MinValue;
@@ -54,6 +57,10 @@ namespace Cosmos.Logging.Sinks.File.Formatings.Helpers {
 
         }
 
+        /// <summary>
+        /// Format
+        /// </summary>
+        /// <returns></returns>
         public static Func<char, Func<int, Func<object, IFormatProvider, object>>> Format() => c => w => {
             if (c == 'l') return PaddingLeft(w);
             if (c == 'r') return PaddingRight(w);

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
+    /// <summary>
+    /// Root namespace navigation
+    /// </summary>
     public class RootNamespaceNavigation {
         private static readonly RootNamespaceNavigation _singleRoot = new RootNamespaceNavigation();
         internal static RootNamespaceNavigation GetInstance() => _singleRoot;
@@ -17,10 +20,23 @@ namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
             _registeredEndValueNodeDict = new Dictionary<int, EndValueNamespaceNavigationNode>();
         }
 
+        /// <summary>
+        /// has default value
+        /// </summary>
+        /// <returns></returns>
         public bool HasDefaultValue() => DefaultNavNode != null;
 
+        /// <summary>
+        /// Has all value
+        /// </summary>
+        /// <returns></returns>
         public bool HasAllValue() => ForAllNavNode != null;
 
+        /// <summary>
+        /// Set default navigation node value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public void SetDefaultNavValue(EndValueNamespaceNavigationNode value) {
             if (value == null) throw new ArgumentNullException(nameof(value));
             if (!HasDefaultValue()) {
@@ -30,8 +46,17 @@ namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
             DefaultNavNode.AppendValue(value);
         }
 
+        /// <summary>
+        /// Gets default navigation node value
+        /// </summary>
+        /// <returns></returns>
         public IReadOnlyList<EndValueNamespaceNavigationNode> GetDefaultValues() => DefaultNavNode.ValueList;
 
+        /// <summary>
+        /// Set to all navigation node
+        /// </summary>
+        /// <param name="value"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public void SetAllNavValue(EndValueNamespaceNavigationNode value) {
             if (value == null) throw new ArgumentNullException(nameof(value));
             if (!HasAllValue()) {
@@ -41,8 +66,18 @@ namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
             ForAllNavNode.AppendValue(value);
         }
 
+        /// <summary>
+        /// Get star navigation values
+        /// </summary>
+        /// <returns></returns>
         public IReadOnlyList<EndValueNamespaceNavigationNode> GetStarValues() => ForAllNavNode.ValueList;
 
+        /// <summary>
+        /// Set first level navigation value
+        /// </summary>
+        /// <param name="namespace"></param>
+        /// <param name="value"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public void SetFirstLevelNavValue(string @namespace, EndValueNamespaceNavigationNode value) {
             if (string.IsNullOrWhiteSpace(@namespace)) throw new ArgumentNullException(nameof(@namespace));
             if (value == null) throw new ArgumentNullException(nameof(value));
@@ -53,20 +88,37 @@ namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
                 var nav = new NamespaceNavigator(@namespace);
                 nav.AppendValue(value);
                 _namespaceNavigators.Add(nav);
-            } else {
+            }
+            else {
                 firstMatched.AppendValue(value);
             }
         }
 
+        /// <summary>
+        /// Get first level navigation values
+        /// </summary>
+        /// <param name="namespace"></param>
+        /// <returns></returns>
         public IReadOnlyList<EndValueNamespaceNavigationNode> GetFirstLevelNavValues(string @namespace) {
             return _namespaceNavigators.FirstOrDefault(x => string.CompareOrdinal(@namespace, x.NamespaceFragment) == 0)?.ValueList;
         }
 
+        /// <summary>
+        /// Get first level navigation node
+        /// </summary>
+        /// <param name="namespaceFragment"></param>
+        /// <returns></returns>
         public NamespaceNavigator GetFirstLevelNavNode(string namespaceFragment) {
             if (string.IsNullOrWhiteSpace(namespaceFragment)) return NamespaceNavigator.Empty;
             return _namespaceNavigators.FirstOrDefault(x => string.CompareOrdinal(namespaceFragment, x.NamespaceFragment) == 0) ?? NamespaceNavigator.Empty;
         }
 
+        /// <summary>
+        /// Set fluent linked navigation value
+        /// </summary>
+        /// <param name="namespace"></param>
+        /// <param name="value"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public void SetFluentLinkedNavValue(string @namespace, EndValueNamespaceNavigationNode value) {
             if (string.IsNullOrWhiteSpace(@namespace)) throw new ArgumentNullException(nameof(@namespace));
             if (value == null) throw new ArgumentNullException(nameof(value));
@@ -93,11 +145,12 @@ namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
                 _namespaceNavigators.Add(root);
             }
         }
-        
+
         private EndValueNamespaceNavigationNode FixedValue(EndValueNamespaceNavigationNode value) {
             if (_registeredEndValueNodeDict.ContainsKey(value.GetHashCode())) {
                 value = _registeredEndValueNodeDict[value.GetHashCode()];
-            } else {
+            }
+            else {
                 _registeredEndValueNodeDict.Add(value.GetHashCode(), value);
             }
 

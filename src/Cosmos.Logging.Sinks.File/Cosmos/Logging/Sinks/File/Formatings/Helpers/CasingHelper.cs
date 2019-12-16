@@ -1,6 +1,9 @@
 ﻿using System;
 
 namespace Cosmos.Logging.Sinks.File.Formatings.Helpers {
+    /// <summary>
+    /// Casing helper
+    /// </summary>
     public static class CasingHelper {
         internal static bool Check(out char command, string format = null) {
             command = char.MinValue;
@@ -21,6 +24,10 @@ namespace Cosmos.Logging.Sinks.File.Formatings.Helpers {
             return false;
         }
 
+        /// <summary>
+        /// Format
+        /// </summary>
+        /// <returns></returns>
         public static Func<char, Func<object, IFormatProvider, object>> Format() => c => {
             if (c == 'U') return ToUpperInvariant;
             if (c == 'w') return ToLowerInvariant;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Cosmos.Logging.Core.ObjectResolving.Extensions;
 using Cosmos.Logging.Events;
+
 // ReSharper disable InconsistentNaming
 
 namespace Cosmos.Logging.Core.ObjectResolving {

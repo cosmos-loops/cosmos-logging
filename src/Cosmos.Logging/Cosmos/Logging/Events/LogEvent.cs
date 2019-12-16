@@ -29,7 +29,23 @@ namespace Cosmos.Logging.Events {
             CallerInfo = NullLogCallerInfo.Instance;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="LogEvent"/>.
+        /// </summary>
+        /// <param name="stateNamespace"></param>
+        /// <param name="eventId"></param>
+        /// <param name="level"></param>
+        /// <param name="messageTemplate"></param>
+        /// <param name="exception"></param>
+        /// <param name="sendMode"></param>
+        /// <param name="callerInfo"></param>
+        /// <param name="upstreamRenderingOptions"></param>
+        /// <param name="namedMessageProperties"></param>
+        /// <param name="positionalMessageProperties"></param>
+        /// <param name="logEventContext"></param>
+        /// <param name="contextData"></param>
+        /// <param name="messageProcessorShortcut"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public LogEvent(
             string stateNamespace,
             LogEventId eventId,
@@ -241,7 +257,7 @@ namespace Cosmos.Logging.Events {
         public IReadOnlyDictionary<string, ExtraMessageProperty> ExtraProperties => _extraMessageProperties;
 
         #endregion
-        
+
         /// <inheritdoc />
         public LogEvent ToLogEvent() => this;
 

@@ -4,6 +4,9 @@ using System.Linq;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Sinks.File.Formatings.Helpers {
+    /// <summary>
+    /// Event info helper
+    /// </summary>
     public static class EventInfoHelper {
         internal static bool Check(out string command, string format = null) {
             command = string.Empty;
@@ -27,6 +30,10 @@ namespace Cosmos.Logging.Sinks.File.Formatings.Helpers {
             return !string.IsNullOrWhiteSpace(command);
         }
 
+        /// <summary>
+        /// Format
+        /// </summary>
+        /// <returns></returns>
         public static Func<string, Func<object, IFormatProvider, object>> Format() => FormatInternal;
 
         private static Func<object, IFormatProvider, object> FormatInternal(string cmdAlias2) => (value, formatProvider) => {

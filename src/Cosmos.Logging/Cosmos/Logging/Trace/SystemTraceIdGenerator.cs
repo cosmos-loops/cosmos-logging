@@ -8,7 +8,11 @@ namespace Cosmos.Logging.Trace {
         private readonly TraceIdAccessor _accessor;
         private readonly FallbackTraceIdAccessor _fallback;
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="SystemTraceIdGenerator"/>.
+        /// </summary>
+        /// <param name="traceIdAccessor"></param>
+        /// <param name="fallbackTraceIdAccessor"></param>
         public SystemTraceIdGenerator(TraceIdAccessor traceIdAccessor, FallbackTraceIdAccessor fallbackTraceIdAccessor) {
             _accessor = traceIdAccessor;
             _fallback = fallbackTraceIdAccessor;

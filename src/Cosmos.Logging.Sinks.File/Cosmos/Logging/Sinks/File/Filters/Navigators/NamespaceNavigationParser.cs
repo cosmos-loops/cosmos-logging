@@ -6,7 +6,11 @@ using Cosmos.Logging.Sinks.File.Core;
 using Cosmos.Logging.Sinks.File.Strategies;
 
 namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
+    /// <summary>
+    /// Namespace navigation parser
+    /// </summary>
     public class NamespaceNavigationParser : IFileSinkNamespaceNavigationParser {
+        /// <inheritdoc />
         public void Parse(string basePath, OutputOptions options, out EndValueNamespaceNavigationNode endValueNode) {
             if (options == null) throw new ArgumentNullException(nameof(options));
 

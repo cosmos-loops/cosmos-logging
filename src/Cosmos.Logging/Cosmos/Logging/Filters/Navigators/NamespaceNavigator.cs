@@ -17,7 +17,11 @@ namespace Cosmos.Logging.Filters.Navigators {
         private readonly Dictionary<int, EndValueNamespaceNavigationNode> _originalNamespaceOnRoot;
         private readonly object _originalNamespaceUpdateLock = new object();
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="NamespaceNavigator"/>
+        /// </summary>
+        /// <param name="namespaceFragment"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public NamespaceNavigator(string namespaceFragment) {
             if (string.IsNullOrWhiteSpace(namespaceFragment)) throw new ArgumentNullException(nameof(namespaceFragment));
             NamespaceFragment = namespaceFragment;

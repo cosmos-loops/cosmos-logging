@@ -2,11 +2,17 @@
 using Cosmos.Logging.Sinks.File.Strategies;
 
 namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
+    /// <summary>
+    /// File astronaut cache
+    /// </summary>
     public class FileAstronautCache {
         private readonly Dictionary<SavingStrategy, int> _lastSavingPathCache;
         private readonly Dictionary<int, IAstronaut> _enabledFileAstronautCache;
         private readonly object _fileLockObj = new object();
 
+        /// <summary>
+        /// Create a new instance of <see cref="FileAstronautCache"/>.
+        /// </summary>
         public FileAstronautCache() {
             _lastSavingPathCache = new Dictionary<SavingStrategy, int>();
             _enabledFileAstronautCache = new Dictionary<int, IAstronaut>();
@@ -21,6 +27,13 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
             return ret;
         }
 
+        /// <summary>
+        /// Try get file astronaut
+        /// </summary>
+        /// <param name="strategy"></param>
+        /// <param name="givenPath"></param>
+        /// <param name="fileAstronaut"></param>
+        /// <returns></returns>
         public bool TryGetFileAstronaut(SavingStrategy strategy, string givenPath, out IAstronaut fileAstronaut) {
             fileAstronaut = default(FileAstronaut);
             if (strategy == null) return false;
@@ -35,7 +48,8 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
                         }
 
                         return true;
-                    } else {
+                    }
+                    else {
                         if (_enabledFileAstronautCache.TryGetValue(originalPathHash, out fileAstronaut)) {
                             FileAstronautRemover.WaitToRemove(originalPathHash, fileAstronaut);
                             _enabledFileAstronautCache.Remove(originalPathHash);
@@ -46,7 +60,8 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
                         _enabledFileAstronautCache.Add(givenPathHash, fileAstronaut);
                         return true;
                     }
-                } else {
+                }
+                else {
                     fileAstronaut = CreateAstronaut(strategy, givenPath, null);
                     _lastSavingPathCache.Add(strategy, givenPathHash);
                     _enabledFileAstronautCache.Add(givenPathHash, fileAstronaut);

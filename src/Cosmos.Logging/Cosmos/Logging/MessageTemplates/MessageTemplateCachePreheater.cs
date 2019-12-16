@@ -8,6 +8,9 @@ using System.Text;
 using Cosmos.Logging.Core;
 
 namespace Cosmos.Logging.MessageTemplates {
+    /// <summary>
+    /// Message template cache preheater
+    /// </summary>
     [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
     public class MessageTemplateCachePreheater {
         private readonly Hashtable _preheatedMessageTemplates = new Hashtable();
@@ -69,22 +72,43 @@ namespace Cosmos.Logging.MessageTemplates {
             _needToBePreheadedTemplates.Add(messageTemplate.GetHashCode(), messageTemplate);
         }
 
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="messageTemplate"></param>
         public void Add(string messageTemplate) {
             AddInternal(messageTemplate);
         }
 
+        /// <summary>
+        /// Add range
+        /// </summary>
+        /// <param name="messageTemplates"></param>
         public void AddRange(IEnumerable<string> messageTemplates) {
             AddInternal(messageTemplates);
         }
 
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="template"></param>
         public void Add(MessageTemplate template) {
             AddInternal(template);
         }
 
+        /// <summary>
+        /// Add range
+        /// </summary>
+        /// <param name="templates"></param>
         public void AddRange(IEnumerable<MessageTemplate> templates) {
             AddInternal(templates);
         }
 
+        /// <summary>
+        /// Add from file
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="type"></param>
         public void AddFromFile(string fileName, PreheaterFileTypes type) {
             if (!File.Exists(fileName)) return;
             using (var fs = new FileStream(fileName, FileMode.Open)) {
@@ -108,6 +132,10 @@ namespace Cosmos.Logging.MessageTemplates {
             }
         }
 
+        /// <summary>
+        /// Add from stream
+        /// </summary>
+        /// <param name="stream"></param>
         public void AddFromStream(Stream stream) {
             try {
                 var bf = new BinaryFormatter();

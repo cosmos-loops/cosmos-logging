@@ -13,6 +13,9 @@ using Cosmos.Logging.Core.Piplelines;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging {
+    /// <summary>
+    /// Logger base
+    /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public abstract partial class LoggerBase {
 

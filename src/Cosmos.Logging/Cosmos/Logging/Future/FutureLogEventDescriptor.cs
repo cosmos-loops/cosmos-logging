@@ -12,7 +12,11 @@ namespace Cosmos.Logging.Future {
         private readonly ContextData _ownLifetimeContextData;
         private readonly ContextData _loggerLifetimeContextData;
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="FutureLogEventDescriptor"/>
+        /// </summary>
+        /// <param name="callerInfo"></param>
+        /// <param name="loggerLifetimeContextData"></param>
         public FutureLogEventDescriptor(ILogCallerInfo callerInfo, ContextData loggerLifetimeContextData) {
             _callerInfo = callerInfo ?? NullLogCallerInfo.Instance;
             _ownLifetimeContextData = new ContextData();

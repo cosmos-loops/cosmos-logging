@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cosmos.Logging.Sinks.File.OutputTemplates {
+    /// <summary>
+    /// Output template parser
+    /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class OutputTemplateParser : IOutputTemplateParser {
+        /// <inheritdoc />
         public OutputTemplate Parse(string outputTemplate) {
             if (string.IsNullOrWhiteSpace(outputTemplate)) throw new ArgumentNullException(nameof(outputTemplate));
             return new OutputTemplate(outputTemplate, Tokenize(outputTemplate));

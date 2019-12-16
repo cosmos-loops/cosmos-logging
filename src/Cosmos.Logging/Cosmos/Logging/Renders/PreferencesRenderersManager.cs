@@ -5,6 +5,9 @@ using System.Linq;
 using Cosmos.Logging.Formattings;
 
 namespace Cosmos.Logging.Renders {
+    /// <summary>
+    /// Preferences renderers manager
+    /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public static class PreferencesRenderersManager {
         private static readonly Dictionary<string, IPreferencesRenderer> _preferencesRenders;
@@ -18,6 +21,11 @@ namespace Cosmos.Logging.Renders {
             _preferencesSinkRenders = new Dictionary<string, Dictionary<string, IPreferencesSinkRenderer>>();
         }
 
+        /// <summary>
+        /// Add preferences renderer
+        /// </summary>
+        /// <param name="renderer"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public static void AddPreferencesRenderer(IPreferencesRenderer renderer) {
             if (renderer == null) throw new ArgumentNullException(nameof(renderer));
             var ignoreCaseName = renderer.Name.ToLowerInvariant();
@@ -33,6 +41,12 @@ namespace Cosmos.Logging.Renders {
             }
         }
 
+        /// <summary>
+        /// Add preferences renderer
+        /// </summary>
+        /// <param name="names"></param>
+        /// <param name="renderer"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public static void AddPreferencesRenderer(List<string> names, IPreferencesRenderer renderer) {
             if (renderer == null) throw new ArgumentNullException(nameof(renderer));
             if (names == null || !names.Any()) throw new ArgumentNullException(nameof(names));
@@ -51,10 +65,19 @@ namespace Cosmos.Logging.Renders {
             }
         }
 
+        /// <summary>
+        /// Add preferences renderer
+        /// </summary>
+        /// <typeparam name="TPreferencesRenderer"></typeparam>
         public static void AddPreferencesRenderer<TPreferencesRenderer>() where TPreferencesRenderer : class, IPreferencesRenderer, new() {
             AddPreferencesRenderer(new TPreferencesRenderer());
         }
 
+        /// <summary>
+        /// Add preferences sink renderer
+        /// </summary>
+        /// <param name="renderer"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public static void AddPreferencesSinkRenderer(IPreferencesSinkRenderer renderer) {
             if (renderer == null) throw new ArgumentNullException(nameof(renderer));
 
@@ -72,6 +95,12 @@ namespace Cosmos.Logging.Renders {
             }
         }
 
+        /// <summary>
+        /// Add preferences sink renderer
+        /// </summary>
+        /// <param name="nameTuples"></param>
+        /// <param name="renderer"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public static void AddPreferencesSinkRenderer(List<(string sinkPrefix, string name)> nameTuples, IPreferencesSinkRenderer renderer) {
             if (renderer == null) throw new ArgumentNullException(nameof(renderer));
             if (nameTuples == null || !nameTuples.Any()) throw new ArgumentNullException(nameof(nameTuples));
@@ -98,6 +127,10 @@ namespace Cosmos.Logging.Renders {
             }
         }
 
+        /// <summary>
+        /// Add preferences sink renderer
+        /// </summary>
+        /// <typeparam name="TPreferencesSinkRender"></typeparam>
         public static void AddPreferencesSinkRenderer<TPreferencesSinkRender>() where TPreferencesSinkRender : class, IPreferencesSinkRenderer, new() {
             AddPreferencesSinkRenderer(new TPreferencesSinkRender());
         }
@@ -113,12 +146,23 @@ namespace Cosmos.Logging.Renders {
             }
         }
 
+        /// <summary>
+        /// Ge render
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static IPreferencesRenderer GetRender(string name) {
             if (string.IsNullOrWhiteSpace(name)) return NullPreferencesRenderer.Instance;
             var ignoreCaseName = name.ToLowerInvariant();
             return _preferencesRenders.TryGetValue(ignoreCaseName, out var ret) ? ret : NullPreferencesRenderer.Instance;
         }
 
+        /// <summary>
+        /// Ger render
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static IPreferencesSinkRenderer GetRender(string prefix, string name) {
             if (string.IsNullOrWhiteSpace(prefix) || string.IsNullOrWhiteSpace(name)) return NullPreferencesSinkRenderer.Instance;
             var ignoreSinkPrefix = prefix.ToLowerInvariant();

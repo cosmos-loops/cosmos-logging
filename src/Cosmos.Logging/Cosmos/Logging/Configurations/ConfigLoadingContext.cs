@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EnumsNET;
@@ -12,7 +11,10 @@ namespace Cosmos.Logging.Configurations {
     /// Config file load context
     /// </summary>
     public static class ConfigLoadingContext {
+        // ReSharper disable once InconsistentNaming
         private static readonly ConcurrentDictionary<(string, string, string, int), MethodInfo> _methodCallingCache;
+
+        // ReSharper disable once InconsistentNaming
         private static readonly Type _stringType = typeof(string);
 
         static ConfigLoadingContext() {

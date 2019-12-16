@@ -61,7 +61,7 @@ namespace Cosmos.Logging.Core.ObjectResolving {
             var legalPositionalPropMetaList = positionalPropMetaList.Where(x => x.position < messageParameters.Length).ToList();
             var namesHaveBeenCached = __named_cache.Select(x => x.Key.name).Distinct().ToList();
             var namesHaveNotBeenCached = namedPropOffsetInfoDict.Where(o => !namesHaveBeenCached.Contains(o.Key) && o.Value < messageParameters.Length)
-                .Select(s => new {PositionalOffset = s.Value, Name = s.Key}).ToList();
+                                                                .Select(s => new {PositionalOffset = s.Value, Name = s.Key}).ToList();
 
             var keysOfOutOfCachhed = namesHaveNotBeenCached.Select(x => x.Name);
             var namedPropMetaList2 = namedPropMetaList.Where(x => keysOfOutOfCachhed.Contains(x.name) && !namesHaveBeenCached.Contains(x.name)).ToList();
@@ -134,13 +134,14 @@ namespace Cosmos.Logging.Core.ObjectResolving {
             var propertyIndex = 0;
 
             foreach (var token in tokens) {
-                if (token is PositionalPropertyToken propertyToken0 && propertyToken0.TokenRenderType == TokenRenderTypes.AsPositionalProperty) {
+                if (token is PositionalPropertyToken propertyToken0 && propertyToken0.TokenRendererType == TokenRendererTypes.AsPositionalProperty) {
                     var positionalValue = propertyToken0.PositionalParameterValue;
                     var resolvingMode = propertyToken0.PropertyResolvingMode;
                     if (!Exists0(positionalPropertyInfoList, positionalValue, resolvingMode)) {
                         positionalPropertyInfoList.Add((positionalValue, resolvingMode));
                     }
-                } else if (token is PropertyToken propertyToken1 && propertyToken1.TokenType == PropertyTokenTypes.UserDefinedParameter) {
+                }
+                else if (token is PropertyToken propertyToken1 && propertyToken1.TokenType == PropertyTokenTypes.UserDefinedParameter) {
                     var name = propertyToken1.Name;
                     var resolvingMode = propertyToken1.PropertyResolvingMode;
                     if (!Exists1(namedPropertyInfoList, name, resolvingMode)) {

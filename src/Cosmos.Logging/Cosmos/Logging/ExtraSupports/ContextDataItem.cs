@@ -6,7 +6,14 @@ namespace Cosmos.Logging.ExtraSupports {
     /// Log event context data item
     /// </summary>
     public class ContextDataItem {
-        /// <inheritdoc />
+
+        /// <summary>
+        /// Create a new instance of <see cref="ContextDataItem"/>.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="value"></param>
+        /// <param name="output"></param>
         public ContextDataItem(string name, Type type, object value, bool output = true) {
             ItemType = type;
             Value = value;

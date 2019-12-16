@@ -34,12 +34,20 @@ namespace Cosmos.Logging.Core.Piplelines {
         private ImmutableDictionary<long, T> itemMap;
         private ImmutableList<long> queue;
 
+        /// <summary>
+        /// Cancellable queue
+        /// </summary>
         public CancellableQueue() {
             nextId = 0L;
             itemMap = ImmutableDictionary<long, T>.Empty;
             queue = ImmutableList<long>.Empty;
         }
 
+        /// <summary>
+        /// Enqueue
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public long Enqueue(T item) {
             long id;
             do {
@@ -52,10 +60,18 @@ namespace Cosmos.Logging.Core.Piplelines {
             return id;
         }
 
+        /// <summary>
+        /// Count
+        /// </summary>
         public int Count {
             get { return itemMap.Count; }
         }
 
+        /// <summary>
+        /// Peek
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public T Peek() {
             if (itemMap.Count == 0) {
                 throw new InvalidOperationException("Can't Peek from an empty queue");
@@ -68,6 +84,11 @@ namespace Cosmos.Logging.Core.Piplelines {
             return itemMap[queue[0]];
         }
 
+        /// <summary>
+        /// Dequeue
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public T Dequeue() {
             if (itemMap.Count == 0) {
                 throw new InvalidOperationException("Can't Dequeue from an empty queue");
@@ -84,26 +105,42 @@ namespace Cosmos.Logging.Core.Piplelines {
             return item;
         }
 
-        public Option<T> Cancel(long id) {
+        /// <summary>
+        /// Cancel
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Optional<T> Cancel(long id) {
             if (itemMap.ContainsKey(id)) {
                 T value = itemMap[id];
                 itemMap = itemMap.Remove(id);
-                return new Some<T>(value);
-            } else {
-                return new None<T>();
+                return Optional<T>.Some(value);
             }
+
+            return Optional<T>.None();
         }
 
+        /// <summary>
+        /// Contains id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool ContainsId(long id) {
             return itemMap.ContainsKey(id);
         }
 
+        /// <summary>
+        /// Get by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public T GetById(long id) {
             return itemMap[id];
         }
 
         private bool disposed;
 
+        /// <inheritdoc />
         public void Dispose() {
             if (disposed) return;
 

@@ -8,7 +8,19 @@ using Cosmos.Logging.Sinks.File.Core.Extensions;
 using Cosmos.Logging.Sinks.File.Renderers;
 
 namespace Cosmos.Logging.Sinks.File.OutputTemplates {
+    /// <summary>
+    /// Output template renderer
+    /// </summary>
     public static class OutputTemplateRenderer {
+        /// <summary>
+        /// Render
+        /// </summary>
+        /// <param name="outputTemplate"></param>
+        /// <param name="output"></param>
+        /// <param name="logEvent"></param>
+        /// <param name="targetMessageBuilder"></param>
+        /// <param name="format"></param>
+        /// <param name="formatProvider"></param>
         public static void Render(OutputTemplate outputTemplate, TextWriter output,
             LogEvent logEvent, StringBuilder targetMessageBuilder, string format = null, IFormatProvider formatProvider = null) {
             var stringBuilder = RenderEngine(
@@ -37,12 +49,14 @@ namespace Cosmos.Logging.Sinks.File.OutputTemplates {
                     stringBuilder.Append(chars.Read(position, token.StartPosition - position));
                 }
 
-                if (token.TokenRenderType == TokenRenderTypes.AsProperty && token is PropertyOutputMessageToken propertyToken) {
+                if (token.TokenRendererType == TokenRendererTypes.AsProperty && token is PropertyOutputMessageToken propertyToken) {
                     var render = GetPreferencesRenderer(propertyToken);
                     RenderPropertyTokenForPreferencesRenderer(propertyToken, render, stringBuilder, logEvent, targetMessageBuilder, formatProvider);
-                } else if (token is TextOutputMessageToken textToken) {
+                }
+                else if (token is TextOutputMessageToken textToken) {
                     RenderTextToken(textToken, stringBuilder, logEvent, formatProvider);
-                } else {
+                }
+                else {
                     throw new ArgumentException("Current token render type is undefined.");
                 }
 

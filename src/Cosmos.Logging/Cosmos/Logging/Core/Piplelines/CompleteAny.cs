@@ -26,6 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cosmos.Asynchronous;
 
 namespace Cosmos.Logging.Core.Piplelines {
     /// <summary>
@@ -34,7 +35,15 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public abstract class CancellableResult<V> {
+        /// <summary>
+        /// Complete
+        /// </summary>
+        /// <returns></returns>
         public abstract V Complete();
+
+        /// <summary>
+        /// Cancel
+        /// </summary>
         public abstract void Cancel();
     }
 
@@ -47,23 +56,34 @@ namespace Cosmos.Logging.Core.Piplelines {
         private Task<CancellableResult<V>> task;
         private CancellationTokenSource cts;
 
+        /// <summary>
+        /// CancellableOperation
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="cts"></param>
         public CancellableOperation(Task<CancellableResult<V>> task, CancellationTokenSource cts) {
             this.task = task;
             this.cts = cts;
         }
 
-        public Task<CancellableResult<V>> Task {
-            get { return task; }
-        }
+        /// <summary>
+        /// Task
+        /// </summary>
+        public Task<CancellableResult<V>> Task => task;
 
-        public bool HasEnded {
-            get { return task.IsCompleted || task.IsFaulted || task.IsCanceled; }
-        }
+        /// <summary>
+        /// Has ended
+        /// </summary>
+        public bool HasEnded => task.IsCompleted || task.IsFaulted || task.IsCanceled;
 
+        /// <summary>
+        /// Cancel
+        /// </summary>
         public void Cancel() {
             cts.Cancel();
         }
 
+        /// <inheritdoc />
         public void Dispose() {
             cts.Dispose();
         }
@@ -102,7 +122,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                 if (!done) {
                     queue.ReleaseRead(1);
                     return convertResult(value);
-                } else {
+                }
+                else {
                     throw new InvalidOperationException("Get: Complete or Cancel can be called only once");
                 }
             }
@@ -110,7 +131,8 @@ namespace Cosmos.Logging.Core.Piplelines {
             public override void Cancel() {
                 if (!done) {
                     queue.ReleaseRead(0);
-                } else {
+                }
+                else {
                     throw new InvalidOperationException("Get: Complete or Cancel can be called only once");
                 }
 
@@ -134,7 +156,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                 if (!done) {
                     queue.ReleaseRead(0);
                     return eofResult;
-                } else {
+                }
+                else {
                     throw new InvalidOperationException("Get EOF: Complete or Cancel can be called only once");
                 }
             }
@@ -142,7 +165,8 @@ namespace Cosmos.Logging.Core.Piplelines {
             public override void Cancel() {
                 if (!done) {
                     queue.ReleaseRead(0);
-                } else {
+                }
+                else {
                     throw new InvalidOperationException("Get EOF: Complete or Cancel can be called only once");
                 }
 
@@ -150,6 +174,17 @@ namespace Cosmos.Logging.Core.Piplelines {
             }
         }
 
+        /// <summary>
+        /// StartableGet
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="convertResult"></param>
+        /// <param name="eofResult"></param>
+        /// <typeparam name="U"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        /// <exception cref="OperationCanceledException"></exception>
         public static CancellableOperationStarter<V> StartableGet<U, V>(this IQueueSource<U> queue, Func<U, V> convertResult, V eofResult) {
             return delegate(CancellationToken ctoken) {
                 CancellationTokenSource cts = CancellationTokenSource.CreateLinkedTokenSource(ctoken);
@@ -162,15 +197,18 @@ namespace Cosmos.Logging.Core.Piplelines {
 
                         if (succeededResult.ItemCount == 1) {
                             return new GetCancellableResult<U, V>(queue, succeededResult.Items[0], convertResult);
-                        } else {
+                        }
+                        else {
                             System.Diagnostics.Debug.Assert(succeededResult.ItemCount == 0);
                             return new GetEofCancellableResult<U, V>(queue, eofResult);
                         }
-                    } else if (arr is AcquireReadFaulted) {
+                    }
+                    else if (arr is AcquireReadFaulted) {
                         AcquireReadFaulted faultedResult = (AcquireReadFaulted) arr;
 
                         throw faultedResult.Exception;
-                    } else {
+                    }
+                    else {
                         // ReSharper disable once UnusedVariable
                         AcquireReadCancelled cancelledResult = (AcquireReadCancelled) arr;
 
@@ -183,23 +221,10 @@ namespace Cosmos.Logging.Core.Piplelines {
                     task = Task.Run(taskSource);
                 }
                 catch (OperationCanceledException e) {
-#if NET451
-                    var tcs = new TaskCompletionSource<CancellableResult<V>>();
-                    tcs.SetException(e);
-                    tcs.SetCanceled();
-                    task = tcs.Task;
-#else
-                    task = Task.FromCanceled<CancellableResult<V>>(e.CancellationToken);
-#endif
+                    task = Tasks.FromCanceled<CancellableResult<V>>(e);
                 }
                 catch (Exception exc) {
-#if NET451
-                    var tcs = new TaskCompletionSource<CancellableResult<V>>();
-                    tcs.TrySetException(exc);
-                    task = tcs.Task;
-#else
-                    task = Task.FromException<CancellableResult<V>>(exc);
-#endif
+                    task = Tasks.FromException<CancellableResult<V>>(exc);
                 }
 
                 return new CancellableOperation<V>(task, cts);
@@ -223,7 +248,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                 if (!done) {
                     queue.ReleaseWrite(valueToPut);
                     return successfulPut;
-                } else {
+                }
+                else {
                     throw new InvalidOperationException("Put: Complete or Cancel can be called only once");
                 }
             }
@@ -231,7 +257,8 @@ namespace Cosmos.Logging.Core.Piplelines {
             public override void Cancel() {
                 if (!done) {
                     queue.ReleaseWrite();
-                } else {
+                }
+                else {
                     throw new InvalidOperationException("Put: Complete or Cancel can be called only once");
                 }
 
@@ -239,6 +266,17 @@ namespace Cosmos.Logging.Core.Piplelines {
             }
         }
 
+        /// <summary>
+        /// StartablePut
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="valueToPut"></param>
+        /// <param name="successfulPut"></param>
+        /// <typeparam name="U"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        /// <exception cref="OperationCanceledException"></exception>
         public static CancellableOperationStarter<V> StartablePut<U, V>(this IQueueSink<U> queue, U valueToPut, V successfulPut) {
             return delegate(CancellationToken ctoken) {
                 CancellationTokenSource cts = CancellationTokenSource.CreateLinkedTokenSource(ctoken);
@@ -252,11 +290,13 @@ namespace Cosmos.Logging.Core.Piplelines {
                         System.Diagnostics.Debug.Assert(aws.ItemCount == 1);
 
                         return new PutCancellableResult<U, V>(queue, valueToPut, successfulPut);
-                    } else if (awr is AcquireWriteFaulted) {
+                    }
+                    else if (awr is AcquireWriteFaulted) {
                         AcquireWriteFaulted awf = (AcquireWriteFaulted) awr;
 
                         throw awf.Exception;
-                    } else {
+                    }
+                    else {
                         // ReSharper disable once UnusedVariable
                         AcquireWriteCancelled awc = (AcquireWriteCancelled) awr;
 
@@ -269,33 +309,35 @@ namespace Cosmos.Logging.Core.Piplelines {
                     task = taskSource();
                 }
                 catch (OperationCanceledException e) {
-#if NET451
-                    var tcs = new TaskCompletionSource<CancellableResult<V>>();
-                    tcs.SetException(e);
-                    tcs.SetCanceled();
-                    task = tcs.Task;
-#else
-                    task = Task.FromCanceled<CancellableResult<V>>(e.CancellationToken);
-#endif
+                    task = Tasks.FromCanceled<CancellableResult<V>>(e);
                 }
                 catch (Exception exc) {
-#if NET451
-                    var tcs = new TaskCompletionSource<CancellableResult<V>>();
-                    tcs.TrySetException(exc);
-                    task = tcs.Task;
-#else
-                    task = Task.FromException<CancellableResult<V>>(exc);
-#endif
+                    task = Tasks.FromException<CancellableResult<V>>(exc);
                 }
 
                 return new CancellableOperation<V>(task, cts);
             };
         }
 
+        /// <summary>
+        /// OperationStarters
+        /// </summary>
+        /// <typeparam name="K"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <returns></returns>
         public static ImmutableList<Tuple<K, CancellableOperationStarter<V>>> OperationStarters<K, V>() {
             return ImmutableList<Tuple<K, CancellableOperationStarter<V>>>.Empty;
         }
 
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <typeparam name="K"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <returns></returns>
         public static ImmutableList<Tuple<K, CancellableOperationStarter<V>>> Add<K, V>
         (
             this ImmutableList<Tuple<K, CancellableOperationStarter<V>>> list,
@@ -305,6 +347,16 @@ namespace Cosmos.Logging.Core.Piplelines {
             return list.Add(new Tuple<K, CancellableOperationStarter<V>>(key, value));
         }
 
+        /// <summary>
+        /// Add if
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="condition"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <typeparam name="K"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <returns></returns>
         public static ImmutableList<Tuple<K, CancellableOperationStarter<V>>> AddIf<K, V>
         (
             this ImmutableList<Tuple<K, CancellableOperationStarter<V>>> list,
@@ -315,6 +367,14 @@ namespace Cosmos.Logging.Core.Piplelines {
             return condition ? list.Add(new Tuple<K, CancellableOperationStarter<V>>(key, value)) : list;
         }
 
+        /// <summary>
+        /// CompleteAny
+        /// </summary>
+        /// <param name="operationStarters"></param>
+        /// <param name="ctoken"></param>
+        /// <typeparam name="K"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <returns></returns>
         public static Task<Tuple<K, V>> CompleteAny<K, V>(this ImmutableList<Tuple<K, CancellableOperationStarter<V>>> operationStarters, CancellationToken ctoken) {
             object syncRoot = new object();
             TaskCompletionSource<Tuple<K, V>> tcs = new TaskCompletionSource<Tuple<K, V>>();
@@ -331,7 +391,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                 lock (syncRoot) {
                     if (firstIndex.HasValue && waits.IsEmpty) {
                         value.PostDispose();
-                    } else {
+                    }
+                    else {
                         ctr = value;
                     }
                 }
@@ -353,7 +414,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                         if (!(eTask is OperationCanceledException) || !(canceled.Contains(i))) {
                             exc.Add(eTask);
                         }
-                    } else if (operations[i].Task.IsCanceled) {
+                    }
+                    else if (operations[i].Task.IsCanceled) {
                         if (!canceled.Contains(i)) {
                             exc.Add(new OperationCanceledException());
                         }
@@ -366,12 +428,15 @@ namespace Cosmos.Logging.Core.Piplelines {
                 if (exc.Count == 0) {
                     if (fi >= 0) {
                         tcs.PostResult(new Tuple<K, V>(operationStarters[fi].Item1, firstResult));
-                    } else {
+                    }
+                    else {
                         tcs.PostException(new OperationCanceledException(ctoken));
                     }
-                } else if (exc.Count == 1) {
+                }
+                else if (exc.Count == 1) {
                     tcs.PostException(exc[0]);
-                } else {
+                }
+                else {
                     tcs.PostException(new AggregateException(exc));
                 }
 
@@ -415,7 +480,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                             operations[i].Task.Result.Cancel();
                             canceled = canceled.Add(i);
                         }
-                    } else {
+                    }
+                    else {
                         firstIndex = i;
 
                         if (operations[i].Task.Status == TaskStatus.RanToCompletion) {
@@ -447,7 +513,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                         }
 
                         break;
-                    } else {
+                    }
+                    else {
                         waits = waits.Add(i);
 
                         //continuations[i] =
@@ -461,7 +528,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                 if (shouldUnwind) {
                     if (!waits.IsEmpty) {
                         unwind();
-                    } else {
+                    }
+                    else {
                         deliverFinalResult();
                     }
                 }
