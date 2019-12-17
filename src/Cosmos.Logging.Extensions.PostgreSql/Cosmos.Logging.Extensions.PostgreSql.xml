@@ -4,5 +4,139 @@
         <name>Cosmos.Logging.Extensions.PostgreSql</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.Extensions.PostgreSql.Core.NpgsqlLogActivation">
+            <summary>
+            Npgsql log activation
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.PostgreSql.Core.NpgsqlLogActivation.#ctor(Cosmos.Logging.ILoggingServiceProvider,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.PostgresEnricherOptions})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxy">
+            <summary>
+            Proxy for PostgreSql Logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxy.#ctor(Cosmos.Logging.ILoggingServiceProvider,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxy.#ctor(Cosmos.Logging.ILogger)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxy.IsEnabled(Npgsql.Logging.NpgsqlLogLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxy.Log(Npgsql.Logging.NpgsqlLogLevel,System.Int32,System.String,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxy`1">
+            <summary>
+            Proxy for PostgreSql Logger
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxy`1.#ctor(Cosmos.Logging.ILoggingServiceProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxyProvider">
+            <summary>
+            Proxy provider for PostgreSql Logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxyProvider.#ctor(Cosmos.Logging.ILoggingServiceProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxyProvider.CreateLogger(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.PostgresEnricherConfiguration">
+            <summary>
+            PostgreSql enricher configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.PostgresEnricherConfiguration.IsParameterLoggingEnable">
+            <summary>
+            Is parameter logging enable?
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherConfiguration.PostProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.PostgresEnricherExtensions">
+            <summary>
+            Extensions for PostgreSql enricher
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherExtensions.UsePostgreSql(Cosmos.Logging.DatabaseIntegration,System.Action{Cosmos.Logging.PostgresEnricherOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.PostgresEnricherConfiguration})">
+            <summary>
+            Add PostgreSql support for Cosmos.Logging
+            </summary>
+            <param name="integration"></param>
+            <param name="settingAct"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.PostgresEnricherOptions">
+            <summary>
+            Postgres enricher options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.PostgresEnricherOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.WithParameter(System.Boolean)">
+            <summary>
+            With parameter
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.UseFilter(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Use filter
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

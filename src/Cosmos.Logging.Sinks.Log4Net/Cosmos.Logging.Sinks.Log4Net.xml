@@ -4,5 +4,171 @@
         <name>Cosmos.Logging.Sinks.Log4Net</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.Log4NetSinkConfiguration">
+            <summary>
+            LogNet sink configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Log4NetSinkExtensions">
+            <summary>
+            Extensions for Log4Net sink
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkExtensions.AddLog4Net(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.Log4NetSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.Log4NetSinkConfiguration})">
+            <summary>
+            Add Log4Net support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settingAct"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkExtensions.AddLog4Net(Cosmos.Logging.Core.ILogServiceCollection,Cosmos.Logging.Log4NetSinkOptions,System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.Log4NetSinkConfiguration})">
+            <summary>
+            Add Log4Net support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="sinkOptions"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkExtensions.AddLog4Net(Cosmos.Logging.Core.ILogServiceCollection,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.Log4NetSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.Log4NetSinkConfiguration})">
+            <summary>
+            Add Log4Net support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Log4NetSinkOptions">
+            <summary>
+            Log4Net sink options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Log4NetSinkOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.UseDefaultOriginalConfigFilePath">
+            <summary>
+            Use default original config file path as log4net.config
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.UseDefaultOriginalConfigFilePathAndWatch">
+            <summary>
+            Use default original config file path as log4net.config, and watch
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Cosmos.Logging.Log4NetSinkOptions.NativeConfigFilePath">
+            <summary>
+            Gets or sets native config file path
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Log4NetSinkOptions.WatchNativeConfigFile">
+            <summary>
+            Watch native config file or not.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Log4NetSinkOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Log4Net.Log4NetPayloadClient">
+            <summary>
+            Log4Net payload client
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Log4Net.Log4NetPayloadClient.#ctor(System.String,Cosmos.Logging.Log4NetSinkConfiguration,System.IFormatProvider)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.Log4Net.Log4NetPayloadClient"/>
+            </summary>
+            <param name="name"></param>
+            <param name="sinkConfiguration"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Log4Net.Log4NetPayloadClient.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Log4Net.Log4NetPayloadClient.Level">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Log4Net.Log4NetPayloadClient.WriteAsync(Cosmos.Logging.Core.Payloads.ILogPayload,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Log4Net.Log4NetPayloadClientProvider">
+            <summary>
+            Log4Net payload client provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Log4Net.Log4NetPayloadClientProvider.#ctor(Microsoft.Extensions.Options.IOptions{Cosmos.Logging.Log4NetSinkOptions},Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.Log4Net.Log4NetPayloadClientProvider"/>.
+            </summary>
+            <param name="settings"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Log4Net.Log4NetPayloadClientProvider.GetClient">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Log4Net.RendersLib.Log4NetHelloWorldRenderer">
+            <summary>
+            Log4NetHelloWorldRenderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Log4Net.RendersLib.Log4NetHelloWorldRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Log4Net.RendersLib.Log4NetHelloWorldRenderer.SinkPrefix">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Log4Net.RendersLib.Log4NetHelloWorldRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Log4Net.RendersLib.Log4NetHelloWorldRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Log4Net.RendersLib.Log4NetHelloWorldRenderer.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Log4Net.RendersLib.Log4NetHelloWorldRenderer.ToString">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

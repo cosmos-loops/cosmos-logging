@@ -1,67 +1,128 @@
 <?xml version="1.0"?>
-
 <doc>
     <assembly>
         <name>Cosmos.Logging.Sinks.TencentCloudCls</name>
     </assembly>
     <members>
-        <member name="T:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Abstractions.IHttpClient">
+        <member name="T:Cosmos.Logging.Sinks.TencentCloudCls.Configurations.TencentCloudClsNativeConfig">
             <summary>
-                Interface responsible for posting HTTP requests.
+            Tencent Cloud CLS native config
             </summary>
         </member>
-        <member
-            name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Abstractions.IHttpClient.PostAsync(System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.Configurations.TencentCloudClsNativeConfig.RequestUri">
             <summary>
-                Sends a POST request to the specified Uri as an asynchronous operation.
+            Gets or sets request Uri
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.Configurations.TencentCloudClsNativeConfig.SecretId">
+            <summary>
+            Gets or sets secret id
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.Configurations.TencentCloudClsNativeConfig.SecretKey">
+            <summary>
+            Gets or sets secret key
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.Configurations.TencentCloudClsNativeConfig.TopicId">
+            <summary>
+            Gets or sets topic id
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.Configurations.TencentCloudClsNativeConfig.RequestTimeout">
+            <summary>
+            Gets or sets request timeout, default is 5
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.Configurations.TencentCloudClsNativeConfig.IsGeneralClient">
+            <summary>
+            Is general client or not
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.TencentCloudCls.Configurations.TencentCloudClsNativeConfigWrapper">
+            <summary>
+            Wrapper of Tencent Cloud CLS native config
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.Configurations.TencentCloudClsNativeConfigWrapper.Key">
+            <summary>
+            Gets or sets key
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.Configurations.TencentCloudClsNativeConfigWrapper.IsGeneralClient">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.TencentCloudCls.Core.Abstractions.IHttpClient">
+            <summary>
+            Interface responsible for posting HTTP requests.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Core.Abstractions.IHttpClient.PostAsync(System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+            <summary>
+            Sends a POST request to the specified Uri as an asynchronous operation.
             </summary>
             <param name="requestUri">The Uri the request is sent to.</param>
             <param name="content">The HTTP request content sent to the server.</param>
             <param name="cancellationToken"></param>
             <returns>The task object representing the asynchronous operation.</returns>
         </member>
-        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Authorization.GetAuthorizationString">
+        <member name="T:Cosmos.Logging.Sinks.TencentCloudCls.Core.Authorization">
             <summary>
-                获取请求 Authorization 头部的授权字符串
+            Authorization
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.Core.Authorization.SecretKey">
+            <summary>
+            Gets or sets secret key
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.Core.Authorization.SecretId">
+            <summary>
+            Gets or sets secret id
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Core.Authorization.GetAuthorizationString">
+            <summary>
+            获取请求 Authorization 头部的授权字符串
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Signature.GetHttpRequestInfo(System.String,System.String)">
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Core.Signature.GetHttpRequestInfo(System.String,System.String)">
             <summary>
-
+            
             </summary>
             <param name="method">HTTP 请求使用的方法，小写字母，如 get、post等</param>
             <param name="uri">HTTP 请求的资源名称，不包含 query string 部分，如 /logset</param>
             <returns>HttpRequestInfo</returns>
         </member>
-        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Signature.GetStringToSign(System.String,System.String,System.String)">
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Core.Signature.GetStringToSign(System.String,System.String,System.String)">
             <summary>
-
+            
             </summary>
             <param name="q_sign_algorithm">签名算法，目前仅支持 sha1</param>
             <param name="q_sign_time">签名有效起止时间，Unix时间戳，以秒为单位，;分隔</param>
             <param name="httpRequestInfo">HttpRequestInfo</param>
             <returns></returns>
         </member>
-        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Signature.GetSignKey(System.String,System.String)">
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Core.Signature.GetSignKey(System.String,System.String)">
             <summary>
-
+            
             </summary>
             <param name="q_key_time">Unix时间戳，以秒为单位，;分隔</param>
             <param name="secretKey">腾讯云API的SecretKey</param>
             <returns></returns>
         </member>
-        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Signature.GetSignature(System.String,System.String)">
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Core.Signature.GetSignature(System.String,System.String)">
             <summary>
-                获取签名
+            获取签名
             </summary>
             <param name="stringToSign">StringToSign</param>
             <param name="signKey">SignKey</param>
             <returns></returns>
         </member>
-        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Internals.Signature.GetSignature(System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Core.Signature.GetSignature(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
-                获取签名字符串
+            获取签名字符串
             </summary>
             <param name="method">HTTP 请求使用的方法，小写字母，如 get、post等</param>
             <param name="uri">HTTP 请求的资源名称，不包含 query string 部分，如 /logset</param>
@@ -70,6 +131,212 @@
             <param name="q_key_time">Unix时间戳，以秒为单位，;分隔</param>
             <param name="secretKey">腾讯云API的SecretKey</param>
             <returns>Signature签名字符串</returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.TencentCloudCls.Core.TencentCloudClsClient">
+            <summary>
+            Tencent Cloud CLS core client
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Core.TencentCloudClsClient.#ctor(Cosmos.Logging.Sinks.TencentCloudCls.Core.Authorization,System.TimeSpan)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.TencentCloudCls.Core.TencentCloudClsClient"/>.
+            </summary>
+            <param name="authorization"></param>
+            <param name="timeout"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.Core.TencentCloudClsClient.PostAsync(System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.TencentCloudCls.RendersLib.TencentCloudClsHelloWorldRenderer">
+            <summary>
+            Tencent Cloud CLS hello world renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.RendersLib.TencentCloudClsHelloWorldRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.RendersLib.TencentCloudClsHelloWorldRenderer.SinkPrefix">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.RendersLib.TencentCloudClsHelloWorldRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.RendersLib.TencentCloudClsHelloWorldRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.RendersLib.TencentCloudClsHelloWorldRenderer.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.RendersLib.TencentCloudClsHelloWorldRenderer.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.TencentCloudCls.TencentCloudClsPayloadClient">
+            <summary>
+            Tencent Cloud CLS payload client
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.TencentCloudClsPayloadClient.#ctor(System.String,Cosmos.Logging.TencentCloudClsSinkConfiguration,System.IFormatProvider)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.TencentCloudCls.Core.TencentCloudClsClient"/>.
+            </summary>
+            <param name="name"></param>
+            <param name="sinkConfiguration"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.TencentCloudClsPayloadClient.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TencentCloudCls.TencentCloudClsPayloadClient.Level">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.TencentCloudClsPayloadClient.WriteAsync(Cosmos.Logging.Core.Payloads.ILogPayload,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.TencentCloudCls.TencentCloudClsPayloadClientProvider">
+            <summary>
+            Tencent Cloud CLS payload client provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.TencentCloudClsPayloadClientProvider.#ctor(Microsoft.Extensions.Options.IOptions{Cosmos.Logging.TencentCloudClsSinkOptions},Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.TencentCloudCls.TencentCloudClsPayloadClientProvider"/>.
+            </summary>
+            <param name="settings"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TencentCloudCls.TencentCloudClsPayloadClientProvider.GetClient">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.TencentCloudClsSinkConfiguration">
+            <summary>
+            Tencent Cloud CLS sink configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.TencentCloudClsSinkConfiguration.Client">
+            <summary>
+            Gets or sets Tencent Cloud CLS client
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.TencentCloudClsSinkConfiguration.Clients">
+            <summary>
+            Gets or sets asetof Tencent Cloud CLS clients
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkConfiguration.PostProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.TencentCloudClsSinkExtensions">
+            <summary>
+            Extensions for Tencent Cloud CLS sink
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkExtensions.AddTencentCloudCls(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.TencentCloudClsSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.TencentCloudClsSinkConfiguration})">
+            <summary>
+            Add Tencent Cloud CLS support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settingAct"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkExtensions.AddTencentCloudCls(Cosmos.Logging.Core.ILogServiceCollection,Cosmos.Logging.TencentCloudClsSinkOptions,System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.TencentCloudClsSinkConfiguration})">
+            <summary>
+            Add Tencent Cloud CLS support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="sinkOptions"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkExtensions.AddTencentCloudCls(Cosmos.Logging.Core.ILogServiceCollection,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.TencentCloudClsSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.TencentCloudClsSinkConfiguration})">
+            <summary>
+            Add Tencent Cloud CLS support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.TencentCloudClsSinkOptions">
+            <summary>
+            Tencent Cloud CLS sink options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.TencentCloudClsSinkOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.TencentCloudClsSinkOptions.RequestUri">
+            <summary>
+            Gets or sets request uri
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.TencentCloudClsSinkOptions.SecretId">
+            <summary>
+            Gets or sets secret id
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.TencentCloudClsSinkOptions.SecretKey">
+            <summary>
+            Gets or sets secret key
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.TencentCloudClsSinkOptions.TopicId">
+            <summary>
+            Gets or sets topic id
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.TencentCloudClsSinkOptions.RequestTimeout">
+            <summary>
+            Gets or sets request timeout value, default is 5
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.TencentCloudClsSinkOptions.UseNativeConfig(System.String,System.Action{Cosmos.Logging.Sinks.TencentCloudCls.Configurations.TencentCloudClsNativeConfig})">
+            <summary>
+            Use Tencent Cloud CLS native config
+            </summary>
+            <param name="key"></param>
+            <param name="nativeAct"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="T:TencentCloud.Cls.ClsReflection">
             <summary>Holder for reflection information generated from cls.proto</summary>
@@ -82,7 +349,7 @@
         </member>
         <member name="P:TencentCloud.Cls.Log.Time">
             <summary>
-                时间戳，UNIX时间格式
+            时间戳，UNIX时间格式
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.Log.ContentsFieldNumber">
@@ -90,7 +357,7 @@
         </member>
         <member name="P:TencentCloud.Cls.Log.Contents">
             <summary>
-                一条日志里的多个kv组合
+            一条日志里的多个kv组合
             </summary>
         </member>
         <member name="T:TencentCloud.Cls.Log.Types">
@@ -101,7 +368,7 @@
         </member>
         <member name="P:TencentCloud.Cls.Log.Types.Content.Key">
             <summary>
-                每组字段的 key
+            每组字段的 key
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.Log.Types.Content.ValueFieldNumber">
@@ -109,7 +376,7 @@
         </member>
         <member name="P:TencentCloud.Cls.Log.Types.Content.Value">
             <summary>
-                每组字段的 value
+            每组字段的 value
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.LogGroup.LogsFieldNumber">
@@ -117,7 +384,7 @@
         </member>
         <member name="P:TencentCloud.Cls.LogGroup.Logs">
             <summary>
-                多条日志合成的日志数组
+            多条日志合成的日志数组
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.LogGroup.ContextFlowFieldNumber">
@@ -125,7 +392,7 @@
         </member>
         <member name="P:TencentCloud.Cls.LogGroup.ContextFlow">
             <summary>
-                目前暂无效用
+            目前暂无效用
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.LogGroup.FilenameFieldNumber">
@@ -133,7 +400,7 @@
         </member>
         <member name="P:TencentCloud.Cls.LogGroup.Filename">
             <summary>
-                日志文件名
+            日志文件名
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.LogGroup.SourceFieldNumber">
@@ -141,7 +408,7 @@
         </member>
         <member name="P:TencentCloud.Cls.LogGroup.Source">
             <summary>
-                日志来源，一般使用机器IP
+            日志来源，一般使用机器IP
             </summary>
         </member>
         <member name="F:TencentCloud.Cls.LogGroupList.LogGroupList_FieldNumber">
@@ -149,7 +416,7 @@
         </member>
         <member name="P:TencentCloud.Cls.LogGroupList.LogGroupList_">
             <summary>
-                日志组列表
+            日志组列表
             </summary>
         </member>
     </members>

@@ -4,5 +4,25 @@
         <name>Cosmos.Logging.RunsOn.NancyFX.WithAutofac</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.AutofacNancyPipelineExtensions">
+            <summary>
+            Extensions for NancyFX-Autofac pipeline
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.AutofacNancyPipelineExtensions.RegisterCosmosLogging(Nancy.Bootstrapper.IPipelines,Autofac.ILifetimeScope,System.Action{Cosmos.Logging.Core.ILogServiceCollection})">
+            <summary>
+            Register Cosmos Logging in NancyFX pipeline
+            </summary>
+            <param name="pipelines"></param>
+            <param name="container"></param>
+            <param name="config"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.RunsOn.NancyFX.Core.AutofacNancyLogServiceCollection">
+            <summary>
+            NancyFX-Autofac log service collection
+            </summary>
+        </member>
     </members>
 </doc>

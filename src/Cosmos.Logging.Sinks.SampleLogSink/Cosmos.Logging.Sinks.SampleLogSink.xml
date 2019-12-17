@@ -4,5 +4,140 @@
         <name>Cosmos.Logging.Sinks.SampleLogSink</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.SampleLogConfiguration">
+            <summary>
+            Sample log configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.SampleLogConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleLogConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.SampleLogSinkExtensions">
+            <summary>
+            Extensions for sample log sink
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.SampleLogSinkExtensions.AddSampleLog(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.SampleOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.SampleLogConfiguration})">
+            <summary>
+            Add sample log
+            </summary>
+            <param name="services"></param>
+            <param name="settingAct"></param>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.SampleLogSinkExtensions.AddSampleLog(Cosmos.Logging.Core.ILogServiceCollection,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.SampleOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.SampleLogConfiguration})">
+            <summary>
+            Add sample log
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.SampleOptions">
+            <summary>
+            Sample options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.SampleOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SampleOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.SampleLogSink.RendersLib.SampleHelloWorldRenderer">
+            <summary>
+            SampleHelloWorldRenderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.SampleLogSink.RendersLib.SampleHelloWorldRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.SampleLogSink.RendersLib.SampleHelloWorldRenderer.SinkPrefix">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.SampleLogSink.RendersLib.SampleHelloWorldRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.SampleLogSink.RendersLib.SampleHelloWorldRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.SampleLogSink.RendersLib.SampleHelloWorldRenderer.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.SampleLogSink.RendersLib.SampleHelloWorldRenderer.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.SampleLogSink.SampleLogPayloadClient">
+            <summary>
+            Sample log payload client
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.SampleLogSink.SampleLogPayloadClient.#ctor(System.String,Cosmos.Logging.SampleLogConfiguration,System.IFormatProvider)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.SampleLogSink.SampleLogPayloadClient"/>
+            </summary>
+            <param name="name"></param>
+            <param name="sinkConfiguration"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.SampleLogSink.SampleLogPayloadClient.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.SampleLogSink.SampleLogPayloadClient.Level">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.SampleLogSink.SampleLogPayloadClient.WriteAsync(Cosmos.Logging.Core.Payloads.ILogPayload,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.SampleLogSink.SampleLogPayloadClientProvider">
+            <summary>
+            Sample log payload client provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.SampleLogSink.SampleLogPayloadClientProvider.#ctor(Microsoft.Extensions.Options.IOptions{Cosmos.Logging.SampleOptions},Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.SampleLogSink.SampleLogPayloadClientProvider"/>
+            </summary>
+            <param name="settings"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.SampleLogSink.SampleLogPayloadClientProvider.GetClient">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

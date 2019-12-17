@@ -4,5 +4,19 @@
         <name>Cosmos.Logging.Extensions.NodaTime</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.NodaTimeServicesExtensions">
+            <summary>
+            Extensions for NodaTime
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.NodaTimeServicesExtensions.AddNodaTimeIntegration(Cosmos.Logging.Core.ILogServiceCollection,NodaTime.IDateTimeZoneProvider)">
+            <summary>
+            Add NodaTime integration
+            </summary>
+            <param name="services"></param>
+            <param name="provider"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
     </members>
 </doc>

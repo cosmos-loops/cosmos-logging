@@ -1,7 +1,7 @@
 ﻿using System;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
-using Cosmos.Logging.Extensions.NodaTime.Internals;
+using Cosmos.Logging.Extensions.NodaTime;
 using NodaTime;
 
 namespace Cosmos.Logging {
