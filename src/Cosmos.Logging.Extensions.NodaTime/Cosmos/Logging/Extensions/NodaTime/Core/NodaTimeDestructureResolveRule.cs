@@ -5,18 +5,24 @@ using Cosmos.Logging.Events;
 using NodaTime;
 using NodaTime.Text;
 
-namespace Cosmos.Logging.Extensions.NodaTime.Internals.Core {
+namespace Cosmos.Logging.Extensions.NodaTime.Core {
     internal abstract class NodaTimeDestructureResolveRule<T> : IDestructureResolveRule {
-        protected abstract IPattern<T> Pattern { get; }
-        protected readonly Action<T> Validator;
+
+        private readonly Action<T> _validator;
 
         protected NodaTimeDestructureResolveRule(Action<T> validator = null) {
-            Validator = validator;
+            _validator = validator;
         }
+
+        protected abstract IPattern<T> Pattern { get; }
+
+        protected Action<T> Validator => _validator;
 
         public bool TryResolve(object value, IMessagePropertyValueFactory nest, out MessagePropertyValue result) {
             if (value is T t) {
+
                 Validator?.Invoke(t);
+
                 result = nest.CreatePropertyValue(Pattern.Format(t), PropertyResolvingMode.Default);
                 return true;
             }
