@@ -23,6 +23,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cosmos.Asynchronous;
 
 namespace Cosmos.Logging.Core.Piplelines {
     /// <summary>
@@ -106,15 +107,14 @@ namespace Cosmos.Logging.Core.Piplelines {
             }
         }
 
+        /// <summary>
+        /// WaitForIdle
+        /// </summary>
+        /// <param name="ctoken"></param>
+        /// <returns></returns>
         public Task WaitForIdle(CancellationToken ctoken) {
             if (ctoken.IsCancellationRequested) {
-#if NET451
-                var tcs = new TaskCompletionSource<Task>();
-                tcs.SetException(new OperationCanceledException(ctoken));
-                return tcs.Task;
-#else
-                return Task.FromException<bool>(new OperationCanceledException(ctoken));
-#endif
+                return Tasks.FromException<bool>(new OperationCanceledException(ctoken));
             }
             else {
                 lock (syncRoot) {

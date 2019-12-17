@@ -7,6 +7,9 @@ namespace Cosmos.Logging.Configurations {
     /// Interface for logging sink options
     /// </summary>
     public interface ILoggingSinkOptions {
+        /// <summary>
+        /// Key
+        /// </summary>
         string Key { get; }
 
         /// <summary>

@@ -35,7 +35,7 @@ namespace Cosmos.Logging.Core.ObjectResolving.Extensions {
 
         /// <summary>
         /// One copy from serilog
-        /// Author: tsimbalar & nblumhardt
+        /// Author: tsimbalar and nblumhardt
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>

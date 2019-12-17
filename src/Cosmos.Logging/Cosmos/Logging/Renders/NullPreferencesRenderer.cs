@@ -16,6 +16,9 @@ namespace Cosmos.Logging.Renders {
             NullPreferencesRendererCache = new NullPreferencesRenderer();
         }
 
+        /// <summary>
+        /// Gets an instance of <see cref="NullPreferencesRenderer"/>
+        /// </summary>
         public static NullPreferencesRenderer Instance => NullPreferencesRendererCache;
 
         /// <inheritdoc />
