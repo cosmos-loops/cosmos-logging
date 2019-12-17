@@ -4,5 +4,1795 @@
         <name>Cosmos.Logging.Extensions.Microsoft</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.CosmosLoggerFactoryExtensions">
+            <summary>
+            Extensions for Cosmos logger factory
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.CosmosLoggerFactoryExtensions.AddCosmos(Microsoft.Extensions.Logging.ILoggerFactory,Cosmos.Logging.ILoggingServiceProvider)">
+            <summary>
+            Add Cosmos support
+            </summary>
+            <param name="factory"></param>
+            <param name="loggingServiceProvider"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Microsoft.Core.CosmosFutureLoggerProxy">
+            <summary>
+            Proxy for Cosmos future logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.CosmosFutureLoggerProxy.#ctor(Cosmos.Logging.ILogger,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Microsoft.Core.CosmosLoggerProxy">
+            <summary>
+            Proxy for CosmosLogger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.CosmosLoggerProxy.#ctor(System.Type,Cosmos.Logging.Events.LogEventLevel,System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,Cosmos.Logging.Core.Payloads.ILogPayloadSender)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.CosmosLoggerProxy.ToFuture(System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.CosmosLoggerProxy.ToSimple">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Microsoft.Core.CosmosSimpleLoggerProxy">
+            <summary>
+            Proxy for Cosmos simple logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.CosmosSimpleLoggerProxy.#ctor(System.Type,Cosmos.Logging.Events.LogEventLevel,System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Core.Payloads.ILogPayloadSender)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Microsoft.Core.LogEventIdConvert">
+            <summary>
+            LogEventId convert
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection">
+            <summary>
+            Standard log service collection
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.BeGivenConfigurationBuilder">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.BeGivenConfigurationRoot">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.ExposeServices">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.ExposeLogSettings">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.ExposeLoggingConfiguration">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.ReplaceSettings(Cosmos.Logging.Configurations.ILoggingOptions)">
+            <summary>
+            Replace settings
+            </summary>
+            <param name="newSettings"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.AddDependency(System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.AddEnricher(System.Func{Cosmos.Logging.Core.Enrichers.ILogEventEnricher})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.AddSinkSettings``2(``0,System.Action{Microsoft.Extensions.Configuration.IConfiguration,``1})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.AddExtraSinkSettings``2(``0,System.Action{Microsoft.Extensions.Configuration.IConfiguration,``1,Cosmos.Logging.LoggingConfiguration})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.AddOriginalConfigAction(System.Action{Microsoft.Extensions.Configuration.IConfiguration})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.ModifyConfigurationBuilder(System.Action{Cosmos.Logging.Configurations.LoggingConfigurationBuilder})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection.PreheatMessageTemplates(System.Action{Cosmos.Logging.MessageTemplates.MessageTemplateCachePreheater})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Microsoft.Core.StaticServiceResolveInitialization">
+            <summary>
+            Static service resolve initialization
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper">
+            <summary>
+            Microsoft Logger Wrapper
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper._logger">
+            <summary>
+            Logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper.#ctor(Cosmos.Logging.ILoggingServiceProvider,System.String)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper"/>
+            </summary>
+            <param name="loggerServiceProvider"></param>
+            <param name="categoryName"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper.#ctor(Cosmos.Logging.ILogger)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper"/>
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper.BeginScope``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper`1">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper`1.#ctor(Cosmos.Logging.ILoggingServiceProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapperProvider">
+            <summary>
+            Microsoft Logging Wrapper Provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapperProvider.#ctor(Cosmos.Logging.ILoggingServiceProvider)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapperProvider"/>.
+            </summary>
+            <param name="loggingServiceProvider"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapperProvider.#ctor(Cosmos.Logging.ILoggingServiceProvider,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapperProvider"/>.
+            </summary>
+            <param name="loggingServiceProvider"></param>
+            <param name="filter"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapperProvider.#ctor(Cosmos.Logging.ILoggingServiceProvider,System.Func{System.String,Microsoft.Extensions.Logging.LogLevel,System.Boolean})">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapperProvider"/>.
+            </summary>
+            <param name="loggingServiceProvider"></param>
+            <param name="filter"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapperProvider.CreateLogger(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapperProvider.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider">
+            <summary>
+            Microsoft Logging Service Provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.#ctor(System.IServiceProvider,Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider"/>.
+            </summary>
+            <param name="provider"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger(System.String,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger(System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger(System.String,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger(System.String,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger(System.Type,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger(System.Type,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger``1(Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger``1(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger``1(Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger``1(Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger(System.String,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger(System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger(System.String,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger(System.String,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger(System.Type,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger(System.Type,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger``1(Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger``1(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger``1(Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger``1(Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.LoggingBuilderExtensions">
+            <summary>
+            Extensions for logging builder
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.LoggingBuilderExtensions.AddCosmosLogging(Microsoft.Extensions.Logging.ILoggingBuilder,System.Action{Cosmos.Logging.Core.ILogServiceCollection})">
+            <summary>
+            Add Cosmos Logging
+            </summary>
+            <param name="builder"></param>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LoggingBuilderExtensions.AddCosmosLogging(Microsoft.Extensions.Logging.ILoggingBuilder,Microsoft.Extensions.Configuration.IConfigurationRoot,System.Action{Cosmos.Logging.Core.ILogServiceCollection})">
+            <summary>
+            Add Cosmos Logging
+            </summary>
+            <param name="builder"></param>
+            <param name="root"></param>
+            <param name="config"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose(Microsoft.Extensions.Logging.ILogger,System.String,System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.String)">
+            <summary>
+            
+            </summary>Log verbose
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose(Microsoft.Extensions.Logging.ILogger,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.String,System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log bugs
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,System.String,System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal(Microsoft.Extensions.Logging.ILogger,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``1(Microsoft.Extensions.Logging.ILogger,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``2(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``3(Microsoft.Extensions.Logging.ILogger,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``1(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``2(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal``3(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <typeparam name="T3"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogFatal(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="args"></param>
+            <param name="contextAct"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
     </members>
 </doc>

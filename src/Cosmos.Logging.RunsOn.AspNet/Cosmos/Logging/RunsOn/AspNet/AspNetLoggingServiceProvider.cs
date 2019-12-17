@@ -19,8 +19,12 @@ namespace Cosmos.Logging.RunsOn.AspNet {
         private readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
         private readonly LoggingConfiguration _loggingConfiguration;
 
-        /// <inheritdoc />
-        public AspNetLoggingServiceProvider(IEnumerable<ILogPayloadClientProvider> logPayloadClientProviders, LoggingConfiguration loggingConfiguration) {
+       /// <summary>
+       /// Create a new instance of <see cref="AspNetLoggingServiceProvider"/>.
+       /// </summary>
+       /// <param name="logPayloadClientProviders"></param>
+       /// <param name="loggingConfiguration"></param>
+       public AspNetLoggingServiceProvider(IEnumerable<ILogPayloadClientProvider> logPayloadClientProviders, LoggingConfiguration loggingConfiguration) {
             _logPayloadClientProviders = logPayloadClientProviders ?? Enumerable.Empty<ILogPayloadClientProvider>();
             _loggingConfiguration = loggingConfiguration ?? throw new ArgumentNullException(nameof(loggingConfiguration));
         }

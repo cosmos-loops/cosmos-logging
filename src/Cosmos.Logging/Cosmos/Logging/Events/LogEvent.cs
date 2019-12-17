@@ -45,6 +45,7 @@ namespace Cosmos.Logging.Events {
         /// <param name="logEventContext"></param>
         /// <param name="contextData"></param>
         /// <param name="messageProcessorShortcut"></param>
+        /// <param name="fromSimpleLogger"></param>
         /// <exception cref="ArgumentNullException"></exception>
         public LogEvent(
             string stateNamespace,
@@ -59,7 +60,8 @@ namespace Cosmos.Logging.Events {
             Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> positionalMessageProperties,
             LogEventContext logEventContext,
             ContextData contextData = null,
-            IShortcutPropertyFactory messageProcessorShortcut = null) {
+            IShortcutPropertyFactory messageProcessorShortcut = null,
+            bool fromSimpleLogger = false) {
 
             if (namedMessageProperties == null) throw new ArgumentNullException(nameof(namedMessageProperties));
             if (positionalMessageProperties == null) throw new ArgumentNullException(nameof(positionalMessageProperties));
@@ -69,6 +71,7 @@ namespace Cosmos.Logging.Events {
             Level = level;
             Exception = exception;
             SendMode = sendMode;
+            FromSimpleLogger = fromSimpleLogger;
             CallerInfo = callerInfo;
             MessageTemplate = messageTemplate ?? throw new ArgumentNullException(nameof(messageTemplate));
             _logEventContext = logEventContext ?? new LogEventContext();
@@ -102,6 +105,11 @@ namespace Cosmos.Logging.Events {
 
         /// <inheritdoc />
         public LogEventSendMode SendMode { get; }
+
+        /// <summary>
+        /// TO flag this log event emitted from a simple logger
+        /// </summary>
+        internal bool FromSimpleLogger { get; }
 
         /// <inheritdoc />
         public Exception Exception { get; }

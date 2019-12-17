@@ -12,6 +12,7 @@ using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Filters.Internals;
 using Cosmos.Logging.Future;
+using Cosmos.Logging.Simple;
 
 namespace Cosmos.Logging {
     /// <summary>
@@ -63,14 +64,17 @@ namespace Cosmos.Logging {
         /// State namespace
         /// </summary>
         public string StateNamespace { get; }
+
         /// <summary>
         /// Target type
         /// </summary>
         public Type TargetType { get; }
+
         /// <summary>
         /// Minimum log event level
         /// </summary>
         public LogEventLevel MinimumLevel { get; }
+
         /// <summary>
         /// Send mode
         /// </summary>
@@ -105,6 +109,16 @@ namespace Cosmos.Logging {
         protected bool IsManuallySendMode(LogEvent logEvent) => IsManuallySendMode(logEvent?.SendMode ?? LogEventSendMode.Customize);
 
         /// <summary>
+        /// To expose log event level filter for implementation of LoggerBase
+        /// </summary>
+        protected Func<string, LogEventLevel, bool> ExposeFilter() => _filter;
+
+        /// <summary>
+        /// To expose log payload sender for implementation of LoggerBase
+        /// </summary>
+        protected ILogPayloadSender ExposeLogPayloadSender() => _logPayloadSender;
+        
+        /// <summary>
         /// Write
         /// </summary>
         /// <param name="eventId"></param>
@@ -122,7 +136,8 @@ namespace Cosmos.Logging {
             var cleanMessageTemplateParameters = ArgsHelper.CleanUp(messageTemplateParameters);
             if (IsManuallySendMode(sendMode)) {
                 ParseAndInsertLogEvenDescriptorManually(eventId ?? new LogEventId(), level, exception, messageTemplate, callerInfo, context, cleanMessageTemplateParameters);
-            } else {
+            }
+            else {
                 ParseAndInsertLogEventIntoQueueAutomatically(eventId ?? new LogEventId(), level, exception, messageTemplate, callerInfo, context, cleanMessageTemplateParameters);
             }
         }
@@ -156,9 +171,10 @@ namespace Cosmos.Logging {
         protected virtual void Dispatch(LogEvent logEvent) {
             if (IsManuallySendMode(logEvent)) {
                 ManuallyPayload.Add(logEvent);
-            } else {
+            }
+            else {
                 AutomaticPayload.Add(logEvent);
-                AutomaticalSubmitLoggerByPipleline();
+                AutomaticSubmitLoggerByPipeline();
             }
         }
 
@@ -185,6 +201,9 @@ namespace Cosmos.Logging {
 
         /// <inheritdoc />
         public abstract IFutureLogger ToFuture([CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0);
+
+        /// <inheritdoc />
+        public abstract ISimpleLogger ToSimple();
 
         #region Dispose
 

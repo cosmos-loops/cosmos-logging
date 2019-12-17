@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Callers;
-using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Core.Piplelines;
 using Cosmos.Logging.Events;
@@ -23,7 +22,7 @@ namespace Cosmos.Logging {
 
         private readonly AsyncQueue<LogEvent> _automaticAsyncQueue = new AsyncQueue<LogEvent>(100);
 
-        private void AutomaticalSubmitLoggerByPipleline() => LogPayloadEmitter.Emit(_logPayloadSender, AutomaticPayload.Export());
+        private void AutomaticSubmitLoggerByPipeline() => LogPayloadEmitter.Emit(_logPayloadSender, AutomaticPayload.Export());
 
         private void ParseAndInsertLogEventIntoQueueAutomatically(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate,
             ILogCallerInfo callerInfo, LogEventContext context = null, params object[] messageTemplateParameters) {
@@ -118,7 +117,7 @@ namespace Cosmos.Logging {
         private readonly ConcurrentDictionary<long, List<ManuallyLogEventDescriptor>> _manuallyLogEventDescriptors =
             new ConcurrentDictionary<long, List<ManuallyLogEventDescriptor>>();
 
-        private void ManuallySubmitLoggerByPipleline() => LogPayloadEmitter.Emit(_logPayloadSender, ManuallyPayload.Export());
+        private void ManuallySubmitLoggerByPipeline() => LogPayloadEmitter.Emit(_logPayloadSender, ManuallyPayload.Export());
 
         private void SubmitLogEventsManually(IDisposable disposableAction) {
             var currentManuallyTransId = CurrentManuallyTransId;
@@ -130,7 +129,7 @@ namespace Cosmos.Logging {
                                 LogEventSendMode.Manually, descriptor.CallerInfo, descriptor.Context, descriptor.MessageTemplateParameters);
                         }
 
-                        ManuallySubmitLoggerByPipleline();
+                        ManuallySubmitLoggerByPipeline();
                     });
                 }
             }

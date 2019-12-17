@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
+using Cosmos.Logging.Simple;
 
 namespace Cosmos.Logging {
     /// <summary>
@@ -27,7 +28,7 @@ namespace Cosmos.Logging {
         bool IsEnabled(LogEventLevel level);
 
         /// <summary>
-        /// Begin scop
+        /// Begin a new scope
         /// </summary>
         /// <param name="state"></param>
         /// <typeparam name="TState"></typeparam>
@@ -74,5 +75,11 @@ namespace Cosmos.Logging {
         /// <param name="lineNumber"></param>
         /// <returns></returns>
         IFutureLogger ToFuture([CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0);
+
+        /// <summary>
+        /// To simple logger
+        /// </summary>
+        /// <returns></returns>
+        ISimpleLogger ToSimple();
     }
 }

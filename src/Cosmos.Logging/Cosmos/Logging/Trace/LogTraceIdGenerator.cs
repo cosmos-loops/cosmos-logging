@@ -22,6 +22,6 @@ namespace Cosmos.Logging.Trace {
         /// <summary>
         /// Gets current trace id generator
         /// </summary>
-        public static ILogTraceIdGenerator Current => _currentTraceIdGenerator.Value;
+        public static ILogTraceIdGenerator Current => _currentTraceIdGenerator.Value ?? SystemTraceIdGenerator.Fallback;
     }
 }

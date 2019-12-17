@@ -6,6 +6,7 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
+using Cosmos.Logging.Simple;
 
 namespace Cosmos.Logging.RunsOn.AspNet {
     /// <summary>
@@ -31,6 +32,11 @@ namespace Cosmos.Logging.RunsOn.AspNet {
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             return new AspNetFutureLogger(this, memberName, filePath, lineNumber);
+        }
+
+        /// <inheritdoc />
+        public override ISimpleLogger ToSimple() {
+            return new AspNetSimpleLogger(TargetType, MinimumLevel, StateNamespace, ExposeFilter(), ExposeLogPayloadSender());
         }
 
 #pragma warning disable 1066,4024,4025,4026

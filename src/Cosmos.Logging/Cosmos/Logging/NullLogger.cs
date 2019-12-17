@@ -3,12 +3,13 @@ using System.Runtime.CompilerServices;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
+using Cosmos.Logging.Simple;
 
 namespace Cosmos.Logging {
     /// <summary>
     /// Null logger
     /// </summary>
-    public class NullLogger : ILogger {
+    public sealed class NullLogger : ILogger {
         private static readonly NullLogger NullLoggerCache;
 
         static NullLogger() {
@@ -1122,5 +1123,8 @@ namespace Cosmos.Logging {
 
         /// <inheritdoc />
         public IFutureLogger ToFuture([CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0) => null;
+
+        /// <inheritdoc />
+        public ISimpleLogger ToSimple() => NullSimpleLogger.Instance;
     }
 }

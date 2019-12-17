@@ -23,5 +23,13 @@ namespace Cosmos.Logging.Trace {
         public string Create() {
             return _accessor?.GetTraceId() ?? _fallback.GetTraceId();
         }
+
+        // ReSharper disable once InconsistentNaming
+        private static readonly SystemTraceIdGenerator _fallbackTraceIdGenerator = new SystemTraceIdGenerator(null, new FallbackTraceIdAccessor());
+
+        /// <summary>
+        /// Fallback log trace id generator
+        /// </summary>
+        internal static ILogTraceIdGenerator Fallback => _fallbackTraceIdGenerator;
     }
 }

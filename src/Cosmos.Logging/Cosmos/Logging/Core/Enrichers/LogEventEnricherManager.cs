@@ -25,6 +25,11 @@ namespace Cosmos.Logging.Core.Enrichers {
         public static void Enricher(LogEvent logEvent) {
             if (logEvent is null)
                 throw new ArgumentNullException(nameof(logEvent));
+            
+            //If this log event emitted from a simple log, it seems that do not need enrich any more,
+            //so, return is a good choice.
+            if(logEvent.FromSimpleLogger)
+                return;
 
             if (_enrichers is null || !_enrichers.Any())
                 return;

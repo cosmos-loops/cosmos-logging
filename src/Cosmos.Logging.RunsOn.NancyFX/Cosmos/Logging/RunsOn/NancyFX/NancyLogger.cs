@@ -5,6 +5,7 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
+using Cosmos.Logging.Simple;
 
 namespace Cosmos.Logging.RunsOn.NancyFX {
     /// <summary>
@@ -25,6 +26,12 @@ namespace Cosmos.Logging.RunsOn.NancyFX {
             [CallerLineNumber] int lineNumber = 0) {
             return new NancyFutureLogger(this, memberName, filePath, lineNumber);
         }
+
+        /// <inheritdoc />
+        public override ISimpleLogger ToSimple() {
+            return new NancySimpleLogger(TargetType, MinimumLevel, StateNamespace, ExposeFilter(), ExposeLogPayloadSender());
+        }
+
 #pragma warning disable 1066,4024,4025,4026
         NancyFutureLogger IFutureableLogger<NancyFutureLogger>.ToFuture(
             [CallerMemberName] string memberName = null,
