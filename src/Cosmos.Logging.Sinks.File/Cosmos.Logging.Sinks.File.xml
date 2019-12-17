@@ -4,5 +4,1333 @@
         <name>Cosmos.Logging.Sinks.File</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.FileSinkLogConfiguration">
+            <summary>
+            File sink configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkLogConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.FileSinkLogConfiguration.OutputRules">
+            <summary>
+            Output rules
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.FileSinkLogConfiguration.BasePath">
+            <summary>
+            Base path
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkLogConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.FileSinkOptions">
+            <summary>
+            File sink options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.FileSinkOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.SetDefaultOutputTemplate(System.String)">
+            <summary>
+            Set default output template
+            </summary>
+            <param name="template"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.FileSinkOptions.AddStrategy(System.String,System.String,Cosmos.Logging.Sinks.File.PathType,System.Nullable{System.TimeSpan},Cosmos.Logging.RollingInterval,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Add file strategy
+            </summary>
+            <param name="strategyName"></param>
+            <param name="fileName"></param>
+            <param name="pathType"></param>
+            <param name="flushToDiskInterval"></param>
+            <param name="rollingInterval"></param>
+            <param name="namespaceList"></param>
+            <param name="outputTemplate"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.LocalFileLogSinkExtensions">
+            <summary>
+            Extensions for local file log sink
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.LocalFileLogSinkExtensions.AddFilelog(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.FileSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.FileSinkLogConfiguration})">
+            <summary>
+            Add file log for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settingAct"></param>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LocalFileLogSinkExtensions.AddFilelog(Cosmos.Logging.Core.ILogServiceCollection,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.FileSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.FileSinkLogConfiguration})">
+            <summary>
+            Add file log for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.RollingInterval">
+            <summary>
+            Rolling interval
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.RollingInterval.Infinite">
+            <summary>
+            Infinite
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.RollingInterval.Year">
+            <summary>
+            Year
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.RollingInterval.Month">
+            <summary>
+            Month
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.RollingInterval.Day">
+            <summary>
+            Day
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.RollingInterval.Hour">
+            <summary>
+            Hour
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.RollingInterval.Minute">
+            <summary>
+            Minute
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Configurations.OutputConfiguration">
+            <summary>
+            Output configuration
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Configurations.OutputOptions">
+            <summary>
+            Output options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Configurations.OutputOptions.Path">
+            <summary>
+            Gets or sets path
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Configurations.OutputOptions.PathType">
+            <summary>
+            Gets or sets path type
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Configurations.OutputOptions.Template">
+            <summary>
+            Gets or sets template
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Configurations.OutputOptions.Navigators">
+            <summary>
+            Gets or sets navigators
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Configurations.OutputOptions.FlushToDiskInterval">
+            <summary>
+            Gets or sets flush to disk interval value
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Configurations.OutputOptions.Rolling">
+            <summary>
+            Gets or sets rolling interval value
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronaut">
+            <summary>
+            File astronaut
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronaut.#ctor(System.String,System.Nullable{System.Int64},System.Text.Encoding,System.Boolean)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronaut"/>.
+            </summary>
+            <param name="path"></param>
+            <param name="fileSizeLimitBytes"></param>
+            <param name="encoding"></param>
+            <param name="buffered"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronaut.FlushToDisk">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronaut.CloseFile">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronaut.Save(System.Text.StringBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronaut.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Core.Astronauts.PeriodicAstronaut">
+            <summary>
+            Periodic astronzut
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.PeriodicAstronaut.#ctor(Cosmos.Logging.Sinks.File.Core.Astronauts.IAstronaut,System.TimeSpan)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.Core.Astronauts.PeriodicAstronaut"/>.
+            </summary>
+            <param name="astronaut"></param>
+            <param name="flushInterval"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.PeriodicAstronaut.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.PeriodicAstronaut.Save(System.Text.StringBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronautCache">
+            <summary>
+            File astronaut cache
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronautCache.#ctor">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronautCache"/>.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronautCache.TryGetFileAstronaut(Cosmos.Logging.Sinks.File.Strategies.SavingStrategy,System.String,Cosmos.Logging.Sinks.File.Core.Astronauts.IAstronaut@)">
+            <summary>
+            Try get file astronaut
+            </summary>
+            <param name="strategy"></param>
+            <param name="givenPath"></param>
+            <param name="fileAstronaut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronautRemover">
+            <summary>
+            File astronaut remover
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Core.Astronauts.IAstronaut">
+            <summary>
+            Interface for Astronaut
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.IAstronaut.Save(System.Text.StringBuilder)">
+            <summary>
+            Save
+            </summary>
+            <param name="stringBuilder"></param>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Core.Astronauts.IFlushableAstronaut">
+            <summary>
+            Interface for flushable astronaut
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.IFlushableAstronaut.FlushToDisk">
+            <summary>
+            Flush to disk
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.IFlushableAstronaut.CloseFile">
+            <summary>
+            Close file
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Core.IFileSinkNamespaceNavigationMatcher">
+            <summary>
+            Interface for sink sink namespace navigation matcher
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.IFileSinkNamespaceNavigationMatcher.Match(System.String,System.Collections.Generic.IEnumerable{Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode}@)">
+            <summary>
+            Match
+            </summary>
+            <param name="namespace"></param>
+            <param name="valueList"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Core.IFileSinkNamespaceNavigationParser">
+            <summary>
+            Interface for file sink namespace navigation parser
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.IFileSinkNamespaceNavigationParser.Parse(System.String,Cosmos.Logging.Sinks.File.Configurations.OutputOptions,Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode@)">
+            <summary>
+            Parse
+            </summary>
+            <param name="basePath"></param>
+            <param name="options"></param>
+            <param name="endValueNode"></param>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream">
+            <summary>
+            Size limited stream
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.#ctor(System.IO.Stream)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.CountedLength">
+            <summary>
+            Gets counted lenfth
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.Flush">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.CanRead">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.CanSeek">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.CanWrite">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.Length">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.Position">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.SetLength(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.SizeLimitedStream.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.FileStrategy">
+            <summary>
+            File strategy
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.FileStrategy.#ctor(System.String,Cosmos.Logging.Sinks.File.PathType,Cosmos.Logging.RollingInterval,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.LocalFileLogPayloadClient"/>
+            </summary>
+            <param name="fileName"></param>
+            <param name="pathType"></param>
+            <param name="interval"></param>
+            <param name="namespaceList"></param>
+            <param name="outputTemplate"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.FileStrategy.FileName">
+            <summary>
+            Gets file name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.FileStrategy.PathType">
+            <summary>
+            Gets path type
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.FileStrategy.RollingInterval">
+            <summary>
+            Gets rolling interval
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.FileStrategy.NamespaceList">
+            <summary>
+            Gets namespace list
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.FileStrategy.OutputTemplate">
+            <summary>
+            Gets output template
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigationParser">
+            <summary>
+            Namespace navigation parser
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigationParser.Parse(System.String,Cosmos.Logging.Sinks.File.Configurations.OutputOptions,Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode@)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode">
+            <summary>
+            Empty namespace navifation node
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode.GetNextNav(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode.GetParentNav">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode.GetNextNavs">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode.GetValues">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode.AppendValue(Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode.AppendValue(System.Collections.Generic.IEnumerable{Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode.HasNextNav">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode.HasParentNav">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode.HasValues">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode.AddChild(Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigator)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode">
+            <summary>
+            End value namespace navigation node
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.#ctor(Cosmos.Logging.Sinks.File.Strategies.SavingStrategy)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.SavingStrategy">
+            <summary>
+            Gets saving strategy
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.GetNextNav(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.GetParentNav">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.GetNextNavs">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.GetValues">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.AppendValue(Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.AppendValue(System.Collections.Generic.IEnumerable{Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.HasNextNav">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.HasParentNav">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.HasValues">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.AddChild(Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigator)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Filters.Navigators.RootNamespaceNavigation">
+            <summary>
+            Root namespace navigation
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.RootNamespaceNavigation.HasDefaultValue">
+            <summary>
+            has default value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.RootNamespaceNavigation.HasAllValue">
+            <summary>
+            Has all value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.RootNamespaceNavigation.SetDefaultNavValue(Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode)">
+            <summary>
+            Set default navigation node value
+            </summary>
+            <param name="value"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.RootNamespaceNavigation.GetDefaultValues">
+            <summary>
+            Gets default navigation node value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.RootNamespaceNavigation.SetAllNavValue(Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode)">
+            <summary>
+            Set to all navigation node
+            </summary>
+            <param name="value"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.RootNamespaceNavigation.GetStarValues">
+            <summary>
+            Get star navigation values
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.RootNamespaceNavigation.SetFirstLevelNavValue(System.String,Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode)">
+            <summary>
+            Set first level navigation value
+            </summary>
+            <param name="namespace"></param>
+            <param name="value"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.RootNamespaceNavigation.GetFirstLevelNavValues(System.String)">
+            <summary>
+            Get first level navigation values
+            </summary>
+            <param name="namespace"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.RootNamespaceNavigation.GetFirstLevelNavNode(System.String)">
+            <summary>
+            Get first level navigation node
+            </summary>
+            <param name="namespaceFragment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.RootNamespaceNavigation.SetFluentLinkedNavValue(System.String,Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode)">
+            <summary>
+            Set fluent linked navigation value
+            </summary>
+            <param name="namespace"></param>
+            <param name="value"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigatorCache">
+            <summary>
+            Namespace navigator cache
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigatorCache.#ctor(Cosmos.Logging.Sinks.File.Core.IFileSinkNamespaceNavigationParser)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigatorCache"/>
+            </summary>
+            <param name="namespaceNavigationParser"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigatorCache.Parse(System.String,Cosmos.Logging.Sinks.File.Configurations.OutputOptions,Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigatorCache.Match(System.String,System.Collections.Generic.IEnumerable{Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode}@)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigatorCache.Root">
+            <summary>
+            Gets root node
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Formatings.Helpers.CallerInfoHelper">
+            <summary>
+            Caller info helper
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Formatings.Helpers.CallerInfoHelper.Format">
+            <summary>
+            Format
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Formatings.Helpers.CasingHelper">
+            <summary>
+            Casing helper
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Formatings.Helpers.CasingHelper.Format">
+            <summary>
+            Format
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Formatings.Helpers.EventInfoHelper">
+            <summary>
+            Event info helper
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Formatings.Helpers.EventInfoHelper.Format">
+            <summary>
+            Format
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Formatings.Helpers.PaddingHelper">
+            <summary>
+            Padding helper
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Formatings.Helpers.PaddingHelper.Format">
+            <summary>
+            Format
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Formatings.OutputFormatCommandFactory">
+            <summary>
+            Output format command factory
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.LocalFileLogPayloadClient">
+            <summary>
+            Local file log payload client
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.LocalFileLogPayloadClient.#ctor(System.String,Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronautCache,Cosmos.Logging.FileSinkLogConfiguration,System.IFormatProvider)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.LocalFileLogPayloadClient"/>
+            </summary>
+            <param name="name"></param>
+            <param name="fileAstronautCache"></param>
+            <param name="sinkConfiguration"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.LocalFileLogPayloadClient.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.LocalFileLogPayloadClient.Level">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.LocalFileLogPayloadClient.WriteAsync(Cosmos.Logging.Core.Payloads.ILogPayload,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.LocalFileLogPayloadClientProvider">
+            <summary>
+            Local file log payload client provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.LocalFileLogPayloadClientProvider.#ctor(Microsoft.Extensions.Options.IOptions{Cosmos.Logging.FileSinkOptions},Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.LocalFileLogPayloadClientProvider"/>.
+            </summary>
+            <param name="settings"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.LocalFileLogPayloadClientProvider.GetClient">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.OutputTemplates.IOutputTemplateParser">
+            <summary>
+            Interface for output template parser
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.IOutputTemplateParser.Parse(System.String)">
+            <summary>
+            Parse
+            </summary>
+            <param name="outputTemplate"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken">
+            <summary>
+            Output message token
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.RawText">
+            <summary>
+            Raw text
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.Index">
+            <summary>
+            Index
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.RawTokenLength">
+            <summary>
+            Raw token length
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.TokenLength">
+            <summary>
+            Token length
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.StartPosition">
+            <summary>
+            Start position
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.TokenString">
+            <summary>
+            Token string
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.#ctor(System.String,System.Int32,System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.#ctor(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken"/>.
+            </summary>
+            <param name="originText"></param>
+            <param name="tokenString"></param>
+            <param name="index"></param>
+            <param name="position"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.StringBuilder">
+            <summary>
+            Gets string builder
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.GetStringBuilder">
+            <summary>
+            Gets string builder
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.GetChars">
+            <summary>
+            Get chars
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.TokenRendererType">
+            <summary>
+            Gets token renderer type
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.ToText">
+            <summary>
+            To text
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.ToRawText">
+            <summary>
+            To raw text
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken.Render">
+            <summary>
+            Render
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken">
+            <summary>
+            Property output message token
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.RawFormatText">
+            <summary>
+            Raw format text
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.RawParamsText">
+            <summary>
+            Raw params text
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.ParamsFlagMode">
+            <summary>
+            Params flag mode
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.FormatEvents">
+            <summary>
+            Format events
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.#ctor(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.Format">
+            <summary>
+            Format
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.Params">
+            <summary>
+            Params
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.TokenRendererType">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.ToText">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.PropertyOutputMessageToken.Render">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.OutputTemplates.TextOutputMessageToken">
+            <summary>
+            Text output message token
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.TextOutputMessageToken.#ctor(System.String,System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.OutputTemplates.TextOutputMessageToken.TokenRendererType">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.TextOutputMessageToken.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.TextOutputMessageToken.ToText">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.TextOutputMessageToken.Render">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplate">
+            <summary>
+            Output template
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplate.Empty">
+            <summary>
+            Get empty output template
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplate.#ctor(System.Collections.Generic.IEnumerable{Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplate.#ctor(System.String,System.Collections.Generic.IEnumerable{Cosmos.Logging.Sinks.File.OutputTemplates.OutputMessageToken})">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplate"/>
+            </summary>
+            <param name="originOutputTemplate"></param>
+            <param name="tokens"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplate.Tokens">
+            <summary>
+            Gets tokens
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplate.Text">
+            <summary>
+            Gets text
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplate.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplateCache">
+            <summary>
+            Output template cache
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplateCache.#ctor(Cosmos.Logging.Sinks.File.OutputTemplates.IOutputTemplateParser)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplateCache"/>
+            </summary>
+            <param name="outputTemplateParser"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplateCache.Parse(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplateParser">
+            <summary>
+            Output template parser
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplateParser.Parse(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplateRenderer">
+            <summary>
+            Output template renderer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplateRenderer.Render(Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplate,System.IO.TextWriter,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.String,System.IFormatProvider)">
+            <summary>
+            Render
+            </summary>
+            <param name="outputTemplate"></param>
+            <param name="output"></param>
+            <param name="logEvent"></param>
+            <param name="targetMessageBuilder"></param>
+            <param name="format"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.PathType">
+            <summary>
+            Path type
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.PathType.Absolute">
+            <summary>
+            Absolute path
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Sinks.File.PathType.Relative">
+            <summary>
+            Relative path
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.BasicOutputPreferencesRenderer">
+            <summary>
+            Basic output preferences renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.BasicOutputPreferencesRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.BasicOutputPreferencesRenderer.IsNull">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.BasicOutputPreferencesRenderer.ToString(System.String,System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.BasicOutputPreferencesRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.BasicOutputPreferencesRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.BasicOutputPreferencesRenderer.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.BasicOutputPreferencesRenderer.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.BasicOutputPreferencesRenderer.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.InternalRendererActivation">
+            <summary>
+            Internal renderer activation
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.InternalRendererActivation.Action">
+            <summary>
+            Action
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.IOutputPreferencesRenderer">
+            <summary>
+            Interface for output preferences renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.IOutputPreferencesRenderer.Name">
+            <summary>
+            Gets name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.IOutputPreferencesRenderer.IsNull">
+            <summary>
+            Gets is null or not.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.IOutputPreferencesRenderer.ToString(System.String,System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <summary>
+            To string
+            </summary>
+            <param name="format"></param>
+            <param name="paramsText"></param>
+            <param name="logEvent"></param>
+            <param name="targetMessageBuilder"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.IOutputPreferencesRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <summary>
+            To string
+            </summary>
+            <param name="formattingEvents"></param>
+            <param name="paramsText"></param>
+            <param name="logEvent"></param>
+            <param name="targetMessageBuilder"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.IOutputPreferencesRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <summary>
+            To string
+            </summary>
+            <param name="formattingFuncs"></param>
+            <param name="paramsText"></param>
+            <param name="logEvent"></param>
+            <param name="targetMessageBuilder"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.IOutputPreferencesRenderer.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <summary>
+            Render
+            </summary>
+            <param name="format"></param>
+            <param name="paramsText"></param>
+            <param name="stringBuilder"></param>
+            <param name="logEvent"></param>
+            <param name="targetMessageBuilder"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.IOutputPreferencesRenderer.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <summary>
+            Render
+            </summary>
+            <param name="formattingEvents"></param>
+            <param name="paramsText"></param>
+            <param name="stringBuilder"></param>
+            <param name="logEvent"></param>
+            <param name="targetMessageBuilder"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.IOutputPreferencesRenderer.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <summary>
+            Render
+            </summary>
+            <param name="formattingFuncs"></param>
+            <param name="paramsText"></param>
+            <param name="stringBuilder"></param>
+            <param name="logEvent"></param>
+            <param name="targetMessageBuilder"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.Lib.CallerInfoRenderer">
+            <summary>
+            Caller info renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.Lib.CallerInfoRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.CallerInfoRenderer.ToString(System.String,System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.CallerInfoRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.CallerInfoRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.Lib.DateTimeRenderer">
+            <summary>
+            Datetime renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.Lib.DateTimeRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.DateTimeRenderer.ToString(System.String,System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.DateTimeRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.DateTimeRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.Lib.EventInfoRenderer">
+            <summary>
+            EventInfo renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.Lib.EventInfoRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.EventInfoRenderer.ToString(System.String,System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.EventInfoRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.EventInfoRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.Lib.LevelRenderer">
+            <summary>
+            Level renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.Lib.LevelRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.LevelRenderer.ToString(System.String,System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.LevelRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.LevelRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.Lib.MessageRenderer">
+            <summary>
+            Message renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.Lib.MessageRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.MessageRenderer.ToString(System.String,System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.MessageRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.MessageRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.Lib.NameRenderer">
+            <summary>
+            Name renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.Lib.NameRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.NameRenderer.ToString(System.String,System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.NameRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.NameRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.Lib.NewLineRenderer">
+            <summary>
+            New line renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.Lib.NewLineRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.NewLineRenderer.ToString(System.String,System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.NewLineRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.Lib.NewLineRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.NullOutputPreferencesRenderer">
+            <summary>
+            Null output preferences renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.NullOutputPreferencesRenderer.Instance">
+            <summary>
+            Gets an instance of <see cref="T:Cosmos.Logging.Sinks.File.Renderers.NullOutputPreferencesRenderer"/>
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.NullOutputPreferencesRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Renderers.NullOutputPreferencesRenderer.IsNull">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.NullOutputPreferencesRenderer.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.NullOutputPreferencesRenderer.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.NullOutputPreferencesRenderer.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.NullOutputPreferencesRenderer.ToString(System.String,System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.NullOutputPreferencesRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.NullOutputPreferencesRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Events.LogEvent,System.Text.StringBuilder,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Renderers.OutputPreferencesRenderManager">
+            <summary>
+            Output preferences render manager
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.OutputPreferencesRenderManager.AddPreferencesRenderer(Cosmos.Logging.Sinks.File.Renderers.IOutputPreferencesRenderer)">
+            <summary>
+            Add preferences renderer
+            </summary>
+            <param name="renderer"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.OutputPreferencesRenderManager.AddPreferencesRenderer(System.Collections.Generic.List{System.String},Cosmos.Logging.Sinks.File.Renderers.IOutputPreferencesRenderer)">
+            <summary>
+            Add preferences renderer
+            </summary>
+            <param name="names"></param>
+            <param name="renderer"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.OutputPreferencesRenderManager.AddPreferencesRenderer``1">
+            <summary>
+            Add preferences renderer
+            </summary>
+            <typeparam name="TPreferencesRenderer"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Renderers.OutputPreferencesRenderManager.GetRenderer(System.String)">
+            <summary>
+            Get renderer
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Strategies.FormattingStrategy">
+            <summary>
+            Formatting strategy
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Strategies.FormattingStrategy.#ctor(Cosmos.Logging.Sinks.File.OutputTemplates.OutputTemplate)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.Strategies.FormattingStrategy"/>
+            </summary>
+            <param name="template"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Strategies.FormattingStrategy.OutputTemplate">
+            <summary>
+            Output template
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Strategies.FormattingStrategy.Tokens">
+            <summary>
+            Gets all tokens in <see cref="P:Cosmos.Logging.Sinks.File.Strategies.FormattingStrategy.OutputTemplate"/>
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Strategies.NavigationStrategy">
+            <summary>
+            Navigation strategy
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy">
+            <summary>
+            Saving strategy
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy.#ctor(System.String,Cosmos.Logging.RollingInterval,System.Nullable{System.TimeSpan},System.String,Cosmos.Logging.Sinks.File.PathType)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy"/>
+            </summary>
+            <param name="path"></param>
+            <param name="rolling"></param>
+            <param name="flushToDiskInterval"></param>
+            <param name="basePath"></param>
+            <param name="pathType"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy.Path">
+            <summary>
+            Gets path
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy.Rolling">
+            <summary>
+            Gets rolling interval value
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy.FlushToDiskInterval">
+            <summary>
+            Gets flush to disk interval
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy.FormattingStrategy">
+            <summary>
+            Gets or sets formatting strategy
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy.PathType">
+            <summary>
+            Gets path type
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy.GetFilePath(Cosmos.Logging.Core.ILogEventInfo)">
+            <summary>
+            Get file path
+            </summary>
+            <param name="logEventInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy.CheckAndGetFilePath(Cosmos.Logging.Core.ILogEventInfo)">
+            <summary>
+            Check and get file path
+            </summary>
+            <param name="logEventInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Strategies.StrategyFactory">
+            <summary>
+            Strategy factory
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Strategies.StrategyFactory.Create(System.String,Cosmos.Logging.Sinks.File.Configurations.OutputOptions)">
+            <summary>
+            Create a instance of <see cref="T:Cosmos.Logging.Sinks.File.Strategies.SavingStrategy"/>.
+            </summary>
+            <param name="basePath"></param>
+            <param name="options"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
     </members>
 </doc>

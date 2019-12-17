@@ -4,5 +4,462 @@
         <name>Cosmos.Logging.Renderers.Process</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.Renderers.Process.ProcessRenderersActivation">
+            <summary>
+            Process renderers activation
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.ProcessRenderersActivation.Default">
+            <summary>
+            Gets default renderer types
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.ProcessRenderersActivation.ActiveProcesstPreferencesRenderers">
+            <summary>
+            Active process preferences renderers
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessBasePriority">
+            <summary>
+            ProcessBasePriority renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessBasePriority.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessBasePriority.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessBasePriority.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessBasePriority.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessBasePriority.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessBasePriority.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessBasePriority.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessId">
+            <summary>
+            ProcessId renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessId.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessId.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessId.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessId.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessId.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessId.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessId.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedMemorySize">
+            <summary>
+            PagedMemorySize renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedMemorySize.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedMemorySize.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedMemorySize.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedMemorySize.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedMemorySize.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedMemorySize.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedMemorySize.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPrivateMemorySize">
+            <summary>
+            PrivateMemorySize renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPrivateMemorySize.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPrivateMemorySize.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPrivateMemorySize.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPrivateMemorySize.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPrivateMemorySize.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPrivateMemorySize.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPrivateMemorySize.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessNonpagedSystemMemorySize">
+            <summary>
+            NonpagedSystemMemorySize renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessNonpagedSystemMemorySize.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessNonpagedSystemMemorySize.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessNonpagedSystemMemorySize.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessNonpagedSystemMemorySize.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessNonpagedSystemMemorySize.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessNonpagedSystemMemorySize.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessNonpagedSystemMemorySize.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedSystemMemorySize">
+            <summary>
+            PagedSystemMemorySize
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedSystemMemorySize.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedSystemMemorySize.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedSystemMemorySize.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedSystemMemorySize.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedSystemMemorySize.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedSystemMemorySize.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessPagedSystemMemorySize.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessVirtualMemorySize">
+            <summary>
+            VirtualMemorySize renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessVirtualMemorySize.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessVirtualMemorySize.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessVirtualMemorySize.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessVirtualMemorySize.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessVirtualMemorySize.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessVirtualMemorySize.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessVirtualMemorySize.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessName">
+            <summary>
+            ProcessName renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessName.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessName.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessName.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessName.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessName.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessName.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessName.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSessionId">
+            <summary>
+            ProcessSessionId renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSessionId.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSessionId.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSessionId.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSessionId.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSessionId.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSessionId.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSessionId.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoArguments">
+            <summary>
+            StartArguments renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoArguments.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoArguments.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoArguments.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoArguments.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoArguments.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoArguments.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoArguments.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoDomain">
+            <summary>
+            StartDomain renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoDomain.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoDomain.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoDomain.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoDomain.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoDomain.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoDomain.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoDomain.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoFileName">
+            <summary>
+            StartFileName renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoFileName.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoFileName.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoFileName.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoFileName.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoFileName.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoFileName.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoFileName.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoWorkingDirectory">
+            <summary>
+            WorkingDirectory renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoWorkingDirectory.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoWorkingDirectory.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoWorkingDirectory.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoWorkingDirectory.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoWorkingDirectory.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoWorkingDirectory.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartInfoWorkingDirectory.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartTime">
+            <summary>
+            ProcessStartTime renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartTime.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartTime.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartTime.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartTime.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartTime.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartTime.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessStartTime.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSystemProcessorTime">
+            <summary>
+            SystemProcessorTime renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSystemProcessorTime.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSystemProcessorTime.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSystemProcessorTime.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSystemProcessorTime.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSystemProcessorTime.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSystemProcessorTime.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessSystemProcessorTime.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessUserProcessorTime">
+            <summary>
+            UserProcessorTime renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessUserProcessorTime.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessUserProcessorTime.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessUserProcessorTime.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessUserProcessorTime.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessUserProcessorTime.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessUserProcessorTime.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessUserProcessorTime.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renderers.Process.RendersLib.ProcessWorkingSet">
+            <summary>
+            WorkingSet renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Renderers.Process.RendersLib.ProcessWorkingSet.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessWorkingSet.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessWorkingSet.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessWorkingSet.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessWorkingSet.Render(System.String,System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessWorkingSet.Render(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Renderers.Process.RendersLib.ProcessWorkingSet.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

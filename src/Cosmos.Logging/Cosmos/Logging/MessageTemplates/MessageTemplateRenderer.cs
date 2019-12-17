@@ -52,21 +52,21 @@ namespace Cosmos.Logging.MessageTemplates {
                     stringBuilder.Append(chars.Read(position, token.StartPosition - position));
                 }
 
-                if (token.TokenRenderType == TokenRenderTypes.AsProperty && token is PropertyToken propertyToken) {
+                if (token.TokenRendererType == TokenRendererTypes.AsProperty && token is PropertyToken propertyToken) {
                     if (propertyToken.TokenType == PropertyTokenTypes.UserDefinedParameter &&
                         TryGetMessageProperty(namedProperties, propertyToken, out var property)) {
                         RenderPropertyTokenForUserDefinedParameter(propertyToken, property, stringBuilder, logEventInfo, formatProvider);
                     }
                     else if (propertyToken.TokenType == PropertyTokenTypes.PreferencesRender) {
-                        var render = GetPreferencesRender(propertyToken);
-                        RenderPropertyTokenForPreferencesRender(propertyToken, render, stringBuilder, logEventInfo, formatProvider);
+                        var renderer = GetPreferencesRender(propertyToken);
+                        RenderPropertyTokenForPreferencesRender(propertyToken, renderer, stringBuilder, logEventInfo, formatProvider);
                     }
                     else {
                         RenderTextTokenSlim(propertyToken, stringBuilder, logEventInfo, formatProvider);
                     }
                 }
                 else if (token is PositionalPropertyToken positionalPropertyToken) {
-                    if (positionalPropertyToken.TokenRenderType == TokenRenderTypes.AsPositionalProperty &&
+                    if (positionalPropertyToken.TokenRendererType == TokenRendererTypes.AsPositionalProperty &&
                         TryGetMessageProperty(positionalProperties, positionalPropertyToken, out var property)) {
                         RenderPositionalPropertyTokenForUserDefinedParameter(positionalPropertyToken, property, stringBuilder, logEventInfo, formatProvider);
                     }

@@ -25,6 +25,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+
 // ReSharper disable UnusedTypeParameter
 
 namespace Cosmos.Logging.Core.Piplelines {
@@ -33,8 +34,19 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// Author: Sunlighter
     /// </summary>
     public enum ResultType {
+        /// <summary>
+        /// Succeeded
+        /// </summary>
         Succeeded,
+
+        /// <summary>
+        /// Cancelled
+        /// </summary>
         Cancelled,
+
+        /// <summary>
+        /// Faulted
+        /// </summary>
         Faulted
     }
 
@@ -46,10 +58,22 @@ namespace Cosmos.Logging.Core.Piplelines {
     public abstract class AcquireReadResult {
         private readonly ResultType resultType;
 
+        /// <summary>
+        /// AcquireReadResult
+        /// </summary>
+        /// <param name="resultType"></param>
         protected AcquireReadResult(ResultType resultType) {
             this.resultType = resultType;
         }
 
+        /// <summary>
+        /// Visit
+        /// </summary>
+        /// <param name="onSucceeded"></param>
+        /// <param name="onCancelled"></param>
+        /// <param name="onFaulted"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public abstract T Visit<T>
         (
             Func<AcquireReadSucceeded, T> onSucceeded,
@@ -57,9 +81,10 @@ namespace Cosmos.Logging.Core.Piplelines {
             Func<AcquireReadFaulted, T> onFaulted
         );
 
-        public ResultType ResultType {
-            get { return resultType; }
-        }
+        /// <summary>
+        /// Result type
+        /// </summary>
+        public ResultType ResultType => resultType;
     }
 
     /// <summary>
@@ -67,8 +92,10 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// Author: Sunlighter
     /// </summary>
     public sealed class AcquireReadCancelled : AcquireReadResult {
+        /// <inheritdoc />
         public AcquireReadCancelled() : base(ResultType.Cancelled) { }
 
+        /// <inheritdoc />
         public override T Visit<T>
         (
             Func<AcquireReadSucceeded, T> onSucceeded,
@@ -84,16 +111,20 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// Author: Sunlighter
     /// </summary>
     public sealed class AcquireReadFaulted : AcquireReadResult {
+        // ReSharper disable once InconsistentNaming
         private Exception exc;
 
+        /// <inheritdoc />
         public AcquireReadFaulted(Exception exc) : base(ResultType.Faulted) {
             this.exc = exc;
         }
 
-        public Exception Exception {
-            get { return exc; }
-        }
+        /// <summary>
+        /// Gets exception
+        /// </summary>
+        public Exception Exception => exc;
 
+        /// <inheritdoc />
         public override T Visit<T>
         (
             Func<AcquireReadSucceeded, T> onSucceeded,
@@ -112,16 +143,22 @@ namespace Cosmos.Logging.Core.Piplelines {
     public abstract class AcquireReadSucceeded : AcquireReadResult {
         private BigInteger offset;
 
+        /// <inheritdoc />
         protected AcquireReadSucceeded(BigInteger offset) : base(ResultType.Succeeded) {
             this.offset = offset;
         }
 
-        public BigInteger Offset {
-            get { return offset; }
-        }
+        /// <summary>
+        /// Offset
+        /// </summary>
+        public BigInteger Offset => offset;
 
+        /// <summary>
+        /// Item count
+        /// </summary>
         public abstract int ItemCount { get; }
 
+        /// <inheritdoc />
         public override T Visit<T>
         (
             Func<AcquireReadSucceeded, T> onSucceeded,
@@ -139,18 +176,18 @@ namespace Cosmos.Logging.Core.Piplelines {
     public sealed class AcquireReadSucceeded<T> : AcquireReadSucceeded {
         private ImmutableList<T> items;
 
-        public AcquireReadSucceeded(BigInteger offset, ImmutableList<T> items)
-            : base(offset) {
+        /// <inheritdoc />
+        public AcquireReadSucceeded(BigInteger offset, ImmutableList<T> items) : base(offset) {
             this.items = items;
         }
 
-        public override int ItemCount {
-            get { return items.Count; }
-        }
+        /// <inheritdoc />
+        public override int ItemCount => items.Count;
 
-        public ImmutableList<T> Items {
-            get { return items; }
-        }
+        /// <summary>
+        /// Items
+        /// </summary>
+        public ImmutableList<T> Items => items;
     }
 
     /// <summary>
@@ -161,10 +198,22 @@ namespace Cosmos.Logging.Core.Piplelines {
     public abstract class AcquireWriteResult {
         private readonly ResultType resultType;
 
+        /// <summary>
+        /// AcquireWriteResult
+        /// </summary>
+        /// <param name="resultType"></param>
         protected AcquireWriteResult(ResultType resultType) {
             this.resultType = resultType;
         }
 
+        /// <summary>
+        /// Visit
+        /// </summary>
+        /// <param name="onSucceeded"></param>
+        /// <param name="onCancelled"></param>
+        /// <param name="onFaulted"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public abstract T Visit<T>
         (
             Func<AcquireWriteSucceeded, T> onSucceeded,
@@ -172,9 +221,10 @@ namespace Cosmos.Logging.Core.Piplelines {
             Func<AcquireWriteFaulted, T> onFaulted
         );
 
-        public ResultType ResultType {
-            get { return resultType; }
-        }
+        /// <summary>
+        /// Result type
+        /// </summary>
+        public ResultType ResultType => resultType;
     }
 
     /// <summary>
@@ -182,8 +232,10 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// Author: Sunlighter
     /// </summary>
     public sealed class AcquireWriteCancelled : AcquireWriteResult {
+        /// <inheritdoc />
         public AcquireWriteCancelled() : base(ResultType.Cancelled) { }
 
+        /// <inheritdoc />
         public override T Visit<T>
         (
             Func<AcquireWriteSucceeded, T> onSucceeded,
@@ -201,14 +253,17 @@ namespace Cosmos.Logging.Core.Piplelines {
     public sealed class AcquireWriteFaulted : AcquireWriteResult {
         private Exception exc;
 
+        /// <inheritdoc />
         public AcquireWriteFaulted(Exception exc) : base(ResultType.Faulted) {
             this.exc = exc;
         }
 
-        public Exception Exception {
-            get { return exc; }
-        }
+        /// <summary>
+        /// Exception
+        /// </summary>
+        public Exception Exception => exc;
 
+        /// <inheritdoc />
         public override T Visit<T>
         (
             Func<AcquireWriteSucceeded, T> onSucceeded,
@@ -227,19 +282,23 @@ namespace Cosmos.Logging.Core.Piplelines {
         private BigInteger offset;
         private int maxItemCount;
 
+        /// <inheritdoc />
         public AcquireWriteSucceeded(BigInteger offset, int maxItemCount) : base(ResultType.Succeeded) {
             this.offset = offset;
             this.maxItemCount = maxItemCount;
         }
 
-        public BigInteger Offset {
-            get { return offset; }
-        }
+        /// <summary>
+        /// Offset
+        /// </summary>
+        public BigInteger Offset => offset;
 
-        public int ItemCount {
-            get { return maxItemCount; }
-        }
+        /// <summary>
+        /// Item count
+        /// </summary>
+        public int ItemCount => maxItemCount;
 
+        /// <inheritdoc />
         public override T Visit<T>
         (
             Func<AcquireWriteSucceeded, T> onSucceeded,
@@ -255,7 +314,18 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// Author: Sunlighter
     /// </summary>
     public interface IQueueSource<T> {
+        /// <summary>
+        /// AcquireReadAsync
+        /// </summary>
+        /// <param name="desiredItems"></param>
+        /// <param name="ctoken"></param>
+        /// <returns></returns>
         Task<AcquireReadResult> AcquireReadAsync(int desiredItems, CancellationToken ctoken);
+
+        /// <summary>
+        /// ReleaseRead
+        /// </summary>
+        /// <param name="consumedItems"></param>
         void ReleaseRead(int consumedItems);
     }
 
@@ -264,8 +334,23 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// Author: Sunlighter
     /// </summary>
     public interface IQueueSink<T> {
+        /// <summary>
+        /// AcquireWriteAsync
+        /// </summary>
+        /// <param name="desiredSpace"></param>
+        /// <param name="ctoken"></param>
+        /// <returns></returns>
         Task<AcquireWriteResult> AcquireWriteAsync(int desiredSpace, CancellationToken ctoken);
+
+        /// <summary>
+        /// ReleaseWrite
+        /// </summary>
+        /// <param name="producedItems"></param>
         void ReleaseWrite(ImmutableList<T> producedItems);
+
+        /// <summary>
+        /// WriteEof
+        /// </summary>
         void WriteEof();
     }
 
@@ -301,6 +386,11 @@ namespace Cosmos.Logging.Core.Piplelines {
             public CancellationTokenRegistration? ctr;
         }
 
+        /// <summary>
+        /// AsyncQueue
+        /// </summary>
+        /// <param name="capacity"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public AsyncQueue(int? capacity) {
             if (capacity.HasValue && capacity.Value < 1) {
                 // ReSharper disable once NotResolvedInText
@@ -320,7 +410,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         private void CancelAcquireRead(long id) {
             lock (syncRoot) {
-                Option<WaitingRead> opt = waitingReads.Cancel(id);
+                Optional<WaitingRead> opt = waitingReads.Cancel(id);
                 if (opt.HasValue) {
                     opt.Value.k.PostResult(new AcquireReadCancelled());
 
@@ -335,12 +425,14 @@ namespace Cosmos.Logging.Core.Piplelines {
             lock (syncRoot) {
                 if (waitingReads.ContainsId(id)) {
                     waitingReads.GetById(id).ctr = ctr;
-                } else {
+                }
+                else {
                     ctr.PostDispose();
                 }
             }
         }
 
+        /// <inheritdoc />
         public Task<AcquireReadResult> AcquireReadAsync(int desiredItems, CancellationToken ctoken) {
             if (desiredItems < 1) {
                 return Task.FromResult<AcquireReadResult>(new AcquireReadFaulted(new ArgumentOutOfRangeException("desiredItems", "Must be at least one")));
@@ -348,12 +440,14 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             if (ctoken.IsCancellationRequested) {
                 return Task.FromResult<AcquireReadResult>(new AcquireReadCancelled());
-            } else {
+            }
+            else {
                 lock (syncRoot) {
                     if (!readLocked.HasValue && (items.Count >= desiredItems || eofSignaled)) {
                         readLocked = Math.Min(items.Count, desiredItems);
                         return Task.FromResult<AcquireReadResult>(new AcquireReadSucceeded<T>(readPtr, items.GetRange(0, readLocked.Value)));
-                    } else {
+                    }
+                    else {
                         TaskCompletionSource<AcquireReadResult> k = new TaskCompletionSource<AcquireReadResult>();
 
                         WaitingRead wr = new WaitingRead() {
@@ -376,7 +470,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         private void CancelAcquireWrite(long id) {
             lock (syncRoot) {
-                Option<WaitingWrite> opt = waitingWrites.Cancel(id);
+                Optional<WaitingWrite> opt = waitingWrites.Cancel(id);
                 if (opt.HasValue) {
                     opt.Value.k.PostResult(new AcquireWriteCancelled());
 
@@ -391,12 +485,14 @@ namespace Cosmos.Logging.Core.Piplelines {
             lock (syncRoot) {
                 if (waitingWrites.ContainsId(id)) {
                     waitingWrites.GetById(id).ctr = ctr;
-                } else {
+                }
+                else {
                     ctr.PostDispose();
                 }
             }
         }
 
+        /// <inheritdoc />
         public Task<AcquireWriteResult> AcquireWriteAsync(int desiredSpace, CancellationToken ctoken) {
             if (desiredSpace < 1) {
                 return Task.FromResult<AcquireWriteResult>(new AcquireWriteFaulted(new ArgumentOutOfRangeException("desiredSpace", "Must be at least one")));
@@ -404,17 +500,21 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             if (ctoken.IsCancellationRequested) {
                 return Task.FromResult<AcquireWriteResult>(new AcquireWriteCancelled());
-            } else {
+            }
+            else {
                 lock (syncRoot) {
                     if (eofSignaled) {
                         return Task.FromResult<AcquireWriteResult>(new AcquireWriteFaulted(new InvalidOperationException("Can't acquire for write after EOF has been signaled")));
-                    } else if (!writeLocked.HasValue && (!capacity.HasValue || (capacity.Value - items.Count) >= desiredSpace)) {
+                    }
+                    else if (!writeLocked.HasValue && (!capacity.HasValue || (capacity.Value - items.Count) >= desiredSpace)) {
                         writeLocked = desiredSpace;
                         return Task.FromResult<AcquireWriteResult>(new AcquireWriteSucceeded(readPtr + items.Count, desiredSpace));
-                    } else if (capacity.HasValue && desiredSpace > capacity.Value) {
+                    }
+                    else if (capacity.HasValue && desiredSpace > capacity.Value) {
                         return Task.FromResult<AcquireWriteResult>(
                             new AcquireWriteFaulted(new InvalidOperationException("Attempting to acquire more space than will ever become available")));
-                    } else {
+                    }
+                    else {
                         TaskCompletionSource<AcquireWriteResult> k = new TaskCompletionSource<AcquireWriteResult>();
 
                         WaitingWrite ww = new WaitingWrite() {
@@ -482,15 +582,19 @@ namespace Cosmos.Logging.Core.Piplelines {
             }
         }
 
+        /// <inheritdoc />
         public void ReleaseRead(int consumedItems) {
             lock (syncRoot) {
                 if (!readLocked.HasValue) {
                     throw new InvalidOperationException("Can't release read lock if it is not held");
-                } else if (consumedItems < 0) {
+                }
+                else if (consumedItems < 0) {
                     throw new ArgumentOutOfRangeException("consumedItems", "Must be zero or more");
-                } else if (consumedItems > readLocked.Value) {
+                }
+                else if (consumedItems > readLocked.Value) {
                     throw new InvalidOperationException("Can't consume more items than were locked");
-                } else {
+                }
+                else {
                     readLocked = null;
                     items = items.GetRange(consumedItems, items.Count - consumedItems);
                     readPtr += consumedItems;
@@ -501,13 +605,16 @@ namespace Cosmos.Logging.Core.Piplelines {
             }
         }
 
+        /// <inheritdoc />
         public void ReleaseWrite(ImmutableList<T> producedItems) {
             lock (syncRoot) {
                 if (!writeLocked.HasValue) {
                     throw new InvalidOperationException("Can't release write lock if it is not held");
-                } else if (producedItems.Count > writeLocked.Value) {
+                }
+                else if (producedItems.Count > writeLocked.Value) {
                     throw new InvalidOperationException("Can't write more items than space was locked for");
-                } else {
+                }
+                else {
                     writeLocked = null;
                     items = items.AddRange(producedItems);
 
@@ -517,6 +624,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             }
         }
 
+        /// <inheritdoc />
         public void WriteEof() {
             lock (syncRoot) {
                 eofSignaled = true;
@@ -526,6 +634,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         private bool disposed;
 
+        /// <inheritdoc />
         public void Dispose() {
             if (disposed) return;
 

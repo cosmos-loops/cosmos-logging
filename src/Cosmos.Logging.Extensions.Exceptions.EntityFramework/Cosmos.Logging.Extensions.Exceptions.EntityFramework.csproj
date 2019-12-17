@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="..\..\build\common.ns21-net461-net451.props" />
+    <Import Project="..\..\build\common.props" />
 
     <PropertyGroup>
         <TargetFrameworks>netcoreapp3.1;netstandard2.1;net461;net451</TargetFrameworks>
@@ -12,18 +12,13 @@
         <Description>EntityFramework Exceptions extension/enricher for Cosmos.Logging.</Description>
     </PropertyGroup>
     
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.Extensions.Exceptions.EntityFramework.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.Extensions.Exceptions.EntityFramework.xml</DocumentationFile>
-    </PropertyGroup>
-    
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging.Extensions.Exceptions\Cosmos.Logging.Extensions.Exceptions.csproj" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="EntityFramework" Version="6.4.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Cosmos\Logging\Extensions\Exceptions" />
     </ItemGroup>
 </Project>

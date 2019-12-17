@@ -12,7 +12,10 @@ namespace Cosmos.Logging.Filters.Navigators {
         private readonly Dictionary<int, NamespaceNavigator> _namespaceNavCache = new Dictionary<int, NamespaceNavigator>();
         private readonly object _namespacePoolLock = new object();
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="NamespaceNavigatorCache"/>
+        /// </summary>
+        /// <param name="namespaceNavigationParser"></param>
         public NamespaceNavigatorCache(INamespaceNavigationParser namespaceNavigationParser) {
             _namespaceNavigationParser = namespaceNavigationParser ?? throw new ArgumentNullException(nameof(namespaceNavigationParser));
         }

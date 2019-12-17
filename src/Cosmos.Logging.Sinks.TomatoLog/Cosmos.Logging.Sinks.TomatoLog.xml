@@ -24,5 +24,170 @@
             Use Kafka
             </summary>
         </member>
+        <member name="T:Cosmos.Logging.Sinks.TomatoLog.TomatoLogPayloadClient">
+            <summary>
+            Tomato log payload client
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TomatoLog.TomatoLogPayloadClient.#ctor(System.String,Cosmos.Logging.TomatoLogSinkConfiguration,System.IFormatProvider)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.TomatoLog.TomatoLogPayloadClient"/>
+            </summary>
+            <param name="name"></param>
+            <param name="sinkConfiguration"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TomatoLog.TomatoLogPayloadClient.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.TomatoLog.TomatoLogPayloadClient.Level">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TomatoLog.TomatoLogPayloadClient.WriteAsync(Cosmos.Logging.Core.Payloads.ILogPayload,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.TomatoLog.TomatoLogPayloadClientProvider">
+            <summary>
+            Tomato log payload client provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TomatoLog.TomatoLogPayloadClientProvider.#ctor(Microsoft.Extensions.Options.IOptions{Cosmos.Logging.TomatoLogSinkOptions},Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.TomatoLog.TomatoLogPayloadClientProvider"/>
+            </summary>
+            <param name="settings"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.TomatoLog.TomatoLogPayloadClientProvider.GetClient">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.TomatoLogSinkConfiguration">
+            <summary>
+            TOmato log sink configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.TomatoLogSinkConfiguration.FlowType">
+            <summary>
+            Gets or sets flow type
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.TomatoLogSinkConfiguration.Redis">
+            <summary>
+            Gets or sets Redis options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.TomatoLogSinkConfiguration.RabbitMQ">
+            <summary>
+            Gets or sets RabbitMQ options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.TomatoLogSinkConfiguration.Kafka">
+            <summary>
+            Gets or sets Kafka options
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkConfiguration.PostProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.TomatoLogSinkExtensions">
+            <summary>
+            Extensions for TomatoLog sink
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkExtensions.AddTomatoLog(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.TomatoLogSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.TomatoLogSinkConfiguration})">
+            <summary>
+            Add TomatoLog for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settingAct"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkExtensions.AddTomatoLog(Cosmos.Logging.Core.ILogServiceCollection,Cosmos.Logging.TomatoLogSinkOptions,System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.TomatoLogSinkConfiguration})">
+            <summary>
+            Add TomatoLog for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="sinkOptions"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkExtensions.AddTomatoLog(Cosmos.Logging.Core.ILogServiceCollection,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.TomatoLogSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.TomatoLogSinkConfiguration})">
+            <summary>
+            Add TomatoLog for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.TomatoLogSinkOptions">
+            <summary>
+            TomatoLog sink options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.TomatoLogSinkOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.UseRedis(System.Action{TomatoLog.Common.Config.EventRedisOptions})">
+            <summary>
+            Use Redis with options
+            </summary>
+            <param name="optionAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.UseRabbitMq(System.Action{TomatoLog.Common.Config.EventRabbitMQOptions})">
+            <summary>
+            Use RabbitMQ with options
+            </summary>
+            <param name="optionAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.TomatoLogSinkOptions.UseKafka(System.Action{TomatoLog.Common.Config.EventKafkaOptions})">
+            <summary>
+            Use Kafka with options
+            </summary>
+            <param name="optionAction"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

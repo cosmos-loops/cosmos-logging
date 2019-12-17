@@ -6,14 +6,21 @@ namespace Cosmos.Logging.ExtraSupports {
     /// Extra message property
     /// </summary>
     public class ExtraMessageProperty : IMessageProperty {
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="ExtraMessageProperty"/>.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public ExtraMessageProperty(string name, MessagePropertyValue value) {
             CheckParams(name, value);
             Name = name;
             Value = value;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="ExtraMessageProperty"/>.
+        /// </summary>
+        /// <param name="property"></param>
         public ExtraMessageProperty(MessageProperty property) {
             CheckParams(property);
             Name = property.Name;

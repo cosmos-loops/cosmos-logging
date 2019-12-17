@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="..\..\build\common.ns20.props"/>
+    <Import Project="..\..\build\common.props" />
 
     <PropertyGroup>
         <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0</TargetFrameworks>
@@ -12,14 +12,6 @@
         <Description>Tomato Log sink for Cosmos.Logging.</Description>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.Sinks.TomatoLog.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.Sinks.TomatoLog.xml</DocumentationFile>
-    </PropertyGroup>
-    
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
@@ -28,10 +20,6 @@
         <PackageReference Include="TomatoLog.Client" Version="1.2.0" />
         <PackageReference Include="TomatoLog.Client.Redis" Version="1.2.0" />
         <PackageReference Include="TomatoLog.Client.RabbitMQ" Version="1.2.0" />
-        <PackageReference Include="TomatoLog.Client.Kafka" Version="1.2.0" />        
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Configurations" />
+        <PackageReference Include="TomatoLog.Client.Kafka" Version="1.2.0" />
     </ItemGroup>
 </Project>

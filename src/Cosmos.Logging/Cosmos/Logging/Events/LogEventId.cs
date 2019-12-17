@@ -1,5 +1,4 @@
 ﻿using System;
-using Cosmos.Logging.Core;
 using Cosmos.Logging.Trace;
 
 namespace Cosmos.Logging.Events {
@@ -24,7 +23,12 @@ namespace Cosmos.Logging.Events {
         /// <inheritdoc />
         public LogEventId(long id, string name, string traceId = null) : this(id.ToString(), name, traceId) { }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="LogEventId"/>.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="traceId"></param>
         public LogEventId(string id, string name, string traceId = null) {
             var baseTime = DateTime.Now;
             Id = id;

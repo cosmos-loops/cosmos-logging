@@ -5,6 +5,9 @@ using System.Linq;
 using Cosmos.Logging.Core;
 
 namespace Cosmos.Logging.MessageTemplates {
+    /// <summary>
+    /// Message template cache
+    /// </summary>
     internal class MessageTemplateCache : IMessageTemplateParser {
         private readonly IMessageTemplateParser _messageTemplateParser;
         private readonly Hashtable _messageTemplateCache = new Hashtable();
@@ -14,6 +17,10 @@ namespace Cosmos.Logging.MessageTemplates {
         private const int MaxCacheItems = 1000;
         private const int MaxLengthOfTemplateToBeCached = 1024;
 
+        /// <summary>
+        /// Create a new instance of <see cref="MessageTemplateCache"/>
+        /// </summary>
+        /// <param name="parser"></param>
         public MessageTemplateCache(IMessageTemplateParser parser) {
             _messageTemplateParser = parser ?? throw new ArgumentNullException(nameof(parser));
         }

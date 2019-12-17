@@ -4,10 +4,190 @@
         <name>Cosmos.Logging.Sinks.NLog</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.NLogSinkConfiguration">
+            <summary>
+            NLog sink configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkConfiguration.PostProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
         <member name="P:Cosmos.Logging.NLogSinkConfiguration.ConfigFile">
             <summary>
             NLog's origin config file path
             </summary>
+        </member>
+        <member name="T:Cosmos.Logging.NLogSinkExtensions">
+            <summary>
+            Extensions for NLog sink
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkExtensions.AddNLog(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.NLogSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.NLogSinkConfiguration})">
+            <summary>
+            Add NLog support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settingAct"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkExtensions.AddNLog(Cosmos.Logging.Core.ILogServiceCollection,Cosmos.Logging.NLogSinkOptions,System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.NLogSinkConfiguration})">
+            <summary>
+            Add NLog support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="options"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkExtensions.AddNLog(Cosmos.Logging.Core.ILogServiceCollection,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.NLogSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.NLogSinkConfiguration})">
+            <summary>
+            Add NLog support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.NLogSinkOptions">
+            <summary>
+            NLog sink options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.NLogSinkOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.NLogSinkOptions.OriginConfiguration">
+            <summary>
+            Gets or sets NLog's LoggingConfiguration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.Configure(System.Action{NLog.Config.LoggingConfiguration})">
+            <summary>
+            Configure NLog's LoggingConfiguration
+            </summary>
+            <param name="configAction"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.Unconfigure">
+            <summary>
+            Unconfigure
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.UseDefaultConfigFile">
+            <summary>
+            Use default config file which is nlog.config
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.UseConfigFile(System.String)">
+            <summary>
+            Use customize config file
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NLogSinkOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.NLog.NLogPayloadClient">
+            <summary>
+            NLog payload client
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.NLog.NLogPayloadClient.#ctor(System.String,Cosmos.Logging.NLogSinkConfiguration,System.IFormatProvider)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.NLog.NLogPayloadClient"/>
+            </summary>
+            <param name="name"></param>
+            <param name="sinkConfiguration"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.NLog.NLogPayloadClient.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.NLog.NLogPayloadClient.Level">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.NLog.NLogPayloadClient.WriteAsync(Cosmos.Logging.Core.Payloads.ILogPayload,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.NLog.NLogPayloadClientProvider">
+            <summary>
+            NLog payload client provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.NLog.NLogPayloadClientProvider.#ctor(Microsoft.Extensions.Options.IOptions{Cosmos.Logging.NLogSinkOptions},Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.NLog.NLogPayloadClientProvider"/>
+            </summary>
+            <param name="settings"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.NLog.NLogPayloadClientProvider.GetClient">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.NLog.RendersLib.NLogHelloWorldRenderer">
+            <summary>
+            NLog hello world renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.NLog.RendersLib.NLogHelloWorldRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.NLog.RendersLib.NLogHelloWorldRenderer.SinkPrefix">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.NLog.RendersLib.NLogHelloWorldRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.NLog.RendersLib.NLogHelloWorldRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.NLog.RendersLib.NLogHelloWorldRenderer.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.NLog.RendersLib.NLogHelloWorldRenderer.ToString">
+            <inheritdoc />
         </member>
     </members>
 </doc>

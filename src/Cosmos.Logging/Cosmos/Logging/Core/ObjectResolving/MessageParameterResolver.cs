@@ -6,6 +6,9 @@ using Cosmos.Logging.Core.ObjectResolving.Rules;
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Core.ObjectResolving {
+    /// <summary>
+    /// Message parameter resolver
+    /// </summary>
     public class MessageParameterResolver : IMessagePropertyFactory, IMessagePropertyValueFactory, IShortcutPropertyFactory {
         private readonly int _maxLengthOfString;
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
@@ -16,6 +19,17 @@ namespace Cosmos.Logging.Core.ObjectResolving {
         private readonly IDestructureResolveRule[] _destructureResolveRules;
         private readonly NestParameterResolver _nestParameterResolver;
 
+        /// <summary>
+        /// Create a new instance of <see cref="MessageParameterResolver"/>.
+        /// </summary>
+        /// <param name="maxLengthOfString"></param>
+        /// <param name="maxLevelOfNestLevelLimited"></param>
+        /// <param name="maxLoopCountForCollection"></param>
+        /// <param name="additionalScalarTypes"></param>
+        /// <param name="additionalDestructureResolveRules"></param>
+        /// <param name="raiseExceptions"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public MessageParameterResolver(
             int maxLengthOfString,
             int maxLevelOfNestLevelLimited,
@@ -43,14 +57,17 @@ namespace Cosmos.Logging.Core.ObjectResolving {
             _nestParameterResolver = new NestParameterResolver(_maxLevelOfNestLevelLimited, this);
         }
 
+        /// <inheritdoc />
         public MessageProperty CreateProperty(string name, object value, PropertyResolvingMode mode, int positionalValue = -1) {
             return new MessageProperty(name, positionalValue, CreatePropertyValue(value, mode, positionalValue));
         }
-        
+
+        /// <inheritdoc />
         public MessageProperty CreateProperty(string name, object value, bool destructureObject = false) {
             return CreateProperty(name, value, destructureObject ? PropertyResolvingMode.Destructure : PropertyResolvingMode.Default);
         }
 
+        /// <inheritdoc />
         public MessagePropertyValue CreatePropertyValue(object value, PropertyResolvingMode mode, int positionalValue = -1) {
             return CreatePropertyValue(value, mode, 1, positionalValue);
         }

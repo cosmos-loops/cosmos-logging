@@ -64,7 +64,7 @@ namespace Cosmos.Logging {
 
             var services = integration.ExposeServiceCollectionWrapper;
             if (services != null) {
-                services.AddExtraSinkSettings<EfCoreEnricherOptions, EfCoreEnricherConfiguration>(settings.Value, (c, s, l) => config?.Invoke(c, s, l));
+                services.AddExtraSinkSettings(settings.Value, config);
                 services.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
 
                 RegisterEntityFrameworkCoreInterceptor(services, settings);

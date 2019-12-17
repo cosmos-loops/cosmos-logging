@@ -4,5 +4,28 @@
         <name>Cosmos.Logging.Extensions.Exceptions.EntityFramework</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.DestructurerExtensions">
+            <summary>
+            Extensions for destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.DestructurerExtensions.UseEntityFramework(Cosmos.Logging.Extensions.Exceptions.Configurations.ExceptionOptions)">
+            <summary>
+            Use EntityFramework
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Exceptions.Destructurers.EfDbUpdateExceptionDestructurer">
+            <summary>
+            EntityFramework DbUpdateException destructurer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.Exceptions.Destructurers.EfDbUpdateExceptionDestructurer.TargetTypes">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Destructurers.EfDbUpdateExceptionDestructurer.Destructure(System.Exception,Cosmos.Logging.Extensions.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

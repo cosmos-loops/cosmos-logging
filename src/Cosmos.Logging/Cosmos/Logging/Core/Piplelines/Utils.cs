@@ -33,18 +33,41 @@ namespace Cosmos.Logging.Core.Piplelines {
     [SuppressMessage("ReSharper", "RedundantDelegateCreation")]
     [SuppressMessage("ReSharper", "RedundantTypeArgumentsOfMethod")]
     public static partial class Utils {
+        /// <summary>
+        /// PostResult
+        /// </summary>
+        /// <param name="k"></param>
+        /// <param name="result"></param>
+        /// <typeparam name="T"></typeparam>
         public static void PostResult<T>(this TaskCompletionSource<T> k, T result) {
             ThreadPool.QueueUserWorkItem(notUsed => k.SetResult(result));
         }
 
+        /// <summary>
+        /// PostException
+        /// </summary>
+        /// <param name="k"></param>
+        /// <param name="exc"></param>
+        /// <typeparam name="T"></typeparam>
         public static void PostException<T>(this TaskCompletionSource<T> k, Exception exc) {
             ThreadPool.QueueUserWorkItem(notUsed => k.SetException(exc));
         }
 
+        /// <summary>
+        /// PostCancellation
+        /// </summary>
+        /// <param name="k"></param>
+        /// <typeparam name="T"></typeparam>
         public static void PostCancellation<T>(this TaskCompletionSource<T> k) {
             ThreadPool.QueueUserWorkItem(notUsed => k.SetCanceled());
         }
 
+        /// <summary>
+        /// PostRegistration
+        /// </summary>
+        /// <param name="ct"></param>
+        /// <param name="setRegistration"></param>
+        /// <param name="callback"></param>
         public static void PostRegistration(this CancellationToken ct, Action<CancellationTokenRegistration> setRegistration, Action callback) {
             ThreadPool.QueueUserWorkItem
             (
@@ -63,6 +86,13 @@ namespace Cosmos.Logging.Core.Piplelines {
             );
         }
 
+        /// <summary>
+        /// PostContinueWith
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="action"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static Task PostContinueWith<T>(this Task<T> task, Action<Task<T>> action) {
             TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
 
@@ -88,19 +118,45 @@ namespace Cosmos.Logging.Core.Piplelines {
             return tcs.Task;
         }
 
+        /// <summary>
+        /// IsCompletedNormally
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
         [Obsolete]
         public static bool IsCompletedNormally(this Task t) {
             return t.Status == TaskStatus.RanToCompletion;
         }
 
+        /// <summary>
+        /// ReleaseWrite
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <typeparam name="T"></typeparam>
         public static void ReleaseWrite<T>(this IQueueSink<T> queue) {
             queue.ReleaseWrite(ImmutableList<T>.Empty);
         }
 
+        /// <summary>
+        /// ReleaseWrite
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="producedItem"></param>
+        /// <typeparam name="T"></typeparam>
         public static void ReleaseWrite<T>(this IQueueSink<T> queue, T producedItem) {
             queue.ReleaseWrite(ImmutableList<T>.Empty.Add(producedItem));
         }
 
+        /// <summary>
+        /// Enqueue
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="item"></param>
+        /// <param name="ctoken"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="OperationCanceledException"></exception>
+        /// <exception cref="Exception"></exception>
         public static async Task Enqueue<T>(this IQueueSink<T> queue, T item, CancellationToken ctoken) {
             AcquireWriteResult result = await queue.AcquireWriteAsync(1, ctoken);
 
@@ -115,7 +171,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                         if (ctoken.IsCancellationRequested) {
                             wasCancelled = true;
                             queue.ReleaseWrite();
-                        } else {
+                        }
+                        else {
                             queue.ReleaseWrite(item);
                         }
 
@@ -137,24 +194,35 @@ namespace Cosmos.Logging.Core.Piplelines {
             );
         }
 
-        public static async Task<Option<T>> Dequeue<T>(this IQueueSource<T> queue, CancellationToken ctoken) {
+        /// <summary>
+        /// Dequeue
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="ctoken"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="OperationCanceledException"></exception>
+        /// <exception cref="Exception"></exception>
+        public static async Task<Optional<T>> Dequeue<T>(this IQueueSource<T> queue, CancellationToken ctoken) {
             AcquireReadResult result = await queue.AcquireReadAsync(1, ctoken);
 
-            return result.Visit<Option<T>>
+            return result.Visit<Optional<T>>
             (
-                new Func<AcquireReadSucceeded, Option<T>>
+                new Func<AcquireReadSucceeded, Optional<T>>
                 (
                     succeeded => {
                         if (succeeded.ItemCount == 0) {
-                            return new None<T>();
-                        } else {
+                            return Optional<T>.None();
+                        }
+                        else {
                             System.Diagnostics.Debug.Assert(succeeded.ItemCount == 1);
 
                             bool wasCancelled = false;
                             if (ctoken.IsCancellationRequested) {
                                 wasCancelled = true;
                                 queue.ReleaseRead(0);
-                            } else {
+                            }
+                            else {
                                 queue.ReleaseRead(1);
                             }
 
@@ -166,17 +234,19 @@ namespace Cosmos.Logging.Core.Piplelines {
                         }
                     }
                 ),
-                new Func<AcquireReadCancelled, Option<T>>
+                new Func<AcquireReadCancelled, Optional<T>>
                 (
-                    cancelled => { throw new OperationCanceledException(ctoken); }
-                ),
-                new Func<AcquireReadFaulted, Option<T>>
+                    cancelled => throw new OperationCanceledException(ctoken)),
+                new Func<AcquireReadFaulted, Optional<T>>
                 (
-                    faulted => { throw faulted.Exception; }
-                )
+                    faulted => throw faulted.Exception)
             );
         }
 
+        /// <summary>
+        /// PostDispose
+        /// </summary>
+        /// <param name="ctr"></param>
         public static void PostDispose(this CancellationTokenRegistration ctr) {
             ThreadPool.QueueUserWorkItem
             (

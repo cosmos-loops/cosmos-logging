@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="..\..\build\common.c3x-ns20-net461.props" />
+    <Import Project="..\..\build\common.props" />
 
     <PropertyGroup>
         <TargetFrameworks>netcoreapp3.1;netstandard2.0;net461</TargetFrameworks>
@@ -10,14 +10,6 @@
         <AssemblyName>Cosmos.Logging.RunsOn.AspNetCore</AssemblyName>
         <PackageId>Cosmos.Logging.RunsOn.AspNetCore</PackageId>
         <Description>The base library for integrating Microsoft ASP.NET Core MVC for Cosmos.Logging.</Description>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.RunsOn.AspNetCore.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.RunsOn.AspNetCore.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
@@ -36,5 +28,9 @@
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging.Extensions.Microsoft\Cosmos.Logging.Extensions.Microsoft.csproj" />
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Microsoft" />
     </ItemGroup>
 </Project>

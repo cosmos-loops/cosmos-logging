@@ -4,5 +4,284 @@
         <name>Cosmos.Logging.Sinks.AliyunSls</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.AliyunSlsSinkConfiguration">
+            <summary>
+            Aliyun SLS sink configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.AliyunSlsSinkConfiguration.Client">
+            <summary>
+            Gets or sets Aliyun SLS client
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.AliyunSlsSinkConfiguration.Clients">
+            <summary>
+            Gets or sets a set of Aliyun SLS clients
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkConfiguration.PostProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.AliyunSlsSinkExtensions">
+            <summary>
+            Extensions for Aliyun SLS
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkExtensions.AddAliyunSls(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.AliyunSlsSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.AliyunSlsSinkConfiguration})">
+            <summary>
+            Add Aliyun SLS support for Cosmos Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settingAct"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkExtensions.AddAliyunSls(Cosmos.Logging.Core.ILogServiceCollection,Cosmos.Logging.AliyunSlsSinkOptions,System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.AliyunSlsSinkConfiguration})">
+            <summary>
+            Add Aliyun SLS support for Cosmos Logging
+            </summary>
+            <param name="services"></param>
+            <param name="sinkOptions"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkExtensions.AddAliyunSls(Cosmos.Logging.Core.ILogServiceCollection,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.AliyunSlsSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.AliyunSlsSinkConfiguration})">
+            <summary>
+            Add Aliyun SLS support for Cosmos Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.AliyunSlsSinkOptions">
+            <summary>
+            Aliyun SLS sink options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.AliyunSlsSinkOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.AliyunSlsSinkOptions.LogStoreName">
+            <summary>
+            Gets or sets log store name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.AliyunSlsSinkOptions.EndPoint">
+            <summary>
+            Gets or sets end point
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.AliyunSlsSinkOptions.ProjectName">
+            <summary>
+            Gets or sets project name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.AliyunSlsSinkOptions.AccessKeyId">
+            <summary>
+            Gets or sets access key id
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.AliyunSlsSinkOptions.AccessKey">
+            <summary>
+            Gets or sets access key
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.AliyunSlsSinkOptions.UseNativeConfig(System.String,System.Action{Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig})">
+            <summary>
+            Use Aliyun SLS native config
+            </summary>
+            <param name="key"></param>
+            <param name="nativeAct"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.AliyunSls.AliyunSlsPayloadClient">
+            <summary>
+            Aliyun SLS Payload client
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.AliyunSls.AliyunSlsPayloadClient.#ctor(System.String,Cosmos.Logging.AliyunSlsSinkConfiguration,System.IFormatProvider)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.AliyunSls.AliyunSlsPayloadClient"/>.
+            </summary>
+            <param name="name"></param>
+            <param name="sinkConfiguration"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.AliyunSlsPayloadClient.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.AliyunSlsPayloadClient.Level">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.AliyunSls.AliyunSlsPayloadClient.WriteAsync(Cosmos.Logging.Core.Payloads.ILogPayload,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.AliyunSls.AliyunSlsPayloadClientProvider">
+            <summary>
+            Aliyun SLS Payload client provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.AliyunSls.AliyunSlsPayloadClientProvider.#ctor(Microsoft.Extensions.Options.IOptions{Cosmos.Logging.AliyunSlsSinkOptions},Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.AliyunSls.AliyunSlsPayloadClientProvider"/>.
+            </summary>
+            <param name="settings"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.AliyunSls.AliyunSlsPayloadClientProvider.GetClient">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig">
+            <summary>
+            Aliyun SLS native config
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.LogStoreName">
+            <summary>
+            Gets or sets log store name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.EndPoint">
+            <summary>
+            Gets or sets end point
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.ProjectName">
+            <summary>
+            Gets or sets project name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.AccessKeyId">
+            <summary>
+            Gets or sets AccessKeyId
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.AccessKey">
+            <summary>
+            Gets or sets AccessKey
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.Timeout">
+            <summary>
+            Gets or sets timeout value
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.UseProxy">
+            <summary>
+            Use proxy or not
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.ProxyHost">
+            <summary>
+            Proxy host
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.ProxyPort">
+            <summary>
+            Proxy port
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.ProxyUserName">
+            <summary>
+            Proxy user name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.ProxyPassword">
+            <summary>
+            Proxy password
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.ProxyDomain">
+            <summary>
+            Proxy domain
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.ProxyUserEnabled">
+            <summary>
+            Proxy user enabled
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfig.IsGeneralClient">
+            <summary>
+            Is general client or not
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfigWrapper">
+            <summary>
+            Wrapper of Aliyun SLS Native config
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfigWrapper.Key">
+            <summary>
+            Key
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.Configurations.AliyunSlsNativeConfigWrapper.IsGeneralClient">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.AliyunSls.RendersLib.AliyunSlsHelloWorldRenderer">
+            <summary>
+            AliyunHelloWorld renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.RendersLib.AliyunSlsHelloWorldRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.AliyunSls.RendersLib.AliyunSlsHelloWorldRenderer.SinkPrefix">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.AliyunSls.RendersLib.AliyunSlsHelloWorldRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.AliyunSls.RendersLib.AliyunSlsHelloWorldRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.AliyunSls.RendersLib.AliyunSlsHelloWorldRenderer.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.AliyunSls.RendersLib.AliyunSlsHelloWorldRenderer.ToString">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

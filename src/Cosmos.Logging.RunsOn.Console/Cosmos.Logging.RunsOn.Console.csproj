@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
 
-    <Import Project="..\..\build\common.ns20-net461-net451.props" />
+    <Import Project="..\..\build\common.props" />
 
     <PropertyGroup>
         <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net461;net451</TargetFrameworks>
@@ -12,14 +12,6 @@
         <Description>The base library for integrating console for Cosmos.Logging.</Description>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.RunsOn.Console.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.RunsOn.Console.xml</DocumentationFile>
-    </PropertyGroup>
-
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
@@ -29,6 +21,6 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)'=='net451'">
-        <PackageReference Include="AspectCore.Extensions.DependencyInjection.Backward" Version="0.4.0" />
+        <PackageReference Include="AspectCore.Extensions.DependencyInjection.Backward" Version="2.0.1" />
     </ItemGroup>
 </Project>

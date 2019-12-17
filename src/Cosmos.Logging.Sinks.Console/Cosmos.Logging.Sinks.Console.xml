@@ -4,6 +4,137 @@
         <name>Cosmos.Logging.Sinks.Console</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.ConsoleSinkExtensions">
+            <summary>
+            Extensions for console sink
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ConsoleSinkExtensions.AddConsole(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.Sinks.Console.ConsoleSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.Sinks.Console.ConsoleSinkConfiguration})">
+            <summary>
+            Add console sink for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settingAct"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ConsoleSinkExtensions.AddConsole(Cosmos.Logging.Core.ILogServiceCollection,Cosmos.Logging.Sinks.Console.ConsoleSinkOptions,System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.Sinks.Console.ConsoleSinkConfiguration})">
+            <summary>
+            Add console sink for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="options"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ConsoleSinkExtensions.AddConsole(Cosmos.Logging.Core.ILogServiceCollection,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.Sinks.Console.ConsoleSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.Sinks.Console.ConsoleSinkConfiguration})">
+            <summary>
+            Add console sink for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.ConsolePayloadClient">
+            <summary>
+            Console Payload client
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsolePayloadClient.#ctor(System.String,Cosmos.Logging.Sinks.Console.ConsoleSinkConfiguration,System.IFormatProvider)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.Console.ConsolePayloadClient"/>.
+            </summary>
+            <param name="name"></param>
+            <param name="sinkConfiguration"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.ConsolePayloadClient.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.ConsolePayloadClient.Level">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsolePayloadClient.WriteAsync(Cosmos.Logging.Core.Payloads.ILogPayload,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.ConsolePayloadClientProvider">
+            <summary>
+            Console payload client provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsolePayloadClientProvider.#ctor(Microsoft.Extensions.Options.IOptions{Cosmos.Logging.Sinks.Console.ConsoleSinkOptions},Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.Console.ConsolePayloadClientProvider"/>.
+            </summary>
+            <param name="settings"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsolePayloadClientProvider.GetClient">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.ConsoleSinkConfiguration">
+            <summary>
+            Console sink configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.ConsoleSinkConfiguration.ColorEnabled">
+            <summary>
+            Colour enabled
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions">
+            <summary>
+            Console sink options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.ConsoleSinkOptions.ColorEnabled">
+            <summary>
+            Colour enabled
+            </summary>
+        </member>
         <member name="T:Cosmos.Logging.Sinks.Console.IConsole">
             <summary>
             Interface of console
@@ -50,6 +181,15 @@
             Log message holder
             </summary>
         </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.UnixConsole.Write(System.String,System.Nullable{System.ConsoleColor},System.Nullable{System.ConsoleColor})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.UnixConsole.WriteLine(System.String,System.Nullable{System.ConsoleColor},System.Nullable{System.ConsoleColor})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.UnixConsole.Flush">
+            <inheritdoc />
+        </member>
         <member name="M:Cosmos.Logging.Sinks.Console.Internals.UnixConsole.GetForegroundColour(System.ConsoleColor)">
             <summary>
             Get foreground colour
@@ -66,6 +206,20 @@
             <summary>
             Windows console
             </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.WindowsConsole.#ctor">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.Console.Internals.WindowsConsole"/>.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.WindowsConsole.Write(System.String,System.Nullable{System.ConsoleColor},System.Nullable{System.ConsoleColor})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.WindowsConsole.WriteLine(System.String,System.Nullable{System.ConsoleColor},System.Nullable{System.ConsoleColor})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Internals.WindowsConsole.Flush">
+            <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.Sinks.Console.Internals.WindowsConsole.SetColour(System.Nullable{System.ConsoleColor},System.Nullable{System.ConsoleColor})">
             <summary>
@@ -120,11 +274,130 @@
             Rendered message
             </summary>
         </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.Output.BaseOutputRenderer`1">
+            <summary>
+            Base output renderer
+            </summary>
+            <typeparam name="TBody"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.BaseOutputRenderer`1.#ctor(`0,Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle,System.IO.TextWriter)">
+            <summary>
+            Create a new instance of <see cref="!:BaseOutputRenderer"/>
+            </summary>
+            <param name="body"></param>
+            <param name="style"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.Output.BaseOutputRenderer`1.Body">
+            <summary>
+            Gets body
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.Output.BaseOutputRenderer`1.Style">
+            <summary>
+            Gets style
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.Output.BaseOutputRenderer`1.Writer">
+            <summary>
+            Gets writer
+            </summary>
+        </member>
         <member name="M:Cosmos.Logging.Sinks.Console.Output.BaseOutputRenderer`1.Render(Cosmos.Logging.Events.LogEvent)">
             <summary>
             Render, and return the length of result
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.Output.ExceptionRenderer`1">
+            <summary>
+            Exception renderer
+            </summary>
+            <typeparam name="TException"></typeparam>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.ExceptionRenderer`1.#ctor(`0,Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle,System.IO.TextWriter)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.ExceptionRenderer`1.Render(Cosmos.Logging.Events.LogEvent)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.Output.ExtraPropertyRenderer">
+            <summary>
+            Extra property renderer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.ExtraPropertyRenderer.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle,System.IO.TextWriter)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.ExtraPropertyRenderer.Render(Cosmos.Logging.Events.LogEvent)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.Output.LevelRenderer">
+            <summary>
+            Level renderer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.LevelRenderer.#ctor(Cosmos.Logging.MessageTemplates.PropertyToken,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle,System.IO.TextWriter)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.LevelRenderer.Render(Cosmos.Logging.Events.LogEvent)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.Output.MessageRenderer">
+            <summary>
+            Message renderer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.MessageRenderer.#ctor(System.Text.StringBuilder,Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle,System.IO.TextWriter)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.MessageRenderer.Render(Cosmos.Logging.Events.LogEvent)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.Output.NewLineRenderer">
+            <summary>
+            NewLine renderer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.NewLineRenderer.#ctor(System.String,Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle,System.IO.TextWriter)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.NewLineRenderer.Render(Cosmos.Logging.Events.LogEvent)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.Output.TimestampRenderer">
+            <summary>
+            Timestamp renderer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.TimestampRenderer.#ctor(System.DateTimeOffset,Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle,System.IO.TextWriter)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.Output.TimestampRenderer.Render(Cosmos.Logging.Events.LogEvent)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Console.RendersLib.ConsoleHelloWorldRenderer">
+            <summary>
+            ConsoleHelloWorld renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.RendersLib.ConsoleHelloWorldRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Console.RendersLib.ConsoleHelloWorldRenderer.SinkPrefix">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.RendersLib.ConsoleHelloWorldRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.RendersLib.ConsoleHelloWorldRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.RendersLib.ConsoleHelloWorldRenderer.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Console.RendersLib.ConsoleHelloWorldRenderer.ToString">
+            <inheritdoc />
         </member>
         <member name="T:Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle">
             <summary>

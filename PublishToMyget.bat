@@ -29,6 +29,11 @@ dotnet pack src/Cosmos.Logging.RunsOn.NancyFX -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.RunsOn.NancyFX.WithAutofac -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.RunsOn.ZKWeb -c Release -o nuget_pub
 
+::configuration
+dotnet pack src/Cosmos.Logging.Configuration.Xml -c Release -o nuget_pub
+dotnet pack src/Cosmos.Logging.Configuration.Json -c Release -o nuget_pub
+dotnet pack src/Cosmos.Logging.Configuration.Yaml -c Release -o nuget_pub
+
 ::sinks
 dotnet pack src/Cosmos.Logging.Sinks.Console -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.Sinks.File -c Release -o nuget_pub

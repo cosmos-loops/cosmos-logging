@@ -4,6 +4,7 @@ using Cosmos.Logging.Renders.RendersLib;
 
 namespace Cosmos.Logging.Renders {
     internal static class CoreRendererActivation {
+        // ReSharper disable once InconsistentNaming
         private static readonly List<Type> _default = new List<Type> {
             typeof(DateRenderer),
             typeof(CallerMemberNameRenderer),

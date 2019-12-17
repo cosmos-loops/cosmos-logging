@@ -4,5 +4,511 @@
         <name>Cosmos.Logging.RunsOn.ZKWeb</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.GlobalOptionsExtensions">
+            <summary>
+            Extensions for global options
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.GlobalOptionsExtensions.ToGlobal(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.Configurations.LoggingOptions})">
+            <summary>
+            To global
+            </summary>
+            <param name="services"></param>
+            <param name="settingsAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.GlobalOptionsExtensions.ToGlobal``1(Cosmos.Logging.Core.ILogServiceCollection,System.Action{``0})">
+            <summary>
+            To global
+            </summary>
+            <param name="services"></param>
+            <param name="settingsAct"></param>
+            <typeparam name="TLoggingSettings"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.GlobalOptionsExtensions.ToGlobal``1(Cosmos.Logging.Core.ILogServiceCollection,``0)">
+            <summary>
+            To global
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <typeparam name="TLoggingSettings"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.LOGGER">
+            <summary>
+            Logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger(System.String,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger(System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger(System.String,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="minLevel"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger(System.String,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="minLevel"></param>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger(System.Type,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="type"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger(System.Type,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="type"></param>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="type"></param>
+            <param name="minLevel"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="type"></param>
+            <param name="minLevel"></param>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger``1(Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger``1(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger``1(Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="minLevel"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetLogger``1(Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger
+            </summary>
+            <param name="minLevel"></param>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger(System.String,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger(System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger(System.String,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="minLevel"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger(System.String,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="categoryName"></param>
+            <param name="minLevel"></param>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger(System.Type,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="type"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger(System.Type,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="type"></param>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="type"></param>
+            <param name="minLevel"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="type"></param>
+            <param name="minLevel"></param>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger``1(Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger``1(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger``1(Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="minLevel"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LOGGER.GetFutureLogger``1(Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <summary>
+            Get future logger
+            </summary>
+            <param name="minLevel"></param>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection">
+            <summary>
+            ZKWeb log service collection
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.BeGivenConfigurationBuilder">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.BeGivenConfigurationRoot">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.ExposeServices">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.ExposeLogSettings">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.ExposeLoggingConfiguration">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.ReplaceSettings(Cosmos.Logging.Configurations.ILoggingOptions)">
+            <summary>
+            Replace settings
+            </summary>
+            <param name="newSettings"></param>
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.AddDependency(System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.AddEnricher(System.Func{Cosmos.Logging.Core.Enrichers.ILogEventEnricher})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.AddSinkSettings``2(``0,System.Action{Microsoft.Extensions.Configuration.IConfiguration,``1})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.AddExtraSinkSettings``2(``0,System.Action{Microsoft.Extensions.Configuration.IConfiguration,``1,Cosmos.Logging.LoggingConfiguration})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.AddOriginalConfigAction(System.Action{Microsoft.Extensions.Configuration.IConfiguration})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.ModifyConfigurationBuilder(System.Action{Cosmos.Logging.Configurations.LoggingConfigurationBuilder})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.PreheatMessageTemplates(System.Action{Cosmos.Logging.MessageTemplates.MessageTemplateCachePreheater})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.RunsOn.ZKWeb.RendersLib.ZKWebHelloWorldRenderer">
+            <summary>
+            ZKWebHelloWorld renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.RunsOn.ZKWeb.RendersLib.ZKWebHelloWorldRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.RendersLib.ZKWebHelloWorldRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.RendersLib.ZKWebHelloWorldRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.RendersLib.ZKWebHelloWorldRenderer.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.RendersLib.ZKWebHelloWorldRenderer.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.RunsOn.ZKWeb.ZKWebFutureLogger">
+            <summary>
+            ZKWeb future logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebFutureLogger.#ctor(Cosmos.Logging.ILogger,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLogger">
+            <summary>
+            ZKWeb logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLogger.#ctor(System.Type,Cosmos.Logging.Events.LogEventLevel,System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,Cosmos.Logging.Core.Payloads.ILogPayloadSender)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLogger.ToFuture(System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLogger.ToSimple">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider">
+            <summary>
+            ZKWeb logging service provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.#ctor(ZKWebStandard.Ioc.IContainer,Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider"/>.
+            </summary>
+            <param name="provider"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger(System.String,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger(System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger(System.String,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger(System.String,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger(System.Type,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger(System.Type,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger``1(Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger``1(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger``1(Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetLogger``1(Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger(System.String,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger(System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger(System.String,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger(System.String,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger(System.Type,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger(System.Type,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger``1(Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger``1(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger``1(Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebLoggingServiceProvider.GetFutureLogger``1(Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.RunsOn.ZKWeb.ZKWebSimpleLogger">
+            <summary>
+            ZKWeb simple logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebSimpleLogger.#ctor(System.Type,Cosmos.Logging.Events.LogEventLevel,System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Core.Payloads.ILogPayloadSender)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.ZKWebIocExtensions">
+            <summary>
+            Extensions for ZKWeb IOC 
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ZKWebIocExtensions.RegisterCosmosLogging(ZKWebStandard.Ioc.IContainer,System.Action{Cosmos.Logging.Core.ILogServiceCollection})">
+            <summary>
+            Register Cosmos Logging to ZKWeb IOC
+            </summary>
+            <param name="ioc"></param>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

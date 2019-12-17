@@ -4,23 +4,32 @@ using System.Linq;
 using Cosmos.Logging.Core.ObjectResolving;
 using Cosmos.Logging.Events;
 
-namespace Cosmos.Logging.Core.Enrichers
-{
-    public static class LogEventEnricherManager
-    {
+namespace Cosmos.Logging.Core.Enrichers {
+    /// <summary>
+    /// Log event enricher manager
+    /// </summary>
+    public static class LogEventEnricherManager {
         private static readonly List<ILogEventEnricher> _enrichers;
         private static readonly IShortcutPropertyFactory _propertyFactory;
 
-        static LogEventEnricherManager()
-        {
+        static LogEventEnricherManager() {
             _enrichers = new List<ILogEventEnricher>();
             _propertyFactory = MessageParameterProcessorCache.Get();
         }
 
-        public static void Enricher(LogEvent logEvent)
-        {
+        /// <summary>
+        /// Enricher
+        /// </summary>
+        /// <param name="logEvent"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static void Enricher(LogEvent logEvent) {
             if (logEvent is null)
                 throw new ArgumentNullException(nameof(logEvent));
+            
+            //If this log event emitted from a simple log, it seems that do not need enrich any more,
+            //so, return is a good choice.
+            if(logEvent.FromSimpleLogger)
+                return;
 
             if (_enrichers is null || !_enrichers.Any())
                 return;
@@ -32,8 +41,7 @@ namespace Cosmos.Logging.Core.Enrichers
                 enricher.Enrich(logEvent, _propertyFactory);
         }
 
-        internal static void UpdateEnricher(ILogEventEnricher enricher)
-        {
+        internal static void UpdateEnricher(ILogEventEnricher enricher) {
             if (enricher == null)
                 throw new ArgumentNullException(nameof(enricher));
 

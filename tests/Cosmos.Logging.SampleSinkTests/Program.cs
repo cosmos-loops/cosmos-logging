@@ -38,6 +38,12 @@ namespace Cosmos.Logging.SampleSinkTests {
                     Fields.Args(new {L = "KK3"}),
                     Fields.Exception(new ArgumentNullException(nameof(args)))).Submit();
 
+                var simple = logger.ToSimple();
+
+                simple.LogInformation("Write log by simple logger");
+                simple.LogError(new ArgumentException(), "Write log with exception for {0}", "Alex LEWIS");
+                simple.LogInformation("Write log by simple logger{{helloworld}}{$NewLine}");
+                
                 Console.WriteLine("Hello World!");
             }
             catch (Exception e) {

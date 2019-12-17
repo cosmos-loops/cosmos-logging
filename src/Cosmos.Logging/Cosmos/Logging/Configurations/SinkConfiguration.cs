@@ -18,7 +18,11 @@ namespace Cosmos.Logging.Configurations {
         private readonly List<NamespaceNavigator> _namespaceFilterNavRoots = new List<NamespaceNavigator>();
         private readonly object _parsedLgLevelLock = new object();
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="SinkConfiguration"/>.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         protected SinkConfiguration(string name) {
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
             _namespaceNavigatorCache = new NamespaceNavigatorCache(new NamespaceNavigationParser());

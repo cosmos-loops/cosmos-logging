@@ -29,7 +29,24 @@ namespace Cosmos.Logging.Events {
             CallerInfo = NullLogCallerInfo.Instance;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Create a new instance of <see cref="LogEvent"/>.
+        /// </summary>
+        /// <param name="stateNamespace"></param>
+        /// <param name="eventId"></param>
+        /// <param name="level"></param>
+        /// <param name="messageTemplate"></param>
+        /// <param name="exception"></param>
+        /// <param name="sendMode"></param>
+        /// <param name="callerInfo"></param>
+        /// <param name="upstreamRenderingOptions"></param>
+        /// <param name="namedMessageProperties"></param>
+        /// <param name="positionalMessageProperties"></param>
+        /// <param name="logEventContext"></param>
+        /// <param name="contextData"></param>
+        /// <param name="messageProcessorShortcut"></param>
+        /// <param name="fromSimpleLogger"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public LogEvent(
             string stateNamespace,
             LogEventId eventId,
@@ -43,7 +60,8 @@ namespace Cosmos.Logging.Events {
             Dictionary<(int position, PropertyResolvingMode mode), MessageProperty> positionalMessageProperties,
             LogEventContext logEventContext,
             ContextData contextData = null,
-            IShortcutPropertyFactory messageProcessorShortcut = null) {
+            IShortcutPropertyFactory messageProcessorShortcut = null,
+            bool fromSimpleLogger = false) {
 
             if (namedMessageProperties == null) throw new ArgumentNullException(nameof(namedMessageProperties));
             if (positionalMessageProperties == null) throw new ArgumentNullException(nameof(positionalMessageProperties));
@@ -53,6 +71,7 @@ namespace Cosmos.Logging.Events {
             Level = level;
             Exception = exception;
             SendMode = sendMode;
+            FromSimpleLogger = fromSimpleLogger;
             CallerInfo = callerInfo;
             MessageTemplate = messageTemplate ?? throw new ArgumentNullException(nameof(messageTemplate));
             _logEventContext = logEventContext ?? new LogEventContext();
@@ -86,6 +105,11 @@ namespace Cosmos.Logging.Events {
 
         /// <inheritdoc />
         public LogEventSendMode SendMode { get; }
+
+        /// <summary>
+        /// TO flag this log event emitted from a simple logger
+        /// </summary>
+        internal bool FromSimpleLogger { get; }
 
         /// <inheritdoc />
         public Exception Exception { get; }
@@ -241,7 +265,7 @@ namespace Cosmos.Logging.Events {
         public IReadOnlyDictionary<string, ExtraMessageProperty> ExtraProperties => _extraMessageProperties;
 
         #endregion
-        
+
         /// <inheritdoc />
         public LogEvent ToLogEvent() => this;
 

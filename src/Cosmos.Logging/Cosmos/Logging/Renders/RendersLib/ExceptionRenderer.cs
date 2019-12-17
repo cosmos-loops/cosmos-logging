@@ -7,15 +7,16 @@ using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Formattings;
 
-namespace Cosmos.Logging.Renders.RendersLib
-{
+namespace Cosmos.Logging.Renders.RendersLib {
+    /// <summary>
+    /// ExceptionRenderer
+    /// </summary>
     [Renderer("Exception")]
-    public class ExceptionRenderer : BasicPreferencesRenderer
-    {
+    public class ExceptionRenderer : BasicPreferencesRenderer {
+        /// <inheritdoc />
         public override string Name => "Exception";
 
-        private static string FixedExceptionInfo(ILogEventInfo logEventInfo, string format, string paramsText)
-        {
+        private static string FixedExceptionInfo(ILogEventInfo logEventInfo, string format, string paramsText) {
             if (logEventInfo?.Exception is null)
                 return string.Empty;
 
@@ -32,8 +33,7 @@ namespace Cosmos.Logging.Renders.RendersLib
                 ? logEventInfo.Exception.Unwrap()
                 : logEventInfo.Exception;
 
-            foreach (var cmd in CleanCommanders(commanders))
-            {
+            foreach (var cmd in CleanCommanders(commanders)) {
                 if (usedCommanders.Contains(cmd))
                     continue;
                 AppendBuilder(logEventInfo, targetException, builder, cmd, ref withNewLine);
@@ -44,19 +44,15 @@ namespace Cosmos.Logging.Renders.RendersLib
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         private static void AppendBuilder(ILogEventInfo logEventInfo, Exception targetException,
-            StringBuilder builder, string cmd, ref bool withNewLine)
-        {
-            switch (cmd)
-            {
-                case "N":
-                {
+            StringBuilder builder, string cmd, ref bool withNewLine) {
+            switch (cmd) {
+                case "N": {
                     __processNewList(ref withNewLine);
                     builder.Append(targetException.GetType().Name);
                     break;
                 }
 
-                case "T":
-                {
+                case "T": {
                     __processNewList(ref withNewLine);
                     var @namespace = targetException.GetType().Namespace;
                     @namespace = string.IsNullOrWhiteSpace(@namespace) ? string.Empty : $"{@namespace}.";
@@ -64,63 +60,53 @@ namespace Cosmos.Logging.Renders.RendersLib
                     break;
                 }
 
-                case "M":
-                {
+                case "M": {
                     __processNewList(ref withNewLine);
                     builder.Append(targetException.Message);
                     break;
                 }
 
-                case "D":
-                {
+                case "D": {
                     __processNewList(ref withNewLine);
                     var logEvent = logEventInfo.ToLogEvent();
-                    if (logEvent.ContextData.HasExceptionDetail())
-                    {
+                    if (logEvent.ContextData.HasExceptionDetail()) {
                         var detailName = logEvent.ContextData.GetExceptionDetailName();
                         var extraProperty = logEvent.ExtraProperties[detailName];
                         builder.Append(extraProperty);
                     }
-                    else
-                    {
+                    else {
                         builder.Append(logEventInfo.Exception);
                     }
 
                     break;
                 }
 
-                case "S":
-                {
+                case "S": {
                     __processNewList(ref withNewLine);
                     builder.Append(targetException.Source);
                     break;
                 }
             }
 
-            void __processNewList(ref bool __withNewLine)
-            {
-                if (__withNewLine)
-                {
+            void __processNewList(ref bool __withNewLine) {
+                if (__withNewLine) {
                     builder.AppendLine();
                 }
-                else
-                {
+                else {
                     __withNewLine = true;
                 }
             }
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        private static IEnumerable<string> MakeCommanders(string format, string paramsText)
-        {
+        private static IEnumerable<string> MakeCommanders(string format, string paramsText) {
             var validParamsText = __combine(format, paramsText);
 
             return string.IsNullOrWhiteSpace(validParamsText)
                 ? Enumerable.Empty<string>()
                 : validParamsText.Split(',');
 
-            string __combine(string __format, string __paramsText)
-            {
+            string __combine(string __format, string __paramsText) {
                 if (string.IsNullOrWhiteSpace(__format))
                     return __fixedParamsText(__paramsText);
                 var fixedParamsText = __fixedParamsText(__paramsText);
@@ -129,8 +115,7 @@ namespace Cosmos.Logging.Renders.RendersLib
                     : $"{__format},{fixedParamsText}";
             }
 
-            string __fixedParamsText(string value)
-            {
+            string __fixedParamsText(string value) {
                 return string.IsNullOrWhiteSpace(value)
                     ? string.Empty
                     : value.TrimStart(',').TrimEnd(',');
@@ -138,28 +123,23 @@ namespace Cosmos.Logging.Renders.RendersLib
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        private static IEnumerable<string> CleanCommanders(IEnumerable<string> commanders)
-        {
+        private static IEnumerable<string> CleanCommanders(IEnumerable<string> commanders) {
             var usedCommanders = new List<string>();
             var result = new List<string>();
 
-            foreach (var commander in commanders)
-            {
+            foreach (var commander in commanders) {
                 var cmd = commander.Trim();
 
-                switch (cmd)
-                {
+                switch (cmd) {
                     case "name":
-                    case "N":
-                    {
+                    case "N": {
                         result.Add("N");
                         __updateUsedCommanders(usedCommanders, "name", "N");
                         break;
                     }
 
                     case "type":
-                    case "T":
-                    {
+                    case "T": {
                         result.Add("T");
                         __updateUsedCommanders(usedCommanders, "type", "T");
                         break;
@@ -167,16 +147,14 @@ namespace Cosmos.Logging.Renders.RendersLib
 
                     case "msg":
                     case "message":
-                    case "M":
-                    {
+                    case "M": {
                         result.Add("M");
                         __updateUsedCommanders(usedCommanders, "msg", "message", "M");
                         break;
                     }
 
                     case "detail":
-                    case "D":
-                    {
+                    case "D": {
                         result.Add("D");
                         __updateUsedCommanders(usedCommanders, "detail", "D");
 
@@ -184,8 +162,7 @@ namespace Cosmos.Logging.Renders.RendersLib
                     }
 
                     case "source":
-                    case "S":
-                    {
+                    case "S": {
                         result.Add("S");
                         __updateUsedCommanders(usedCommanders, "source", "S");
                         break;
@@ -195,10 +172,8 @@ namespace Cosmos.Logging.Renders.RendersLib
 
             return result;
 
-            void __updateUsedCommanders(List<string> __usedCommanders, params string[] __cmds)
-            {
-                if (__cmds != null)
-                {
+            void __updateUsedCommanders(List<string> __usedCommanders, params string[] __cmds) {
+                if (__cmds != null) {
                     __usedCommanders.AddRange(__cmds);
                 }
             }
@@ -206,21 +181,21 @@ namespace Cosmos.Logging.Renders.RendersLib
 
         #region ToString
 
+        /// <inheritdoc />
         public override string ToString(string format, string paramsText,
-            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null)
-        {
+            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
             return FixedExceptionInfo(logEventInfo, format, paramsText);
         }
 
+        /// <inheritdoc />
         public override string ToString(IList<FormatEvent> formattingEvents, string paramsText,
-            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null)
-        {
+            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
             return formattingEvents.ToFormat(FixedExceptionInfo(logEventInfo, null, paramsText), formatProvider);
         }
 
+        /// <inheritdoc />
         public override string ToString(IList<Func<object, IFormatProvider, object>> formattingFuncs, string paramsText,
-            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null)
-        {
+            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
             return formattingFuncs.ToFormat(FixedExceptionInfo(logEventInfo, null, paramsText), formatProvider);
         }
 
@@ -228,26 +203,27 @@ namespace Cosmos.Logging.Renders.RendersLib
 
         #region Render
 
+        /// <inheritdoc />
         public override void Render(string format, string paramsText, StringBuilder stringBuilder,
-            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null)
-        {
+            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
             stringBuilder.Append(ToString(format, paramsText, logEventInfo, formatProvider));
         }
 
+        /// <inheritdoc />
         public override void Render(IList<FormatEvent> formattingEvents, string paramsText, StringBuilder stringBuilder,
-            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null)
-        {
+            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
             stringBuilder.Append(ToString(formattingEvents, paramsText, logEventInfo, formatProvider));
         }
 
+        /// <inheritdoc />
         public override void Render(IList<Func<object, IFormatProvider, object>> formattingFuncs, string paramsText, StringBuilder stringBuilder,
-            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null)
-        {
+            ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
             stringBuilder.Append(ToString(formattingFuncs, paramsText, logEventInfo, formatProvider));
         }
 
         #endregion
 
+        /// <inheritdoc />
         public override CustomFormatProvider CustomFormatProvider => null;
     }
 }

@@ -4,5 +4,174 @@
         <name>Cosmos.Logging.Extensions.FreeSql</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.Extensions.FreeSql.Core.DbParam">
+            <summary>
+            Database Parameter
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.FreeSql.Core.DbParam.#ctor(System.String,System.Object,System.Data.DbType)">
+            <summary>
+            Create a new instance of Database parameter
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="type"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.FreeSql.Core.DbParam.ParameterName">
+            <summary>
+            Parameter name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.FreeSql.Core.DbParam.Value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.FreeSql.Core.DbParam.DbType">
+            <summary>
+            DbType
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.FreeSql.Core.EventIdKeys">
+            <summary>
+            Event Id Keys
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.FreeSql.Core.EventIdKeys.Executed">
+            <summary>
+            Executed
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.FreeSql.Core.EventIdKeys.LongTimeExecuted">
+            <summary>
+            Long time executed
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.FreeSql.Core.EventIdKeys.Error">
+            <summary>
+            Error
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.FreeSql.Core.FreeSqlInterceptorDescriptor">
+            <summary>
+            FreeSql interceptor descriptor
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.FreeSql.Core.FreeSqlInterceptorDescriptor.#ctor(Cosmos.Logging.ILoggingServiceProvider,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.FreeSqlEnricherOptions})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.FreeSqlEnricherConfiguration">
+            <summary>
+            FreeSql enricher configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.FreeSqlEnricherExtensions">
+            <summary>
+            Extensions FreeSql enricher
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherExtensions.UseFreeSql(Cosmos.Logging.DatabaseIntegration,System.Action{Cosmos.Logging.FreeSqlEnricherOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.FreeSqlEnricherConfiguration})">
+            <summary>
+            Use FreeSql for Cosmos Logging
+            </summary>
+            <param name="integration"></param>
+            <param name="settingAct"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.FreeSqlEnricherOptions">
+            <summary>
+            FreeSql enricher options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.FreeSqlEnricherOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.AddExecutingInterceptor(System.Action{FreeSql.Aop.CurdBeforeEventArgs})">
+            <summary>
+            Add executing interceptor
+            </summary>
+            <param name="executingInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.AddExecutedInterceptor(System.Action{FreeSql.Aop.CurdAfterEventArgs})">
+            <summary>
+            Add executed interceptor
+            </summary>
+            <param name="executedInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.AddErrorInterceptor(System.Action{System.Exception,FreeSql.Aop.CurdAfterEventArgs})">
+            <summary>
+            Add error interceptor
+            </summary>
+            <param name="errorInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.UseFilter(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Add filter
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlEnricherOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.FreeSqlExtensions">
+            <summary>
+            Extensions for FreeSql
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.FreeSqlExtensions.UseCosmosLogging``1(``0,Cosmos.Logging.Extensions.FreeSql.Core.FreeSqlInterceptorDescriptor,System.Action{FreeSql.Aop.CurdBeforeEventArgs},System.Func{FreeSql.Aop.CurdAfterEventArgs,System.Object},System.Func{System.Exception,FreeSql.Aop.CurdAfterEventArgs,System.Object},System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Use Cosmos Logging for FreeSql
+            </summary>
+            <param name="freeSql"></param>
+            <param name="descriptor"></param>
+            <param name="executingAct"></param>
+            <param name="executedAct"></param>
+            <param name="errorAct"></param>
+            <param name="filter"></param>
+            <typeparam name="TFreeSql"></typeparam>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -4,5 +4,200 @@
         <name>Cosmos.Logging.Extensions.EntityFrameworkCore</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.DatabaseExtensions">
+            <summary>
+            Extensions for DbContext
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.DatabaseExtensions.UseCosmosLogging(Microsoft.EntityFrameworkCore.DbContext,System.Func{System.String,System.Object})">
+            <summary>
+            Use Cosmos Logging for EntityFrameworkCore
+            </summary>
+            <param name="db"></param>
+            <param name="loggerAct"></param>
+        </member>
+        <member name="M:Cosmos.Logging.DatabaseExtensions.UseCosmosLogging(Microsoft.EntityFrameworkCore.DbContext,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},System.Func{System.String,System.Object})">
+            <summary>
+            Use Cosmos Logging for EntityFrameworkCore
+            </summary>
+            <param name="db"></param>
+            <param name="filter"></param>
+            <param name="loggerAct"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.DbContextOptionsBuilderExtensions">
+            <summary>
+            Extensions for DbContextOptionsBuilder
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.DbContextOptionsBuilderExtensions.UseCosmosLogging(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            Use Cosmos Logging for EntityFrameworkCore
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.DbContextOptionsBuilderExtensions.UseCosmosLogging(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Use Cosmos Logging for EntityFrameworkCore
+            </summary>
+            <param name="builder"></param>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.DbContextOptionsBuilderExtensions.UseCosmosLogging(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder,System.Func{System.String,Microsoft.Extensions.Logging.LogLevel,System.Boolean})">
+            <summary>
+            Use Cosmos Logging for EntityFrameworkCore
+            </summary>
+            <param name="builder"></param>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.DbContextOptionsBuilderExtensions.UseCosmosLogging(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder,Cosmos.Logging.ILoggingServiceProvider)">
+            <summary>
+            Use Cosmos Logging for EntityFrameworkCore
+            </summary>
+            <param name="builder"></param>
+            <param name="loggingServiceProvider"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.DbContextOptionsBuilderExtensions.UseCosmosLogging(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder,Cosmos.Logging.ILoggingServiceProvider,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Use Cosmos Logging for EntityFrameworkCore
+            </summary>
+            <param name="builder"></param>
+            <param name="loggingServiceProvider"></param>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.DbContextOptionsBuilderExtensions.UseCosmosLogging(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder,Cosmos.Logging.ILoggingServiceProvider,System.Func{System.String,Microsoft.Extensions.Logging.LogLevel,System.Boolean})">
+            <summary>
+            Use Cosmos Logging for EntityFrameworkCore
+            </summary>
+            <param name="builder"></param>
+            <param name="loggingServiceProvider"></param>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.EfCoreEnricherConfiguration">
+            <summary>
+            Cosmos Logging EntityFrameworkCore Enricher configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.EfCoreEnricherExtensions">
+            <summary>
+            Cosmos Logging EntityFrameworkCore Enricher extensions
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherExtensions.UseEntityFrameworkCore(Cosmos.Logging.DatabaseIntegration,System.Action{Cosmos.Logging.EfCoreEnricherOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.EfCoreEnricherConfiguration})">
+            <summary>
+            Use Cosmos Logging EntityFrameworkCore enricher
+            </summary>
+            <param name="integration"></param>
+            <param name="settingAct"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.EfCoreEnricherOptions">
+            <summary>
+            Cosmos Logging EntityFrameworkCore Enricher options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.EfCoreEnricherOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.AddSimpleLoggingInterceptor(System.Func{System.String,System.Object})">
+            <summary>
+            Add simple logging interceptor
+            </summary>
+            <param name="simpleLoggingInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.UseFilter(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Use filter
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.EfCoreEnricherOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.EntityFrameworkCore.Core.EventIdKeys">
+            <summary>
+            Event id keys
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.EntityFrameworkCore.Core.EventIdKeys.Executed">
+            <summary>
+            Executed
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.EntityFrameworkCore.Core.EventIdKeys.LongTimeExecuted">
+            <summary>
+            Long time executed
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.EntityFrameworkCore.Core.EventIdKeys.Error">
+            <summary>
+            Error
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.EntityFrameworkCore.Core.EventIdKeys.SqlExposure">
+            <summary>
+            Sql exposure
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.EntityFrameworkCore.EfCoreLoggerWrapper">
+            <summary>
+            Microsoft EntityFrameworkCore Logger wrapper
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.EntityFrameworkCore.EfCoreLoggerWrapper.#ctor(Cosmos.Logging.ILogger)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

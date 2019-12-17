@@ -4,11 +4,121 @@
         <name>Cosmos.Logging.Extensions.NHibernate</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.Extensions.NHibernate.Core.EventIdKeys">
+            <summary>
+            Event id keys
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.NHibernate.Core.EventIdKeys.Executed">
+            <summary>
+            Executed
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.NHibernate.Core.EventIdKeys.LongTimeExecuted">
+            <summary>
+            Long time executed
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.NHibernate.Core.EventIdKeys.Error">
+            <summary>
+            Error
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.NHibernate.Core.EventIdKeys.Info">
+            <summary>
+            Info
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.NHibernate.Core.EventIdKeys.Warn">
+            <summary>
+            Warn
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.NHibernate.Core.EventIdKeys.Debug">
+            <summary>
+            Debug
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.NHibernate.Core.EventIdKeys.SqlExposure">
+            <summary>
+            Sql exposure
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor">
+            <summary>
+            Logging interceptor
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.OnDelete(System.Object,System.Object,System.Object[],System.String[],NHibernate.Type.IType[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.OnCollectionRecreate(System.Object,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.OnCollectionRemove(System.Object,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.OnCollectionUpdate(System.Object,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.OnFlushDirty(System.Object,System.Object,System.Object[],System.Object[],System.String[],NHibernate.Type.IType[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.OnLoad(System.Object,System.Object,System.Object[],System.String[],NHibernate.Type.IType[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.OnSave(System.Object,System.Object,System.Object[],System.String[],NHibernate.Type.IType[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.PostFlush(System.Collections.ICollection)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.PreFlush(System.Collections.ICollection)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.IsTransient(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.Instantiate(System.String,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.GetEntityName(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.GetEntity(System.String,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.FindDirty(System.Object,System.Object,System.Object[],System.Object[],System.String[],NHibernate.Type.IType[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.AfterTransactionBegin(NHibernate.ITransaction)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.BeforeTransactionCompletion(NHibernate.ITransaction)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.AfterTransactionCompletion(NHibernate.ITransaction)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.SetSession(NHibernate.ISession)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptor.OnPrepareStatement(NHibernate.SqlCommand.SqlString)">
+            <inheritdoc />
+        </member>
         <member name="M:Cosmos.Logging.Extensions.NHibernate.Core.LoggingInterceptorManager.Get">
             <summary>
             Gets global specified logging interceptor
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.NHibernate.NHibernateLoggerWrapper">
+            <summary>
+            NHibernate logger wrapper
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.NHibernateLoggerWrapper.#ctor(Cosmos.Logging.ILogger)">
+            <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.Extensions.NHibernate.NHibernateLoggerWrapper.Log(NHibernate.NHibernateLogLevel,NHibernate.NHibernateLogValues,System.Exception)">
             <summary>
@@ -24,6 +134,125 @@
             </summary>
             <param name="logLevel"></param>
             <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.NHibernate.NHibernateLoggerWrapperFactory">
+            <summary>
+            NHibernate logger wrapper factory
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.NHibernateLoggerWrapperFactory.#ctor(Cosmos.Logging.ILoggingServiceProvider,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.NHibernateLoggerWrapperFactory.#ctor(Cosmos.Logging.ILoggingServiceProvider,Cosmos.Logging.Configurations.RenderingConfiguration,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.NHibernateLoggerWrapperFactory.LoggerFor(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.NHibernate.NHibernateLoggerWrapperFactory.LoggerFor(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.NhEnricherConfiguration">
+            <summary>
+            NHibernate enricher configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.NhEnricherExtensions">
+            <summary>
+            Extensions for NHibernate enricher
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherExtensions.UseNHibernate(Cosmos.Logging.DatabaseIntegration,System.Action{Cosmos.Logging.NhEnricherOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.NhEnricherConfiguration})">
+            <summary>
+            Add NHibernate for Cosmos.Logging
+            </summary>
+            <param name="integration"></param>
+            <param name="settingAct"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.NhEnricherOptions">
+            <summary>
+            NHibernate enricher options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.NhEnricherOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.UseFilter(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Use filter
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.NhEnricherOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.SessionFactoryExtensions">
+            <summary>
+            Extensions for Session factory
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.SessionFactoryExtensions.UseCosmosLogging(NHibernate.ISessionFactory)">
+            <summary>
+            Add Cosmos Logging for NHibernate
+            </summary>
+            <param name="sf"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.SessionFactoryExtensions.UseCosmosLogging(NHibernate.ISessionFactory,NHibernate.IInterceptor)">
+            <summary>
+            Add Cosmos Logging for NHibernate
+            </summary>
+            <param name="sf"></param>
+            <param name="interceptor"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.SessionFactoryExtensions.UseCosmosLogging(NHibernate.ISessionFactory,NHibernate.IInterceptor[])">
+            <summary>
+            Add Cosmos Logging for NHibernate
+            </summary>
+            <param name="sf"></param>
+            <param name="interceptors"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
     </members>
 </doc>

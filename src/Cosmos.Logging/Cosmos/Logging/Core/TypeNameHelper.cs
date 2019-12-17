@@ -25,9 +25,18 @@ namespace Cosmos.Logging.Core {
             {typeof(ushort), "ushort"}
         };
 
+        /// <summary>
+        /// Get type display name
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static string GetTypeDisplayName(Type type) {
             if (type.GetTypeInfo().IsGenericType) {
-                var parts = type.GetGenericTypeDefinition().FullName.Split('+');
+                var parts = type?.GetGenericTypeDefinition()?.FullName?.Split('+');
+
+                if (parts is null)
+                    return string.Empty;
+
                 for (var i = 0; i < parts.Length; i++) {
                     var partName = parts[i];
                     var backTickIndex = partName.IndexOf('`');
@@ -46,6 +55,9 @@ namespace Cosmos.Logging.Core {
             }
 
             var fullName = type.FullName;
+
+            if (string.IsNullOrWhiteSpace(fullName))
+                return string.Empty;
 
             if (type.IsNested) {
                 fullName = fullName.Replace('+', '.');

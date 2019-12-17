@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="..\..\build\common.net461.props"/>
+    <Import Project="..\..\build\common.props" />
 
     <PropertyGroup>
         <TargetFramework>net461</TargetFramework>
@@ -12,22 +12,11 @@
         <Description>The base library for integrating Microsoft ASP.NET MVC 5 for Cosmos.Logging.</Description>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.RunsOn.AspNet.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.RunsOn.AspNet.xml</DocumentationFile>
-    </PropertyGroup>
-
     <ItemGroup>
+        <Reference Include="System.Web" />
         <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="System.Web" />
-  </ItemGroup>
-    
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>

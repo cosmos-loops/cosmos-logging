@@ -5,7 +5,13 @@ namespace Cosmos.Logging.Events {
     /// Message property
     /// </summary>
     public class MessageProperty : IMessageProperty {
-        /// <inheritdoc />
+       
+        /// <summary>
+        /// Create a new instance of <see cref="MessageProperty"/>.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="positionalValue"></param>
+        /// <param name="value"></param>
         public MessageProperty(string name, int positionalValue, MessagePropertyValue value) {
             CheckParams(name, positionalValue, value);
             Name = name;

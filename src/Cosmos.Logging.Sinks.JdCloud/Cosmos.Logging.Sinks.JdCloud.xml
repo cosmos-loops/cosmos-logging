@@ -4,5 +4,254 @@
         <name>Cosmos.Logging.Sinks.JdCloud</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.JdCloudLogSinkConfiguration">
+            <summary>
+            JdCloud log sink configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.JdCloudLogSinkConfiguration.Client">
+            <summary>
+            Gets or sets JdCloud client
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.JdCloudLogSinkConfiguration.Clients">
+            <summary>
+            Gets or sets a set of JdCloud clients
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkConfiguration.PostProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.JdCloudLogSinkExtensions">
+            <summary>
+            Extensions for JdCloud log sink
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkExtensions.AddJdCloudLogService(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.JdCloudLogSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.JdCloudLogSinkConfiguration})">
+            <summary>
+            Add JdCloud Log service support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settingAct"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkExtensions.AddJdCloudLogService(Cosmos.Logging.Core.ILogServiceCollection,Cosmos.Logging.JdCloudLogSinkOptions,System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.JdCloudLogSinkConfiguration})">
+            <summary>
+            Add JdCloud Log service support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="sinkOptions"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkExtensions.AddJdCloudLogService(Cosmos.Logging.Core.ILogServiceCollection,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.JdCloudLogSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.JdCloudLogSinkConfiguration})">
+            <summary>
+            Add JdCloud Log service support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.JdCloudLogSinkOptions">
+            <summary>
+            JdCLoud log service sink options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.JdCloudLogSinkOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.JdCloudLogSinkOptions.LogStreamName">
+            <summary>
+            Gets or sets LogStreamName
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.JdCloudLogSinkOptions.AccessKey">
+            <summary>
+            Gets or sets AccessKey
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.JdCloudLogSinkOptions.SecretKey">
+            <summary>
+            Gets or sets SecretKey
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.JdCloudLogSinkOptions.Security">
+            <summary>
+            Gets or sets security
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.JdCloudLogSinkOptions.RetryTimes">
+            <summary>
+            Gets or sets retry time, default is 3
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.JdCloudLogSinkOptions.RequestTimeout">
+            <summary>
+            Gets or sets request timeout value, default is 5
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.JdCloudLogSinkOptions.UseNativeConfig(System.String,System.Action{Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfig})">
+            <summary>
+            Use JdCloud Log Service native config
+            </summary>
+            <param name="key"></param>
+            <param name="nativeAct"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfig">
+            <summary>
+            JdCloud native config
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfig.LogStreamName">
+            <summary>
+            Gets or sets log stream name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfig.AccessKey">
+            <summary>
+            Gets or sets access key
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfig.SecretKey">
+            <summary>
+            Gets or sets secret key
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfig.Security">
+            <summary>
+            Gets or sets security
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfig.RetryTimes">
+            <summary>
+            Gets or sets retry times, default is 3
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfig.RequestTimeout">
+            <summary>
+            Gets or sets request timeout, default is 5
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfig.IsGeneralClient">
+            <summary>
+            Gets or sets is general client or not
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfigWrapper">
+            <summary>
+            Wrapper for JdCloud native config
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfigWrapper.Key">
+            <summary>
+            Gets or sets key
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.Configurations.JdCloudNativeConfigWrapper.IsGeneralClient">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.JdCloud.JdCloudLogPayloadClient">
+            <summary>
+            JdCloud log payload client
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.JdCloud.JdCloudLogPayloadClient.#ctor(System.String,Cosmos.Logging.JdCloudLogSinkConfiguration,System.IFormatProvider)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.JdCloud.JdCloudLogPayloadClient"/>.
+            </summary>
+            <param name="name"></param>
+            <param name="sinkConfiguration"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.JdCloudLogPayloadClient.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.JdCloudLogPayloadClient.Level">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.JdCloud.JdCloudLogPayloadClient.WriteAsync(Cosmos.Logging.Core.Payloads.ILogPayload,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.JdCloud.JdCloudLogPayloadClientProvider">
+            <summary>
+            JdCloud log payload client provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.JdCloud.JdCloudLogPayloadClientProvider.#ctor(Microsoft.Extensions.Options.IOptions{Cosmos.Logging.JdCloudLogSinkOptions},Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.JdCloud.JdCloudLogPayloadClientProvider"/>.
+            </summary>
+            <param name="settings"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.JdCloud.JdCloudLogPayloadClientProvider.GetClient">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.JdCloud.RendersLib.JdCloudHelloWorldRenderer">
+            <summary>
+            JdCloud hello world renderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.RendersLib.JdCloudHelloWorldRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.JdCloud.RendersLib.JdCloudHelloWorldRenderer.SinkPrefix">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.JdCloud.RendersLib.JdCloudHelloWorldRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.JdCloud.RendersLib.JdCloudHelloWorldRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.JdCloud.RendersLib.JdCloudHelloWorldRenderer.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.JdCloud.RendersLib.JdCloudHelloWorldRenderer.ToString">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

@@ -6,6 +6,9 @@ using Cosmos.Logging.Filters.Navigators;
 using EnumsNET;
 
 namespace Cosmos.Logging {
+    /// <summary>
+    /// Logging configuration
+    /// </summary>
     public partial class LoggingConfiguration {
         private void SetSelf(LoggingConfiguration configuration) {
             var settings = _loggingSettings as LoggingOptions ?? LoggingOptions.Defaults;

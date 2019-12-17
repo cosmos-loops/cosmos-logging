@@ -32,6 +32,15 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// Author: Sunlighter
     /// </summary>
     public static class WorkerTask {
+        /// <summary>
+        /// ForEach
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="processAsync"></param>
+        /// <param name="onCloseAsync"></param>
+        /// <param name="ec"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static Func<Task> ForEach<T>(IQueueSource<T> source, Func<ForEachInfo<T>, Task> processAsync, Func<Task> onCloseAsync, ExceptionCollector ec) {
             Func<Task> t = async delegate {
                 try {
@@ -62,6 +71,16 @@ namespace Cosmos.Logging.Core.Piplelines {
             return t;
         }
 
+        /// <summary>
+        /// ForEach
+        /// </summary>
+        /// <param name="sources"></param>
+        /// <param name="inputPriorities"></param>
+        /// <param name="processAsync"></param>
+        /// <param name="onCloseAsync"></param>
+        /// <param name="ec"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static Func<Task> ForEach<T>(IQueueSource<T>[] sources, InputPriorities inputPriorities, Func<ForEachInfo<T>, Task> processAsync, Func<Task> onCloseAsync,
             ExceptionCollector ec) {
             Func<Task> t = async delegate {
@@ -70,14 +89,14 @@ namespace Cosmos.Logging.Core.Piplelines {
                     bool[] atEof = new bool[sourceCount];
                     RoundRobinLoopGenerator loop = new RoundRobinLoopGenerator(sourceCount, inputPriorities);
                     while (!(atEof.All(e => e))) {
-                        var ops = Utils.OperationStarters<int, Option<T>>();
+                        var ops = Utils.OperationStarters<int, Optional<T>>();
 
                         loop.ForEach
                         (
-                            j => { ops = ops.AddIf(!atEof[j], j, Utils.StartableGet<T, Option<T>>(sources[j], a => new Some<T>(a), new None<T>())); }
+                            j => { ops = ops.AddIf(!atEof[j], j, Utils.StartableGet<T, Optional<T>>(sources[j], a => new Some<T>(a), Optional<T>.None())); }
                         );
 
-                        Tuple<int, Option<T>> result = await ops.CompleteAny(ec.CancellationToken);
+                        Tuple<int, Optional<T>> result = await ops.CompleteAny(ec.CancellationToken);
 
                         if (result.Item2.HasValue) {
                             try {
@@ -86,7 +105,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                             catch (Exception exc) {
                                 ec.Add(exc);
                             }
-                        } else {
+                        }
+                        else {
                             atEof[result.Item1] = true;
                         }
                     }
@@ -106,6 +126,16 @@ namespace Cosmos.Logging.Core.Piplelines {
             return t;
         }
 
+        /// <summary>
+        /// ParallelForEach
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="parallelWorker"></param>
+        /// <param name="processAsync"></param>
+        /// <param name="onCloseAsync"></param>
+        /// <param name="ec"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static Func<Task> ParallelForEach<T>(IQueueSource<T> source, ParallelWorker parallelWorker, Func<ForEachInfo<T>, Task> processAsync, Func<Task> onCloseAsync,
             ExceptionCollector ec) {
             Func<Task> t = async delegate {
@@ -151,6 +181,17 @@ namespace Cosmos.Logging.Core.Piplelines {
             return t;
         }
 
+        /// <summary>
+        /// ParallelForEach
+        /// </summary>
+        /// <param name="sources"></param>
+        /// <param name="inputPriorities"></param>
+        /// <param name="parallelWorker"></param>
+        /// <param name="processAsync"></param>
+        /// <param name="onCloseAsync"></param>
+        /// <param name="ec"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static Func<Task> ParallelForEach<T>(IQueueSource<T>[] sources, InputPriorities inputPriorities, ParallelWorker parallelWorker,
             Func<ForEachInfo<T>, Task> processAsync, Func<Task> onCloseAsync, ExceptionCollector ec) {
             Func<Task> t = async delegate {
@@ -160,14 +201,14 @@ namespace Cosmos.Logging.Core.Piplelines {
                     bool[] atEof = new bool[sourceCount];
                     RoundRobinLoopGenerator loop = new RoundRobinLoopGenerator(sourceCount, inputPriorities);
                     while (!(atEof.All(e => e))) {
-                        var ops = Utils.OperationStarters<int, Option<T>>();
+                        var ops = Utils.OperationStarters<int, Optional<T>>();
 
                         loop.ForEach
                         (
-                            j => { ops = ops.AddIf(!atEof[j], j, Utils.StartableGet<T, Option<T>>(sources[j], a => new Some<T>(a), new None<T>())); }
+                            j => { ops = ops.AddIf(!atEof[j], j, Utils.StartableGet<T, Optional<T>>(sources[j], a => new Some<T>(a), Optional<T>.None())); }
                         );
 
-                        Tuple<int, Option<T>> result = await ops.CompleteAny(ec.CancellationToken);
+                        Tuple<int, Optional<T>> result = await ops.CompleteAny(ec.CancellationToken);
 
                         if (result.Item2.HasValue) {
                             int sourceIndex = result.Item1;
@@ -190,7 +231,8 @@ namespace Cosmos.Logging.Core.Piplelines {
                                 },
                                 ec.CancellationToken
                             );
-                        } else {
+                        }
+                        else {
                             atEof[result.Item1] = true;
                         }
                     }
@@ -216,7 +258,14 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// Author: Sunlighter
     /// </summary>
     public enum InputPriorities {
+        /// <summary>
+        /// AsWritten
+        /// </summary>
         AsWritten,
+
+        /// <summary>
+        /// RoundRobin
+        /// </summary>
         RoundRobin
     }
 
@@ -230,6 +279,13 @@ namespace Cosmos.Logging.Core.Piplelines {
         private int workerId;
         private CancellationToken ctoken;
 
+        /// <summary>
+        /// ForEachInfo
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="inputIndex"></param>
+        /// <param name="workerId"></param>
+        /// <param name="ctoken"></param>
         public ForEachInfo(T item, int inputIndex, int workerId, CancellationToken ctoken) {
             this.item = item;
             this.inputIndex = inputIndex;
@@ -237,9 +293,24 @@ namespace Cosmos.Logging.Core.Piplelines {
             this.ctoken = ctoken;
         }
 
+        /// <summary>
+        /// Item
+        /// </summary>
         public T Item => item;
+
+        /// <summary>
+        /// InputIndex
+        /// </summary>
         public int InputIndex => inputIndex;
+
+        /// <summary>
+        /// WorkerId
+        /// </summary>
         public int WorkerId => workerId;
+
+        /// <summary>
+        /// CancellationToken
+        /// </summary>
         public CancellationToken CancellationToken => ctoken;
     }
 
@@ -253,18 +324,28 @@ namespace Cosmos.Logging.Core.Piplelines {
         private InputPriorities inputPriorities;
         private int _counter;
 
+        /// <summary>
+        /// RoundRobinLoopGenerator
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="inputPriorities"></param>
         public RoundRobinLoopGenerator(int size, InputPriorities inputPriorities) {
             this.size = size;
             this.inputPriorities = inputPriorities;
             this._counter = 0;
         }
 
+        /// <summary>
+        /// ForEach
+        /// </summary>
+        /// <param name="action"></param>
         public void ForEach(Action<int> action) {
             for (int i = 0; i < size; ++i) {
                 int j;
                 if (inputPriorities == InputPriorities.AsWritten) {
                     j = i;
-                } else {
+                }
+                else {
                     j = i + _counter;
                     if (j >= size) j -= size;
                 }
@@ -283,16 +364,24 @@ namespace Cosmos.Logging.Core.Piplelines {
     /// </summary>
     public class ExceptionCollector {
         private object syncRoot;
+
         // ReSharper disable once InconsistentNaming
         private ImmutableList<Exception> exceptions;
         private CancellationTokenSource cts;
 
+        /// <summary>
+        /// ExceptionCollector
+        /// </summary>
         public ExceptionCollector() {
             syncRoot = new object();
             exceptions = ImmutableList<Exception>.Empty;
             cts = new CancellationTokenSource();
         }
 
+        /// <summary>
+        /// ExceptionCollector
+        /// </summary>
+        /// <param name="tokens"></param>
         public ExceptionCollector(params CancellationToken[] tokens) {
             syncRoot = new object();
             exceptions = ImmutableList<Exception>.Empty;
@@ -300,15 +389,20 @@ namespace Cosmos.Logging.Core.Piplelines {
         }
 
         private void AddInternal(Exception exc) {
-            if (exc is AggregateException) {
-                foreach (Exception e2 in ((AggregateException) exc).InnerExceptions) {
+            if (exc is AggregateException aggregateException) {
+                foreach (var e2 in aggregateException.InnerExceptions) {
                     AddInternal(e2);
                 }
-            } else {
+            }
+            else {
                 exceptions = exceptions.Add(exc);
             }
         }
 
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="exc"></param>
         public void Add(Exception exc) {
             lock (syncRoot) {
                 cts.Cancel();
@@ -317,22 +411,39 @@ namespace Cosmos.Logging.Core.Piplelines {
         }
 
         // ReSharper disable once InconsistentlySynchronizedField
+        /// <summary>
+        /// Exceptions
+        /// </summary>
         public ImmutableList<Exception> Exceptions => exceptions;
 
+        /// <summary>
+        /// CancellationToken
+        /// </summary>
         public CancellationToken CancellationToken => cts.Token;
 
+        /// <summary>
+        /// ThrowAll
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        /// <exception cref="AggregateException"></exception>
         public void ThrowAll() {
             lock (syncRoot) {
                 if (exceptions.Count == 1) {
                     throw exceptions[0];
-                } else if (exceptions.Count > 1) {
+                }
+                else if (exceptions.Count > 1) {
                     throw new AggregateException(exceptions);
-                } else {
+                }
+                else {
                     // do nothing
                 }
             }
         }
 
+        /// <summary>
+        /// WaitAll
+        /// </summary>
+        /// <param name="tasks"></param>
         public void WaitAll(params Task[] tasks) {
             try {
                 Task.WaitAll(tasks);

@@ -4,7 +4,17 @@ using System.Collections.Immutable;
 using System.Linq;
 
 namespace Cosmos.Logging.Core {
+    /// <summary>
+    /// Log additional operation filter
+    /// </summary>
     public static class LogAdditionalOperationFilter {
+        /// <summary>
+        /// Filter
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="flagType"></param>
+        /// <param name="optType"></param>
+        /// <returns></returns>
         public static IEnumerable<IAdditionalOperation> Filter(LogEventContext context, Type flagType, AdditionalOperationTypes optType) {
             if (context == null) return ReturnEmptyAdditionalOperations();
             if (flagType == null) return ReturnEmptyAdditionalOperations();

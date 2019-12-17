@@ -4,12 +4,353 @@
         <name>Cosmos.Logging.Sinks.Exceptionless</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.ExceptionlessOperationExtensions">
+            <summary>
+            Extensions for exceptionless operation
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessOperationExtensions.ForExceptionless(Cosmos.Logging.LogEventContext,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder})">
+            <summary>
+            Additional operation for exceptionless
+            </summary>
+            <param name="context"></param>
+            <param name="additionalOptHandle"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessOperationExtensions.AppendAdditionalOperation(Cosmos.Logging.Future.IFutureLogger,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder})">
+            <summary>
+            Append additional operation
+            </summary>
+            <param name="futureLogger"></param>
+            <param name="additionalOptHandle"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.ExceptionlessSinkConfiguration">
+            <summary>
+            Exceptionless sink configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.ExceptionlessSinkExtensions">
+            <summary>
+            Extensions for exceptionless sink
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkExtensions.AddExceptionless(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.ExceptionlessSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.ExceptionlessSinkConfiguration})">
+            <summary>
+            Add exceptionless support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settingAct"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkExtensions.AddExceptionless(Cosmos.Logging.Core.ILogServiceCollection,Cosmos.Logging.ExceptionlessSinkOptions,System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.ExceptionlessSinkConfiguration})">
+            <summary>
+            Add exceptionless support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="sinkOptions"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkExtensions.AddExceptionless(Cosmos.Logging.Core.ILogServiceCollection,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.ExceptionlessSinkOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.ExceptionlessSinkConfiguration})">
+            <summary>
+            Add exceptionless support for Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <param name="configAct"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.ExceptionlessSinkOptions">
+            <summary>
+            Exceptionless sink options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.ExceptionlessSinkOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.RemoveConfig">
+            <summary>
+            Remove config
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseAppSettings(System.String)">
+            <summary>
+            Use app setting
+            </summary>
+            <param name="environmentName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseJsonConfig(System.String)">
+            <summary>
+            Use json config
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseXmlConfig(System.String)">
+            <summary>
+            Use xml config
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseYamlConfig(System.String)">
+            <summary>
+            Yse yaml config
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.UseApiKey(System.String)">
+            <summary>
+            Use ApiKey
+            </summary>
+            <param name="apiKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionlessSinkOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.LoggerExtensions">
+            <summary>
+            Extensions for logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogVerbose(Cosmos.Logging.ILogger,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogVerbose(Cosmos.Logging.ILogger,System.Exception,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String)">
+            <summary>
+            Log verbose
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogDebug(Cosmos.Logging.ILogger,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String)">
+            <summary>
+            Log debug
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogDebug(Cosmos.Logging.ILogger,System.Exception,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String)">
+            <summary>
+            Log debug
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogInformation(Cosmos.Logging.ILogger,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogInformation(Cosmos.Logging.ILogger,System.Exception,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogWarning(Cosmos.Logging.ILogger,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogWarning(Cosmos.Logging.ILogger,System.Exception,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String,System.String,System.Int32)">
+            <summary>
+            Log warning
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogError(Cosmos.Logging.ILogger,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogError(Cosmos.Logging.ILogger,System.Exception,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String,System.String,System.Int32)">
+            <summary>
+            Log error
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogFatal(Cosmos.Logging.ILogger,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="M:Cosmos.Logging.LoggerExtensions.LogFatal(Cosmos.Logging.ILogger,System.Exception,System.String,System.Func{Exceptionless.EventBuilder,Exceptionless.EventBuilder},System.String,System.String,System.Int32)">
+            <summary>
+            Log fatal
+            </summary>
+            <param name="logger"></param>
+            <param name="exception"></param>
+            <param name="messageTemplate"></param>
+            <param name="eventBuilderFunc"></param>
+            <param name="memberName"></param>
+            <param name="filePath"></param>
+            <param name="lineNumber"></param>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Exceptionless.ExceptionlessPayloadClient">
+            <summary>
+            Exceptionless payload client
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Exceptionless.ExceptionlessPayloadClient.#ctor(System.String,Cosmos.Logging.ExceptionlessSinkConfiguration,System.IFormatProvider)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.Exceptionless.ExceptionlessPayloadClient"/>
+            </summary>
+            <param name="name"></param>
+            <param name="sinkConfiguration"></param>
+            <param name="formatProvider"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Exceptionless.ExceptionlessPayloadClient.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Exceptionless.ExceptionlessPayloadClient.Level">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Exceptionless.ExceptionlessPayloadClient.WriteAsync(Cosmos.Logging.Core.Payloads.ILogPayload,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Exceptionless.ExceptionlessPayloadClientProvider">
+            <summary>
+            Exceptionless payload client provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Exceptionless.ExceptionlessPayloadClientProvider.#ctor(Microsoft.Extensions.Options.IOptions{Cosmos.Logging.ExceptionlessSinkOptions},Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.Exceptionless.ExceptionlessPayloadClientProvider"/>.
+            </summary>
+            <param name="settings"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Exceptionless.ExceptionlessPayloadClientProvider.GetClient">
+            <inheritdoc />
+        </member>
         <member name="M:Cosmos.Logging.Sinks.Exceptionless.Internals.ExceptionlessExtensions.ReadFromConfiguration(Exceptionless.ExceptionlessConfiguration,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             Sets the configuration from .net configuration settings.
             </summary>
             <param name="config">The configuration object you want to apply the settings to.</param>
             <param name="settings">The configuration settings</param>
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.Exceptionless.RendersLib.ExceptionlessHelloWorldRenderer">
+            <summary>
+            ExceptionlessHelloWorldRenderer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Exceptionless.RendersLib.ExceptionlessHelloWorldRenderer.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.Exceptionless.RendersLib.ExceptionlessHelloWorldRenderer.SinkPrefix">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Exceptionless.RendersLib.ExceptionlessHelloWorldRenderer.ToString(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Exceptionless.RendersLib.ExceptionlessHelloWorldRenderer.ToString(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Exceptionless.RendersLib.ExceptionlessHelloWorldRenderer.ToString(System.String,System.String,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.Exceptionless.RendersLib.ExceptionlessHelloWorldRenderer.ToString">
+            <inheritdoc />
         </member>
     </members>
 </doc>

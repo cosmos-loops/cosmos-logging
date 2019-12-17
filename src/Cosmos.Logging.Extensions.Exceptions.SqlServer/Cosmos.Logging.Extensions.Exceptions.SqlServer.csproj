@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="..\..\build\common.ns20-net461-net451.props" />
+    <Import Project="..\..\build\common.props" />
 
     <PropertyGroup>
         <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net461;net451</TargetFrameworks>
@@ -12,19 +12,15 @@
         <Description>Microsoft SQL Server Exceptions extension/enricher for Cosmos.Logging.</Description>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.Extensions.Exceptions.SqlServer.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <DocumentationFile>Cosmos.Logging.Extensions.Exceptions.SqlServer.xml</DocumentationFile>
-    </PropertyGroup>
-
     <ItemGroup>
         <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
     </ItemGroup>
     
     <ItemGroup>
         <ProjectReference Include="..\Cosmos.Logging.Extensions.Exceptions\Cosmos.Logging.Extensions.Exceptions.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Cosmos\Logging\Extensions\Exceptions" />
     </ItemGroup>
 </Project>

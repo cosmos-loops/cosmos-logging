@@ -23,6 +23,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cosmos.Asynchronous;
 
 namespace Cosmos.Logging.Core.Piplelines {
     /// <summary>
@@ -43,18 +44,27 @@ namespace Cosmos.Logging.Core.Piplelines {
             public CancellationTokenRegistration? ctr;
         }
 
+        /// <summary>
+        /// IdleDetector
+        /// </summary>
         public IdleDetector() {
             syncRoot = new object();
             referenceCount = 0;
             waiters = new CancellableQueue<Waiter>();
         }
 
+        /// <summary>
+        /// Enter
+        /// </summary>
         public void Enter() {
             lock (syncRoot) {
                 ++referenceCount;
             }
         }
 
+        /// <summary>
+        /// Leave
+        /// </summary>
         public void Leave() {
             lock (syncRoot) {
                 --referenceCount;
@@ -75,7 +85,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         private void CancelWait(long id) {
             lock (syncRoot) {
-                Option<Waiter> opt = waiters.Cancel(id);
+                Optional<Waiter> opt = waiters.Cancel(id);
                 if (opt.HasValue) {
                     opt.Value.k.PostException(new OperationCanceledException(opt.Value.ctoken));
 
@@ -90,26 +100,28 @@ namespace Cosmos.Logging.Core.Piplelines {
             lock (syncRoot) {
                 if (waiters.ContainsId(id)) {
                     waiters.GetById(id).ctr = ctr;
-                } else {
+                }
+                else {
                     ctr.PostDispose();
                 }
             }
         }
 
+        /// <summary>
+        /// WaitForIdle
+        /// </summary>
+        /// <param name="ctoken"></param>
+        /// <returns></returns>
         public Task WaitForIdle(CancellationToken ctoken) {
             if (ctoken.IsCancellationRequested) {
-#if NET451
-                var tcs = new TaskCompletionSource<Task>();
-                tcs.SetException(new OperationCanceledException(ctoken));
-                return tcs.Task;
-#else
-                return Task.FromException<bool>(new OperationCanceledException(ctoken));
-#endif
-            } else {
+                return Tasks.FromException<bool>(new OperationCanceledException(ctoken));
+            }
+            else {
                 lock (syncRoot) {
                     if (referenceCount == 0) {
                         return Task.FromResult(true);
-                    } else {
+                    }
+                    else {
                         TaskCompletionSource<bool> k = new TaskCompletionSource<bool>();
 
                         Waiter waiter = new Waiter() {

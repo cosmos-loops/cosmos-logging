@@ -21,7 +21,7 @@ namespace Cosmos.Logging.Sinks.File.Tests.OutputTemplates {
             Assert.Equal(outputTemplate.Tokens[0].RawText, "{}");
             Assert.Equal(outputTemplate.Tokens[0].RawTokenLength, "{}".Length);
             Assert.Equal(outputTemplate.Tokens[0].StartPosition, 0);
-            Assert.Equal(outputTemplate.Tokens[0].TokenRenderType, TokenRenderTypes.AsText);
+            Assert.Equal(outputTemplate.Tokens[0].TokenRendererType, TokenRendererTypes.AsText);
             Assert.Equal(outputTemplate.Tokens[0].TokenLength, 2);
             Assert.Equal(((TextOutputMessageToken) outputTemplate.Tokens[0]).ToText(), "{}");
 
@@ -29,7 +29,7 @@ namespace Cosmos.Logging.Sinks.File.Tests.OutputTemplates {
             Assert.Equal(outputTemplate.Tokens[1].RawText, "{Date}");
             Assert.Equal(outputTemplate.Tokens[1].RawTokenLength, "{Date}".Length);
             Assert.Equal(outputTemplate.Tokens[1].StartPosition, 3);
-            Assert.Equal(outputTemplate.Tokens[1].TokenRenderType, TokenRenderTypes.AsProperty);
+            Assert.Equal(outputTemplate.Tokens[1].TokenRendererType, TokenRendererTypes.AsProperty);
             Assert.Equal(outputTemplate.Tokens[1].TokenLength, 4);
             Assert.Equal(((PropertyOutputMessageToken) outputTemplate.Tokens[1]).Name, "Date");
         }
@@ -45,7 +45,7 @@ namespace Cosmos.Logging.Sinks.File.Tests.OutputTemplates {
             Assert.Equal(outputTemplate.Tokens[0].RawText, "{ ");
             Assert.Equal(outputTemplate.Tokens[0].RawTokenLength, "{ ".Length);
             Assert.Equal(outputTemplate.Tokens[0].StartPosition, 0);
-            Assert.Equal(outputTemplate.Tokens[0].TokenRenderType, TokenRenderTypes.AsText);
+            Assert.Equal(outputTemplate.Tokens[0].TokenRendererType, TokenRendererTypes.AsText);
             Assert.Equal(outputTemplate.Tokens[0].TokenLength, 2);
             Assert.Equal(((TextOutputMessageToken) outputTemplate.Tokens[0]).ToText(), "{ ");
 
@@ -53,7 +53,7 @@ namespace Cosmos.Logging.Sinks.File.Tests.OutputTemplates {
             Assert.Equal(outputTemplate.Tokens[1].RawText, "{Date}");
             Assert.Equal(outputTemplate.Tokens[1].RawTokenLength, "{Date}".Length);
             Assert.Equal(outputTemplate.Tokens[1].StartPosition, 2);
-            Assert.Equal(outputTemplate.Tokens[1].TokenRenderType, TokenRenderTypes.AsProperty);
+            Assert.Equal(outputTemplate.Tokens[1].TokenRendererType, TokenRendererTypes.AsProperty);
             Assert.Equal(outputTemplate.Tokens[1].TokenLength, 4);
             Assert.Equal(((PropertyOutputMessageToken) outputTemplate.Tokens[1]).Name, "Date");
         }

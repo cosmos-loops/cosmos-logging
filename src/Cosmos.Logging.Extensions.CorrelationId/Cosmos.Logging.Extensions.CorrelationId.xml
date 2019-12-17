@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Extensions.CorrelationId</name>
+    </assembly>
+    <members>
+        <member name="T:Cosmos.Logging.CorrelationIdIntegrationExtensions">
+            <summary>
+            Extensions for correlation id integration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.CorrelationIdIntegrationExtensions.AddCorrelationIdIntegration(Cosmos.Logging.Core.ILogServiceCollection)">
+            <summary>
+            Add CorrelationId Integration
+            </summary>
+            <param name="service"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.CorrelationId.CorrelationIdGenerator">
+            <summary>
+            Corrlation Id generator
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.CorrelationId.CorrelationIdGenerator.#ctor(CorrelationId.ICorrelationContextAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.CorrelationId.CorrelationIdGenerator.Create">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

@@ -26,13 +26,14 @@ namespace Cosmos.Logging.Configurations {
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static ILogServiceCollection With(this ILogServiceCollection services, IDestructureResolveRule rule) {
-            if (services == null)
+            if (services is null)
                 throw new ArgumentNullException(nameof(services));
 
-            if (rule == null)
+            if (rule is null)
                 throw new ArgumentNullException(nameof(rule));
 
             var configurationPointer = services.ExposeLoggingConfiguration();
+
             configurationPointer.Destructure.AdditionalDestructureResolveRules.Add(rule);
 
             return services;
@@ -46,10 +47,11 @@ namespace Cosmos.Logging.Configurations {
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static ILogServiceCollection AsScalar<TScalarType>(this ILogServiceCollection services) {
-            if (services == null)
+            if (services is null)
                 throw new ArgumentNullException(nameof(services));
 
             var configurationPointer = services.ExposeLoggingConfiguration();
+
             configurationPointer.Destructure.AdditionalScalarTypes.Add(typeof(TScalarType));
 
             return services;

@@ -4,5 +4,185 @@
         <name>Cosmos.Logging.Extensions.SqlSugar</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.Extensions.SqlSugar.Core.DbParam">
+            <summary>
+            Database parameter
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.SqlSugar.Core.DbParam.#ctor(System.String,System.Object,System.Data.DbType)">
+            <summary>
+            Create a new instance of Database parameter
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="type"></param>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.SqlSugar.Core.DbParam.ParameterName">
+            <summary>
+            Parameter name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.SqlSugar.Core.DbParam.Value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.SqlSugar.Core.DbParam.DbType">
+            <summary>
+            DbType
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.SqlSugar.Core.EventIdKeys">
+            <summary>
+            Event id keys
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.SqlSugar.Core.EventIdKeys.Executed">
+            <summary>
+            Executed
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.SqlSugar.Core.EventIdKeys.LongTimeExecuted">
+            <summary>
+            Long time executed
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Extensions.SqlSugar.Core.EventIdKeys.Error">
+            <summary>
+            Error
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.SqlSugar.Core.SqlSugarInterceptorDescriptor">
+            <summary>
+            SqlSugar interceptor descriptor
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.SqlSugar.Core.SqlSugarInterceptorDescriptor.#ctor(Cosmos.Logging.ILoggingServiceProvider,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.SqlSugarEnricherOptions})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.SqlSguarEnricherConfiguration">
+            <summary>
+            SqlSugar enricher configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.SqlSguarEnricherConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSguarEnricherConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.SqlSugarEnricherExtensions">
+            <summary>
+            Extensions for SqlSugar enricher
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherExtensions.UseSqlSugar(Cosmos.Logging.DatabaseIntegration,System.Action{Cosmos.Logging.SqlSugarEnricherOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.SqlSguarEnricherConfiguration})">
+            <summary>
+            Use SqlSugar for Cosmos.Logging
+            </summary>
+            <param name="integration"></param>
+            <param name="settingAct"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.SqlSugarEnricherOptions">
+            <summary>
+            SqlSugar enricher options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.SqlSugarEnricherOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.AddExecutingInterceptor(System.Action{System.String,SqlSugar.SugarParameter[]})">
+            <summary>
+            Add executing interceptor
+            </summary>
+            <param name="executingInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.AddExecutedInterceptor(System.Action{System.String,SqlSugar.SugarParameter[]})">
+            <summary>
+            Add executed interceptor
+            </summary>
+            <param name="executedInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.AddErrorInterceptor(System.Action{System.Exception})">
+            <summary>
+            Add error interceptor
+            </summary>
+            <param name="errorInterceptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.UseFilter(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Use filter
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarEnricherOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.SqlSugarExtensions">
+            <summary>
+            Extensions for SqlSugar
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarExtensions.UseCosmosLogging(SqlSugar.SimpleClient,Cosmos.Logging.Extensions.SqlSugar.Core.SqlSugarInterceptorDescriptor,System.Action{System.String,SqlSugar.SugarParameter[]},System.Func{System.String,SqlSugar.SugarParameter[],System.Object},System.Func{System.Exception,System.Object},System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Use Cosmos Logging for SqlSugar
+            </summary>
+            <param name="client"></param>
+            <param name="descriptor"></param>
+            <param name="executingAct"></param>
+            <param name="executedAct"></param>
+            <param name="errorAct"></param>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.SqlSugarExtensions.UseCosmosLogging(SqlSugar.SqlSugarClient,Cosmos.Logging.Extensions.SqlSugar.Core.SqlSugarInterceptorDescriptor,System.Action{System.String,SqlSugar.SugarParameter[]},System.Func{System.String,SqlSugar.SugarParameter[],System.Object},System.Func{System.Exception,System.Object},System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Use Cosmos Logging for SqlSugar
+            </summary>
+            <param name="client"></param>
+            <param name="descriptor"></param>
+            <param name="executingAct"></param>
+            <param name="executedAct"></param>
+            <param name="errorAct"></param>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

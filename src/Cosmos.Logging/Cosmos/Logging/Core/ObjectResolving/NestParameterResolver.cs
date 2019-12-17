@@ -2,8 +2,13 @@
 using Cosmos.Logging.Events;
 
 namespace Cosmos.Logging.Core.ObjectResolving {
+    /// <summary>
+    /// Nest parameter resolver
+    /// </summary>
     internal class NestParameterResolver : IMessagePropertyValueFactory {
-        [ThreadStatic] static int _currentNestLevel;
+        [ThreadStatic]
+        static int _currentNestLevel;
+
         private readonly int _maxLevelOfNestLimitedSelf;
         private MessageParameterResolver _root;
 
