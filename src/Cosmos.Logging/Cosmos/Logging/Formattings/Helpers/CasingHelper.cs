@@ -30,10 +30,12 @@ namespace Cosmos.Logging.Formattings.Helpers {
         /// </summary>
         /// <returns></returns>
         public static Func<char, Func<object, IFormatProvider, object>> Format() => c => {
-            if (c == 'U') return ToUpperInvariant;
-            if (c == 'w') return ToLowerInvariant;
-            if (c == 't') return ToTitleInvariant;
-            return ReturnOneself;
+            return c switch {
+                'U' => ToUpperInvariant,
+                'w' => ToLowerInvariant,
+                't' => ToTitleInvariant,
+                _   => ReturnOneself
+            };
         };
 
         private static object ToUpperInvariant(object value, IFormatProvider formatProvider = null) {
