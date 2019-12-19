@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Formattings;
@@ -48,5 +49,29 @@ namespace Cosmos.Logging.Renders {
 
         /// <inheritdoc />
         public virtual CustomFormatProvider CustomFormatProvider => null;
+
+        /// <summary>
+        /// Contains command or not.
+        /// </summary>
+        /// <param name="formatEvents"></param>
+        /// <param name="commandAlias"></param>
+        /// <returns></returns>
+        protected static bool ContainsCommand(IList<FormatEvent> formatEvents, string commandAlias) {
+            if (formatEvents is null || string.IsNullOrWhiteSpace(commandAlias))
+                return false;
+            return formatEvents.Any(x => x.CmdAlias2 == commandAlias);
+        }
+
+        /// <summary>
+        /// Contains command or not.
+        /// </summary>
+        /// <param name="formatEvents"></param>
+        /// <param name="commandAlias"></param>
+        /// <returns></returns>
+        protected static bool ContainsCommand(IList<FormatEvent> formatEvents, char commandAlias) {
+            if (formatEvents is null || commandAlias == char.MinValue)
+                return false;
+            return formatEvents.Any(x => x.CmdAlias == commandAlias);
+        }
     }
 }

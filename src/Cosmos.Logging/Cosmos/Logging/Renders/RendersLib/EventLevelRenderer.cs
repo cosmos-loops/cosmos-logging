@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Extensions;
@@ -17,46 +16,50 @@ namespace Cosmos.Logging.Renders.RendersLib {
         public override string Name => "Level";
 
         private static string FixedEventLevel(ILogEventInfo logEventInfo, int aliasLength) {
-            var alias = aliasLength <= 0
+            return aliasLength <= 0
                 ? LogEventLevelConverter.Convert(logEventInfo?.Level)
                 : LogEventLevelConverter.Convert(logEventInfo?.Level, aliasLength);
-            return alias;
+        }
+
+        private static string FixedEventLevel(LogEventLevel level, int aliasLength) {
+            return aliasLength <= 0
+                ? LogEventLevelConverter.Convert(level)
+                : LogEventLevelConverter.Convert(level, aliasLength);
         }
 
         private static int GetLength(string format, string paramsText) {
 
             if (!string.IsNullOrWhiteSpace(format)) {
-                var chars = format.ToCharArray();
-
-                if (chars.All(c => c == '#')) {
-                    return chars.Length;
-                }
+                return InternalFormatProvider.PoundFindingIndexAlgorithm(new ReadOnlySpan<char>(format.ToCharArray()));
             }
 
             if (!string.IsNullOrWhiteSpace(paramsText)) {
                 var @params = paramsText.ToLower();
                 var index = @params.IndexOf("length=", StringComparison.Ordinal);
 
-                if (index < 0) return 0;
+                if (index < 0)
+                    return 0;
 
-                var chars2 = @params.Substring(index + 7).ToCharArray();
-                var sb = new StringBuilder();
+                var start = index + 7;
+                var position = start;
+                var span = new ReadOnlySpan<char>(@params.ToCharArray(), index + 7, @params.Length - 7);
 
-                foreach (var @char in chars2) {
+                foreach (var @char in span) {
                     if (!@char.IsNumber())
                         break;
-                    sb.Append(@char);
+                    position++;
                 }
 
-                return sb.Length == 0
-                    ? 0
-                    : int.TryParse(sb.ToString(), out var ret)
-                        ? ret
-                        : 0;
+                if (start == position)
+                    return 0;
+                
+                return int.TryParse(span.Slice(0, position - start).ToString(), out var number) ? number : 0;
             }
 
             return 0;
         }
+
+        #region ToString
 
         /// <inheritdoc />
         public override string ToString(string format, string paramsText,
@@ -67,7 +70,9 @@ namespace Cosmos.Logging.Renders.RendersLib {
         /// <inheritdoc />
         public override string ToString(IList<FormatEvent> formattingEvents, string paramsText,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
-            return formattingEvents.ToFormat(FixedEventLevel(logEventInfo, GetLength(null, paramsText)), formatProvider);
+            return ContainsCommand(formattingEvents, InternalFormatProvider.POUND_FORMAT_COMMAND)
+                ? formattingEvents.ToFormat(logEventInfo, formatProvider)
+                : formattingEvents.ToFormat(FixedEventLevel(logEventInfo, GetLength(null, paramsText)), formatProvider);
         }
 
         /// <inheritdoc />
@@ -75,6 +80,10 @@ namespace Cosmos.Logging.Renders.RendersLib {
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
             return formattingFuncs.ToFormat(FixedEventLevel(logEventInfo, GetLength(null, paramsText)), formatProvider);
         }
+
+        #endregion
+
+        #region Render
 
         /// <inheritdoc />
         public override void Render(string format, string paramsText, StringBuilder stringBuilder,
@@ -92,6 +101,60 @@ namespace Cosmos.Logging.Renders.RendersLib {
         public override void Render(IList<Func<object, IFormatProvider, object>> formattingFuncs, string paramsText, StringBuilder stringBuilder,
             ILogEventInfo logEventInfo = null, IFormatProvider formatProvider = null) {
             stringBuilder.Append(ToString(formattingFuncs, paramsText, logEventInfo, formatProvider));
+        }
+
+        #endregion
+
+        /// <inheritdoc />
+        public override CustomFormatProvider CustomFormatProvider => InternalFormatProvider.InternalCache;
+
+        /// <summary>
+        /// Log event level format provider
+        /// </summary>
+        private class InternalFormatProvider : CustomFormatProvider {
+            public static CustomFormatProvider InternalCache { get; } = new InternalFormatProvider();
+
+            // ReSharper disable once InconsistentNaming
+            public const string POUND_FORMAT_COMMAND = "PoundFormat";
+
+            /// <inheritdoc />
+            public override IEnumerable<FormatEvent> CreateCommandEvent(string format = null) {
+
+                if (string.IsNullOrWhiteSpace(format))
+                    return EmptyCommandEvents;
+
+                var span = new ReadOnlySpan<char>(format.ToCharArray());
+
+                return Merge(NewPoundCommandEvent(span));
+            }
+
+            private FormatEvent? NewPoundCommandEvent(ReadOnlySpan<char> span) {
+                var counter = PoundFindingIndexAlgorithm(span);
+
+                var poundCommandEvent = new FormatEvent(POUND_FORMAT_COMMAND, 10, (objectContent, formatProvider) => {
+                    return objectContent switch {
+                        ILogEventInfo logEventInfo  => FixedEventLevel(logEventInfo, counter),
+                        LogEventLevel logEventLevel => FixedEventLevel(logEventLevel, counter),
+                        _                           => objectContent
+                    };
+                });
+
+                return poundCommandEvent;
+            }
+
+            public static int PoundFindingIndexAlgorithm(ReadOnlySpan<char> span) {
+                var start = span.IndexOf('#');
+                if (start < 0)
+                    return 0;
+                var counter = 0;
+                for (var i = start; i < span.Length - start; ++i) {
+                    if (span[i] != '#')
+                        break;
+                    counter++;
+                }
+
+                return counter;
+            }
         }
     }
 }

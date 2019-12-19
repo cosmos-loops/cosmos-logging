@@ -95,7 +95,7 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         private static string MachiningForFormat(string format, IList<FormatEvent> formatEvents) {
-            foreach (var @event in FormatCommandFactory.CreateCommandEvent(format)) {
+            foreach (var @event in FormatCommandFactory.CreateCommandEvent(null, format)) {
                 formatEvents.Add(@event);
             }
 

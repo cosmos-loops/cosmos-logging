@@ -11,6 +11,7 @@ namespace Cosmos.Logging.Renders {
             typeof(CallerFilePathRenderer),
             typeof(CallerLineNumberRenderer),
             typeof(EventIdRenderer),
+            typeof(EventLevelRenderer),
             typeof(EventNameRenderer),
             typeof(ExceptionRenderer)
         };
@@ -23,6 +24,7 @@ namespace Cosmos.Logging.Renders {
             PreferencesRenderersManager.AddPreferencesRenderer<CallerFilePathRenderer>();
             PreferencesRenderersManager.AddPreferencesRenderer<CallerLineNumberRenderer>();
             PreferencesRenderersManager.AddPreferencesRenderer<EventIdRenderer>();
+            PreferencesRenderersManager.AddPreferencesRenderer<EventLevelRenderer>();
             PreferencesRenderersManager.AddPreferencesRenderer<EventNameRenderer>();
             PreferencesRenderersManager.AddPreferencesRenderer<ExceptionRenderer>();
         }

@@ -304,11 +304,6 @@
             <param name="displayingNewLineEomEnabled"></param>
             <returns></returns>
         </member>
-        <member name="T:Cosmos.Logging.Configurations.LogEventLevelConverter">
-            <summary>
-            Log event level converter
-            </summary>
-        </member>
         <member name="T:Cosmos.Logging.Configurations.LoggingConfigurationBuilder">
             <summary>
             Logging configuration builder
@@ -804,7 +799,7 @@
         </member>
         <member name="M:Cosmos.Logging.Core.Extensions.FormattingExtensions.ToFormat(System.Collections.Generic.IEnumerable{Cosmos.Logging.Formattings.FormatEvent},System.String,System.IFormatProvider)">
             <summary>
-            TO format
+            To format
             </summary>
             <param name="formattingEvents"></param>
             <param name="content"></param>
@@ -813,7 +808,25 @@
         </member>
         <member name="M:Cosmos.Logging.Core.Extensions.FormattingExtensions.ToFormat(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.IFormatProvider)">
             <summary>
-            TO format
+            To format
+            </summary>
+            <param name="formattingFuncs"></param>
+            <param name="content"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Core.Extensions.FormattingExtensions.ToFormat(System.Collections.Generic.IEnumerable{Cosmos.Logging.Formattings.FormatEvent},System.Object,System.IFormatProvider)">
+            <summary>
+            To format
+            </summary>
+            <param name="formattingEvents"></param>
+            <param name="content"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Core.Extensions.FormattingExtensions.ToFormat(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.Object,System.IFormatProvider)">
+            <summary>
+            To format
             </summary>
             <param name="formattingFuncs"></param>
             <param name="content"></param>
@@ -2723,21 +2736,6 @@
             Gets message property value
             </summary>
         </member>
-        <member name="T:Cosmos.Logging.Events.LevelAlias">
-            <summary>
-            Descriptive aliases for <see cref="T:Cosmos.Logging.Events.LogEventLevel"/>.
-            </summary>
-        </member>
-        <member name="F:Cosmos.Logging.Events.LevelAlias.Minimum">
-            <summary>
-            The least significant level of event.
-            </summary>
-        </member>
-        <member name="F:Cosmos.Logging.Events.LevelAlias.Maximum">
-            <summary>
-            The most significant level of event.
-            </summary>
-        </member>
         <member name="T:Cosmos.Logging.Events.LogEvent">
             <summary>
             Log event
@@ -2989,6 +2987,64 @@
             <summary>
             Do not recode all logs
             </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Events.LogEventLevelAlias">
+            <summary>
+            Descriptive aliases for <see cref="T:Cosmos.Logging.Events.LogEventLevel"/>.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventLevelAlias.Minimum">
+            <summary>
+            The least significant level of event.
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Events.LogEventLevelAlias.Maximum">
+            <summary>
+            The most significant level of event.
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Events.LogEventLevelConverter">
+            <summary>
+            Log event level converter
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventLevelConverter.Convert(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Convert alias to log event level. If do not matched, return the default level.
+            </summary>
+            <param name="level"></param>
+            <param name="defaultLevel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventLevelConverter.Convert(Cosmos.Logging.Events.LogEventLevel)">
+            <summary>
+            Convert level to system level alias.
+            </summary>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventLevelConverter.Convert(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <summary>
+            Convert level to system level alias.
+            </summary>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventLevelConverter.Convert(Cosmos.Logging.Events.LogEventLevel,System.Int32)">
+            <summary>
+            Convert level to alias with length limited.
+            </summary>
+            <param name="level"></param>
+            <param name="aliasLength"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Events.LogEventLevelConverter.Convert(System.Nullable{Cosmos.Logging.Events.LogEventLevel},System.Int32)">
+            <summary>
+            Convert level to alias with length limited.
+            </summary>
+            <param name="level"></param>
+            <param name="aliasLength"></param>
+            <returns></returns>
         </member>
         <member name="T:Cosmos.Logging.Events.LogEventSendMode">
             <summary>
@@ -3824,6 +3880,11 @@
             Custom format provider
             </summary>
         </member>
+        <member name="F:Cosmos.Logging.Formattings.CustomFormatProvider.EmptyCommandEvents">
+            <summary>
+            Gets a set of empty command event
+            </summary>
+        </member>
         <member name="M:Cosmos.Logging.Formattings.CustomFormatProvider.CreateCommandEvent(System.String)">
             <summary>
             Create command event
@@ -3831,12 +3892,19 @@
             <param name="format"></param>
             <returns></returns>
         </member>
+        <member name="M:Cosmos.Logging.Formattings.CustomFormatProvider.Merge(System.Nullable{Cosmos.Logging.Formattings.FormatEvent}[])">
+            <summary>
+            Merge
+            </summary>
+            <param name="events"></param>
+            <returns></returns>
+        </member>
         <member name="T:Cosmos.Logging.Formattings.CustomFormatProviderManager">
             <summary>
             Custom format provider manager
             </summary>
         </member>
-        <member name="M:Cosmos.Logging.Formattings.CustomFormatProviderManager.Get">
+        <member name="M:Cosmos.Logging.Formattings.CustomFormatProviderManager.Get(System.String)">
             <summary>
             Get custom format events
             </summary>
@@ -3847,18 +3915,11 @@
             Format command factory
             </summary>
         </member>
-        <member name="M:Cosmos.Logging.Formattings.FormatCommandFactory.CreateCommandFunc(System.String,System.Func{System.String,System.Collections.Generic.IEnumerable{System.Func{System.Object,System.IFormatProvider,System.Object}}})">
-            <summary>
-            Create command func
-            </summary>
-            <param name="format"></param>
-            <param name="customFormatProvider"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Cosmos.Logging.Formattings.FormatCommandFactory.CreateCommandEvent(System.String)">
+        <member name="M:Cosmos.Logging.Formattings.FormatCommandFactory.CreateCommandEvent(System.String,System.String)">
             <summary>
             Create command event
             </summary>
+            <param name="rendererName"></param>
             <param name="format"></param>
             <returns></returns>
         </member>
@@ -7901,6 +7962,9 @@
             <summary>
             Interface for logging service provider
             </summary>
+            <summary>
+            Interface for logging service provider
+            </summary>
         </member>
         <member name="M:Cosmos.Logging.ILoggingServiceProvider.GetLogger(System.String,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
             <summary>
@@ -8166,6 +8230,18 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
+        <member name="M:Cosmos.Logging.ILoggingServiceProvider.GetSimpleLogger(System.String)">
+            <summary>
+            Get simple logger
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.ILoggingServiceProvider.GetSimpleLogger``1">
+            <summary>
+            Get simple logger
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Cosmos.Logging.LogEventContext">
             <summary>
             Log event context
@@ -8244,6 +8320,18 @@
             <returns></returns>
         </member>
         <member name="T:Cosmos.Logging.LoggerBase">
+            <summary>
+            Logger base
+            </summary>
+            <summary>
+            Logger base
+            </summary>
+            <summary>
+            Logger base
+            </summary>
+            <summary>
+            Logger base
+            </summary>
             <summary>
             Logger base
             </summary>
@@ -8933,66 +9021,6 @@
             <param name="filePath"></param>
             <param name="lineNumber"></param>
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.String,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``1(System.String,``0,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``2(System.String,``0,``1,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``3(System.String,``0,``1,``2,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.String,System.Object[],System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``1(System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``2(System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``3(System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.Exception,System.String,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``1(System.Exception,System.String,``0,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``2(System.Exception,System.String,``0,``1,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``3(System.Exception,System.String,``0,``1,``2,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.Exception,System.String,System.Object[],System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``1(System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``2(System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``3(System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
         <member name="M:Cosmos.Logging.LoggerBase.LogDebug(System.String,System.String)">
             <inheritdoc />
         </member>
@@ -9053,124 +9081,64 @@
         <member name="M:Cosmos.Logging.LoggerBase.LogDebug(System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.String,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.String,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(System.String,``0,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(System.String,``0,``1,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(System.String,``0,``1,``2,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.String,System.Object[],System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.Exception,System.String,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(System.Exception,System.String,``0,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(System.Exception,System.String,``0,``1,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(System.Exception,System.String,``0,``1,``2,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.Exception,System.String,System.Object[],System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.String,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``1(System.String,``0,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``2(System.String,``0,``1,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``3(System.String,``0,``1,``2,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.String,System.Object[],System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``1(System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``2(System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``3(System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.Exception,System.String,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``1(System.Exception,System.String,``0,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``2(System.Exception,System.String,``0,``1,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``3(System.Exception,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.Exception,System.String,System.Object[],System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``1(System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``2(System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``3(System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.LoggerBase.LogError(System.String,System.String,System.String,System.Int32)">
@@ -9233,6 +9201,66 @@
         <member name="M:Cosmos.Logging.LoggerBase.LogError(System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.String,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
         <member name="M:Cosmos.Logging.LoggerBase.LogFatal(System.String,System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
@@ -9291,6 +9319,246 @@
             <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.LoggerBase.LogFatal(System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.String,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(System.String,``0,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(System.String,``0,``1,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(System.String,``0,``1,``2,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.String,System.Object[],System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.Exception,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(System.Exception,System.String,``0,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(System.Exception,System.String,``0,``1,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(System.Exception,System.String,``0,``1,``2,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.Exception,System.String,System.Object[],System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``1(System.String,``0,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``2(System.String,``0,``1,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``3(System.String,``0,``1,``2,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.String,System.Object[],System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``1(System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``2(System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``3(System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.Exception,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``1(System.Exception,System.String,``0,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``2(System.Exception,System.String,``0,``1,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``3(System.Exception,System.String,``0,``1,``2,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.Exception,System.String,System.Object[],System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``1(System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``2(System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose``3(System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(Cosmos.Logging.Events.LogEventId,System.String,System.String)">
@@ -9356,124 +9624,64 @@
         <member name="M:Cosmos.Logging.LoggerBase.LogVerbose(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.String,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.String,System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``1(System.String,``0,System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``2(System.String,``0,``1,System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``3(System.String,``0,``1,``2,System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.String,System.Object[],System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``1(System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``2(System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``3(System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.Exception,System.String,System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``1(System.Exception,System.String,``0,System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``2(System.Exception,System.String,``0,``1,System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``3(System.Exception,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.Exception,System.String,System.Object[],System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``1(System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``2(System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning``3(System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogDebug(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.String,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogInformation(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String)">
+        <member name="M:Cosmos.Logging.LoggerBase.LogWarning(System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.LoggerBase.LogWarning(Cosmos.Logging.Events.LogEventId,System.String,System.String,System.String,System.Int32)">
@@ -9534,126 +9742,6 @@
             <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.LoggerBase.LogWarning(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.String,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogError(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.String,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``1(Cosmos.Logging.Events.LogEventId,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``2(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``3(Cosmos.Logging.Events.LogEventId,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``1(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``2(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal``3(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,``0,``1,``2,System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
-            <inheritdoc />
-        </member>
-        <member name="M:Cosmos.Logging.LoggerBase.LogFatal(Cosmos.Logging.Events.LogEventId,System.Exception,System.String,System.Object[],System.Action{Cosmos.Logging.LogEventContext},System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
         <member name="T:Cosmos.Logging.LoggingConfiguration">
@@ -11353,6 +11441,22 @@
         <member name="P:Cosmos.Logging.Renders.BasicPreferencesRenderer.CustomFormatProvider">
             <inheritdoc />
         </member>
+        <member name="M:Cosmos.Logging.Renders.BasicPreferencesRenderer.ContainsCommand(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String)">
+            <summary>
+            Contains command or not.
+            </summary>
+            <param name="formatEvents"></param>
+            <param name="commandAlias"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Renders.BasicPreferencesRenderer.ContainsCommand(System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.Char)">
+            <summary>
+            Contains command or not.
+            </summary>
+            <param name="formatEvents"></param>
+            <param name="commandAlias"></param>
+            <returns></returns>
+        </member>
         <member name="T:Cosmos.Logging.Renders.BasicPreferencesSinkRenderer">
             <summary>
             Basic preferences sink renderer
@@ -11770,6 +11874,17 @@
             <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.Renders.RendersLib.EventLevelRenderer.Render(System.Collections.Generic.IList{System.Func{System.Object,System.IFormatProvider,System.Object}},System.String,System.Text.StringBuilder,Cosmos.Logging.Core.ILogEventInfo,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Renders.RendersLib.EventLevelRenderer.CustomFormatProvider">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Renders.RendersLib.EventLevelRenderer.InternalFormatProvider">
+            <summary>
+            Log event level format provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Renders.RendersLib.EventLevelRenderer.InternalFormatProvider.CreateCommandEvent(System.String)">
             <inheritdoc />
         </member>
         <member name="T:Cosmos.Logging.Renders.RendersLib.EventNameRenderer">
