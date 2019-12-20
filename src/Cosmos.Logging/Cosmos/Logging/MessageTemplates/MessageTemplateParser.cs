@@ -7,10 +7,10 @@ namespace Cosmos.Logging.MessageTemplates {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class MessageTemplateParser : IMessageTemplateParser {
         public MessageTemplate Parse(string messageTemplate) {
-            if (messageTemplate == null) throw new ArgumentNullException(nameof(messageTemplate));
+            if (messageTemplate is null) throw new ArgumentNullException(nameof(messageTemplate));
             return new MessageTemplate(messageTemplate, Tokenize(messageTemplate));
         }
-
+        
         static IEnumerable<MessageTemplateToken> Tokenize(string messageTemplate) {
             var index = 0;
             var position = 0;
@@ -60,8 +60,7 @@ namespace Cosmos.Logging.MessageTemplates {
                             break;
                         }
                     }
-                }
-                else {
+                } else {
                     Follow();
                 }
             }

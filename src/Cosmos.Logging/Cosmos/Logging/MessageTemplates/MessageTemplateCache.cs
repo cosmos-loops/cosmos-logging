@@ -26,14 +26,14 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         internal void FirePreheadedMessageTemplates(MessageTemplateCachePreheater preheater) {
-            if (preheater == null) return;
+            if (preheater is null) return;
             FirePreheadedMessageTemplatesInternal(preheater.GetPreheatedMessageTemplates(), false);
             FirePreheadedMessageTemplatesInternal(preheater.GetNeedToBePreheadedMessageTemplates(), false);
             FirePreheadedMessageTemplatesInternal(preheater.GetTemplateStandards(), true);
         }
 
         public MessageTemplate Parse(string messageTemplate) {
-            if (messageTemplate == null) throw new ArgumentNullException(nameof(messageTemplate));
+            if (messageTemplate is null) throw new ArgumentNullException(nameof(messageTemplate));
             if (messageTemplate.Length > MaxLengthOfTemplateToBeCached) return _messageTemplateParser.Parse(messageTemplate);
             if (_messageTemplateCache[messageTemplate.GetHashCode()] is MessageTemplate result) return result;
 
@@ -60,7 +60,7 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         private void FirePreheadedMessageTemplatesInternal(Hashtable preheadedTemplates, bool cosmosOwn) {
-            if (preheadedTemplates == null) return;
+            if (preheadedTemplates is null) return;
             var indexer = 0;
             foreach (var item in preheadedTemplates) {
                 if (item is MessageTemplate template) {
@@ -85,7 +85,7 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         private void FirePreheadedMessageTemplatesInternal(Dictionary<int, string> preheadedTemplates, bool cosmosOwn) {
-            if (preheadedTemplates == null) return;
+            if (preheadedTemplates is null) return;
             if (!preheadedTemplates.Any()) return;
             var indexer = 0;
             foreach (var item in preheadedTemplates) {

@@ -25,7 +25,7 @@ namespace Cosmos.Logging.MessageTemplates {
         /// <param name="tokens"></param>
         // ReSharper disable PossibleMultipleEnumeration
         public MessageTemplate(IEnumerable<MessageTemplateToken> tokens) : this(string.Join("", tokens), tokens) { }
-        
+
         /// <summary>
         /// Create a new instance of <see cref="MessageTemplate"/>
         /// </summary>

@@ -56,28 +56,22 @@ namespace Cosmos.Logging.MessageTemplates {
                     if (propertyToken.TokenType == PropertyTokenTypes.UserDefinedParameter &&
                         TryGetMessageProperty(namedProperties, propertyToken, out var property)) {
                         RenderPropertyTokenForUserDefinedParameter(propertyToken, property, stringBuilder, logEventInfo, formatProvider);
-                    }
-                    else if (propertyToken.TokenType == PropertyTokenTypes.PreferencesRender) {
+                    } else if (propertyToken.TokenType == PropertyTokenTypes.PreferencesRender) {
                         var renderer = GetPreferencesRender(propertyToken);
                         RenderPropertyTokenForPreferencesRender(propertyToken, renderer, stringBuilder, logEventInfo, formatProvider);
-                    }
-                    else {
+                    } else {
                         RenderTextTokenSlim(propertyToken, stringBuilder, logEventInfo, formatProvider);
                     }
-                }
-                else if (token is PositionalPropertyToken positionalPropertyToken) {
+                } else if (token is PositionalPropertyToken positionalPropertyToken) {
                     if (positionalPropertyToken.TokenRendererType == TokenRendererTypes.AsPositionalProperty &&
                         TryGetMessageProperty(positionalProperties, positionalPropertyToken, out var property)) {
                         RenderPositionalPropertyTokenForUserDefinedParameter(positionalPropertyToken, property, stringBuilder, logEventInfo, formatProvider);
-                    }
-                    else {
+                    } else {
                         RenderTextTokenSlim(positionalPropertyToken, stringBuilder, logEventInfo, formatProvider);
                     }
-                }
-                else if (token is TextToken textToken) {
+                } else if (token is TextToken textToken) {
                     RenderTextToken(textToken, stringBuilder, logEventInfo, formatProvider);
-                }
-                else {
+                } else {
                     throw new ArgumentException("Current token render type is undefined.");
                 }
 

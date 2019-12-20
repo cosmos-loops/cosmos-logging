@@ -127,7 +127,7 @@ namespace Cosmos.Logging.MessageTemplates {
             foreach (var @event in FormatCommandFactory.CreateCommandEvent(rendererName, format)) {
                 targetFormatEvents.Add(@event);
             }
-            
+
             //NOTE:
             //If this token is a PreferencesRender type, the name of token is same as the name of renderer.
             //So, here, i used 'rendererName' given by 'Name', which means the name of such token.
