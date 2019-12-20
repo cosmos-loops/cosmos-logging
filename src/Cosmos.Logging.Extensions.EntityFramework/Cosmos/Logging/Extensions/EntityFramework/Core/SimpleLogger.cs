@@ -15,13 +15,13 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
 
         public void WriteLog(string sqlText, string suffixEventName, [CallerMemberName] string memberName = null) {
             var userInfo = _simgleLoggingAct?.Invoke(sqlText) ?? string.Empty;
-            var eventId = new LogEventId($"{EventIdKeys.SqlExposure}_{suffixEventName}");
+            var logTrack = LogTrack.Create($"{EventIdKeys.SqlExposure}_{suffixEventName}");
             var loggingObj = new {
                 OrmName = Constants.SinkKey,
                 Sql = sqlText,
                 UserInfo = userInfo
             };
-            _logger.LogDebug(eventId, OrmTemplateStandard.SimpleSqlLog, loggingObj, memberName);
+            _logger.LogDebug(logTrack, OrmTemplateStandard.SimpleSqlLog, loggingObj, memberName);
         }
     }
 }

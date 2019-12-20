@@ -17,6 +17,11 @@
             Proxy for PostgreSql Logger
             </summary>
         </member>
+        <member name="F:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxy._logger">
+            <summary>
+            Internal logger
+            </summary>
+        </member>
         <member name="M:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxy.#ctor(Cosmos.Logging.ILoggingServiceProvider,System.String)">
             <inheritdoc />
         </member>

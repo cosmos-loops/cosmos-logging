@@ -56,57 +56,12 @@ namespace Cosmos.Logging {
         /// <summary>
         /// Create an event id field
         /// </summary>
+        /// <param name="trackId"></param>
         /// <returns></returns>
-        public static ILogField EventId() {
-            return new EventIdField();
+        public static ILogField Track(string trackId) {
+            return new TrackField(trackId);
         }
 
-        /// <summary>
-        /// Create an event id field
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static ILogField EventId(string name) {
-            return new EventIdField(name);
-        }
 
-        /// <summary>
-        /// Create an event id field
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static ILogField EventId(Guid id, string name) {
-            return new EventIdField(id, name);
-        }
-
-        /// <summary>
-        /// Create an event id field
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static ILogField EventId(int id, string name) {
-            return new EventIdField(id, name);
-        }
-
-        /// <summary>
-        /// Create an event id field
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static ILogField EventId(string id, string name) {
-            return new EventIdField(id, name);
-        }
-
-        /// <summary>
-        /// Create an event id field
-        /// </summary>
-        /// <param name="eventId"></param>
-        /// <returns></returns>
-        public static ILogField EventId(LogEventId eventId) {
-            return new EventIdField(eventId);
-        }
     }
 }

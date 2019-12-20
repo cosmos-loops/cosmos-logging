@@ -4,12 +4,23 @@ using System.Collections.Immutable;
 using System.Linq;
 
 namespace Cosmos.Logging.Sinks.File.Filters.Navigators {
+    /// <summary>
+    /// Namespave navigator
+    /// </summary>
     public class NamespaceNavigator {
+        /// <summary>
+        /// Gets an empty namespace navigation node
+        /// </summary>
         public static NamespaceNavigator Empty => EmptyNamespaceNavigationNode._empty;
         private NamespaceNavigator ParentNav { get; set; }
         private readonly Dictionary<int, EndValueNamespaceNavigationNode> _valueDict;
         private readonly Dictionary<int, NamespaceNavigator> _nextNavs;
 
+        /// <summary>
+        /// Create a new instance of <see cref="NamespaceNavigator"/>
+        /// </summary>
+        /// <param name="namespaceFragment"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public NamespaceNavigator(string namespaceFragment) {
             if (string.IsNullOrWhiteSpace(namespaceFragment)) throw new ArgumentNullException(nameof(namespaceFragment));
             NamespaceFragment = namespaceFragment;

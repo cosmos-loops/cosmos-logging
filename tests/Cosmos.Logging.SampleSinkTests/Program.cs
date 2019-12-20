@@ -11,7 +11,7 @@ namespace Cosmos.Logging.SampleSinkTests {
                       .AllDone();
 
                 var logger = LOGGER.GetLogger<Program>(mode: LogEventSendMode.Manually);
-                
+
                 logger.LogInformation("hello");
                 logger.LogInformation("hello {0},number={1}", new {A = "1"}, 2);
                 logger.LogError("world", ctx => ctx.SetTags("Alex").SetTags("Lewis"));
@@ -42,17 +42,22 @@ namespace Cosmos.Logging.SampleSinkTests {
                 logger2.LogInformation("hello level, length=命令011: {$Level::length=11}");
                 logger2.SubmitLogger();
 
-                var future = logger.ToFuture();
+                using (var scope = logger.BeginScope("OK")) {
+                    
+                }
                 
+                var future = logger.ToFuture();
+
                 //future logger api style 1
                 future
                    .SetLevel(LogEventLevel.Information)
-                   .SetMessage("future log===> Nice {@L}")
+                   .SetMessage("future log ====> Nice {@L} ====> [{$EventIdChains}][{$EventId}][{$EventName}][{$BizTraceId}]")
                    .SetTags("Alex", "Lewis")
                    .SetParameter(new {L = "KK2"})
+                   .SetTrackInfo("1234567890","TrackTest", "biz123")
                    .SetException(new ArgumentNullException(nameof(args)))
                    .Submit();
-                
+
                 //future logger api style 2
                 future.UseFields(
                     Fields.Level(LogEventLevel.Information),
@@ -60,16 +65,15 @@ namespace Cosmos.Logging.SampleSinkTests {
                     Fields.Tags("Alex", "Lewis"),
                     Fields.Args(new {L = "KK3"}),
                     Fields.Exception(new ArgumentNullException(nameof(args)))).Submit();
-                
+
                 var simple = logger.ToSimple();
-                
+
                 simple.LogInformation("Write log by simple logger");
                 simple.LogError(new ArgumentException(), "Write log with exception for {0}", "Alex LEWIS");
                 simple.LogInformation("Write log by simple logger{{helloworld}}{$NewLine}");
 
                 Console.WriteLine("Hello World!");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.Source);
                 Console.WriteLine(e.StackTrace);

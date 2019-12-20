@@ -5,6 +5,7 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
+using Cosmos.Logging.Extensions.Microsoft;
 using Cosmos.Logging.Future;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -38,7 +39,7 @@ namespace Cosmos.Logging.RunsOn.AspNetCore {
             if (formatter == null) throw new ArgumentNullException(nameof(formatter));
             var messageTemplate = formatter(state, exception);
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
-            Write(eventId.ToEventId(), LogLevelSwitcher.Switch(logLevel), exception, messageTemplate,
+            Write(eventId.ToTrackInfo(), LogLevelSwitcher.Switch(logLevel), exception, messageTemplate,
                 LogEventSendMode.Customize, NullLogCallerInfo.Instance);
         }
 

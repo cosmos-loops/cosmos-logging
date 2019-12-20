@@ -200,193 +200,193 @@ namespace Cosmos.Logging {
         }
 
         /// <inheritdoc />
-        public virtual void LogError(LogEventId eventId, string messageTemplate,
+        public virtual void LogError(LogTrack logTrack, string messageTemplate,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber));
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T>(LogEventId eventId, string messageTemplate, T arg,
+        public virtual void LogError<T>(LogTrack logTrack, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg);
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2,
+        public virtual void LogError<T1, T2>(LogTrack logTrack, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2);
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
+        public virtual void LogError<T1, T2, T3>(LogTrack logTrack, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2, arg3);
         }
 
         /// <inheritdoc />
-        public virtual void LogError(LogEventId eventId, string messageTemplate, object[] args,
+        public virtual void LogError(LogTrack logTrack, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, LogEventLevel.Error, null, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, args);
         }
 
         /// <inheritdoc />
-        public virtual void LogError(LogEventId eventId, string messageTemplate, Action<LogEventContext> contextAct,
+        public virtual void LogError(LogTrack logTrack, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
+            Write(logTrack, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx);
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T>(LogEventId eventId, string messageTemplate, T arg, Action<LogEventContext> contextAct,
+        public virtual void LogError<T>(LogTrack logTrack, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
+            Write(logTrack, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg);
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T1, T2>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
+        public virtual void LogError<T1, T2>(LogTrack logTrack, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
+            Write(logTrack, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2);
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T1, T2, T3>(LogEventId eventId, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+        public virtual void LogError<T1, T2, T3>(LogTrack logTrack, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
+            Write(logTrack, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2, arg3);
         }
 
         /// <inheritdoc />
-        public virtual void LogError(LogEventId eventId, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+        public virtual void LogError(LogTrack logTrack, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
+            Write(logTrack, LogEventLevel.Error, null, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, args);
         }
 
         /// <inheritdoc />
-        public virtual void LogError(LogEventId eventId, Exception exception, string messageTemplate,
+        public virtual void LogError(LogTrack logTrack, Exception exception, string messageTemplate,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber));
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg,
+        public virtual void LogError<T>(LogTrack logTrack, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg);
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
+        public virtual void LogError<T1, T2>(LogTrack logTrack, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2);
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
+        public virtual void LogError<T1, T2, T3>(LogTrack logTrack, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2, arg3);
         }
 
         /// <inheritdoc />
-        public virtual void LogError(LogEventId eventId, Exception exception, string messageTemplate, object[] args,
+        public virtual void LogError(LogTrack logTrack, Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, LogEventLevel.Error, exception, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, args);
         }
 
         /// <inheritdoc />
-        public virtual void LogError(LogEventId eventId, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
+        public virtual void LogError(LogTrack logTrack, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
+            Write(logTrack, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx);
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T>(LogEventId eventId, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
+        public virtual void LogError<T>(LogTrack logTrack, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
+            Write(logTrack, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg);
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T1, T2>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
+        public virtual void LogError<T1, T2>(LogTrack logTrack, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
+            Write(logTrack, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2);
         }
 
         /// <inheritdoc />
-        public virtual void LogError<T1, T2, T3>(LogEventId eventId, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
+        public virtual void LogError<T1, T2, T3>(LogTrack logTrack, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
+            Write(logTrack, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2, arg3);
         }
 
         /// <inheritdoc />
-        public virtual void LogError(LogEventId eventId, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+        public virtual void LogError(LogTrack logTrack, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
+            Write(logTrack, LogEventLevel.Error, exception, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, args);
         }
     }

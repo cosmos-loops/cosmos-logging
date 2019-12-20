@@ -65,43 +65,35 @@ namespace Cosmos.Logging.Future {
         IFutureLogger SetTags(params string[] tags);
 
         /// <summary>
-        /// Set event id
+        /// Set track info
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        IFutureLogger SetEventId(LogEventId eventId);
+        IFutureLogger SetTrackInfo(string id);
 
         /// <summary>
-        /// Set event id
+        /// Set track info
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        IFutureLogger SetEventId(Guid id, string name);
+        IFutureLogger SetTrackInfo(string id, string name);
 
         /// <summary>
-        /// Set event id
+        /// Set track info
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>
+        /// <param name="businessTraceId"></param>
         /// <returns></returns>
-        IFutureLogger SetEventId(int id, string name);
+        IFutureLogger SetTrackInfo(string id, string name, string businessTraceId);
 
         /// <summary>
-        /// Set event id
+        /// Set track info
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
+        /// <param name="trackId"></param>
         /// <returns></returns>
-        IFutureLogger SetEventId(long id, string name);
-
-        /// <summary>
-        /// Set event id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        IFutureLogger SetEventId(string id, string name);
+        IFutureLogger SetTrackInfo(TrackField.TrackValue trackId);
 
         /// <summary>
         /// Append additional operation

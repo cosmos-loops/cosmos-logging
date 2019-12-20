@@ -77,16 +77,23 @@ namespace Cosmos.Logging.Simple {
         /// <summary>
         /// Write
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="messageTemplateParameters"></param>
-        public void Write(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, params object[] messageTemplateParameters) {
+        public void Write(LogTrack? logTrack, LogEventLevel level, Exception exception, string messageTemplate, params object[] messageTemplateParameters) {
             if (!IsEnabled(level)) return;
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
+            var suchActionEventId = TouchLogEventId(logTrack, StateNamespace);
             var cleanMessageTemplateParameters = ArgsHelper.CleanUp(messageTemplateParameters);
-            ParseAndInsertLogEventIntoQueueAutomatically(eventId ?? new LogEventId(), level, exception, messageTemplate, cleanMessageTemplateParameters);
+            ParseAndInsertLogEventIntoQueueAutomatically(suchActionEventId, level, exception, messageTemplate, cleanMessageTemplateParameters);
+        }
+
+        private static LogEventId TouchLogEventId(LogTrack? track, string name) {
+            return track.HasValue
+                ? LogEventIdFactory.Create(track.Value)
+                : LogEventIdFactory.Create(name: name);
         }
 
         #region Write
@@ -144,52 +151,52 @@ namespace Cosmos.Logging.Simple {
         #region Write with EventId
 
         /// <inheritdoc />
-        public void LogVerbose(LogEventId eventId, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Verbose, null, messageTemplate, args);
+        public void LogVerbose(LogTrack logTrack, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Verbose, null, messageTemplate, args);
 
         /// <inheritdoc />
-        public void LogVerbose(LogEventId eventId, Exception exception, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Verbose, exception, messageTemplate, args);
+        public void LogVerbose(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Verbose, exception, messageTemplate, args);
 
         /// <inheritdoc />
-        public void LogDebug(LogEventId eventId, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Debug, null, messageTemplate, args);
+        public void LogDebug(LogTrack logTrack, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Debug, null, messageTemplate, args);
 
         /// <inheritdoc />
-        public void LogDebug(LogEventId eventId, Exception exception, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Debug, exception, messageTemplate, args);
+        public void LogDebug(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Debug, exception, messageTemplate, args);
 
         /// <inheritdoc />
-        public void LogInformation(LogEventId eventId, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Information, null, messageTemplate, args);
+        public void LogInformation(LogTrack logTrack, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Information, null, messageTemplate, args);
 
         /// <inheritdoc />
-        public void LogInformation(LogEventId eventId, Exception exception, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Information, exception, messageTemplate, args);
+        public void LogInformation(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Information, exception, messageTemplate, args);
 
         /// <inheritdoc />
-        public void LogWarning(LogEventId eventId, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Warning, null, messageTemplate, args);
+        public void LogWarning(LogTrack logTrack, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Warning, null, messageTemplate, args);
 
         /// <inheritdoc />
-        public void LogWarning(LogEventId eventId, Exception exception, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Warning, exception, messageTemplate, args);
+        public void LogWarning(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Warning, exception, messageTemplate, args);
 
         /// <inheritdoc />
-        public void LogError(LogEventId eventId, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Error, null, messageTemplate, args);
+        public void LogError(LogTrack logTrack, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Error, null, messageTemplate, args);
 
         /// <inheritdoc />
-        public void LogError(LogEventId eventId, Exception exception, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Error, exception, messageTemplate, args);
+        public void LogError(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Error, exception, messageTemplate, args);
 
         /// <inheritdoc />
-        public void LogFatal(LogEventId eventId, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Fatal, null, messageTemplate, args);
+        public void LogFatal(LogTrack logTrack, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Fatal, null, messageTemplate, args);
 
         /// <inheritdoc />
-        public void LogFatal(LogEventId eventId, Exception exception, string messageTemplate, params object[] args)
-            => Write(eventId, LogEventLevel.Fatal, exception, messageTemplate, args);
+        public void LogFatal(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args)
+            => Write(logTrack, LogEventLevel.Fatal, exception, messageTemplate, args);
 
         #endregion
 
@@ -253,8 +260,7 @@ namespace Cosmos.Logging.Simple {
 
                             if (succeeded.ItemCount >= 1) {
                                 _automaticAsyncQueue.ReleaseWrite(logEvent);
-                            }
-                            else {
+                            } else {
                                 _automaticAsyncQueue.ReleaseWrite();
                             }
 
@@ -327,8 +333,7 @@ namespace Cosmos.Logging.Simple {
                 message = messageTemplateParameters == null
                     ? messageTemplate
                     : string.Format(messageTemplate, messageTemplateParameters);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 //If there is a token placeholder for Cosmos.Logging, an exception will be thrown in String.Format
                 message = messageTemplate;
                 InternalLogger.WriteLine($@"

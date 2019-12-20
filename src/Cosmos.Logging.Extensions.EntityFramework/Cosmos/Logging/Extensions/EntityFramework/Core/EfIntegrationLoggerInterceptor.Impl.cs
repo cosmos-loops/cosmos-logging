@@ -33,11 +33,9 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
 
             if (interceptionContext.Exception != null) {
                 OnError(interceptionContext.Exception, command, contextId, stamp, now, ms, specificErrorAction, memberName);
-            }
-            else if (ms > 1000) {
+            } else if (ms > 1000) {
                 OnLongTimeExecuted(command, contextId, stamp, now, ms, specificLongTimeExecutedAction, memberName);
-            }
-            else {
+            } else {
                 OnExecuted(command, contextId, stamp, now, ms, specificExecutedAction, memberName);
             }
         }
@@ -48,7 +46,7 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
             var localFunc = _descriptor.ExposeErrorInterceptor;
             localFunc += specificErrorAction;
             var userInfo = localFunc?.Invoke(exception, command.CommandText, command.Parameters, start, now) ?? string.Empty;
-            var eventId = new LogEventId(contextId, EventIdKeys.Error);
+            var logTrack = LogTrack.Create(contextId, EventIdKeys.Error);
             var logger = _loggingServiceProvider.GetLogger<DbContext>(LogEventSendMode.Automatic, _descriptor.ExposeSettings.GetRenderingOptions());
             var dbParams = new List<DbParam>();
             foreach (DbParameter param in command.Parameters) {
@@ -68,7 +66,7 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
                 UsedTime = milliseconds,
                 UserInfo = userInfo
             };
-            logger.LogError(eventId, exception, OrmTemplateStandard.Error, loggingParams, memberName: memberName);
+            logger.LogError(logTrack, exception, OrmTemplateStandard.Error, loggingParams, memberName: memberName);
         }
 
         private void OnExecuted(
@@ -77,7 +75,7 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
             var localFunc = _descriptor.ExposeExecutedInterceptor;
             localFunc += specificExecutedAction;
             var userInfo = localFunc?.Invoke(command.CommandText, command.Parameters, start, now) ?? string.Empty;
-            var eventId = new LogEventId(contextId, EventIdKeys.Executed);
+            var logTrack = LogTrack.Create(contextId, EventIdKeys.Executed);
             var logger = _loggingServiceProvider.GetLogger<DbContext>(LogEventSendMode.Automatic, _descriptor.ExposeSettings.GetRenderingOptions());
             var loggingParams = new {
                 OrmName = Constants.SinkKey,
@@ -86,7 +84,7 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
                 UsedTime = milliseconds,
                 UserInfo = userInfo
             };
-            logger.LogWarning(eventId, OrmTemplateStandard.Normal, loggingParams, memberName: memberName);
+            logger.LogWarning(logTrack, OrmTemplateStandard.Normal, loggingParams, memberName: memberName);
         }
 
         private void OnLongTimeExecuted(
@@ -95,7 +93,7 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
             var localFunc = _descriptor.ExposeLongTimeExecutedInterceptor;
             localFunc += specificLongTimeExecutedAction;
             var userInfo = localFunc?.Invoke(command.CommandText, command.Parameters, start, now) ?? string.Empty;
-            var eventId = new LogEventId(contextId, EventIdKeys.LongTimeExecuted);
+            var logTrack = LogTrack.Create(contextId, EventIdKeys.LongTimeExecuted);
             var logger = _loggingServiceProvider.GetLogger<DbContext>(LogEventSendMode.Automatic, _descriptor.ExposeSettings.GetRenderingOptions());
             var dbParams = new List<DbParam>();
             foreach (DbParameter param in command.Parameters) {
@@ -111,7 +109,7 @@ namespace Cosmos.Logging.Extensions.EntityFramework.Core {
                 UserInfo = userInfo
             };
 
-            logger.LogInformation(eventId, OrmTemplateStandard.LongNormal, loggingParams, memberName: memberName);
+            logger.LogInformation(logTrack, OrmTemplateStandard.LongNormal, loggingParams, memberName: memberName);
         }
     }
 }

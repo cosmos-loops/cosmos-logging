@@ -66,40 +66,40 @@ namespace Cosmos.Logging.Simple {
         #region Write with EventId
 
         /// <inheritdoc />
-        public void LogVerbose(LogEventId eventId, string messageTemplate, params object[] args) { }
+        public void LogVerbose(LogTrack logTrack, string messageTemplate, params object[] args) { }
 
         /// <inheritdoc />
-        public void LogVerbose(LogEventId eventId, Exception exception, string messageTemplate, params object[] args) { }
+        public void LogVerbose(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args) { }
 
         /// <inheritdoc />
-        public void LogDebug(LogEventId eventId, string messageTemplate, params object[] args) { }
+        public void LogDebug(LogTrack logTrack, string messageTemplate, params object[] args) { }
 
         /// <inheritdoc />
-        public void LogDebug(LogEventId eventId, Exception exception, string messageTemplate, params object[] args) { }
+        public void LogDebug(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args) { }
 
         /// <inheritdoc />
-        public void LogInformation(LogEventId eventId, string messageTemplate, params object[] args) { }
+        public void LogInformation(LogTrack logTrack, string messageTemplate, params object[] args) { }
 
         /// <inheritdoc />
-        public void LogInformation(LogEventId eventId, Exception exception, string messageTemplate, params object[] args) { }
+        public void LogInformation(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args) { }
 
         /// <inheritdoc />
-        public void LogWarning(LogEventId eventId, string messageTemplate, params object[] args) { }
+        public void LogWarning(LogTrack logTrack, string messageTemplate, params object[] args) { }
 
         /// <inheritdoc />
-        public void LogWarning(LogEventId eventId, Exception exception, string messageTemplate, params object[] args) { }
+        public void LogWarning(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args) { }
 
         /// <inheritdoc />
-        public void LogError(LogEventId eventId, string messageTemplate, params object[] args) { }
+        public void LogError(LogTrack logTrack, string messageTemplate, params object[] args) { }
 
         /// <inheritdoc />
-        public void LogError(LogEventId eventId, Exception exception, string messageTemplate, params object[] args) { }
+        public void LogError(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args) { }
 
         /// <inheritdoc />
-        public void LogFatal(LogEventId eventId, string messageTemplate, params object[] args) { }
+        public void LogFatal(LogTrack logTrack, string messageTemplate, params object[] args) { }
 
         /// <inheritdoc />
-        public void LogFatal(LogEventId eventId, Exception exception, string messageTemplate, params object[] args) { }
+        public void LogFatal(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args) { }
 
         #endregion
 

@@ -117,104 +117,104 @@ namespace Cosmos.Logging.Simple {
         /// <summary>
         /// Log verbose
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogVerbose(LogEventId eventId, string messageTemplate, params object[] args);
+        void LogVerbose(LogTrack logTrack, string messageTemplate, params object[] args);
 
         /// <summary>
         /// Log verbose
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogVerbose(LogEventId eventId, Exception exception, string messageTemplate, params object[] args);
+        void LogVerbose(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args);
 
         /// <summary>
         /// Log debug
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogDebug(LogEventId eventId, string messageTemplate, params object[] args);
+        void LogDebug(LogTrack logTrack, string messageTemplate, params object[] args);
 
         /// <summary>
         /// Log debug
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogDebug(LogEventId eventId, Exception exception, string messageTemplate, params object[] args);
+        void LogDebug(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args);
 
         /// <summary>
         /// Log information
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogInformation(LogEventId eventId, string messageTemplate, params object[] args);
+        void LogInformation(LogTrack logTrack, string messageTemplate, params object[] args);
 
         /// <summary>
         /// Log information
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogInformation(LogEventId eventId, Exception exception, string messageTemplate, params object[] args);
+        void LogInformation(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args);
 
         /// <summary>
         /// Log warning
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogWarning(LogEventId eventId, string messageTemplate, params object[] args);
+        void LogWarning(LogTrack logTrack, string messageTemplate, params object[] args);
 
         /// <summary>
         /// Log warning
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogWarning(LogEventId eventId, Exception exception, string messageTemplate, params object[] args);
+        void LogWarning(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args);
 
         /// <summary>
         /// Log error
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogError(LogEventId eventId, string messageTemplate, params object[] args);
+        void LogError(LogTrack logTrack, string messageTemplate, params object[] args);
 
         /// <summary>
         /// Log error
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogError(LogEventId eventId, Exception exception, string messageTemplate, params object[] args);
+        void LogError(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args);
 
         /// <summary>
         /// Log fatal
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogFatal(LogEventId eventId, string messageTemplate, params object[] args);
+        void LogFatal(LogTrack logTrack, string messageTemplate, params object[] args);
 
         /// <summary>
         /// Log fatal
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
-        void LogFatal(LogEventId eventId, Exception exception, string messageTemplate, params object[] args);
+        void LogFatal(LogTrack logTrack, Exception exception, string messageTemplate, params object[] args);
 
         #endregion
 

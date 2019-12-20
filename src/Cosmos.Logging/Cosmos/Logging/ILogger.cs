@@ -38,7 +38,7 @@ namespace Cosmos.Logging {
         /// <summary>
         /// Write
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
@@ -46,7 +46,7 @@ namespace Cosmos.Logging {
         /// <param name="callerInfo"></param>
         /// <param name="context"></param>
         /// <param name="messageTemplateParameters"></param>
-        void Write(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate,
+        void Write(LogTrack? logTrack, LogEventLevel level, Exception exception, string messageTemplate,
             LogEventSendMode sendMode, ILogCallerInfo callerInfo, LogEventContext context = null,
             params object[] messageTemplateParameters);
 

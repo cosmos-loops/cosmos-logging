@@ -72,7 +72,7 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core {
                 if (!logger.IsEnabled(LogEventLevel.Warning))
                     return;
 
-                var eventId = new LogEventId(client.ContextID, EventIdKeys.LongTimeExecuted);
+                var logTrack = LogTrack.Create(client.ContextID, EventIdKeys.LongTimeExecuted);
                 loggingParams = new {
                     OrmName = Constants.SinkKey,
                     ContextId = client.ContextID,
@@ -81,13 +81,12 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core {
                     UsedTime = ms,
                     UserInfo = userInfo
                 };
-                logger.LogWarning(eventId, OrmTemplateStandard.LongNormal, loggingParams);
-            }
-            else {
+                logger.LogWarning(logTrack, OrmTemplateStandard.LongNormal, loggingParams);
+            } else {
                 if (!logger.IsEnabled(LogEventLevel.Information))
                     return;
 
-                var eventId = new LogEventId(client.ContextID, EventIdKeys.Executed);
+                var logTrack = LogTrack.Create(client.ContextID, EventIdKeys.Executed);
                 loggingParams = new {
                     OrmName = Constants.SinkKey,
                     ContextId = client.ContextID,
@@ -95,7 +94,7 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core {
                     UsedTime = ms,
                     UserInfo = userInfo
                 };
-                logger.LogInformation(eventId, OrmTemplateStandard.Normal, loggingParams);
+                logger.LogInformation(logTrack, OrmTemplateStandard.Normal, loggingParams);
             }
         }
 
@@ -119,7 +118,7 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core {
             if (!logger.IsEnabled(LogEventLevel.Error))
                 return;
 
-            var eventId = new LogEventId(client.ContextID, EventIdKeys.Error);
+            var logTrack = LogTrack.Create(client.ContextID, EventIdKeys.Error);
             var realException = exception.Unwrap();
             var loggingParams = new {
                 OrmName = Constants.SinkKey,
@@ -133,7 +132,7 @@ namespace Cosmos.Logging.Extensions.SqlSugar.Core {
                 UsedTime = ms,
                 UserInfo = userInfo
             };
-            logger.LogError(eventId, exception, OrmTemplateStandard.Error, loggingParams);
+            logger.LogError(logTrack, exception, OrmTemplateStandard.Error, loggingParams);
         }
     }
 }

@@ -41,6 +41,11 @@ namespace Cosmos.Logging.Sinks.File.Core.Astronauts {
             }
         }
 
+        /// <summary>
+        /// Wait to remove
+        /// </summary>
+        /// <param name="hashcode"></param>
+        /// <param name="astronaut"></param>
         public static void WaitToRemove(int hashcode, IAstronaut astronaut) {
             if (!_astronautDeleted.ContainsKey(hashcode)) {
                 lock (_syncDelete) {

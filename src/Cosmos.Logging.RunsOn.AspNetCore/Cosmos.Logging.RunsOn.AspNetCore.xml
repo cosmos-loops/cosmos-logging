@@ -407,6 +407,12 @@
         <member name="M:Cosmos.Logging.RunsOn.AspNetCore.AspNetCoreLoggingServiceProvider.GetLogger``1(Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
             <inheritdoc />
         </member>
+        <member name="M:Cosmos.Logging.RunsOn.AspNetCore.AspNetCoreLoggingServiceProvider.GetSimpleLogger(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.AspNetCore.AspNetCoreLoggingServiceProvider.GetSimpleLogger``1">
+            <inheritdoc />
+        </member>
         <member name="M:Cosmos.Logging.RunsOn.AspNetCore.AspNetCoreLoggingServiceProvider.GetFutureLogger(System.String,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>

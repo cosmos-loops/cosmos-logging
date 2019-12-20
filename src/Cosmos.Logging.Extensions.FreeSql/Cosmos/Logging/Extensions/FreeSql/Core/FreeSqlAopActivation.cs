@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Cosmos.Logging.Core.Extensions;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates.PresetTemplates;
 using FreeSql;
@@ -59,7 +58,7 @@ namespace Cosmos.Logging.Extensions.FreeSql.Core {
                 if (!logger.IsEnabled(LogEventLevel.Warning))
                     return;
 
-                var eventId = new LogEventId(args.Identifier, EventIdKeys.LongTimeExecuted);
+                var logTrack = LogTrack.Create(args.Identifier, EventIdKeys.LongTimeExecuted);
                 loggingParams = new {
                     OrmName = Constants.SinkKey,
                     ContextId = args.Identifier,
@@ -68,13 +67,12 @@ namespace Cosmos.Logging.Extensions.FreeSql.Core {
                     UsedTime = args.ElapsedMilliseconds,
                     UserInfo = userInfo
                 };
-                logger.LogWarning(eventId, OrmTemplateStandard.LongNormal, loggingParams);
-            }
-            else if (!errorFlag) {
+                logger.LogWarning(logTrack, OrmTemplateStandard.LongNormal, loggingParams);
+            } else if (!errorFlag) {
                 if (!logger.IsEnabled(LogEventLevel.Information))
                     return;
 
-                var eventId = new LogEventId(args.Identifier, EventIdKeys.Executed);
+                var logTrack = LogTrack.Create(args.Identifier, EventIdKeys.Executed);
                 loggingParams = new {
                     OrmName = Constants.SinkKey,
                     ContextId = args.Identifier,
@@ -82,13 +80,12 @@ namespace Cosmos.Logging.Extensions.FreeSql.Core {
                     UsedTime = args.ElapsedMilliseconds,
                     UserInfo = userInfo
                 };
-                logger.LogInformation(eventId, OrmTemplateStandard.Normal, loggingParams);
-            }
-            else {
+                logger.LogInformation(logTrack, OrmTemplateStandard.Normal, loggingParams);
+            } else {
                 if (!logger.IsEnabled(LogEventLevel.Error))
                     return;
 
-                var eventId = new LogEventId(args.Identifier, EventIdKeys.Error);
+                var logTrack = LogTrack.Create(args.Identifier, EventIdKeys.Error);
                 var exception = args.Exception;
                 var realException = exception.Unwrap();
 
@@ -104,7 +101,7 @@ namespace Cosmos.Logging.Extensions.FreeSql.Core {
                     UsedTime = args.ElapsedMilliseconds,
                     UserInfo = userInfo
                 };
-                logger.LogError(eventId, exception, OrmTemplateStandard.Error, loggingParams);
+                logger.LogError(logTrack, exception, OrmTemplateStandard.Error, loggingParams);
             }
         }
     }
