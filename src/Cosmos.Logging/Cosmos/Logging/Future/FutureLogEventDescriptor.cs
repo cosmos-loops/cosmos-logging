@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.ExtraSupports;
@@ -21,6 +22,8 @@ namespace Cosmos.Logging.Future {
             _callerInfo = callerInfo ?? NullLogCallerInfo.Instance;
             _ownLifetimeContextData = new ContextData();
             _loggerLifetimeContextData = loggerLifetimeContextData;
+
+            Context = new LogEventContext(_ownLifetimeContextData);
         }
 
         /// <summary>
@@ -34,14 +37,27 @@ namespace Cosmos.Logging.Future {
         public string MessageTemplate { get; set; }
 
         /// <summary>
-        /// Gets or sets event id
+        /// Gets or sets log track id
         /// </summary>
-        public LogEventId EventId { get; set; } = new LogEventId();
+        public string TrackId { get; set; }
+
+        /// <summary>
+        /// Gets or sets log track name
+        /// </summary>
+        public string TrackName { get; set; }
+
+        /// <summary>
+        /// Gets or sets business trace id
+        /// </summary>
+        public string BusinessTraceId { get; set; }
 
         /// <summary>
         /// Gets or sets exception
         /// </summary>
-        public Exception Exception { get; set; }
+        public Exception Exception {
+            get => _ownLifetimeContextData.GetException();
+            set => _ownLifetimeContextData.SetException(value);
+        }
 
         /// <summary>
         /// Gets caller info
@@ -51,17 +67,24 @@ namespace Cosmos.Logging.Future {
         /// <summary>
         /// Gets or sets context
         /// </summary>
-        public LogEventContext Context { get; set; } = new LogEventContext();
+        public LogEventContext Context { get; }
 
         /// <summary>
         /// Get context data
         /// </summary>
         /// <returns></returns>
         public ContextData GetContextData() {
-            //todo 本功能尚未完成，请勿集成
-            var ret = new ContextData(_ownLifetimeContextData);
-            ret.ImportUpstreamContextData(_loggerLifetimeContextData);
-            return ret;
+            var copy = _ownLifetimeContextData.Copy();
+            copy.ImportUpstreamContextData(_loggerLifetimeContextData);
+            return copy;
+        }
+
+        /// <summary>
+        /// Get track
+        /// </summary>
+        /// <returns></returns>
+        public LogTrack GetLogTrack() {
+            return new LogTrack(TrackId, TrackName, BusinessTraceId);
         }
     }
 }

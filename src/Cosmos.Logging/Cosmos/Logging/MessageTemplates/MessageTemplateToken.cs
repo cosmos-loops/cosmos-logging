@@ -10,27 +10,32 @@ namespace Cosmos.Logging.MessageTemplates {
         /// RawText
         /// </summary>
         public readonly string RawText;
+
         /// <summary>
         /// Index
         /// </summary>
         public readonly int Index;
+
         /// <summary>
         /// Raw token length
         /// </summary>
         public readonly int RawTokenLength;
+
         /// <summary>
         /// Token length
         /// </summary>
         public readonly int TokenLength;
+
         /// <summary>
         /// Start position
         /// </summary>
         public readonly int StartPosition;
+
         /// <summary>
         /// Token string
         /// </summary>
         protected readonly string TokenString;
-        
+
         /// <summary>
         /// Create a new instance of <see cref="MessageTemplateToken"/>
         /// </summary>
@@ -95,7 +100,7 @@ namespace Cosmos.Logging.MessageTemplates {
         /// Gets token renderer type
         /// </summary>
         public abstract TokenRendererTypes TokenRendererType { get; }
-        
+
         /// <summary>
         /// Gets property resolving mode
         /// </summary>

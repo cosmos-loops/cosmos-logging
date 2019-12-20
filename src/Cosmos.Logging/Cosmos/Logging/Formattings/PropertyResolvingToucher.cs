@@ -19,17 +19,13 @@ namespace Cosmos.Logging.Formattings {
             var position = 0;
             while (position < format.Length) {
                 var c = format[position];
-                switch (c) {
-                    case 'S':
-                    case 's':
-                        mode = PropertyResolvingMode.Stringify;
-                        break;
-
-                    case 'D':
-                    case 'd':
-                        mode = PropertyResolvingMode.Destructure;
-                        break;
-                }
+                mode = c switch {
+                    'S' => PropertyResolvingMode.Stringify,
+                    's' => PropertyResolvingMode.Stringify,
+                    'D' => PropertyResolvingMode.Destructure,
+                    'd' => PropertyResolvingMode.Destructure,
+                    _   => mode
+                };
 
                 position++;
             }

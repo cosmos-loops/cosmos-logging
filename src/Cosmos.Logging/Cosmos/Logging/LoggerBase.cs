@@ -117,11 +117,11 @@ namespace Cosmos.Logging {
         /// To expose log payload sender for implementation of LoggerBase
         /// </summary>
         protected ILogPayloadSender ExposeLogPayloadSender() => _logPayloadSender;
-        
+
         /// <summary>
         /// Write
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
@@ -129,16 +129,16 @@ namespace Cosmos.Logging {
         /// <param name="callerInfo"></param>
         /// <param name="context"></param>
         /// <param name="messageTemplateParameters"></param>
-        public void Write(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode, ILogCallerInfo callerInfo,
+        public void Write(LogTrack? logTrack, LogEventLevel level, Exception exception, string messageTemplate, LogEventSendMode sendMode, ILogCallerInfo callerInfo,
             LogEventContext context = null, params object[] messageTemplateParameters) {
             if (!IsEnabled(level)) return;
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
             var cleanMessageTemplateParameters = ArgsHelper.CleanUp(messageTemplateParameters);
+            var logEventId = TouchLogEventId(logTrack, StateNamespace);
             if (IsManuallySendMode(sendMode)) {
-                ParseAndInsertLogEvenDescriptorManually(eventId ?? new LogEventId(), level, exception, messageTemplate, callerInfo, context, cleanMessageTemplateParameters);
-            }
-            else {
-                ParseAndInsertLogEventIntoQueueAutomatically(eventId ?? new LogEventId(), level, exception, messageTemplate, callerInfo, context, cleanMessageTemplateParameters);
+                ParseAndInsertLogEvenDescriptorManually(logEventId, level, exception, messageTemplate, callerInfo, context, cleanMessageTemplateParameters);
+            } else {
+                ParseAndInsertLogEventIntoQueueAutomatically(logEventId, level, exception, messageTemplate, callerInfo, context, cleanMessageTemplateParameters);
             }
         }
 
@@ -154,7 +154,7 @@ namespace Cosmos.Logging {
             if (!IsEnabled(descriptor.Level)) return;
             if (string.IsNullOrWhiteSpace(descriptor.MessageTemplate)) return;
             Write(
-                descriptor.EventId,
+                descriptor.GetLogTrack(),
                 descriptor.Level,
                 descriptor.Exception,
                 descriptor.MessageTemplate,
@@ -171,8 +171,7 @@ namespace Cosmos.Logging {
         protected virtual void Dispatch(LogEvent logEvent) {
             if (IsManuallySendMode(logEvent)) {
                 ManuallyPayload.Add(logEvent);
-            }
-            else {
+            } else {
                 AutomaticPayload.Add(logEvent);
                 AutomaticSubmitLoggerByPipeline();
             }
@@ -191,6 +190,12 @@ namespace Cosmos.Logging {
                 _manuallyLogEventDescriptors.Clear();
                 _manuallyLogEventDescriptors.TryAdd(CurrentManuallyTransId, new List<ManuallyLogEventDescriptor>());
             }));
+        }
+
+        private static LogEventId TouchLogEventId(LogTrack? track, string name) {
+            return track.HasValue
+                ? LogEventIdFactory.Create(track.Value)
+                : LogEventIdFactory.Create(name: name);
         }
 
         private static LogEventContext TouchLogEventContext(Action<LogEventContext> additionalOptContextAct) {

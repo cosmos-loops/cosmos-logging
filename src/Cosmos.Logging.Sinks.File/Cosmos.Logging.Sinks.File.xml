@@ -256,6 +256,13 @@
             File astronaut remover
             </summary>
         </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Core.Astronauts.FileAstronautRemover.WaitToRemove(System.Int32,Cosmos.Logging.Sinks.File.Core.Astronauts.IAstronaut)">
+            <summary>
+            Wait to remove
+            </summary>
+            <param name="hashcode"></param>
+            <param name="astronaut"></param>
+        </member>
         <member name="T:Cosmos.Logging.Sinks.File.Core.Astronauts.IAstronaut">
             <summary>
             Interface for Astronaut
@@ -402,6 +409,23 @@
         </member>
         <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigationParser.Parse(System.String,Cosmos.Logging.Sinks.File.Configurations.OutputOptions,Cosmos.Logging.Sinks.File.Filters.Navigators.EndValueNamespaceNavigationNode@)">
             <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigator">
+            <summary>
+            Namespave navigator
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigator.Empty">
+            <summary>
+            Gets an empty namespace navigation node
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigator.#ctor(System.String)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.File.Filters.Navigators.NamespaceNavigator"/>
+            </summary>
+            <param name="namespaceFragment"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="T:Cosmos.Logging.Sinks.File.Filters.Navigators.EmptyNamespaceNavigationNode">
             <summary>

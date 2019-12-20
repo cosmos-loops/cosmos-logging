@@ -84,8 +84,7 @@ namespace Cosmos.Logging.ExtraSupports {
             if (ContainsKey(name)) throw new ArgumentException($"Key '{name}' has been added.", nameof(name));
             if (value is ContextDataItem item) {
                 Add(item.Name, item);
-            }
-            else {
+            } else {
                 Add(name, new ContextDataItem(name, value.GetType(), value, output));
             }
         }
@@ -99,8 +98,7 @@ namespace Cosmos.Logging.ExtraSupports {
         public void AddOrUpdateItem(string name, object value, bool output = true) {
             if (value is ContextDataItem item) {
                 AddOrUpdateInternal(item.Name, item);
-            }
-            else {
+            } else {
                 AddOrUpdateInternal(name, new ContextDataItem(name, value.GetType(), value, output));
             }
         }
@@ -108,21 +106,32 @@ namespace Cosmos.Logging.ExtraSupports {
         private void AddOrUpdateInternal(string name, ContextDataItem item) {
             if (ContainsKey(name)) {
                 this[name] = item;
-            }
-            else {
+            } else {
                 Add(name, item);
             }
         }
 
         #endregion
 
+        #region Import and export upstream context data
+
+        private ContextData CurrentUpstreamContextPointer { get; set; }
+
         internal void ImportUpstreamContextData(ContextData contextData) {
             if (contextData == null) return;
+
+            CurrentUpstreamContextPointer = contextData;
+
             foreach (var data in contextData) {
-                if (ContainsKey(data.Key)) continue;
+                if (ContainsKey(data.Key))
+                    continue;
                 Add(data.Key, data.Value);
             }
         }
+
+        internal ContextData ExportUpstreamContextData() => CurrentUpstreamContextPointer;
+
+        #endregion
 
         /// <inheritdoc />
         public override string ToString() {
@@ -148,5 +157,11 @@ namespace Cosmos.Logging.ExtraSupports {
 
             return sb.ToString();
         }
+
+        /// <summary>
+        /// Copy
+        /// </summary>
+        /// <returns></returns>
+        public ContextData Copy() => new ContextData(this);
     }
 }

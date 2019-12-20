@@ -7,7 +7,7 @@ namespace Cosmos.Logging.Formattings.Helpers {
     /// </summary>
     public static class JsonHelper {
         internal static bool Check(string format = null) {
-            if (format == null || string.IsNullOrWhiteSpace(format)) return false;
+            if (format is null || string.IsNullOrWhiteSpace(format)) return false;
             return format.Contains("j");
         }
 

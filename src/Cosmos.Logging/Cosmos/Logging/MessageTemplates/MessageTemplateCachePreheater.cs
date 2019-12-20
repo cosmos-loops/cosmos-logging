@@ -39,7 +39,7 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         private void AddInternal(IEnumerable<MessageTemplate> templates) {
-            if (templates == null || !templates.Any()) return;
+            if (templates is null || !templates.Any()) return;
             var indexer = 0;
             foreach (var template in templates) {
                 if (indexer++ >= MaxCacheItemsForObject) break;
@@ -48,7 +48,7 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         private void AddInternal(MessageTemplate template) {
-            if (template == null) return;
+            if (template is null) return;
             if (template.Text.Length > MaxLengthOfTemplateToBeCached) return;
             if (_preheatedMessageTemplates.Count >= MaxCacheItemsForObject) return;
             if (_preheatedMessageTemplates.ContainsKey(template.Text.GetHashCode())) return;
@@ -56,7 +56,7 @@ namespace Cosmos.Logging.MessageTemplates {
         }
 
         private void AddInternal(IEnumerable<string> messageTemplates) {
-            if (messageTemplates == null || !messageTemplates.Any()) return;
+            if (messageTemplates is null || !messageTemplates.Any()) return;
             var indexer = 0;
             foreach (var template in messageTemplates) {
                 if (indexer++ >= MaxCacheItemsForString) break;
@@ -142,8 +142,7 @@ namespace Cosmos.Logging.MessageTemplates {
                 if (bf.Deserialize(stream) is List<MessageTemplate> buffer) {
                     AddInternal(buffer);
                 }
-            }
-            catch {
+            } catch {
                 InternalLogger.WriteLine("Throw exception when deserialize stream to List<MessageTemplate>.");
             }
         }

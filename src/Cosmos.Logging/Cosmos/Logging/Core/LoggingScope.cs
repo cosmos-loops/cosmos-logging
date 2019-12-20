@@ -1,4 +1,5 @@
 ﻿using System;
+using Cosmos.Logging.Events;
 #if NET451
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting;
@@ -68,8 +69,7 @@ namespace Cosmos.Logging.Core {
 
             if (temp == null) {
                 Current = new LoggingScope(description, state);
-            }
-            else {
+            } else {
                 Current = new LoggingScope(description, state, temp._deep + 1) {
                     Parent = temp,
                     TranceId = temp.TranceId
@@ -108,8 +108,13 @@ namespace Cosmos.Logging.Core {
         public override string ToString() => _state?.ToString() ?? string.Empty;
 
         private class DisposableScope : IDisposable {
+            public DisposableScope() {
+                LogEventId.GoIntoScope(Current);
+            }
+
             public void Dispose() {
                 Current = Current.Parent;
+                LogEventId.GoOutScope();
             }
         }
     }

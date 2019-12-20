@@ -8,6 +8,9 @@ namespace Cosmos.Logging.Extensions.PostgreSql {
     /// Proxy for PostgreSql Logger
     /// </summary>
     public class PostgreSqlLoggerProxy : NpgsqlLogger {
+        /// <summary>
+        /// Internal logger
+        /// </summary>
         // ReSharper disable once InconsistentNaming
         protected readonly ILogger _logger;
         private readonly LogEventLevel _minimumLevel;

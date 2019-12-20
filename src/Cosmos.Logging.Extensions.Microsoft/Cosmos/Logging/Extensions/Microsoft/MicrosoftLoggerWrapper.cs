@@ -39,7 +39,7 @@ namespace Cosmos.Logging.Extensions.Microsoft {
             if (formatter == null) throw new ArgumentNullException(nameof(formatter));
             var messageTemplate = formatter(state, exception);
             if (string.IsNullOrWhiteSpace(messageTemplate)) return;
-            _logger.Write(eventId.ToEventId(), LogLevelSwitcher.Switch(logLevel), exception, messageTemplate,
+            _logger.Write(eventId.ToTrackInfo(), LogLevelSwitcher.Switch(logLevel), exception, messageTemplate,
                 LogEventSendMode.Customize, NullLogCallerInfo.Instance);
         }
 

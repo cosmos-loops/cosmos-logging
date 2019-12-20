@@ -48,11 +48,6 @@
         <member name="M:Cosmos.Logging.Extensions.Microsoft.Core.CosmosSimpleLoggerProxy.#ctor(System.Type,Cosmos.Logging.Events.LogEventLevel,System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Core.Payloads.ILogPayloadSender)">
             <inheritdoc />
         </member>
-        <member name="T:Cosmos.Logging.Extensions.Microsoft.Core.LogEventIdConvert">
-            <summary>
-            LogEventId convert
-            </summary>
-        </member>
         <member name="T:Cosmos.Logging.Extensions.Microsoft.Core.StandardLogServiceCollection">
             <summary>
             Standard log service collection
@@ -104,6 +99,25 @@
             <summary>
             Static service resolve initialization
             </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Microsoft.LogEventIdConvert">
+            <summary>
+            LogEventId convert
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.LogEventIdConvert.ToEventId(Microsoft.Extensions.Logging.EventId)">
+            <summary>
+            Convert Microsoft Event Id to Cosmos Logging Event Id
+            </summary>
+            <param name="eventId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.LogEventIdConvert.ToTrackInfo(Microsoft.Extensions.Logging.EventId)">
+            <summary>
+            Convert Microsoft Event Id to Cosmos Logging Business Track Info
+            </summary>
+            <param name="eventId"></param>
+            <returns></returns>
         </member>
         <member name="T:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggerWrapper">
             <summary>
@@ -223,6 +237,12 @@
         <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetLogger``1(Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
             <inheritdoc />
         </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetSimpleLogger(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetSimpleLogger``1">
+            <inheritdoc />
+        </member>
         <member name="M:Cosmos.Logging.Extensions.Microsoft.MicrosoftLoggingServiceProvider.GetFutureLogger(System.String,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
             <inheritdoc />
         </member>
@@ -281,6 +301,11 @@
             <param name="config"></param>
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.MicrosoftLoggerWrapperExtensions">
+            <summary>
+            Extensions for Microsoft logger wrapper
+            </summary>
         </member>
         <member name="M:Cosmos.Logging.MicrosoftLoggerWrapperExtensions.LogVerbose(Microsoft.Extensions.Logging.ILogger,System.String,System.String)">
             <summary>

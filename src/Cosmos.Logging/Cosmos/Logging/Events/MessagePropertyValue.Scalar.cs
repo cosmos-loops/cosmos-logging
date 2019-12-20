@@ -40,10 +40,10 @@ namespace Cosmos.Logging.Events {
         }
 
         internal static void Render(object value, TextWriter output, string format = null, IFormatProvider formatProvider = null) {
-            if (output == null) throw new ArgumentNullException(nameof(output));
-            IEnumerable<FormatEvent> __f(string ____f) => FormatCommandFactory.CreateCommandEvent(____f);
+            if (output is null) throw new ArgumentNullException(nameof(output));
+            IEnumerable<FormatEvent> __f(string ____f) => FormatCommandFactory.CreateCommandEvent(null, ____f);
 
-            if (value == null) {
+            if (value is null) {
                 output.Write(__f(format).ToFormat("null", formatProvider));
                 return;
             }
@@ -71,9 +71,9 @@ namespace Cosmos.Logging.Events {
 
         internal static void Render(object value, TextWriter output, IList<Func<object, IFormatProvider, object>> formatFuncs, string originFormat = null,
             IFormatProvider formatProvider = null) {
-            if (output == null) throw new ArgumentNullException(nameof(output));
+            if (output is null) throw new ArgumentNullException(nameof(output));
 
-            if (value == null) {
+            if (value is null) {
                 output.Write(formatFuncs.ToFormat("null", formatProvider));
                 return;
             }

@@ -282,7 +282,7 @@
         </member>
         <member name="M:Cosmos.Logging.Sinks.Console.Output.BaseOutputRenderer`1.#ctor(`0,Cosmos.Logging.Sinks.Console.Themes.ConsoleThemeStyle,System.IO.TextWriter)">
             <summary>
-            Create a new instance of <see cref="!:BaseOutputRenderer"/>
+            Create a new instance of <see cref="T:Cosmos.Logging.Sinks.Console.Output.BaseOutputRenderer`1"/>
             </summary>
             <param name="body"></param>
             <param name="style"></param>

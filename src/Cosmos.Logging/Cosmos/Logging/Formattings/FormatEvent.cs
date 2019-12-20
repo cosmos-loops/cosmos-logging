@@ -19,7 +19,7 @@ namespace Cosmos.Logging.Formattings {
         /// Cmd alias2
         /// </summary>
         public string CmdAlias2 { get; }
-
+        
         /// <summary>
         /// Command
         /// </summary>

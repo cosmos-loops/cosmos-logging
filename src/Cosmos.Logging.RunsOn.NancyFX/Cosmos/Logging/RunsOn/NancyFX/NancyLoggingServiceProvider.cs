@@ -8,6 +8,7 @@ using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
+using Cosmos.Logging.Simple;
 
 namespace Cosmos.Logging.RunsOn.NancyFX {
     /// <summary>
@@ -116,6 +117,16 @@ namespace Cosmos.Logging.RunsOn.NancyFX {
             LogEventSendMode mode = LogEventSendMode.Customize,
             RenderingConfiguration renderingOptions = null) {
             return GetLoggerCore(typeof(T), null, minLevel, filter, mode, renderingOptions);
+        }
+
+        /// <inheritdoc />
+        public ISimpleLogger GetSimpleLogger(string categoryName) {
+            return GetLogger(categoryName, LogEventSendMode.Automatic).ToSimple();
+        }
+
+        /// <inheritdoc />
+        public ISimpleLogger GetSimpleLogger<T>() {
+            return GetLogger<T>(LogEventSendMode.Automatic).ToSimple();
         }
 
         /// <inheritdoc />

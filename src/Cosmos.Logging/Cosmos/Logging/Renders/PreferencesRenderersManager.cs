@@ -35,7 +35,7 @@ namespace Cosmos.Logging.Renders {
                     if (!_preferencesRenders.ContainsKey(ignoreCaseName)) {
                         _preferencesRenders.Add(ignoreCaseName, renderer);
                         if (renderer.CustomFormatProvider != null)
-                            CustomFormatProviderManager.Add(renderer.CustomFormatProvider.CreateCommandEvent);
+                            CustomFormatProviderManager.Add(ignoreCaseName, renderer.CustomFormatProvider.CreateCommandEvent);
                     }
                 }
             }
@@ -51,16 +51,23 @@ namespace Cosmos.Logging.Renders {
             if (renderer == null) throw new ArgumentNullException(nameof(renderer));
             if (names == null || !names.Any()) throw new ArgumentNullException(nameof(names));
             lock (_preferencesRendersLock) {
+                var hasCustomFormatProvider = renderer.CustomFormatProvider != null;
                 foreach (var name in names) {
                     var ignoreCaseName = name.ToLowerInvariant();
-                    if (!_preferencesRenders.ContainsKey(ignoreCaseName))
+                    if (!_preferencesRenders.ContainsKey(ignoreCaseName)) {
                         _preferencesRenders.Add(ignoreCaseName, renderer);
+                        if (hasCustomFormatProvider)
+                            CustomFormatProviderManager.Add(ignoreCaseName, renderer.CustomFormatProvider.CreateCommandEvent);
+                    }
                 }
 
                 if (names.All(name => string.Compare(name, renderer.Name, StringComparison.OrdinalIgnoreCase) != 0)) {
                     var ignoreCaseName = renderer.Name.ToLowerInvariant();
-                    if (!_preferencesRenders.ContainsKey(ignoreCaseName))
+                    if (!_preferencesRenders.ContainsKey(ignoreCaseName)) {
                         _preferencesRenders.Add(ignoreCaseName, renderer);
+                        if (hasCustomFormatProvider)
+                            CustomFormatProviderManager.Add(ignoreCaseName, renderer.CustomFormatProvider.CreateCommandEvent);
+                    }
                 }
             }
         }

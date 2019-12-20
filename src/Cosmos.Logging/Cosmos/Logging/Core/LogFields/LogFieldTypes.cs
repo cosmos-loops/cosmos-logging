@@ -29,8 +29,8 @@
         Tags,
 
         /// <summary>
-        /// Event id
+        /// Business event id, or names business trace id
         /// </summary>
-        EventId
+        TrackId
     }
 }

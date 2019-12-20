@@ -6,6 +6,9 @@ using IILogger = Microsoft.Extensions.Logging.ILogger;
 // ReSharper disable ExplicitCallerInfoArgument
 // ReSharper disable once CheckNamespace
 namespace Cosmos.Logging {
+    /// <summary>
+    /// Extensions for Microsoft logger wrapper
+    /// </summary>
     public static class MicrosoftLoggerWrapperExtensions {
         /// <summary>
         /// Log verbose

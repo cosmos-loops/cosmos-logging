@@ -8,7 +8,7 @@ namespace Cosmos.Logging.Formattings.Helpers {
         internal static bool Check(out char command, out int width, string format = null) {
             command = char.MinValue;
             width = 0;
-            if (format == null || string.IsNullOrWhiteSpace(format)) return false;
+            if (format is null || string.IsNullOrWhiteSpace(format)) return false;
             var position = 0;
 
             while (position < format.Length) {
@@ -62,9 +62,11 @@ namespace Cosmos.Logging.Formattings.Helpers {
         /// </summary>
         /// <returns></returns>
         public static Func<char, Func<int, Func<object, IFormatProvider, object>>> Format() => c => w => {
-            if (c == 'l') return PaddingLeft(w);
-            if (c == 'r') return PaddingRight(w);
-            throw new ArgumentException("Undefined casing command");
+            return c switch {
+                'l' => PaddingLeft(w),
+                'r' => PaddingRight(w),
+                _   => throw new ArgumentException("Undefined casing command")
+            };
         };
 
         private static Func<object, IFormatProvider, object> PaddingLeft(int width) => (value, formatProvider) => {

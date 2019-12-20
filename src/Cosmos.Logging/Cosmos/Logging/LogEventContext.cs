@@ -20,6 +20,15 @@ namespace Cosmos.Logging {
             _contextData = new ContextData();
         }
 
+        /// <summary>
+        /// Create a new instance of <see cref="LogEventContext"/>
+        /// </summary>
+        /// <param name="context"></param>
+        public LogEventContext(ContextData context) {
+            _additionalOperations = new List<IAdditionalOperation>();
+            _contextData = context ?? new ContextData();
+        }
+
         #region Additional operations
 
         internal IEnumerable<IAdditionalOperation> ExposeOpts() => _additionalOperations;

@@ -413,24 +413,24 @@ namespace Cosmos.Logging {
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="memberName"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
-        public virtual void Log(LogEventId eventId, LogEventLevel level, string messageTemplate,
+        public virtual void Log(LogTrack logTrack, LogEventLevel level, string messageTemplate,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, level, null, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, level, null, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber));
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="arg"></param>
@@ -438,18 +438,18 @@ namespace Cosmos.Logging {
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
         /// <typeparam name="T"></typeparam>
-        public virtual void Log<T>(LogEventId eventId, LogEventLevel level, string messageTemplate, T arg,
+        public virtual void Log<T>(LogTrack logTrack, LogEventLevel level, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, level, null, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, level, null, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="arg1"></param>
@@ -459,18 +459,18 @@ namespace Cosmos.Logging {
         /// <param name="lineNumber"></param>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
-        public virtual void Log<T1, T2>(LogEventId eventId, LogEventLevel level, string messageTemplate, T1 arg1, T2 arg2,
+        public virtual void Log<T1, T2>(LogTrack logTrack, LogEventLevel level, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, level, null, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, level, null, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="arg1"></param>
@@ -482,55 +482,55 @@ namespace Cosmos.Logging {
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <typeparam name="T3"></typeparam>
-        public virtual void Log<T1, T2, T3>(LogEventId eventId, LogEventLevel level, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
+        public virtual void Log<T1, T2, T3>(LogTrack logTrack, LogEventLevel level, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, level, null, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, level, null, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2, arg3);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
         /// <param name="memberName"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
-        public virtual void Log(LogEventId eventId, LogEventLevel level, string messageTemplate, object[] args,
+        public virtual void Log(LogTrack logTrack, LogEventLevel level, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, level, null, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, level, null, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, args);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="contextAct"></param>
         /// <param name="memberName"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
-        public virtual void Log(LogEventId eventId, LogEventLevel level, string messageTemplate, Action<LogEventContext> contextAct,
+        public virtual void Log(LogTrack logTrack, LogEventLevel level, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, level, null, messageTemplate, ctx.SendMode,
+            Write(logTrack, level, null, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="arg"></param>
@@ -539,19 +539,19 @@ namespace Cosmos.Logging {
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
         /// <typeparam name="T"></typeparam>
-        public virtual void Log<T>(LogEventId eventId, LogEventLevel level, string messageTemplate, T arg, Action<LogEventContext> contextAct,
+        public virtual void Log<T>(LogTrack logTrack, LogEventLevel level, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, level, null, messageTemplate, ctx.SendMode,
+            Write(logTrack, level, null, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="arg1"></param>
@@ -562,19 +562,19 @@ namespace Cosmos.Logging {
         /// <param name="lineNumber"></param>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
-        public virtual void Log<T1, T2>(LogEventId eventId, LogEventLevel level, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
+        public virtual void Log<T1, T2>(LogTrack logTrack, LogEventLevel level, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, level, null, messageTemplate, ctx.SendMode,
+            Write(logTrack, level, null, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="arg1"></param>
@@ -587,19 +587,19 @@ namespace Cosmos.Logging {
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <typeparam name="T3"></typeparam>
-        public virtual void Log<T1, T2, T3>(LogEventId eventId, LogEventLevel level, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
+        public virtual void Log<T1, T2, T3>(LogTrack logTrack, LogEventLevel level, string messageTemplate, T1 arg1, T2 arg2, T3 arg3, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, level, null, messageTemplate, ctx.SendMode,
+            Write(logTrack, level, null, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2, arg3);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="args"></param>
@@ -607,37 +607,37 @@ namespace Cosmos.Logging {
         /// <param name="memberName"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
-        public virtual void Log(LogEventId eventId, LogEventLevel level, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+        public virtual void Log(LogTrack logTrack, LogEventLevel level, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, level, null, messageTemplate, ctx.SendMode,
+            Write(logTrack, level, null, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, args);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
         /// <param name="memberName"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
-        public virtual void Log(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate,
+        public virtual void Log(LogTrack logTrack, LogEventLevel level, Exception exception, string messageTemplate,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, level, exception, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, level, exception, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber));
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
@@ -646,18 +646,18 @@ namespace Cosmos.Logging {
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
         /// <typeparam name="T"></typeparam>
-        public virtual void Log<T>(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, T arg,
+        public virtual void Log<T>(LogTrack logTrack, LogEventLevel level, Exception exception, string messageTemplate, T arg,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, level, exception, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, level, exception, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
@@ -668,18 +668,18 @@ namespace Cosmos.Logging {
         /// <param name="lineNumber"></param>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
-        public virtual void Log<T1, T2>(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
+        public virtual void Log<T1, T2>(LogTrack logTrack, LogEventLevel level, Exception exception, string messageTemplate, T1 arg1, T2 arg2,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, level, exception, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, level, exception, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
@@ -692,18 +692,18 @@ namespace Cosmos.Logging {
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <typeparam name="T3"></typeparam>
-        public virtual void Log<T1, T2, T3>(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
+        public virtual void Log<T1, T2, T3>(LogTrack logTrack, LogEventLevel level, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, level, exception, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, level, exception, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, arg1, arg2, arg3);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
@@ -711,18 +711,18 @@ namespace Cosmos.Logging {
         /// <param name="memberName"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
-        public virtual void Log(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, object[] args,
+        public virtual void Log(LogTrack logTrack, LogEventLevel level, Exception exception, string messageTemplate, object[] args,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            Write(eventId, level, exception, messageTemplate, LogEventSendMode.Customize,
+            Write(logTrack, level, exception, messageTemplate, LogEventSendMode.Customize,
                 new LogCallerInfo(memberName, filePath, lineNumber), null, args);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
@@ -730,19 +730,19 @@ namespace Cosmos.Logging {
         /// <param name="memberName"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
-        public virtual void Log(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
+        public virtual void Log(LogTrack logTrack, LogEventLevel level, Exception exception, string messageTemplate, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, level, exception, messageTemplate, ctx.SendMode,
+            Write(logTrack, level, exception, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
@@ -752,19 +752,19 @@ namespace Cosmos.Logging {
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
         /// <typeparam name="T"></typeparam>
-        public virtual void Log<T>(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
+        public virtual void Log<T>(LogTrack logTrack, LogEventLevel level, Exception exception, string messageTemplate, T arg, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, level, exception, messageTemplate, ctx.SendMode,
+            Write(logTrack, level, exception, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
@@ -776,19 +776,19 @@ namespace Cosmos.Logging {
         /// <param name="lineNumber"></param>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
-        public virtual void Log<T1, T2>(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
+        public virtual void Log<T1, T2>(LogTrack logTrack, LogEventLevel level, Exception exception, string messageTemplate, T1 arg1, T2 arg2, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, level, exception, messageTemplate, ctx.SendMode,
+            Write(logTrack, level, exception, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
@@ -802,20 +802,20 @@ namespace Cosmos.Logging {
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <typeparam name="T3"></typeparam>
-        public virtual void Log<T1, T2, T3>(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
+        public virtual void Log<T1, T2, T3>(LogTrack logTrack, LogEventLevel level, Exception exception, string messageTemplate, T1 arg1, T2 arg2, T3 arg3,
             Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, level, exception, messageTemplate, ctx.SendMode,
+            Write(logTrack, level, exception, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, arg1, arg2, arg3);
         }
 
         /// <summary>
         /// Log
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="logTrack"></param>
         /// <param name="level"></param>
         /// <param name="exception"></param>
         /// <param name="messageTemplate"></param>
@@ -824,12 +824,12 @@ namespace Cosmos.Logging {
         /// <param name="memberName"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
-        public virtual void Log(LogEventId eventId, LogEventLevel level, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
+        public virtual void Log(LogTrack logTrack, LogEventLevel level, Exception exception, string messageTemplate, object[] args, Action<LogEventContext> contextAct,
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
             var ctx = TouchLogEventContext(contextAct);
-            Write(eventId, level, exception, messageTemplate, ctx.SendMode,
+            Write(logTrack, level, exception, messageTemplate, ctx.SendMode,
                 new LogCallerInfo(memberName, filePath, lineNumber), ctx, args);
         }
     }

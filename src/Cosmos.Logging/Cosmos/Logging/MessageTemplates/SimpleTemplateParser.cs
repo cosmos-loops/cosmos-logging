@@ -93,8 +93,7 @@ namespace Cosmos.Logging.MessageTemplates {
                             break;
                         }
                     }
-                }
-                else {
+                } else {
                     Follow();
                 }
             }

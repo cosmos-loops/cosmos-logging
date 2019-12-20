@@ -9,7 +9,7 @@ namespace Cosmos.Logging.Sinks.Console.Output {
     /// <typeparam name="TBody"></typeparam>
     public abstract class BaseOutputRenderer<TBody> {
         /// <summary>
-        /// Create a new instance of <see cref="BaseOutputRenderer"/>
+        /// Create a new instance of <see cref="BaseOutputRenderer{TBody}"/>
         /// </summary>
         /// <param name="body"></param>
         /// <param name="style"></param>

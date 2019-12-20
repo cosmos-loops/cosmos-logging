@@ -14,7 +14,7 @@ namespace Cosmos.Logging.Future {
     public abstract class FutureLoggerBase : IFutureLogger, IDisposable {
         private readonly ILogger _internalLogger;
         private readonly ILogCallerInfo _callerInfo;
-        private readonly ContextData _loggerLigetimeContextData;
+        private readonly ContextData _loggerLifetimeContextData;
 
         private FutureLogEventDescriptor CurrentDescriptor { get; set; }
 
@@ -27,7 +27,7 @@ namespace Cosmos.Logging.Future {
         /// <param name="lineNumber"></param>
         protected FutureLoggerBase(ILogger logger, [CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0) {
             _internalLogger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _loggerLigetimeContextData = new ContextData();
+            _loggerLifetimeContextData = new ContextData();
             _callerInfo = new LogCallerInfo(memberName, filePath, lineNumber);
             SetCurrentState(_callerInfo);
         }
@@ -54,8 +54,8 @@ namespace Cosmos.Logging.Future {
                     case TagsField tagsField:
                         SetTags(tagsField.Value);
                         break;
-                    case EventIdField eventIdField:
-                        SetEventId(eventIdField.Value);
+                    case TrackField trackIdField:
+                        SetTrackInfo(trackIdField.Value);
                         break;
                     default:
                         throw new ArgumentException("Unknown field type.");
@@ -108,27 +108,34 @@ namespace Cosmos.Logging.Future {
             return this;
         }
 
-        #region Set eventid
-
         /// <inheritdoc />
-        public IFutureLogger SetEventId(Guid id, string name) => SetEventId(new LogEventId(id, name));
-
-        /// <inheritdoc />
-        public IFutureLogger SetEventId(int id, string name) => SetEventId(new LogEventId(id, name));
-
-        /// <inheritdoc />
-        public IFutureLogger SetEventId(long id, string name) => SetEventId(new LogEventId(id, name));
-
-        /// <inheritdoc />
-        public IFutureLogger SetEventId(string id, string name) => SetEventId(new LogEventId(id, name));
-
-        /// <inheritdoc />
-        public IFutureLogger SetEventId(LogEventId eventId) {
-            CurrentDescriptor.EventId = eventId;
+        public IFutureLogger SetTrackInfo(string id) {
+            CurrentDescriptor.TrackId = id;
             return this;
         }
 
-        #endregion
+        /// <inheritdoc />
+        public IFutureLogger SetTrackInfo(string id, string name) {
+            CurrentDescriptor.TrackId = id;
+            CurrentDescriptor.TrackName = name;
+            return this;
+        }
+
+        /// <inheritdoc />
+        public IFutureLogger SetTrackInfo(string id, string name, string businessTraceId) {
+            CurrentDescriptor.TrackId = id;
+            CurrentDescriptor.TrackName = name;
+            CurrentDescriptor.BusinessTraceId = businessTraceId;
+            return this;
+        }
+
+        /// <inheritdoc />
+        public IFutureLogger SetTrackInfo(TrackField.TrackValue track) {
+            CurrentDescriptor.TrackId = track.Id;
+            CurrentDescriptor.TrackName = track.Name;
+            CurrentDescriptor.BusinessTraceId = track.BizTraceId;
+            return this;
+        }
 
         /// <inheritdoc />
         public IFutureLogger AppendAdditionalOperation(IAdditionalOperation additionalOperation) {
@@ -149,7 +156,7 @@ namespace Cosmos.Logging.Future {
         }
 
         private void SetCurrentState(ILogCallerInfo callerInfo) {
-            CurrentDescriptor = new FutureLogEventDescriptor(callerInfo, _loggerLigetimeContextData);
+            CurrentDescriptor = new FutureLogEventDescriptor(callerInfo, _loggerLifetimeContextData);
         }
 
         #endregion
