@@ -11,7 +11,7 @@ namespace Cosmos.Logging {
         /// Create a new instance of <see cref="Args"/>.
         /// </summary>
         /// <param name="args"></param>
-        public Args(params object[] args) => _args = args;
+        private Args(params object[] args) => _args = args;
 
         /// <summary>
         /// explicit
@@ -26,5 +26,12 @@ namespace Cosmos.Logging {
         public override string ToString() {
             return _args.ToJson();
         }
+
+        /// <summary>
+        /// Args are...
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static Args Are(params object[] args) => new Args(args);
     }
 }
