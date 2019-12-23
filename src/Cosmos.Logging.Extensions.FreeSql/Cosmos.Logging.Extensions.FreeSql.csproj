@@ -13,7 +13,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FreeSql" Version="0.12.8" />
+        <PackageReference Include="FreeSql" Version="0.12.21" />
     </ItemGroup>
     
     <ItemGroup>
