@@ -25,6 +25,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cosmos.Optionals;
 
 namespace Cosmos.Logging.Core.Piplelines {
     /// <summary>
@@ -89,14 +90,14 @@ namespace Cosmos.Logging.Core.Piplelines {
                     bool[] atEof = new bool[sourceCount];
                     RoundRobinLoopGenerator loop = new RoundRobinLoopGenerator(sourceCount, inputPriorities);
                     while (!(atEof.All(e => e))) {
-                        var ops = Utils.OperationStarters<int, Optional<T>>();
+                        var ops = Utils.OperationStarters<int, IOptional<T>>();
 
                         loop.ForEach
                         (
-                            j => { ops = ops.AddIf(!atEof[j], j, Utils.StartableGet<T, Optional<T>>(sources[j], a => new Some<T>(a), Optional<T>.None())); }
+                            j => { ops = ops.AddIf(!atEof[j], j, sources[j].StartableGet<T, IOptional<T>>(Optional.Wrapped.Some, Optional.None<T>())); }
                         );
 
-                        Tuple<int, Optional<T>> result = await ops.CompleteAny(ec.CancellationToken);
+                        Tuple<int, IOptional<T>> result = await ops.CompleteAny(ec.CancellationToken);
 
                         if (result.Item2.HasValue) {
                             try {
@@ -201,14 +202,14 @@ namespace Cosmos.Logging.Core.Piplelines {
                     bool[] atEof = new bool[sourceCount];
                     RoundRobinLoopGenerator loop = new RoundRobinLoopGenerator(sourceCount, inputPriorities);
                     while (!(atEof.All(e => e))) {
-                        var ops = Utils.OperationStarters<int, Optional<T>>();
+                        var ops = Utils.OperationStarters<int, IOptional<T>>();
 
                         loop.ForEach
                         (
-                            j => { ops = ops.AddIf(!atEof[j], j, Utils.StartableGet<T, Optional<T>>(sources[j], a => new Some<T>(a), Optional<T>.None())); }
+                            j => { ops = ops.AddIf(!atEof[j], j, sources[j].StartableGet<T, IOptional<T>>(Optional.Wrapped.Some, Optional.None<T>())); }
                         );
 
-                        Tuple<int, Optional<T>> result = await ops.CompleteAny(ec.CancellationToken);
+                        Tuple<int, IOptional<T>> result = await ops.CompleteAny(ec.CancellationToken);
 
                         if (result.Item2.HasValue) {
                             int sourceIndex = result.Item1;

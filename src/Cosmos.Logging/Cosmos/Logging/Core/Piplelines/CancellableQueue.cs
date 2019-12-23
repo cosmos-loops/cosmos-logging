@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
+using Cosmos.Optionals;
 
 namespace Cosmos.Logging.Core.Piplelines {
     /// <summary>
@@ -110,14 +111,14 @@ namespace Cosmos.Logging.Core.Piplelines {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Optional<T> Cancel(long id) {
+        public IOptional<T> Cancel(long id) {
             if (itemMap.ContainsKey(id)) {
                 T value = itemMap[id];
                 itemMap = itemMap.Remove(id);
-                return Optional<T>.Some(value);
+                return Optional.Wrapped.Some(value);
             }
 
-            return Optional<T>.None();
+            return Optional.Wrapped.None<T>();
         }
 
         /// <summary>

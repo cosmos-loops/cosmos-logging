@@ -25,6 +25,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using Cosmos.Optionals;
 
 // ReSharper disable UnusedTypeParameter
 
@@ -410,7 +411,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         private void CancelAcquireRead(long id) {
             lock (syncRoot) {
-                Optional<WaitingRead> opt = waitingReads.Cancel(id);
+                IOptional<WaitingRead> opt = waitingReads.Cancel(id);
                 if (opt.HasValue) {
                     opt.Value.k.PostResult(new AcquireReadCancelled());
 
@@ -425,8 +426,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             lock (syncRoot) {
                 if (waitingReads.ContainsId(id)) {
                     waitingReads.GetById(id).ctr = ctr;
-                }
-                else {
+                } else {
                     ctr.PostDispose();
                 }
             }
@@ -440,14 +440,12 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             if (ctoken.IsCancellationRequested) {
                 return Task.FromResult<AcquireReadResult>(new AcquireReadCancelled());
-            }
-            else {
+            } else {
                 lock (syncRoot) {
                     if (!readLocked.HasValue && (items.Count >= desiredItems || eofSignaled)) {
                         readLocked = Math.Min(items.Count, desiredItems);
                         return Task.FromResult<AcquireReadResult>(new AcquireReadSucceeded<T>(readPtr, items.GetRange(0, readLocked.Value)));
-                    }
-                    else {
+                    } else {
                         TaskCompletionSource<AcquireReadResult> k = new TaskCompletionSource<AcquireReadResult>();
 
                         WaitingRead wr = new WaitingRead() {
@@ -460,7 +458,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                         long id = waitingReads.Enqueue(wr);
                         wr.id = id;
 
-                        Utils.PostRegistration(ctoken, ctr => SetRegistrationForAcquireRead(id, ctr), () => CancelAcquireRead(id));
+                        ctoken.PostRegistration(ctr => SetRegistrationForAcquireRead(id, ctr), () => CancelAcquireRead(id));
 
                         return k.Task;
                     }
@@ -470,7 +468,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         private void CancelAcquireWrite(long id) {
             lock (syncRoot) {
-                Optional<WaitingWrite> opt = waitingWrites.Cancel(id);
+                IOptional<WaitingWrite> opt = waitingWrites.Cancel(id);
                 if (opt.HasValue) {
                     opt.Value.k.PostResult(new AcquireWriteCancelled());
 
@@ -485,8 +483,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             lock (syncRoot) {
                 if (waitingWrites.ContainsId(id)) {
                     waitingWrites.GetById(id).ctr = ctr;
-                }
-                else {
+                } else {
                     ctr.PostDispose();
                 }
             }
@@ -500,21 +497,17 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             if (ctoken.IsCancellationRequested) {
                 return Task.FromResult<AcquireWriteResult>(new AcquireWriteCancelled());
-            }
-            else {
+            } else {
                 lock (syncRoot) {
                     if (eofSignaled) {
                         return Task.FromResult<AcquireWriteResult>(new AcquireWriteFaulted(new InvalidOperationException("Can't acquire for write after EOF has been signaled")));
-                    }
-                    else if (!writeLocked.HasValue && (!capacity.HasValue || (capacity.Value - items.Count) >= desiredSpace)) {
+                    } else if (!writeLocked.HasValue && (!capacity.HasValue || (capacity.Value - items.Count) >= desiredSpace)) {
                         writeLocked = desiredSpace;
                         return Task.FromResult<AcquireWriteResult>(new AcquireWriteSucceeded(readPtr + items.Count, desiredSpace));
-                    }
-                    else if (capacity.HasValue && desiredSpace > capacity.Value) {
+                    } else if (capacity.HasValue && desiredSpace > capacity.Value) {
                         return Task.FromResult<AcquireWriteResult>(
                             new AcquireWriteFaulted(new InvalidOperationException("Attempting to acquire more space than will ever become available")));
-                    }
-                    else {
+                    } else {
                         TaskCompletionSource<AcquireWriteResult> k = new TaskCompletionSource<AcquireWriteResult>();
 
                         WaitingWrite ww = new WaitingWrite() {
@@ -527,7 +520,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                         long id = waitingWrites.Enqueue(ww);
                         ww.id = id;
 
-                        Utils.PostRegistration(ctoken, ctr => SetRegistrationForAcquireWrite(id, ctr), () => CancelAcquireWrite(id));
+                        ctoken.PostRegistration(ctr => SetRegistrationForAcquireWrite(id, ctr), () => CancelAcquireWrite(id));
 
                         return k.Task;
                     }
@@ -587,14 +580,11 @@ namespace Cosmos.Logging.Core.Piplelines {
             lock (syncRoot) {
                 if (!readLocked.HasValue) {
                     throw new InvalidOperationException("Can't release read lock if it is not held");
-                }
-                else if (consumedItems < 0) {
+                } else if (consumedItems < 0) {
                     throw new ArgumentOutOfRangeException("consumedItems", "Must be zero or more");
-                }
-                else if (consumedItems > readLocked.Value) {
+                } else if (consumedItems > readLocked.Value) {
                     throw new InvalidOperationException("Can't consume more items than were locked");
-                }
-                else {
+                } else {
                     readLocked = null;
                     items = items.GetRange(consumedItems, items.Count - consumedItems);
                     readPtr += consumedItems;
@@ -610,11 +600,9 @@ namespace Cosmos.Logging.Core.Piplelines {
             lock (syncRoot) {
                 if (!writeLocked.HasValue) {
                     throw new InvalidOperationException("Can't release write lock if it is not held");
-                }
-                else if (producedItems.Count > writeLocked.Value) {
+                } else if (producedItems.Count > writeLocked.Value) {
                     throw new InvalidOperationException("Can't write more items than space was locked for");
-                }
-                else {
+                } else {
                     writeLocked = null;
                     items = items.AddRange(producedItems);
 

@@ -192,9 +192,9 @@ namespace Cosmos.Logging {
             }));
         }
 
-        private static LogEventId TouchLogEventId(LogTrack? track, string name) {
-            return track.HasValue
-                ? LogEventIdFactory.Create(track.Value)
+        private static LogEventId TouchLogEventId(LogTrack? optionalTrack, string name) {
+            return optionalTrack.HasValue
+                ? LogEventIdFactory.Create(optionalTrack.Value)
                 : LogEventIdFactory.Create(name: name);
         }
 

@@ -24,6 +24,7 @@ using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cosmos.Optionals;
 
 namespace Cosmos.Logging.Core.Piplelines {
     /// <summary>
@@ -105,8 +106,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                             try {
                                 action(task2);
                                 tcs.SetResult(true);
-                            }
-                            catch (Exception exc) {
+                            } catch (Exception exc) {
                                 tcs.SetException(exc);
                             }
                         }
@@ -171,8 +171,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                         if (ctoken.IsCancellationRequested) {
                             wasCancelled = true;
                             queue.ReleaseWrite();
-                        }
-                        else {
+                        } else {
                             queue.ReleaseWrite(item);
                         }
 
@@ -203,26 +202,24 @@ namespace Cosmos.Logging.Core.Piplelines {
         /// <returns></returns>
         /// <exception cref="OperationCanceledException"></exception>
         /// <exception cref="Exception"></exception>
-        public static async Task<Optional<T>> Dequeue<T>(this IQueueSource<T> queue, CancellationToken ctoken) {
+        public static async Task<IOptional<T>> Dequeue<T>(this IQueueSource<T> queue, CancellationToken ctoken) {
             AcquireReadResult result = await queue.AcquireReadAsync(1, ctoken);
 
-            return result.Visit<Optional<T>>
+            return result.Visit<IOptional<T>>
             (
-                new Func<AcquireReadSucceeded, Optional<T>>
+                new Func<AcquireReadSucceeded, IOptional<T>>
                 (
                     succeeded => {
                         if (succeeded.ItemCount == 0) {
-                            return Optional<T>.None();
-                        }
-                        else {
+                            return Optional.None<T>();
+                        } else {
                             System.Diagnostics.Debug.Assert(succeeded.ItemCount == 1);
 
                             bool wasCancelled = false;
                             if (ctoken.IsCancellationRequested) {
                                 wasCancelled = true;
                                 queue.ReleaseRead(0);
-                            }
-                            else {
+                            } else {
                                 queue.ReleaseRead(1);
                             }
 
@@ -230,14 +227,14 @@ namespace Cosmos.Logging.Core.Piplelines {
                                 throw new OperationCanceledException(ctoken);
                             }
 
-                            return new Some<T>(((AcquireReadSucceeded<T>) succeeded).Items[0]);
+                            return Optional.Wrapped.Some<T>(((AcquireReadSucceeded<T>) succeeded).Items[0]);
                         }
                     }
                 ),
-                new Func<AcquireReadCancelled, Optional<T>>
+                new Func<AcquireReadCancelled, IOptional<T>>
                 (
                     cancelled => throw new OperationCanceledException(ctoken)),
-                new Func<AcquireReadFaulted, Optional<T>>
+                new Func<AcquireReadFaulted, IOptional<T>>
                 (
                     faulted => throw faulted.Exception)
             );

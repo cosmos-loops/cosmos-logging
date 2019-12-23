@@ -26,6 +26,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Asynchronous;
+using Cosmos.Optionals;
 
 namespace Cosmos.Logging.Core.Piplelines {
 
@@ -76,7 +77,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         private void CancelWorkItem(long id) {
             lock (syncRoot) {
-                Optional<WaitingWorkItem> opt = waitingWorkItems.Cancel(id);
+                IOptional<WaitingWorkItem> opt = waitingWorkItems.Cancel(id);
                 if (opt.HasValue) {
                     opt.Value.k.PostException(new OperationCanceledException(opt.Value.ctoken));
 
@@ -91,8 +92,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             lock (syncRoot) {
                 if (waitingWorkItems.ContainsId(id)) {
                     waitingWorkItems.GetById(id).ctr = ctr;
-                }
-                else {
+                } else {
                     ctr.PostDispose();
                 }
             }
@@ -107,8 +107,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 async () => {
                     try {
                         await work(workerId);
-                    }
-                    finally {
+                    } finally {
                         CompleteWork(workerId);
                     }
                 }
@@ -128,8 +127,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 async () => {
                     try {
                         await work(workerId, ctoken);
-                    }
-                    finally {
+                    } finally {
                         CompleteWork(workerId);
                     }
                 }
@@ -149,13 +147,11 @@ namespace Cosmos.Logging.Core.Piplelines {
         public Task<Task> StartWorkItem(Func<int, Task> work, CancellationToken ctoken) {
             if (ctoken.IsCancellationRequested) {
                 return Tasks.FromException<Task>(new OperationCanceledException(ctoken));
-            }
-            else {
+            } else {
                 lock (syncRoot) {
                     if (idleWorkers.Count > 1) {
                         return Task.FromResult<Task>(StartWorker(work));
-                    }
-                    else {
+                    } else {
                         TaskCompletionSource<Task> k = new TaskCompletionSource<Task>();
 
                         WaitingWorkItem wa = new WaitingWorkItem() {
@@ -169,7 +165,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                         long id = waitingWorkItems.Enqueue(wa);
                         wa.id = id;
 
-                        Utils.PostRegistration(ctoken, ctr => SetRegistrationForWorkItem(id, ctr), () => CancelWorkItem(id));
+                        ctoken.PostRegistration(ctr => SetRegistrationForWorkItem(id, ctr), () => CancelWorkItem(id));
 
                         return k.Task;
                     }
@@ -186,13 +182,11 @@ namespace Cosmos.Logging.Core.Piplelines {
         public Task<Task> StartWorkItem(Func<int, CancellationToken, Task> work, CancellationToken ctoken) {
             if (ctoken.IsCancellationRequested) {
                 return Tasks.FromException<Task>(new OperationCanceledException(ctoken));
-            }
-            else {
+            } else {
                 lock (syncRoot) {
                     if (idleWorkers.Count > 1) {
                         return Task.FromResult<Task>(StartWorker(work, ctoken));
-                    }
-                    else {
+                    } else {
                         TaskCompletionSource<Task> k = new TaskCompletionSource<Task>();
 
                         WaitingWorkItem wa = new WaitingWorkItem() {
@@ -206,7 +200,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                         long id = waitingWorkItems.Enqueue(wa);
                         wa.id = id;
 
-                        Utils.PostRegistration(ctoken, ctr => SetRegistrationForWorkItem(id, ctr), () => CancelWorkItem(id));
+                        ctoken.PostRegistration(ctr => SetRegistrationForWorkItem(id, ctr), () => CancelWorkItem(id));
 
                         return k.Task;
                     }
@@ -224,8 +218,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
                     if (wwi.work is Func<int, Task>) {
                         wwi.k.PostResult(StartWorker((Func<int, Task>) wwi.work));
-                    }
-                    else {
+                    } else {
                         wwi.k.PostResult(StartWorker((Func<int, CancellationToken, Task>) wwi.work, wwi.ctoken));
                     }
 
