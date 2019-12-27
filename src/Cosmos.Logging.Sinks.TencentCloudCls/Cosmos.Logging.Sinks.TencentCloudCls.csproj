@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Cosmos.Encryption" Version="0.1.2-alpha1-100010" />
+        <PackageReference Include="Cosmos.Encryption" Version="0.1.2-alpha2-100015" />
         <PackageReference Include="Google.Protobuf" Version="3.11.2" />
         <PackageReference Include="ServiceStack.ProtoBuf" Version="5.7.0" />
     </ItemGroup>
