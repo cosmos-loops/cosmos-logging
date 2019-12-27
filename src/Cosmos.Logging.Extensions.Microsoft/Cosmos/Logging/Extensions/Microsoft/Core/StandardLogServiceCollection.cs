@@ -4,6 +4,7 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Enrichers;
 using Cosmos.Logging.MessageTemplates;
+using Cosmos.Optionals;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -158,7 +159,7 @@ namespace Cosmos.Logging.Extensions.Microsoft.Core {
 
         internal void ActiveLogEventEnrichers() {
             foreach (var provider in _additionalEnricherProviders) {
-                _loggingConfiguration.SetEnricher(provider.Invoke());
+                _loggingConfiguration.SetEnricher(provider.Invoke().Maybe());
             }
         }
     }

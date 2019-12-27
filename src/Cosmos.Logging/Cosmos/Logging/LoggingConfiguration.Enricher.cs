@@ -1,4 +1,5 @@
 using Cosmos.Logging.Core.Enrichers;
+using Cosmos.Optionals;
 
 namespace Cosmos.Logging {
     /// <summary>
@@ -9,9 +10,9 @@ namespace Cosmos.Logging {
         /// Set enricher
         /// </summary>
         /// <param name="enricher"></param>
-        public void SetEnricher(ILogEventEnricher enricher) {
-            if (enricher != null) {
-                LogEventEnricherManager.UpdateEnricher(enricher);
+        public void SetEnricher(Maybe<ILogEventEnricher> enricher) {
+            if (enricher.HasValue) {
+                LogEventEnricherManager.UpdateEnricher(enricher.Value);
             }
         }
     }
