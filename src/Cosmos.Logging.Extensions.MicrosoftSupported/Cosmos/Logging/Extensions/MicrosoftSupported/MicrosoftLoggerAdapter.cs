@@ -1,14 +1,14 @@
 ﻿using System;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Extensions.Microsoft.Core;
+using Cosmos.Logging.Extensions.MicrosoftSupported.Core;
 using Microsoft.Extensions.Logging;
 
-namespace Cosmos.Logging.Extensions.Microsoft {
+namespace Cosmos.Logging.Extensions.MicrosoftSupported {
     /// <summary>
     /// Microsoft Logger Wrapper
     /// </summary>
-    public class MicrosoftLoggerWrapper : global::Microsoft.Extensions.Logging.ILogger {
+    public class MicrosoftLoggerAdapter : global::Microsoft.Extensions.Logging.ILogger {
         /// <summary>
         /// Logger
         /// </summary>
@@ -16,21 +16,21 @@ namespace Cosmos.Logging.Extensions.Microsoft {
         protected readonly ILogger _logger;
 
         /// <summary>
-        /// Create a new instance of <see cref="MicrosoftLoggerWrapper"/>
+        /// Create a new instance of <see cref="MicrosoftLoggerAdapter"/>
         /// </summary>
         /// <param name="loggerServiceProvider"></param>
         /// <param name="categoryName"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public MicrosoftLoggerWrapper(ILoggingServiceProvider loggerServiceProvider, string categoryName) {
+        public MicrosoftLoggerAdapter(ILoggingServiceProvider loggerServiceProvider, string categoryName) {
             if (loggerServiceProvider == null) throw new ArgumentNullException(nameof(loggerServiceProvider));
             _logger = loggerServiceProvider.GetLogger(categoryName);
         }
 
         /// <summary>
-        /// Create a new instance of <see cref="MicrosoftLoggerWrapper"/>
+        /// Create a new instance of <see cref="MicrosoftLoggerAdapter"/>
         /// </summary>
         /// <param name="logger"></param>
-        public MicrosoftLoggerWrapper(ILogger logger) {
+        public MicrosoftLoggerAdapter(ILogger logger) {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 

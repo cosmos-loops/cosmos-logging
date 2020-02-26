@@ -1,5 +1,5 @@
 ﻿using System;
-using Cosmos.Logging.Extensions.Microsoft;
+using Cosmos.Logging.Extensions.MicrosoftSupported;
 using Microsoft.Extensions.Logging;
 
 namespace Cosmos.Logging {
@@ -18,7 +18,7 @@ namespace Cosmos.Logging {
             if (factory is null) throw new ArgumentNullException(nameof(factory));
             if (loggingServiceProvider is null) throw new ArgumentNullException(nameof(loggingServiceProvider));
 
-            factory.AddProvider(new MicrosoftLoggerWrapperProvider(loggingServiceProvider));
+            factory.AddProvider(new MicrosoftLoggerProviderAdapter(loggingServiceProvider));
 
             return factory;
         }

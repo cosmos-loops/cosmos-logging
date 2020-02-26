@@ -7,15 +7,15 @@ using Cosmos.Logging.Events;
 using Cosmos.Logging.Future;
 using Cosmos.Logging.Simple;
 
-namespace Cosmos.Logging.Extensions.Microsoft.Core {
+namespace Cosmos.Logging.Extensions.MicrosoftSupported.Core {
     /// <summary>
     /// Proxy for CosmosLogger
     /// </summary>
     [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
-    public class CosmosLoggerProxy : LoggerBase, IFutureableLogger<CosmosFutureLoggerProxy> {
+    public class LoggerProxy : LoggerBase, IFutureableLogger<FutureLoggerProxy> {
 
         /// <inheritdoc />
-        public CosmosLoggerProxy(
+        public LoggerProxy(
             Type sourceType,
             LogEventLevel minimumLevel,
             string loggerStateNamespace,
@@ -30,21 +30,21 @@ namespace Cosmos.Logging.Extensions.Microsoft.Core {
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
-            return new CosmosFutureLoggerProxy(this, memberName, filePath, lineNumber);
+            return new FutureLoggerProxy(this, memberName, filePath, lineNumber);
         }
 
         /// <inheritdoc />
         public override ISimpleLogger ToSimple() {
-            return new CosmosSimpleLoggerProxy(TargetType, MinimumLevel, StateNamespace, ExposeFilter(), ExposeLogPayloadSender());
+            return new SimpleLoggerProxy(TargetType, MinimumLevel, StateNamespace, ExposeFilter(), ExposeLogPayloadSender());
         }
 
 #pragma warning disable 1066,4024,4025,4026
-        CosmosFutureLoggerProxy IFutureableLogger<CosmosFutureLoggerProxy>.ToFuture(
+        FutureLoggerProxy IFutureableLogger<FutureLoggerProxy>.ToFuture(
             [CallerMemberName] string memberName = null,
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0) {
 #pragma warning restore 1066,4024,4025,4026
-            return new CosmosFutureLoggerProxy(this, memberName, filePath, lineNumber);
+            return new FutureLoggerProxy(this, memberName, filePath, lineNumber);
         }
     }
 }

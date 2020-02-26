@@ -3,14 +3,14 @@ using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.Simple;
 
-namespace Cosmos.Logging.Extensions.Microsoft.Core {
+namespace Cosmos.Logging.Extensions.MicrosoftSupported.Core {
     /// <summary>
     /// Proxy for Cosmos simple logger
     /// </summary>
-    public sealed class CosmosSimpleLoggerProxy : SimpleLoggerBase {
+    public sealed class SimpleLoggerProxy : SimpleLoggerBase {
 
         /// <inheritdoc />
-        internal CosmosSimpleLoggerProxy(
+        internal SimpleLoggerProxy(
             Type sourceType,
             LogEventLevel minimumLevel,
             string loggerStateNamespace,

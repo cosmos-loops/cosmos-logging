@@ -1,7 +1,7 @@
 ﻿using Cosmos.Logging.Events;
 using Microsoft.Extensions.Logging;
 
-namespace Cosmos.Logging.Extensions.Microsoft {
+namespace Cosmos.Logging.Extensions.MicrosoftSupported {
     /// <summary>
     /// LogEventId convert
     /// </summary>

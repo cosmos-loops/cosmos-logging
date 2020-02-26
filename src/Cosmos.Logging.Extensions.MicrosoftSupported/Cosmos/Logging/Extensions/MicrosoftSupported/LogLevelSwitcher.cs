@@ -1,8 +1,16 @@
 ﻿using Cosmos.Logging.Events;
 using Microsoft.Extensions.Logging;
 
-namespace Cosmos.Logging.Extensions.Microsoft.Core {
-    internal static class LogLevelSwitcher {
+namespace Cosmos.Logging.Extensions.MicrosoftSupported {
+    /// <summary>
+    /// Log level switcher
+    /// </summary>
+    public static class LogLevelSwitcher {
+        /// <summary>
+        /// Switch
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public static LogLevel Switch(LogEventLevel level) {
             return level switch {
                 LogEventLevel.Verbose     => LogLevel.Trace,
@@ -16,6 +24,11 @@ namespace Cosmos.Logging.Extensions.Microsoft.Core {
             };
         }
 
+        /// <summary>
+        /// Switch
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public static LogEventLevel Switch(LogLevel level) {
             return level switch {
                 LogLevel.Trace       => LogEventLevel.Verbose,

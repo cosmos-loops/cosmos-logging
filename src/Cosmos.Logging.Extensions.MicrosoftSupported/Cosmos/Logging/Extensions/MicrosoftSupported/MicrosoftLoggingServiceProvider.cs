@@ -7,21 +7,34 @@ using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Events;
-using Cosmos.Logging.Extensions.Microsoft.Core;
+using Cosmos.Logging.Extensions.MicrosoftSupported.Core;
 using Cosmos.Logging.Future;
 using Cosmos.Logging.Simple;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cosmos.Logging.Extensions.Microsoft {
+namespace Cosmos.Logging.Extensions.MicrosoftSupported {
     /// <summary>
     /// Microsoft Logging Service Provider
     /// </summary>
     [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public class MicrosoftLoggingServiceProvider : ILoggingServiceProvider {
-        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-        private readonly IServiceProvider _provider;
-        private readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
-        private readonly LoggingConfiguration _loggingConfiguration;
+        /// <summary>
+        /// Service provider
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        protected readonly IServiceProvider _provider;
+        
+        /// <summary>
+        /// Log payload client providers
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        protected readonly IEnumerable<ILogPayloadClientProvider> _logPayloadClientProviders;
+        
+        /// <summary>
+        /// Logging configuration
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        protected readonly LoggingConfiguration _loggingConfiguration;
 
         /// <summary>
         /// Create a new instance of <see cref="MicrosoftLoggingServiceProvider"/>.
@@ -34,11 +47,21 @@ namespace Cosmos.Logging.Extensions.Microsoft {
             _loggingConfiguration = loggingConfiguration ?? throw new ArgumentNullException(nameof(loggingConfiguration));
         }
 
-        private ILogger GetLoggerCore(Type sourceType, string categoryName, LogEventLevel? level, Func<string, LogEventLevel, bool> filter,
+        /// <summary>
+        /// Get logger core
+        /// </summary>
+        /// <param name="sourceType"></param>
+        /// <param name="categoryName"></param>
+        /// <param name="level"></param>
+        /// <param name="filter"></param>
+        /// <param name="mode"></param>
+        /// <param name="renderingOptions"></param>
+        /// <returns></returns>
+        protected virtual ILogger GetLoggerCore(Type sourceType, string categoryName, LogEventLevel? level, Func<string, LogEventLevel, bool> filter,
             LogEventSendMode mode = LogEventSendMode.Customize, RenderingConfiguration renderingOptions = null) {
             var loggerStateNamespace = sourceType == null ? categoryName : TypeNameHelper.GetTypeDisplayName(sourceType);
             var minLevel = level ?? _loggingConfiguration.GetMinimumLevel(loggerStateNamespace);
-            return new CosmosLoggerProxy(sourceType ?? typeof(object), minLevel, loggerStateNamespace, filter, mode,
+            return new LoggerProxy(sourceType ?? typeof(object), minLevel, loggerStateNamespace, filter, mode,
                 _loggingConfiguration.Rendering.ToCalc(renderingOptions), new LogPayloadSender(_logPayloadClientProviders));
         }
 
