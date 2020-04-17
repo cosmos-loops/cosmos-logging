@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Cosmos.Logging.Core.Callers;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.ExtraSupports;

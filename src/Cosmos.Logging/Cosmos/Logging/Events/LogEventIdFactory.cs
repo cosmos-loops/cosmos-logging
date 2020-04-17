@@ -1,5 +1,6 @@
 using System;
 using Cosmos.Logging.Trace;
+using Cosmos.Optionals;
 
 namespace Cosmos.Logging.Events {
     /// <summary>
@@ -79,15 +80,15 @@ namespace Cosmos.Logging.Events {
             name ??= string.Empty;
             if (string.IsNullOrWhiteSpace(id)) id = Guid.NewGuid().ToString();
 
-            var currentEventId = LogEventId.Current;
-            var realTraceId = MakeRealTraceId(currentEventId, traceId);
-            var businessTraceId = MakeBusinessTraceId(currentEventId, traceId, realTraceId);
+            var eventIdMaybe = Optional.From(LogEventId.Current);
+            var realTraceId = MakeRealTraceId(Optional.From(eventIdMaybe.Value?.TraceId), traceId);
+            var businessTraceId = MakeBusinessTraceId(Optional.From(eventIdMaybe.Value?.BusinessTraceId), traceId, realTraceId);
 
             LogEventId instance;
-            if (currentEventId == null) {
-                instance = new LogEventId(id, name, realTraceId) {BusinessTraceId = businessTraceId};
+            if (eventIdMaybe.HasValue) {
+                instance = new LogEventId(eventIdMaybe.Value, id, name) {BusinessTraceId = businessTraceId};
             } else {
-                instance = new LogEventId(currentEventId, id, name) {BusinessTraceId = businessTraceId};
+                instance = new LogEventId(id, name, realTraceId) {BusinessTraceId = businessTraceId};
             }
 
             if (LogEventId.NeedUpdateCurrentValue) {
@@ -98,16 +99,16 @@ namespace Cosmos.Logging.Events {
             return instance;
         }
 
-        private static string MakeRealTraceId(LogEventId current, string traceId) {
-            return @return(current is null ? traceId : current.TraceId);
+        private static string MakeRealTraceId(Maybe<string> traceIdFromCurrentEventId, string traceId) {
+            return @return(traceIdFromCurrentEventId.ValueOr(traceId));
 
             string @return(string value) {
                 return string.IsNullOrWhiteSpace(value) ? LogTraceId.Get() : value;
             }
         }
 
-        private static string MakeBusinessTraceId(LogEventId current, string traceId, string realTraceId) {
-            var biz = string.IsNullOrWhiteSpace(traceId) ? current?.BusinessTraceId : traceId;
+        private static string MakeBusinessTraceId(Maybe<string> businessTraceIdFromCurrentEventId, string traceId, string realTraceId) {
+            var biz = string.IsNullOrWhiteSpace(traceId) ? businessTraceIdFromCurrentEventId.Value : traceId;
             return string.IsNullOrWhiteSpace(biz) ? realTraceId : biz;
         }
     }

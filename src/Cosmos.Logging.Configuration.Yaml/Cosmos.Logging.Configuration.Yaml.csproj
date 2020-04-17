@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Cosmos.Serialization.YamlDotNet" Version="0.1.2-alpha1-100004" />
+      <PackageReference Include="Cosmos.Serialization.YamlDotNet" Version="0.1.2-alpha2-100015" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1' OR '$(TargetFramework)'=='netstandard2.1'">

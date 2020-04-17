@@ -24,6 +24,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cosmos.Asynchronous;
+using Cosmos.Optionals;
 
 namespace Cosmos.Logging.Core.Piplelines {
     /// <summary>
@@ -85,7 +86,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
         private void CancelWait(long id) {
             lock (syncRoot) {
-                Optional<Waiter> opt = waiters.Cancel(id);
+                IOptional<Waiter> opt = waiters.Cancel(id);
                 if (opt.HasValue) {
                     opt.Value.k.PostException(new OperationCanceledException(opt.Value.ctoken));
 
@@ -100,8 +101,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             lock (syncRoot) {
                 if (waiters.ContainsId(id)) {
                     waiters.GetById(id).ctr = ctr;
-                }
-                else {
+                } else {
                     ctr.PostDispose();
                 }
             }
@@ -115,13 +115,11 @@ namespace Cosmos.Logging.Core.Piplelines {
         public Task WaitForIdle(CancellationToken ctoken) {
             if (ctoken.IsCancellationRequested) {
                 return Tasks.FromException<bool>(new OperationCanceledException(ctoken));
-            }
-            else {
+            } else {
                 lock (syncRoot) {
                     if (referenceCount == 0) {
                         return Task.FromResult(true);
-                    }
-                    else {
+                    } else {
                         TaskCompletionSource<bool> k = new TaskCompletionSource<bool>();
 
                         Waiter waiter = new Waiter() {
@@ -134,7 +132,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                         long id = waiters.Enqueue(waiter);
                         waiter.id = id;
 
-                        Utils.PostRegistration(ctoken, ctr => SetRegistrationForWait(id, ctr), () => CancelWait(id));
+                        ctoken.PostRegistration(ctr => SetRegistrationForWait(id, ctr), () => CancelWait(id));
 
                         return k.Task;
                     }

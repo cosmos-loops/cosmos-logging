@@ -122,8 +122,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 if (!done) {
                     queue.ReleaseRead(1);
                     return convertResult(value);
-                }
-                else {
+                } else {
                     throw new InvalidOperationException("Get: Complete or Cancel can be called only once");
                 }
             }
@@ -131,8 +130,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             public override void Cancel() {
                 if (!done) {
                     queue.ReleaseRead(0);
-                }
-                else {
+                } else {
                     throw new InvalidOperationException("Get: Complete or Cancel can be called only once");
                 }
 
@@ -156,8 +154,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 if (!done) {
                     queue.ReleaseRead(0);
                     return eofResult;
-                }
-                else {
+                } else {
                     throw new InvalidOperationException("Get EOF: Complete or Cancel can be called only once");
                 }
             }
@@ -165,8 +162,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             public override void Cancel() {
                 if (!done) {
                     queue.ReleaseRead(0);
-                }
-                else {
+                } else {
                     throw new InvalidOperationException("Get EOF: Complete or Cancel can be called only once");
                 }
 
@@ -197,18 +193,15 @@ namespace Cosmos.Logging.Core.Piplelines {
 
                         if (succeededResult.ItemCount == 1) {
                             return new GetCancellableResult<U, V>(queue, succeededResult.Items[0], convertResult);
-                        }
-                        else {
+                        } else {
                             System.Diagnostics.Debug.Assert(succeededResult.ItemCount == 0);
                             return new GetEofCancellableResult<U, V>(queue, eofResult);
                         }
-                    }
-                    else if (arr is AcquireReadFaulted) {
+                    } else if (arr is AcquireReadFaulted) {
                         AcquireReadFaulted faultedResult = (AcquireReadFaulted) arr;
 
                         throw faultedResult.Exception;
-                    }
-                    else {
+                    } else {
                         // ReSharper disable once UnusedVariable
                         AcquireReadCancelled cancelledResult = (AcquireReadCancelled) arr;
 
@@ -219,11 +212,9 @@ namespace Cosmos.Logging.Core.Piplelines {
                 Task<CancellableResult<V>> task;
                 try {
                     task = Task.Run(taskSource);
-                }
-                catch (OperationCanceledException e) {
+                } catch (OperationCanceledException e) {
                     task = Tasks.FromCanceled<CancellableResult<V>>(e);
-                }
-                catch (Exception exc) {
+                } catch (Exception exc) {
                     task = Tasks.FromException<CancellableResult<V>>(exc);
                 }
 
@@ -248,8 +239,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 if (!done) {
                     queue.ReleaseWrite(valueToPut);
                     return successfulPut;
-                }
-                else {
+                } else {
                     throw new InvalidOperationException("Put: Complete or Cancel can be called only once");
                 }
             }
@@ -257,8 +247,7 @@ namespace Cosmos.Logging.Core.Piplelines {
             public override void Cancel() {
                 if (!done) {
                     queue.ReleaseWrite();
-                }
-                else {
+                } else {
                     throw new InvalidOperationException("Put: Complete or Cancel can be called only once");
                 }
 
@@ -290,13 +279,9 @@ namespace Cosmos.Logging.Core.Piplelines {
                         System.Diagnostics.Debug.Assert(aws.ItemCount == 1);
 
                         return new PutCancellableResult<U, V>(queue, valueToPut, successfulPut);
-                    }
-                    else if (awr is AcquireWriteFaulted) {
-                        AcquireWriteFaulted awf = (AcquireWriteFaulted) awr;
-
+                    } else if (awr is AcquireWriteFaulted awf) {
                         throw awf.Exception;
-                    }
-                    else {
+                    } else {
                         // ReSharper disable once UnusedVariable
                         AcquireWriteCancelled awc = (AcquireWriteCancelled) awr;
 
@@ -307,11 +292,9 @@ namespace Cosmos.Logging.Core.Piplelines {
                 Task<CancellableResult<V>> task;
                 try {
                     task = taskSource();
-                }
-                catch (OperationCanceledException e) {
+                } catch (OperationCanceledException e) {
                     task = Tasks.FromCanceled<CancellableResult<V>>(e);
-                }
-                catch (Exception exc) {
+                } catch (Exception exc) {
                     task = Tasks.FromException<CancellableResult<V>>(exc);
                 }
 
@@ -391,8 +374,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 lock (syncRoot) {
                     if (firstIndex.HasValue && waits.IsEmpty) {
                         value.PostDispose();
-                    }
-                    else {
+                    } else {
                         ctr = value;
                     }
                 }
@@ -414,8 +396,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                         if (!(eTask is OperationCanceledException) || !(canceled.Contains(i))) {
                             exc.Add(eTask);
                         }
-                    }
-                    else if (operations[i].Task.IsCanceled) {
+                    } else if (operations[i].Task.IsCanceled) {
                         if (!canceled.Contains(i)) {
                             exc.Add(new OperationCanceledException());
                         }
@@ -428,15 +409,12 @@ namespace Cosmos.Logging.Core.Piplelines {
                 if (exc.Count == 0) {
                     if (fi >= 0) {
                         tcs.PostResult(new Tuple<K, V>(operationStarters[fi].Item1, firstResult));
-                    }
-                    else {
+                    } else {
                         tcs.PostException(new OperationCanceledException(ctoken));
                     }
-                }
-                else if (exc.Count == 1) {
+                } else if (exc.Count == 1) {
                     tcs.PostException(exc[0]);
-                }
-                else {
+                } else {
                     tcs.PostException(new AggregateException(exc));
                 }
 
@@ -480,8 +458,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                             operations[i].Task.Result.Cancel();
                             canceled = canceled.Add(i);
                         }
-                    }
-                    else {
+                    } else {
                         firstIndex = i;
 
                         if (operations[i].Task.Status == TaskStatus.RanToCompletion) {
@@ -513,8 +490,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                         }
 
                         break;
-                    }
-                    else {
+                    } else {
                         waits = waits.Add(i);
 
                         //continuations[i] =
@@ -528,8 +504,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 if (shouldUnwind) {
                     if (!waits.IsEmpty) {
                         unwind();
-                    }
-                    else {
+                    } else {
                         deliverFinalResult();
                     }
                 }

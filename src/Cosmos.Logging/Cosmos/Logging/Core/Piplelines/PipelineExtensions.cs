@@ -27,6 +27,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cosmos.Optionals;
 
 namespace Cosmos.Logging.Core.Piplelines {
 
@@ -72,12 +73,11 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             Func<Task> feed = async delegate {
                 while (true) {
-                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
+                    IOptional<T> item = await queue.Dequeue(CancellationToken.None);
 
                     if (item.HasValue) {
                         bc.Add(item.Value);
-                    }
-                    else break;
+                    } else break;
                 }
 
                 bc.CompleteAdding();
@@ -91,8 +91,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 try {
                     item2 = bc.Take();
                     success = true;
-                }
-                catch (InvalidOperationException exc) {
+                } catch (InvalidOperationException exc) {
                     // BlockingCollection ran out of items
                     System.Diagnostics.Debug.WriteLine(exc);
                 }
@@ -117,7 +116,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             Func<Task> worker = async delegate {
                 while (true) {
-                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
+                    IOptional<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
                     U item2 = await func(item.Value);
                     await outQueue.Enqueue(item2, CancellationToken.None);
@@ -144,7 +143,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             Func<Task> worker = async delegate {
                 while (true) {
-                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
+                    IOptional<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
                     if (await predicate(item.Value)) {
                         await outQueue.Enqueue(item.Value, CancellationToken.None);
@@ -176,7 +175,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             Func<Task> workPoster = async delegate {
                 while (true) {
-                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
+                    IOptional<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
                     T itemValue = item.Value;
 
@@ -188,8 +187,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                             try {
                                 U item2 = await func(itemValue);
                                 await outQueue.Enqueue(item2, CancellationToken.None);
-                            }
-                            finally {
+                            } finally {
                                 idleDetector.Leave();
                             }
                         },
@@ -223,7 +221,7 @@ namespace Cosmos.Logging.Core.Piplelines {
 
             Func<Task> workPoster = async delegate {
                 while (true) {
-                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
+                    IOptional<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
                     T itemValue = item.Value;
 
@@ -236,8 +234,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                                 if (await predicate(itemValue)) {
                                     await outQueue.Enqueue(itemValue, CancellationToken.None);
                                 }
-                            }
-                            finally {
+                            } finally {
                                 idleDetector.Leave();
                             }
                         },
@@ -274,8 +271,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                     }
 
                     return new AcquireReadSucceeded<Tuple<int, T>>(parentSuccess.Offset, sequence);
-                }
-                else {
+                } else {
                     return parentResult;
                 }
             }
@@ -312,8 +308,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                     AcquireReadSucceeded<T> parentSuccess = (AcquireReadSucceeded<T>) parentResult;
                     ImmutableList<U> sequence = ImmutableList<U>.Empty.AddRange(parentSuccess.Items.Select(func));
                     return new AcquireReadSucceeded<U>(parentSuccess.Offset, sequence);
-                }
-                else {
+                } else {
                     return parentResult;
                 }
             }
@@ -351,7 +346,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                 int next = first;
                 ImmutableDictionary<int, T> buffer = ImmutableDictionary<int, T>.Empty;
                 while (true) {
-                    Optional<T> item = await queue.Dequeue(CancellationToken.None);
+                    IOptional<T> item = await queue.Dequeue(CancellationToken.None);
                     if (!item.HasValue) break;
                     int order = getOrder(item.Value);
                     if (order == next) {
@@ -362,8 +357,7 @@ namespace Cosmos.Logging.Core.Piplelines {
                             buffer = buffer.Remove(next);
                             ++next;
                         }
-                    }
-                    else {
+                    } else {
                         buffer = buffer.Add(order, item.Value);
                     }
                 }

@@ -8,13 +8,10 @@ using Cosmos.Logging.MessageTemplates;
 using Cosmos.Logging.Sinks.SampleLogSink;
 using Microsoft.Extensions.Configuration;
 
-namespace Cosmos.Loggings.MessageTemplateTokenTests
-{
-    class Program
-    {
+namespace Cosmos.Loggings.MessageTemplateTokenTests {
+    class Program {
 
-        static void Preheater(MessageTemplateCachePreheater preheater)
-        {
+        static void Preheater(MessageTemplateCachePreheater preheater) {
             preheater.Add("token test: {@Hello}, {0}, {@World}");
             preheater.Add("token test: {@Hello}, {0}, {@World}1");
             preheater.Add("token test: {@Hello:U}, {0:U}, {@World},{1}, {$ConsoleHelloWorld}, {$Hello}, {@Alewix}, {3}");
@@ -22,18 +19,16 @@ namespace Cosmos.Loggings.MessageTemplateTokenTests
 
         static object SyncLock = new object();
 
-        static void Main(string[] args)
-        {
-            try
-            {
+        static void Main(string[] args) {
+            try {
                 var root = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", true, true).Build();
+                                                     .AddJsonFile("appsettings.json", true, true).Build();
 
 
                 LOGGER.Initialize(root).RunsOnConsole()
-                    .PreheatMessageTemplates(Preheater)
-                    .AddSampleLog(s => s.UseMinimumLevel(LogEventLevel.Information))
-                    .AllDone();
+                      .PreheatMessageTemplates(Preheater)
+                      .AddSampleLog(s => s.UseMinimumLevel(LogEventLevel.Information))
+                      .AllDone();
 
                 var logger = LOGGER.GetLogger<Program>();
 //                lock (SyncLock) {
@@ -154,7 +149,7 @@ World: {@World},
     2: {2},
 Hello: {@Hello},
 World: {@World}",
-                    new Args(new {Hello = "_hello_", World = "_world_"}, "?world?"), arg2: "_position_1_");
+                    Args.Are(new {Hello = "_hello_", World = "_world_"}, "?world?"), arg2: "_position_1_");
 
                 logger.LogInformation(@"
 {{多字段匿名对象测试2：基于普通匿名对象的测试}}
@@ -177,7 +172,7 @@ World: {@World},
     3: {3},
 Hello: {@Hello},
 World: {@World}",
-                    new Args(new {Hello = "_hello_", _ = new Args(new {World = "_world_"})}, "?world?"), arg2: "_position_1_");
+                    Args.Are(new {Hello = "_hello_", _ = Args.Are(new {World = "_world_"})}, "?world?"), arg2: "_position_1_");
 
                 logger.LogInformation(@"
 {{多字段匿名对象测试4：基于嵌套了 Cosmos.Logging.Args 的测试}}
@@ -190,16 +185,14 @@ World: {@World},
     4: {4},
 Hello: {@Hello},
 World: {@World}",
-                    new Args(new {Hello = "_hello_", _ = new Args(new {__World = "_world_"})}, "?world?", new Args(new {World = "_world_"})), arg2: "_position_1_");
+                    Args.Are(new {Hello = "_hello_", _ = Args.Are(new {__World = "_world_"})}, "?world?", Args.Are(new {World = "_world_"})), arg2: "_position_1_");
 
 //                using (var scope = logger.BeginScope("123")) {
 //                    logger.LogInformation("token test: {@Hello}, {0}, {@World}");
 //                }
 
                 Console.WriteLine("I'm live");
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.Source);
 
