@@ -4,12 +4,54 @@
         <name>Cosmos.Logging.Extensions.PostgreSql</name>
     </assembly>
     <members>
+        <member name="T:Cosmos.Logging.ExceptionDestructurerExtensions">
+            <summary>
+            Extensions for destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionDestructurerExtensions.UsePostgreSql(Cosmos.Logging.Exceptions.Configurations.ExceptionOptions)">
+            <summary>
+            Use Postgres
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.PostgresEnricherExtensions">
+            <summary>
+            Extensions for PostgreSql enricher
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.PostgresEnricherExtensions.UsePostgreSql(Cosmos.Logging.DatabaseIntegration,System.Action{Cosmos.Logging.PostgresEnricherOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.PostgresEnricherConfiguration})">
+            <summary>
+            Add PostgreSql support for Cosmos.Logging
+            </summary>
+            <param name="integration"></param>
+            <param name="settingAct"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
         <member name="T:Cosmos.Logging.Extensions.PostgreSql.Core.NpgsqlLogActivation">
             <summary>
             Npgsql log activation
             </summary>
         </member>
         <member name="M:Cosmos.Logging.Extensions.PostgreSql.Core.NpgsqlLogActivation.#ctor(Cosmos.Logging.ILoggingServiceProvider,Microsoft.Extensions.Options.IOptions{Cosmos.Logging.PostgresEnricherOptions})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.PostgreSql.Exceptions.Destructurers.NpgsqlExceptionDestructurer">
+            <summary>
+            Npgsql exception destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.PostgreSql.Exceptions.Destructurers.NpgsqlExceptionDestructurer.DestructureException(Npgsql.NpgsqlException,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.PostgreSql.Exceptions.Destructurers.PostgresExceptionDestructurer">
+            <summary>
+            Postgres exception destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.PostgreSql.Exceptions.Destructurers.PostgresExceptionDestructurer.DestructureException(Npgsql.PostgresException,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
             <inheritdoc />
         </member>
         <member name="T:Cosmos.Logging.Extensions.PostgreSql.PostgreSqlLoggerProxy">
@@ -72,20 +114,6 @@
         </member>
         <member name="M:Cosmos.Logging.PostgresEnricherConfiguration.PostProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
             <inheritdoc />
-        </member>
-        <member name="T:Cosmos.Logging.PostgresEnricherExtensions">
-            <summary>
-            Extensions for PostgreSql enricher
-            </summary>
-        </member>
-        <member name="M:Cosmos.Logging.PostgresEnricherExtensions.UsePostgreSql(Cosmos.Logging.DatabaseIntegration,System.Action{Cosmos.Logging.PostgresEnricherOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.PostgresEnricherConfiguration})">
-            <summary>
-            Add PostgreSql support for Cosmos.Logging
-            </summary>
-            <param name="integration"></param>
-            <param name="settingAct"></param>
-            <param name="configAction"></param>
-            <returns></returns>
         </member>
         <member name="T:Cosmos.Logging.PostgresEnricherOptions">
             <summary>

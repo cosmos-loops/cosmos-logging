@@ -13,12 +13,10 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <ProjectReference Include="..\Cosmos.Logging.Extensions.Exceptions\Cosmos.Logging.Extensions.Exceptions.csproj" />
+        <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
+    
     <ItemGroup>
         <PackageReference Include="EntityFramework" Version="6.4.0" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Cosmos\Logging\Extensions\Exceptions" />
     </ItemGroup>
 </Project>

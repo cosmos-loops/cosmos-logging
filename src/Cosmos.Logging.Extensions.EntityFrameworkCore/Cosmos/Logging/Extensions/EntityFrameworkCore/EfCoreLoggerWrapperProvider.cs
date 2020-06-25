@@ -31,7 +31,7 @@ namespace Cosmos.Logging.Extensions.EntityFrameworkCore {
         }
 
         public global::Microsoft.Extensions.Logging.ILogger CreateLogger(string categoryName) {
-            return new EfCoreLoggerWrapper(_loggingServiceProvider.GetLogger(categoryName, _filter, LogEventSendMode.Automatic, _upstreamRenderingOptions));
+            return new EfCoreLoggerAdapter(_loggingServiceProvider.GetLogger(categoryName, _filter, LogEventSendMode.Automatic, _upstreamRenderingOptions));
         }
 
         public void Dispose() { }

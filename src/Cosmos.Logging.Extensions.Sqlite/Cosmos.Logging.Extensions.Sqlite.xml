@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Extensions.Sqlite</name>
+    </assembly>
+    <members>
+        <member name="T:Cosmos.Logging.DestructurerExtensions">
+            <summary>
+            Extensions for destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.DestructurerExtensions.UseSqlite(Cosmos.Logging.Exceptions.Configurations.ExceptionOptions)">
+            <summary>
+            Use SQLite
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Exceptions.Destructurers.SqliteExceptionDestructurer">
+            <summary>
+            Sqlite exception destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Destructurers.SqliteExceptionDestructurer.DestructureException(System.Data.SQLite.SQLiteException,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

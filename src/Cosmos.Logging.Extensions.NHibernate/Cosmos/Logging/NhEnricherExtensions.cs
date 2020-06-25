@@ -1,4 +1,6 @@
 ﻿using System;
+using Cosmos.Extensions.Dependency;
+using Cosmos.Extensions.Dependency.Core;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Events;
@@ -39,8 +41,7 @@ namespace Cosmos.Logging {
                     if (string.IsNullOrWhiteSpace(@namespace)) return;
                     if (configuration.LogLevel.ContainsKey(@namespace)) {
                         configuration.LogLevel[@namespace] = expectLevelName;
-                    }
-                    else {
+                    } else {
                         configuration.LogLevel.Add(@namespace, expectLevelName);
                     }
                 }
@@ -62,7 +63,7 @@ namespace Cosmos.Logging {
             var services = integration.ExposeServiceCollectionWrapper;
             if (services != null) {
                 services.AddExtraSinkSettings(settings.Value, config);
-                services.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
+                services.AddDependency(s => s.TryAddSingleton(settings));
 
                 RegisterNHibernateInitialization(services, settings);
 
@@ -73,7 +74,7 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterNHibernateInitialization(ILogServiceCollection services, IOptions<NhEnricherOptions> settings) {
-            services.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(__nhibernateInitFactory)));
+            services.AddDependency(s => s.TryAddSingleton<IServiceProvider>(__nhibernateInitFactory, typeof(StaticServiceResolveInitialization)));
 
             // ReSharper disable once InconsistentNaming
             object __nhibernateInitFactory(IServiceProvider provider) {
@@ -82,8 +83,8 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterCoreComponentsTypes() {
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<NhEnricherOptions>), false, ServiceLifetime.Singleton));
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(StaticServiceResolveInitialization), false, ServiceLifetime.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<NhEnricherOptions>), Many.FALSE, DependencyLifetimeType.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(StaticServiceResolveInitialization), Many.FALSE, DependencyLifetimeType.Singleton));
         }
     }
 }

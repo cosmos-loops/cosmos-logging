@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Extensions.MySql</name>
+    </assembly>
+    <members>
+        <member name="T:Cosmos.Logging.DestructurerExtensions">
+            <summary>
+            Extensions for destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.DestructurerExtensions.UseMySql(Cosmos.Logging.Extensions.Exceptions.Configurations.ExceptionOptions)">
+            <summary>
+            Use MySql
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Exceptions.Destructurers.MySqlExceptionDestructurer">
+            <summary>
+            MySql exception destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Exceptions.Destructurers.MySqlExceptionDestructurer.DestructureException(MySql.Data.MySqlClient.MySqlException,Cosmos.Logging.Extensions.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Cosmos.Logging.Extensions.Exceptions.Core;
+using Cosmos.Logging.Exceptions.Core;
+using Cosmos.Logging.Exceptions.Destructurers;
 using Npgsql;
 
 namespace Cosmos.Logging.Extensions.Exceptions.Destructurers {

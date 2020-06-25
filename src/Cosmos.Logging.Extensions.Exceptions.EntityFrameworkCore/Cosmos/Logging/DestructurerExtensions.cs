@@ -1,4 +1,4 @@
-using Cosmos.Logging.Extensions.Exceptions.Configurations;
+using Cosmos.Logging.Exceptions.Configurations;
 using Cosmos.Logging.Extensions.Exceptions.Destructurers;
 
 namespace Cosmos.Logging {

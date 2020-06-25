@@ -4,27 +4,6 @@
         <name>Cosmos.Logging.Extensions.EntityFramework</name>
     </assembly>
     <members>
-        <member name="T:Cosmos.Logging.DatabaseExtensions">
-            <summary>
-            Database extensions
-            </summary>
-        </member>
-        <member name="M:Cosmos.Logging.DatabaseExtensions.UseCosmosLogging(System.Data.Entity.Database,System.Func{System.String,System.Object})">
-            <summary>
-            Use Cosmos Logging
-            </summary>
-            <param name="db"></param>
-            <param name="loggerAct"></param>
-        </member>
-        <member name="M:Cosmos.Logging.DatabaseExtensions.UseCosmosLogging(System.Data.Entity.Database,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},System.Func{System.String,System.Object})">
-            <summary>
-            Use Cosmos Logging
-            </summary>
-            <param name="db"></param>
-            <param name="filter"></param>
-            <param name="loggerAct"></param>
-            <exception cref="T:System.ArgumentNullException"></exception>
-        </member>
         <member name="T:Cosmos.Logging.EfEnricherConfiguration">
             <summary>
             Cosmos Logging EntityFramework Enricher coniguration
@@ -35,20 +14,6 @@
         </member>
         <member name="M:Cosmos.Logging.EfEnricherConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
             <inheritdoc />
-        </member>
-        <member name="T:Cosmos.Logging.EfEnricherExtensions">
-            <summary>
-            Cosmos Logging EntityFramework Enricher extensions
-            </summary>
-        </member>
-        <member name="M:Cosmos.Logging.EfEnricherExtensions.UseEntityFramework(Cosmos.Logging.DatabaseIntegration,System.Action{Cosmos.Logging.EfEnricherOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.EfEnricherConfiguration})">
-            <summary>
-            Use EntityFramework for Cosmos.Logging
-            </summary>
-            <param name="integration"></param>
-            <param name="settingAct"></param>
-            <param name="configAction"></param>
-            <returns></returns>
         </member>
         <member name="T:Cosmos.Logging.EfEnricherOptions">
             <summary>
@@ -222,6 +187,53 @@
         <member name="M:Cosmos.Logging.EfEnricherOptions.GetRenderingOptions">
             <inheritdoc />
         </member>
+        <member name="T:Cosmos.Logging.DatabaseExtensions">
+            <summary>
+            Database extensions
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.DatabaseExtensions.UseCosmosLogging(System.Data.Entity.Database,System.Func{System.String,System.Object})">
+            <summary>
+            Use Cosmos Logging
+            </summary>
+            <param name="db"></param>
+            <param name="loggerAct"></param>
+        </member>
+        <member name="M:Cosmos.Logging.DatabaseExtensions.UseCosmosLogging(System.Data.Entity.Database,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},System.Func{System.String,System.Object})">
+            <summary>
+            Use Cosmos Logging
+            </summary>
+            <param name="db"></param>
+            <param name="filter"></param>
+            <param name="loggerAct"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.EfEnricherExtensions">
+            <summary>
+            Cosmos Logging EntityFramework Enricher extensions
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.EfEnricherExtensions.UseEntityFramework(Cosmos.Logging.DatabaseIntegration,System.Action{Cosmos.Logging.EfEnricherOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.EfEnricherConfiguration})">
+            <summary>
+            Use EntityFramework for Cosmos.Logging
+            </summary>
+            <param name="integration"></param>
+            <param name="settingAct"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.ExceptionDestructurerExtensions">
+            <summary>
+            Extensions for destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionDestructurerExtensions.UseEntityFramework(Cosmos.Logging.Exceptions.Configurations.ExceptionOptions)">
+            <summary>
+            Use EntityFramework
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="T:Cosmos.Logging.Extensions.EntityFramework.Core.DbParam">
             <summary>
             Database params
@@ -297,6 +309,17 @@
             <summary>
             Sql exposure
             </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.EntityFramework.Exceptions.Destructurers.EfDbUpdateExceptionDestructurer">
+            <summary>
+            EntityFramework DbUpdateException destructurer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.EntityFramework.Exceptions.Destructurers.EfDbUpdateExceptionDestructurer.TargetTypes">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.EntityFramework.Exceptions.Destructurers.EfDbUpdateExceptionDestructurer.Destructure(System.Exception,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
         </member>
     </members>
 </doc>
