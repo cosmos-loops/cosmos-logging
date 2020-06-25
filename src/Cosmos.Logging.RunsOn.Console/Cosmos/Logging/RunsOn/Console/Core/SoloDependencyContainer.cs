@@ -1,62 +1,65 @@
 ﻿using System;
 using AspectCore.DependencyInjection;
 using AspectCore.Extensions.DependencyInjection;
+using Cosmos.Extensions.Dependency;
 using Cosmos.IdUtils;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Trace;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging.RunsOn.Console.Core {
-    internal static class SoloDependencyContainer {
+    internal static partial class SoloDependencyContainer {
         private static IServiceResolver ServiceResolver { get; set; }
 
-        public static ILogServiceCollection Initialize() {
-            return Initialize(new ServiceCollection(), (IConfigurationBuilder) null);
-        }
-
-        public static ILogServiceCollection Initialize(IServiceCollection services) {
-            return Initialize(services, (IConfigurationBuilder) null);
-        }
-
-        public static ILogServiceCollection Initialize(IServiceCollection services, IConfigurationBuilder builder) {
-            if (services is null) throw new ArgumentNullException(nameof(services));
-            return builder == null
-                ? new ConsoleLogServiceCollection(services)
-                : new ConsoleLogServiceCollection(services, builder);
-        }
-
-        public static ILogServiceCollection Initialize(IServiceCollection services, IConfigurationRoot root) {
-            if (services is null) throw new ArgumentNullException(nameof(services));
-            return root == null
-                ? new ConsoleLogServiceCollection(services)
-                : new ConsoleLogServiceCollection(services, root);
-        }
-
         internal static void AllDone(ILogServiceCollection services) {
-            if (services is ConsoleLogServiceCollection servicesImpl) {
-                servicesImpl.BuildConfiguration();
-                servicesImpl.ActiveSinkSettings();
-                servicesImpl.ActiveOriginConfiguration();
-                servicesImpl.AddTraceIdGenerator();
-                servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(Options.Create((LoggingOptions) servicesImpl.ExposeLogSettings()))));
-                servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(servicesImpl.ExposeLoggingConfiguration())));
-                ServiceResolver = servicesImpl.ExposeServices().ToServiceContext().Build();
-                servicesImpl.ActiveLogEventEnrichers();
+            if (services is ConsoleLogServiceCollection loggingServices) {
+
+                using (loggingServices) {
+
+                    loggingServices.ActiveConsolePreferencesRenderers();
+
+                    loggingServices.RegisterCoreComponents();
+
+                    loggingServices.BuildAndActiveConfiguration();
+
+                    loggingServices.AddTraceIdGenerator();
+
+                }
+
+                ServiceResolver = loggingServices.OriginalServices.ToServiceContext().Build();
+
+                loggingServices.ActiveLogEventEnrichers();
+
                 StaticServiceResolver.SetResolver(ServiceResolver.ResolveRequired<ILoggingServiceProvider>());
-            }
-            else {
+
+            } else {
+
                 throw new ArgumentException(nameof(services));
+
             }
         }
 
-        private static void AddTraceIdGenerator(this ConsoleLogServiceCollection servicesImpl) {
-            servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Scoped<FallbackTraceIdAccessor, FallbackTraceIdAccessor>()));
+        private static void RegisterCoreComponents(this ILogServiceCollection services) {
+            services.AddDependency(s => s.TryAddSingleton<ILoggingServiceProvider, ConsoleLoggingServiceProvider>());
+            services.AddDependency(s => s.TryAddSingleton<IPropertyFactoryAccessor, ShortcutPropertyFactoryAccessor>());
+        }
+
+        private static void BuildAndActiveConfiguration(this ConsoleLogServiceCollection services) {
+            services.BuildConfiguration();
+            services.ActiveSinkSettings();
+            services.ActiveOriginConfiguration();
+
+            services.AddDependency(s => s.TryAddSingleton(Options.Create((LoggingOptions) services.ExposeLogSettings())));
+            services.AddDependency(s => s.TryAddSingleton(services.ExposeLoggingConfiguration()));
+
+        }
+
+        private static void AddTraceIdGenerator(this ILogServiceCollection services) {
+            services.AddDependency(s => s.TryAddScoped<FallbackTraceIdAccessor, FallbackTraceIdAccessor>());
             if (!ExpectedTraceIdGeneratorName.HasValue()) {
-                servicesImpl.AddDependency(s => s.TryAdd(ServiceDescriptor.Scoped(__traceIdGeneratorFactory)));
+                services.AddDependency(s => s.TryAddScoped<ILogTraceIdGenerator, IServiceProvider>(__traceIdGeneratorFactory));
                 ExpectedTraceIdGeneratorName.Value = nameof(SystemTraceIdGenerator);
             }
 
@@ -76,9 +79,5 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
                 return generator;
             }
         }
-
-        public static IServiceProvider GetServiceResolver() => ServiceResolver ?? throw new NullReferenceException(nameof(ServiceResolver));
-
-        public static IServiceProvider GetScopedServiceResolver() => ServiceResolver.CreateScope();
     }
 }

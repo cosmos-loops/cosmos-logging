@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
+using Cosmos.Extensions.Dependency;
+using Cosmos.Extensions.Dependency.Core;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Components;
@@ -9,8 +9,6 @@ using Cosmos.Logging.Sinks.Exceptionless;
 using Cosmos.Logging.Sinks.Exceptionless.Internals;
 using Exceptionless;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging {
@@ -57,7 +55,7 @@ namespace Cosmos.Logging {
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, ExceptionlessPayloadClient>();
                 s.AddSingleton<ILogPayloadClientProvider, ExceptionlessPayloadClientProvider>();
-                s.TryAdd(ServiceDescriptor.Singleton(settings));
+                s.TryAddSingleton(settings);
             });
 
             RegisterOriginalConfig(services, settings.Value.OriginalConfigFilePath, settings.Value.OriginalConfigFileType);
@@ -87,7 +85,7 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterCoreComponentsTypes() {
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<ExceptionlessSinkOptions>), false, ServiceLifetime.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<ExceptionlessSinkOptions>), Many.FALSE, DependencyLifetimeType.Singleton));
         }
     }
 }

@@ -44,9 +44,7 @@ namespace Cosmos.Logging {
         /// <exception cref="InvalidOperationException"></exception>
         public static ILogServiceCollection Initialize(IConfigurationBuilder builder = null) {
             if (_initialized) throw new InvalidOperationException("You have initialized Cosmos.Logging.");
-            IServiceCollection services = new ServiceCollection();
-            services.TryAdd(ServiceDescriptor.Singleton<ILoggingServiceProvider, ConsoleLoggingServiceProvider>());
-            return SoloDependencyContainer.Initialize(services, builder);
+            return SoloDependencyContainer.Initialize(new ServiceCollection(), builder);
         }
 
         /// <summary>
@@ -57,9 +55,7 @@ namespace Cosmos.Logging {
         /// <exception cref="InvalidOperationException"></exception>
         public static ILogServiceCollection Initialize(IConfigurationRoot root) {
             if (_initialized) throw new InvalidOperationException("You have initialized Cosmos.Logging.");
-            IServiceCollection services = new ServiceCollection();
-            services.TryAdd(ServiceDescriptor.Singleton<ILoggingServiceProvider, ConsoleLoggingServiceProvider>());
-            return SoloDependencyContainer.Initialize(services, root);
+            return SoloDependencyContainer.Initialize(new ServiceCollection(), root);
         }
 
         /// <summary>

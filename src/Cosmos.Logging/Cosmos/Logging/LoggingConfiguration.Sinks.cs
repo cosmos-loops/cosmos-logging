@@ -33,7 +33,7 @@ namespace Cosmos.Logging {
             string sectionName, TSinkSettings settings, Action<IConfiguration, TSinkConfiguration> additionalAct = null)
             where TSinkConfiguration : SinkConfiguration, new() where TSinkSettings : class, ILoggingSinkOptions, new() {
             if (string.IsNullOrWhiteSpace(sectionName)) throw new ArgumentNullException(nameof(sectionName));
-            if (settings == null) throw new ArgumentNullException(nameof(settings));
+            if (settings is null) throw new ArgumentNullException(nameof(settings));
             var section = _loggingConfiguration.GetSection($"Logging:{sectionName}");
             var configuration = section.Get<TSinkConfiguration>() ?? new TSinkConfiguration();
             additionalAct?.Invoke(section, configuration);
@@ -51,8 +51,8 @@ namespace Cosmos.Logging {
         /// <exception cref="ArgumentNullException"></exception>
         public void SetSinkConfiguration<TSinkConfiguration, TSinkSettings>(TSinkConfiguration configuration, TSinkSettings settings)
             where TSinkConfiguration : SinkConfiguration, new() where TSinkSettings : class, ILoggingSinkOptions, new() {
-            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
-            if (settings == null) throw new ArgumentNullException(nameof(settings));
+            if (configuration is null) throw new ArgumentNullException(nameof(configuration));
+            if (settings is null) throw new ArgumentNullException(nameof(settings));
             if (string.IsNullOrWhiteSpace(configuration.Name)) throw new ArgumentNullException(nameof(configuration.Name));
             if (!_sinkConfigurations.ContainsKey(configuration.Name)) {
                 lock (_sinkConfigurationsLock) {
@@ -82,7 +82,7 @@ namespace Cosmos.Logging {
             where TExtraSinkSettings : class, ILoggingSinkOptions, new()
             where TExtraSinkConfiguration : SinkConfiguration, new() {
             if (string.IsNullOrWhiteSpace(sectionName)) throw new ArgumentNullException(nameof(sectionName));
-            if (settings == null) throw new ArgumentNullException(nameof(settings));
+            if (settings is null) throw new ArgumentNullException(nameof(settings));
             var section = _loggingConfiguration.GetSection($"Logging:{sectionName}");
             var configuration = section.Get<TExtraSinkConfiguration>() ?? new TExtraSinkConfiguration();
             additionalAct?.Invoke(section, configuration, this);

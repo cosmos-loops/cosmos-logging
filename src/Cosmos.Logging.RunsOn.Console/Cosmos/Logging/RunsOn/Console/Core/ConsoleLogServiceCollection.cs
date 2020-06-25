@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cosmos.Extensions.Dependency;
+using Cosmos.Extensions.Dependency.Core;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Enrichers;
@@ -12,10 +14,10 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
     /// <summary>
     /// Console log service collection
     /// </summary>
-    public class ConsoleLogServiceCollection : ILogServiceCollection {
+    public class ConsoleLogServiceCollection : ILogServiceCollection, IDisposable {
         private LoggingConfigurationBuilder _configurationBuilder;
         private readonly bool _configurationBuilderLockedStatus;
-        private readonly IServiceCollection _serviceCollection;
+        private readonly MicrosoftProxyRegister _services;
 
         // ReSharper disable once InconsistentNaming
         private LoggingConfiguration _loggingConfiguration { get; set; }
@@ -35,7 +37,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         internal ConsoleLogServiceCollection(IServiceCollection services, IConfigurationBuilder builder) {
             _configurationBuilder = new LoggingConfigurationBuilder(builder);
             _configurationBuilderLockedStatus = false;
-            _serviceCollection = services ?? throw new ArgumentNullException(nameof(services));
+            _services = new MicrosoftProxyRegister(services ?? throw new ArgumentNullException(nameof(services)));
             _settings = new LoggingOptions();
             _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
             _additionalEnricherProviders = new List<Func<ILogEventEnricher>>();
@@ -47,7 +49,7 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         internal ConsoleLogServiceCollection(IServiceCollection services, IConfigurationRoot root) {
             _configurationBuilder = new DisabledConfigurationBuilder(root);
             _configurationBuilderLockedStatus = true;
-            _serviceCollection = services ?? throw new ArgumentNullException(nameof(services));
+            _services = new MicrosoftProxyRegister(services ?? throw new ArgumentNullException(nameof(services)));
             _settings = new LoggingOptions();
             _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
             _additionalEnricherProviders = new List<Func<ILogEventEnricher>>();
@@ -61,9 +63,6 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
 
         /// <inheritdoc />
         public bool BeGivenConfigurationRoot { get; }
-
-        /// <inheritdoc />
-        public IServiceCollection ExposeServices() => _serviceCollection;
 
         /// <inheritdoc />
         public ILoggingOptions ExposeLogSettings() => _settings;
@@ -80,8 +79,8 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
         }
 
         /// <inheritdoc />
-        public ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction) {
-            dependencyAction?.Invoke(_serviceCollection);
+        public ILogServiceCollection AddDependency(Action<DependencyProxyRegister> dependencyAction) {
+            dependencyAction?.Invoke(_services);
             return this;
         }
 
@@ -172,8 +171,16 @@ namespace Cosmos.Logging.RunsOn.Console.Core {
 
         internal void ActiveLogEventEnrichers() {
             foreach (var provider in _additionalEnricherProviders) {
-                _loggingConfiguration.SetEnricher(provider.Invoke().Maybe());
+                _loggingConfiguration.SetEnricher(provider.Invoke().ToMaybe());
             }
         }
+
+        /// <summary>
+        /// Gets original services
+        /// </summary>
+        public IServiceCollection OriginalServices => _services.RawServices;
+
+        /// <inheritdoc />
+        public void Dispose() => _services.Dispose();
     }
 }

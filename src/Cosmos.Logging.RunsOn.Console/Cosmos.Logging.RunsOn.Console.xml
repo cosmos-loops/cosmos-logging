@@ -447,9 +447,6 @@
         <member name="P:Cosmos.Logging.RunsOn.Console.Core.ConsoleLogServiceCollection.BeGivenConfigurationRoot">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.RunsOn.Console.Core.ConsoleLogServiceCollection.ExposeServices">
-            <inheritdoc />
-        </member>
         <member name="M:Cosmos.Logging.RunsOn.Console.Core.ConsoleLogServiceCollection.ExposeLogSettings">
             <inheritdoc />
         </member>
@@ -462,7 +459,7 @@
             </summary>
             <param name="newSettings"></param>
         </member>
-        <member name="M:Cosmos.Logging.RunsOn.Console.Core.ConsoleLogServiceCollection.AddDependency(System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+        <member name="M:Cosmos.Logging.RunsOn.Console.Core.ConsoleLogServiceCollection.AddDependency(System.Action{Cosmos.Extensions.Dependency.Core.DependencyProxyRegister})">
             <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.RunsOn.Console.Core.ConsoleLogServiceCollection.AddEnricher(System.Func{Cosmos.Logging.Core.Enrichers.ILogEventEnricher})">
@@ -481,6 +478,14 @@
             <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.RunsOn.Console.Core.ConsoleLogServiceCollection.PreheatMessageTemplates(System.Action{Cosmos.Logging.MessageTemplates.MessageTemplateCachePreheater})">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.RunsOn.Console.Core.ConsoleLogServiceCollection.OriginalServices">
+            <summary>
+            Gets original services
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.Console.Core.ConsoleLogServiceCollection.Dispose">
             <inheritdoc />
         </member>
         <member name="T:Cosmos.Logging.RunsOn.Console.RendersLib.ConsoleHelloWorldRenderer">
@@ -502,6 +507,46 @@
         </member>
         <member name="M:Cosmos.Logging.RunsOn.Console.RendersLib.ConsoleHelloWorldRenderer.ToString">
             <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.AllDoneExtensions">
+            <summary>
+            Extensions for all done
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.AllDoneExtensions.AllDone(Cosmos.Logging.Core.ILogServiceCollection)">
+            <summary>
+            All done
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:Cosmos.Logging.LogServiceCollectionExtensions">
+            <summary>
+            Extensions for log service collection
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.LogServiceCollectionExtensions.RunsOnConsole(Cosmos.Logging.Core.ILogServiceCollection)">
+            <summary>
+            Runs on console
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LogServiceCollectionExtensions.RunsOnConsole(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.Configurations.LoggingOptions})">
+            <summary>
+            Runs on console
+            </summary>
+            <param name="services"></param>
+            <param name="settingsConfigure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.LogServiceCollectionExtensions.RunsOnConsole``1(Cosmos.Logging.Core.ILogServiceCollection,``0)">
+            <summary>
+            Runs on console
+            </summary>
+            <param name="services"></param>
+            <param name="settings"></param>
+            <typeparam name="TLoggingSettings"></typeparam>
+            <returns></returns>
         </member>
     </members>
 </doc>

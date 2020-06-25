@@ -1,12 +1,12 @@
 ﻿using System;
+using Cosmos.Extensions.Dependency;
+using Cosmos.Extensions.Dependency.Core;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Sinks.File;
 using Cosmos.Logging.Sinks.File.Renderers;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging {
@@ -41,7 +41,7 @@ namespace Cosmos.Logging {
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, LocalFileLogPayloadClient>();
                 s.AddSingleton<ILogPayloadClientProvider, LocalFileLogPayloadClientProvider>();
-                s.TryAdd(ServiceDescriptor.Singleton(settings));
+                s.TryAddSingleton(settings);
             });
 
             InternalRendererActivation.Action();
@@ -51,7 +51,7 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterCoreComponentsTypes() {
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<FileSinkOptions>), false, ServiceLifetime.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<FileSinkOptions>), Many.FALSE, DependencyLifetimeType.Singleton));
         }
     }
 }

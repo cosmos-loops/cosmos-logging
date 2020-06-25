@@ -1,9 +1,9 @@
 ﻿using System;
+using Cosmos.Extensions.Dependency.Core;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core.Enrichers;
 using Cosmos.Logging.MessageTemplates;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Cosmos.Logging.Core {
     /// <summary>
@@ -19,12 +19,6 @@ namespace Cosmos.Logging.Core {
         /// Be given configuration root, or not.
         /// </summary>
         bool BeGivenConfigurationRoot { get; }
-
-        /// <summary>
-        /// Expose <see cref="IServiceCollection"/> instance.
-        /// </summary>
-        /// <returns></returns>
-        IServiceCollection ExposeServices();
 
         /// <summary>
         /// Expose Log settings
@@ -43,7 +37,7 @@ namespace Cosmos.Logging.Core {
         /// </summary>
         /// <param name="dependencyAction"></param>
         /// <returns></returns>
-        ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction);
+        ILogServiceCollection AddDependency(Action<DependencyProxyRegister> dependencyAction);
 
         /// <summary>
         /// Add enricher

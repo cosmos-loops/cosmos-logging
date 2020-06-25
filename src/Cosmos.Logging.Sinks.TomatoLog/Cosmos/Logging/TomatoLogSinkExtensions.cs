@@ -1,11 +1,11 @@
 ﻿using System;
+using Cosmos.Extensions.Dependency;
+using Cosmos.Extensions.Dependency.Core;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Core.Payloads;
 using Cosmos.Logging.Sinks.TomatoLog;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging {
@@ -52,7 +52,7 @@ namespace Cosmos.Logging {
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, TomatoLogPayloadClient>();
                 s.AddSingleton<ILogPayloadClientProvider, TomatoLogPayloadClientProvider>();
-                s.TryAdd(ServiceDescriptor.Singleton(settings));
+                s.TryAddSingleton(settings);
             });
 
             RegisterCoreComponentsTypes();
@@ -61,7 +61,7 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterCoreComponentsTypes() {
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<TomatoLogSinkOptions>), false, ServiceLifetime.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<TomatoLogSinkOptions>), Many.FALSE, DependencyLifetimeType.Singleton));
         }
     }
 }
