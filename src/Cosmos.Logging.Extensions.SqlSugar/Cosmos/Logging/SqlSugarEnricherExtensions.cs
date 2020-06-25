@@ -1,4 +1,6 @@
 ﻿using System;
+using Cosmos.Extensions.Dependency;
+using Cosmos.Extensions.Dependency.Core;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Events;
@@ -36,8 +38,7 @@ namespace Cosmos.Logging {
                     var @namespace = $"{typeof(SqlSugarClient).Namespace}.*";
                     if (configuration.LogLevel.ContainsKey(@namespace)) {
                         configuration.LogLevel[@namespace] = GetExpectLevelName();
-                    }
-                    else {
+                    } else {
                         configuration.LogLevel.Add(@namespace, GetExpectLevelName());
                     }
                 }
@@ -58,7 +59,7 @@ namespace Cosmos.Logging {
             var services = integration.ExposeServiceCollectionWrapper;
             if (services != null) {
                 services.AddExtraSinkSettings(settings.Value, config);
-                services.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
+                services.AddDependency(s => s.TryAddSingleton(settings));
 
                 RegisterSqlSugarInterceptor(services, settings);
 
@@ -69,7 +70,7 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterSqlSugarInterceptor(ILogServiceCollection services, IOptions<SqlSugarEnricherOptions> settings) {
-            services.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(typeof(SqlSugarInterceptorDescriptor), __sqlsugarInterceptorFactory)));
+            services.AddDependency(s => s.TryAddSingleton<IServiceProvider>(__sqlsugarInterceptorFactory, typeof(SqlSugarInterceptorDescriptor)));
 
             // ReSharper disable once InconsistentNaming
             object __sqlsugarInterceptorFactory(IServiceProvider provider) {
@@ -78,8 +79,8 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterCoreComponentsTypes() {
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<SqlSugarEnricherOptions>), false, ServiceLifetime.Singleton));
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(SqlSugarInterceptorDescriptor), false, ServiceLifetime.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<SqlSugarEnricherOptions>), Many.FALSE, DependencyLifetimeType.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(SqlSugarInterceptorDescriptor), Many.FALSE, DependencyLifetimeType.Singleton));
         }
     }
 

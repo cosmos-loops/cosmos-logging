@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using Cosmos.Logging;
 using Cosmos.Logging.Events;
 using Cosmos.Logging.MessageTemplates;
-using Cosmos.Logging.Sinks.SampleLogSink;
 using Microsoft.Extensions.Configuration;
 
 namespace Cosmos.Loggings.MessageTemplateTokenTests {

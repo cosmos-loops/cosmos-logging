@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using Cosmos.Extensions.Dependency;
+using Cosmos.Extensions.Dependency.Core;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Core.Payloads;
@@ -8,8 +10,6 @@ using Cosmos.Logging.Sinks.Log4Net;
 using log4net;
 using log4net.Config;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Cosmos.Logging {
@@ -56,7 +56,7 @@ namespace Cosmos.Logging {
             services.AddDependency(s => {
                 s.AddScoped<ILogPayloadClient, Log4NetPayloadClient>();
                 s.AddSingleton<ILogPayloadClientProvider, Log4NetPayloadClientProvider>();
-                s.TryAdd(ServiceDescriptor.Singleton(settings));
+                s.TryAddSingleton(settings);
             });
 
             RegisterNativeConfigurationFile(services, settings);
@@ -91,7 +91,7 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterCoreComponentsTypes() {
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<Log4NetSinkOptions>), false, ServiceLifetime.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<Log4NetSinkOptions>), Many.FALSE, DependencyLifetimeType.Singleton));
         }
     }
 }

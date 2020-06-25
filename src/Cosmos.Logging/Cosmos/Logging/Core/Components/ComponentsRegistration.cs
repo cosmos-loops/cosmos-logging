@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+using Cosmos.Extensions.Dependency.Core;
 
 namespace Cosmos.Logging.Core.Components {
     /// <summary>
@@ -12,7 +12,7 @@ namespace Cosmos.Logging.Core.Components {
         /// <param name="serviceType"></param>
         /// <param name="many"></param>
         /// <param name="lifetime"></param>
-        public ComponentsRegistration(Type serviceType, bool many, ServiceLifetime lifetime) {
+        public ComponentsRegistration(Type serviceType, Many many, DependencyLifetimeType lifetime) {
             ServiceType = serviceType;
             Many = many;
             Lifetime = lifetime;
@@ -26,12 +26,12 @@ namespace Cosmos.Logging.Core.Components {
         /// <summary>
         /// Many or not
         /// </summary>
-        public bool Many { get; set; }
+        public Many Many { get; set; }
 
         /// <summary>
         /// Lifetime
         /// </summary>
-        public ServiceLifetime Lifetime { get; set; }
+        public DependencyLifetimeType Lifetime { get; set; }
 
         /// <summary>
         /// Can unidirectional transfer or not.

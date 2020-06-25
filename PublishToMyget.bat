@@ -11,7 +11,9 @@ for /R "nuget_pub" %%s in (*) do (
 dotnet pack src/Cosmos.Logging -c Release -o nuget_pub
 
 ::extensions
-dotnet pack src/Cosmos.Logging.Extensions.Microsoft -c Release -o nuget_pub
+dotnet pack src/Cosmos.Logging.Extensions.MicrosoftSupported -c Release -o nuget_pub
+dotnet pack src/Cosmos.Logging.Extensions.DependencyInjection -c Release -o nuget_pub
+dotnet pack src/Cosmos.Logging.Extensions.Host -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.Extensions.NodaTime -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.Extensions.EntityFramework -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.Extensions.EntityFrameworkCore -c Release -o nuget_pub
@@ -19,14 +21,11 @@ dotnet pack src/Cosmos.Logging.Extensions.FreeSql -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.Extensions.NHibernate -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.Extensions.SqlSugar -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.Extensions.PostgreSql -c Release -o nuget_pub
+dotnet pack src/Cosmos.Logging.Extensions.CorrelationId -c Release -o nuget_pub
 
 ::runs on
-dotnet pack src/Cosmos.Logging.RunsOn.AspNet -c Release -o nuget_pub
-dotnet pack src/Cosmos.Logging.RunsOn.AspNet.WithAutofac -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.RunsOn.AspNetCore -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.RunsOn.Console -c Release -o nuget_pub
-dotnet pack src/Cosmos.Logging.RunsOn.NancyFX -c Release -o nuget_pub
-dotnet pack src/Cosmos.Logging.RunsOn.NancyFX.WithAutofac -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.RunsOn.ZKWeb -c Release -o nuget_pub
 
 ::configuration
@@ -46,15 +45,11 @@ dotnet pack src/Cosmos.Logging.Sinks.TencentCloudCls -c Release -o nuget_pub
 dotnet pack src/Cosmos.Logging.Sinks.TomatoLog -c Release -o nuget_pub
 
 ::enrichers
-dotnet pack src/Cosmos.Logging.Extensions.Exceptions -c Release -o nuget_pub
-dotnet pack src/Cosmos.Logging.Extensions.Exceptions.EntityFramework -c Release -o nuget_pub
-dotnet pack src/Cosmos.Logging.Extensions.Exceptions.EntityFrameworkCore -c Release -o nuget_pub
-dotnet pack src/Cosmos.Logging.Extensions.Exceptions.MySql -c Release -o nuget_pub
-dotnet pack src/Cosmos.Logging.Extensions.Exceptions.MySqlConnector -c Release -o nuget_pub
-dotnet pack src/Cosmos.Logging.Extensions.Exceptions.Oracle -c Release -o nuget_pub
-dotnet pack src/Cosmos.Logging.Extensions.Exceptions.PostgreSql -c Release -o nuget_pub
-dotnet pack src/Cosmos.Logging.Extensions.Exceptions.Sqlite -c Release -o nuget_pub
-dotnet pack src/Cosmos.Logging.Extensions.Exceptions.SqlServer -c Release -o nuget_pub
+dotnet pack src/Cosmos.Logging.Extensions.MySql -c Release -o nuget_pub
+dotnet pack src/Cosmos.Logging.Extensions.MySqlConnector -c Release -o nuget_pub
+dotnet pack src/Cosmos.Logging.Extensions.Oracle -c Release -o nuget_pub
+dotnet pack src/Cosmos.Logging.Extensions.Sqlite -c Release -o nuget_pub
+dotnet pack src/Cosmos.Logging.Extensions.SqlServer -c Release -o nuget_pub
 
 ::renderers
 dotnet pack src/Cosmos.Logging.Renderers.Environment -c Release -o nuget_pub

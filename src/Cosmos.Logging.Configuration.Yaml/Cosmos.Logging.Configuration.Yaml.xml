@@ -27,25 +27,6 @@
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
         </member>
-        <member name="M:Cosmos.Logging.Configuration.YamlConfigurationBuilderExtensions.AddYamlStream(Microsoft.Extensions.Configuration.IConfigurationBuilder,System.IO.Stream)">
-            <summary>
-            Add yaml format configuration by the given stream.
-            </summary>
-            <param name="builder"></param>
-            <param name="stream"></param>
-            <exception cref="T:System.ArgumentNullException"></exception>
-            <exception cref="T:System.ArgumentException"></exception>
-        </member>
-        <member name="M:Cosmos.Logging.Configuration.YamlConfigurationBuilderExtensions.AddYamlStream(Cosmos.Logging.Configurations.LoggingConfigurationBuilder,System.IO.Stream)">
-            <summary>
-            Add yaml format configuration by the given stream.
-            </summary>
-            <param name="builder"></param>
-            <param name="stream"></param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentNullException"></exception>
-            <exception cref="T:System.ArgumentException"></exception>
-        </member>
         <member name="M:Cosmos.Logging.Configuration.YamlConfigurationBuilderExtensions.AddYamlDictionary(Microsoft.Extensions.Configuration.IConfigurationBuilder,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>
             Add in-memory collection

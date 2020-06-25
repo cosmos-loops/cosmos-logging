@@ -16,6 +16,10 @@
         <ProjectReference Include="..\Cosmos.Logging\Cosmos.Logging.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Cosmos.Extensions.DependencyInjection" Version="0.1.3-beta2-130522" />
+    </ItemGroup>
+    
     <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1' OR '$(TargetFramework)'=='netstandard2.1' OR '$(TargetFramework)'=='netstandard2.0' OR '$(TargetFramework)'=='net461'">
         <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="2.0.0" />
     </ItemGroup>

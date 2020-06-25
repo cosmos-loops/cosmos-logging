@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cosmos.Logging.Extensions.Exceptions.Core;
+using Cosmos.Logging.Exceptions.Core;
+using Cosmos.Logging.Exceptions.Destructurers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cosmos.Logging.Extensions.Exceptions.Destructurers {

@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using Cosmos.Logging.Extensions.Exceptions.Core;
+using Cosmos.Logging.Exceptions.Destructurers;
+using Cosmos.Logging.Exceptions.Core;
 
 namespace Cosmos.Logging.Extensions.Exceptions.Destructurers {
     /// <summary>

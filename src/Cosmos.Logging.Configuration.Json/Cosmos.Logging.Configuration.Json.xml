@@ -27,25 +27,6 @@
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
         </member>
-        <member name="M:Cosmos.Logging.Configuration.JsonConfigurationBuilderExtensions.AddJsonStream(Microsoft.Extensions.Configuration.IConfigurationBuilder,System.IO.Stream)">
-            <summary>
-            Add json format configuration by the given stream.
-            </summary>
-            <param name="builder"></param>
-            <param name="stream"></param>
-            <exception cref="T:System.ArgumentNullException"></exception>
-            <exception cref="T:System.ArgumentException"></exception>
-        </member>
-        <member name="M:Cosmos.Logging.Configuration.JsonConfigurationBuilderExtensions.AddJsonStream(Cosmos.Logging.Configurations.LoggingConfigurationBuilder,System.IO.Stream)">
-            <summary>
-            Add json format configuration by the given stream.
-            </summary>
-            <param name="builder"></param>
-            <param name="stream"></param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentNullException"></exception>
-            <exception cref="T:System.ArgumentException"></exception>
-        </member>
         <member name="M:Cosmos.Logging.Configuration.JsonConfigurationBuilderExtensions.AddJsonDictionary(Microsoft.Extensions.Configuration.IConfigurationBuilder,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>
             Add in-memory collection

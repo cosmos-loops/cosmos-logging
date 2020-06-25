@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="..\..\build\common.props" />
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp3.1;netstandard2.0;net461;net451</TargetFrameworks>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <AssemblyName>Cosmos.Logging.Extensions.DependencyInjection</AssemblyName>
+        <PackageId>Cosmos.Logging.Extensions.DependencyInjection</PackageId>
+        <Description>Microsoft Dependency Injection extension for Cosmos Logging.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Logging.Extensions.MicrosoftSupported\Cosmos.Logging.Extensions.MicrosoftSupported.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cosmos.Extensions.DependencyInjection" Version="0.1.3-beta2-130522" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
+        <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0' OR '$(TargetFramework)'=='net461'">
+        <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)'=='net451'">
+        <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
+    </ItemGroup>
+
+</Project>

@@ -1,4 +1,6 @@
 using System;
+using Cosmos.Extensions.Dependency;
+using Cosmos.Extensions.Dependency.Core;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Components;
 using Cosmos.Logging.Events;
@@ -33,8 +35,7 @@ namespace Cosmos.Logging {
                     var @namespace = "FreeSql.*";
                     if (configuration.LogLevel.ContainsKey(@namespace)) {
                         configuration.LogLevel[@namespace] = GetExpectLevelName();
-                    }
-                    else {
+                    } else {
                         configuration.LogLevel.Add(@namespace, GetExpectLevelName());
                     }
                 }
@@ -55,7 +56,7 @@ namespace Cosmos.Logging {
             var services = integration.ExposeServiceCollectionWrapper;
             if (services != null) {
                 services.AddExtraSinkSettings(settings.Value, config);
-                services.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(settings)));
+                services.AddDependency(s => s.TryAddSingleton(settings));
 
                 RegisterFreeSqlInterceptor(services, settings);
 
@@ -66,7 +67,7 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterFreeSqlInterceptor(ILogServiceCollection services, IOptions<FreeSqlEnricherOptions> settings) {
-            services.AddDependency(s => s.TryAdd(ServiceDescriptor.Singleton(typeof(FreeSqlInterceptorDescriptor), __freesqlInterceptorFactory)));
+            services.AddDependency(s => s.TryAddSingleton<IServiceProvider>(__freesqlInterceptorFactory, typeof(FreeSqlInterceptorDescriptor)));
 
             // ReSharper disable once InconsistentNaming
             object __freesqlInterceptorFactory(IServiceProvider provider) {
@@ -75,8 +76,8 @@ namespace Cosmos.Logging {
         }
 
         private static void RegisterCoreComponentsTypes() {
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<FreeSqlEnricherOptions>), false, ServiceLifetime.Singleton));
-            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(FreeSqlInterceptorDescriptor), false, ServiceLifetime.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(IOptions<FreeSqlEnricherOptions>), Many.FALSE, DependencyLifetimeType.Singleton));
+            SinkComponentsTypes.SafeAddAppendType(new ComponentsRegistration(typeof(FreeSqlInterceptorDescriptor), Many.FALSE, DependencyLifetimeType.Singleton));
         }
     }
 }

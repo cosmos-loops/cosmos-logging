@@ -3,7 +3,7 @@
     <Import Project="..\..\build\common.props" />
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net461</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net461;net451</TargetFrameworks>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -11,9 +11,13 @@
         <PackageId>Cosmos.Logging.Extensions.PostgreSql</PackageId>
         <Description>Cosmos.Logging extension for PostgreSql ADO.NET Provider.</Description>
     </PropertyGroup>
+    
+    <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1' OR '$(TargetFramework)'=='netstandard2.1' OR '$(TargetFramework)'=='netstandard2.0' OR '$(TargetFramework)'=='net461'">
+        <PackageReference Include="Npgsql" Version="4.1.3" />
+    </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Npgsql" Version="4.1.2" />
+    <ItemGroup Condition="'$(TargetFramework)'=='net451'">
+        <PackageReference Include="Npgsql" Version="4.0.10" />
     </ItemGroup>
     
     <ItemGroup>

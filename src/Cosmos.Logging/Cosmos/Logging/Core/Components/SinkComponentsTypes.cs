@@ -25,7 +25,7 @@ namespace Cosmos.Logging.Core.Components {
         /// <param name="registration"></param>
         /// <exception cref="ArgumentNullException"></exception>
         public static void SafeAddAppendType(ComponentsRegistration registration) {
-            if (registration == null) throw new ArgumentNullException(nameof(registration));
+            if (registration is null) throw new ArgumentNullException(nameof(registration));
             if (_appends.Any(x => x.ServiceType == registration.ServiceType)) return;
             _appends.Add(registration);
         }
