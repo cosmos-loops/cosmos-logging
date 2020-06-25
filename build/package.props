@@ -2,9 +2,9 @@
 	<PropertyGroup Label="Package">
 		<Product>Cosmos.Logging</Product>
 		<Authors>AlexLEWIS;dotnetcore;StarrySky;Cosmos</Authors>
-		<RepositoryUrl>https://github.com/cosmos-loops/Cosmos/tree/dev/Logging</RepositoryUrl>
+		<RepositoryUrl>https://github.com/cosmos-loops/Logging</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageProjectUrl>https://github.com/cosmos-loops/Cosmos/tree/dev/Logging</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/cosmos-loops/Logging</PackageProjectUrl>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageTags>StarrySky;Cosmos;Logging</PackageTags>

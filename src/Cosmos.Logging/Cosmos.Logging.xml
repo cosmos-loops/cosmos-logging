@@ -25,6 +25,13 @@
         <member name="M:Cosmos.Logging.Args.ToString">
             <inheritdoc />
         </member>
+        <member name="M:Cosmos.Logging.Args.Are(System.Object[])">
+            <summary>
+            Args are...
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
         <member name="T:Cosmos.Logging.Configurations.ConfigLoadingContext">
             <summary>
             Config file load context
@@ -661,7 +668,7 @@
             Components registration
             </summary>
         </member>
-        <member name="M:Cosmos.Logging.Core.Components.ComponentsRegistration.#ctor(System.Type,System.Boolean,Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+        <member name="M:Cosmos.Logging.Core.Components.ComponentsRegistration.#ctor(System.Type,Cosmos.Logging.Core.Components.Many,Cosmos.Extensions.Dependency.Core.DependencyLifetimeType)">
             <summary>
             Create a new instance of <see cref="T:Cosmos.Logging.Core.Components.ComponentsRegistration"/>.
             </summary>
@@ -702,6 +709,21 @@
         <member name="P:Cosmos.Logging.Core.Components.CoreComponentsTypes.Appends">
             <summary>
             Append component registrations
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Core.Components.Many">
+            <summary>
+            Many
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Core.Components.Many.TRUE">
+            <summary>
+            True
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Core.Components.Many.FALSE">
+            <summary>
+            False
             </summary>
         </member>
         <member name="T:Cosmos.Logging.Core.Components.SinkComponentsTypes">
@@ -931,12 +953,6 @@
             Be given configuration root, or not.
             </summary>
         </member>
-        <member name="M:Cosmos.Logging.Core.ILogServiceCollection.ExposeServices">
-            <summary>
-            Expose <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Cosmos.Logging.Core.ILogServiceCollection.ExposeLogSettings">
             <summary>
             Expose Log settings
@@ -949,7 +965,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Cosmos.Logging.Core.ILogServiceCollection.AddDependency(System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+        <member name="M:Cosmos.Logging.Core.ILogServiceCollection.AddDependency(System.Action{Cosmos.Extensions.Dependency.Core.DependencyProxyRegister})">
             <summary>
             Add dependency
             </summary>
@@ -3503,6 +3519,523 @@
         </member>
         <member name="M:Cosmos.Logging.Events.StructureValue.Render(System.IO.TextWriter,System.Collections.Generic.IList{Cosmos.Logging.Formattings.FormatEvent},System.String,System.IFormatProvider)">
             <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder">
+            <summary>
+            Destructuring options builder
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.DefaultDestructurers">
+            <summary>
+            Default destructurers
+            </summary>
+        </member>
+        <member name="F:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.DefaultIgnoreFilter">
+            <summary>
+            Default filter to ignore Stack trace and target site
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.DestructureDepth">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.Destructurers">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.Filter">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.WithName(System.String)">
+            <summary>
+            With name
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.WithDepth(System.Int32)">
+            <summary>
+            With depth
+            </summary>
+            <param name="depth"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.WithDestructurer(Cosmos.Logging.Exceptions.Destructurers.IExceptionDestructurer)">
+            <summary>
+            With destructurer
+            </summary>
+            <param name="destructurer"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.WithDestructurers(System.Collections.Generic.IEnumerable{Cosmos.Logging.Exceptions.Destructurers.IExceptionDestructurer})">
+            <summary>
+            With destructurers
+            </summary>
+            <param name="destructurers"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.WithDefaultDestructurer">
+            <summary>
+            With default destructurer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.WithFilter(Cosmos.Logging.Exceptions.Filters.IExceptionPropertyFilter)">
+            <summary>
+            With filter
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.DestructuringOptionsBuilder.WithDefaultFilter">
+            <summary>
+            With default filter
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Configurations.ExceptionConfiguration">
+            <summary>
+            Exception configuration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionConfiguration.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.ExceptionConfiguration.RootName">
+            <summary>
+            Gets or sets root name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.ExceptionConfiguration.DestructureDepth">
+            <summary>
+            Gets or sets destructure depth
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionConfiguration.BeforeProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionConfiguration.PostProcessing(Cosmos.Logging.Configurations.ILoggingSinkOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions">
+            <summary>
+            Exception options
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.Key">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.Name">
+            <summary>
+            Gets or sets root name
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.DestructureDepth">
+            <summary>
+            Gets or sets destrcuture depth
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.Destructurers">
+            <summary>
+            Gets destructurers witch have been set into the builder
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.ExceptionPropertyFilter">
+            <summary>
+            Gets or sets exception property filter
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseName(System.String)">
+            <summary>
+            Use root name
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseDestructureDepth(System.Int32)">
+            <summary>
+            Use destrcuture depth
+            </summary>
+            <param name="depth"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseFilter(Cosmos.Logging.Exceptions.Filters.IExceptionPropertyFilter)">
+            <summary>
+            Use exception property filter
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseFilter``1">
+            <summary>
+            Use exception property filter
+            </summary>
+            <typeparam name="TFilter"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseDestucturer(Cosmos.Logging.Exceptions.Destructurers.IExceptionDestructurer,System.Boolean)">
+            <summary>
+            Use destructurer
+            </summary>
+            <param name="destructurer"></param>
+            <param name="appendMode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseDestucturer``1(System.Boolean)">
+            <summary>
+            Use destructurers
+            </summary>
+            <param name="appendMode"></param>
+            <typeparam name="TDestructurer"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseDestucturers(System.Collections.Generic.IEnumerable{Cosmos.Logging.Exceptions.Destructurers.IExceptionDestructurer},System.Boolean)">
+            <summary>
+            Use destructurers
+            </summary>
+            <param name="destructurers"></param>
+            <param name="appendMode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseMinimumLevelForType``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseMinimumLevelForType(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseMinimumLevelForCategoryName``1(Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseMinimumLevelForCategoryName(System.Type,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseMinimumLevelForCategoryName(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseMinimumLevel(System.Nullable{Cosmos.Logging.Events.LogEventLevel})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseAlias(System.String,Cosmos.Logging.Events.LogEventLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.UseFilter(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean})">
+            <summary>
+            Use filter
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.EnableDisplayCallerInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.EnableDisplayEventIdInfo(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.EnableDisplayNewLineEom(System.Nullable{System.Boolean})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.GetRenderingOptions">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Configurations.ExceptionOptions.Create(System.Action{Cosmos.Logging.Exceptions.Configurations.ExceptionOptions})">
+            <summary>
+            Create ExceptionOptions
+            </summary>
+            <param name="exceptionOptionAct"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Configurations.IDestructuringOptions">
+            <summary>
+            Interface for Destructuring options
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.IDestructuringOptions.Name">
+            <summary>
+            Name for the key in log-context for the exception destructured info.
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.IDestructuringOptions.DestructureDepth">
+            <summary>
+            Depth at which reflection based destructurer will stop recursive process of children destructuring.
+            Default is <c>10</c>
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.IDestructuringOptions.Destructurers">
+            <summary>
+            Destructurers
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Configurations.IDestructuringOptions.Filter">
+            <summary>
+            Filter
+            </summary>
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Core.ExceptionDestructuringProcessor">
+            <summary>
+            Exception destructuring processor
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Core.ExceptionDestructuringProcessor.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Core.ExceptionDestructuringProcessor.Process(Cosmos.Logging.Events.LogEvent)">
+            <summary>
+            Destructure the destructured object into LogEvent by built-in property factory
+            </summary>
+            <param name="logEvent"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Core.ExceptionDestructuringProcessor.Process(Cosmos.Logging.Events.LogEvent,Cosmos.Logging.Core.IShortcutPropertyFactory)">
+            <summary>
+            Destructure the destructured object into LogEvent by given property factory.
+            </summary>
+            <param name="logEvent"></param>
+            <param name="factory"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Core.ExceptionPropertyBag">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Core.ExceptionPropertyBag.GetProperties">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Core.ExceptionPropertyBag.AddProperty(System.String,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Core.ExceptionPropertyBag.ContainProperty(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag">
+            <summary>
+            To contain all properties of a single exception instance.
+            All properties should be added before this bag is requested.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag.GetProperties">
+            <summary>
+            Gets all properties of the exception instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag.AddProperty(System.String,System.Object)">
+            <summary>
+            Add property
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag.ContainProperty(System.String)">
+            <summary>
+            Returns  <c>true</c> if given key is already present in the bag. 
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Destructurers.AggregateExceptionDestructurer">
+            <summary>
+            Aggregate exception destructurer 
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.AggregateExceptionDestructurer.DestructureException(System.AggregateException,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Destructurers.ArgumentExceptionDestructurer">
+            <summary>
+            Argument exception destructurer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Destructurers.ArgumentExceptionDestructurer.TargetTypes">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.ArgumentExceptionDestructurer.Destructure(System.Exception,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Destructurers.ArgumentOutOfRangeExceptionDestructurer">
+            <summary>
+            ArgumentOutOfRange exception destructurer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Destructurers.ArgumentOutOfRangeExceptionDestructurer.TargetTypes">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.ArgumentOutOfRangeExceptionDestructurer.Destructure(System.Exception,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Destructurers.OperationCanceledExceptionDestructurer">
+            <summary>
+            OperationCanceled exception destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.OperationCanceledExceptionDestructurer.DestructureException(System.OperationCanceledException,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Destructurers.ReflectionTypeLoadExceptionDestructurer">
+            <summary>
+            ReflectionTypeLoad exception destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.ReflectionTypeLoadExceptionDestructurer.DestructureException(System.Reflection.ReflectionTypeLoadException,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Destructurers.TaskCanceledExceptionDestructurer">
+            <summary>
+            TaskCanceled exception destructurer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Destructurers.TaskCanceledExceptionDestructurer.TargetTypes">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.TaskCanceledExceptionDestructurer.Destructure(System.Exception,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Destructurers.ExceptionDestructurer">
+            <summary>
+            Base destructurer
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Destructurers.ExceptionDestructurer.TargetTypes">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.ExceptionDestructurer.Destructure(System.Exception,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Destructurers.ExceptionDestructurer`1">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Destructurers.ExceptionDestructurer`1.TargetTypes">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.ExceptionDestructurer`1.Destructure(System.Exception,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.ExceptionDestructurer`1.DestructureException(`0,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <summary>
+            Destructure exception
+            </summary>
+            <param name="exception"></param>
+            <param name="propertyBag"></param>
+            <param name="destructureExceptionHandle"></param>
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Destructurers.IExceptionDestructurer">
+            <summary>
+            Interface that all exception destructurer should implement.
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Destructurers.IExceptionDestructurer.TargetTypes">
+            <summary>
+            Types of exception that the destructurer can be handle.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.IExceptionDestructurer.Destructure(System.Exception,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <summary>
+            To destructure the given <paramref name="exception"/>,
+            the results will be put into <paramref name="propertyBag"/>.
+            </summary>
+            <param name="exception">Exception what should be destructured.</param>
+            <param name="propertyBag">Exception property bag.</param>
+            <param name="destructureExceptionHandle">Function that can be used to destructure inner exceptions if needed.</param>
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Destructurers.ReflectionBasedDestructurer">
+            <summary>
+            Reflection based destructurer
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.ReflectionBasedDestructurer.#ctor(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Exceptions.Destructurers.ReflectionBasedDestructurer.TargetTypes">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.ReflectionBasedDestructurer.Destructure(System.Exception,Cosmos.Logging.Exceptions.Core.IExceptionPropertyBag,System.Func{System.Exception,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Destructurers.ReflectionBasedDestructurer.DestructureObject(System.Object,System.Int32,System.Collections.Generic.IDictionary{System.Object,System.Collections.Generic.IDictionary{System.String,System.Object}},System.Int32@,System.Type)">
+            <summary>
+            Destructure object
+            </summary>
+            <param name="value"></param>
+            <param name="level"></param>
+            <param name="destructuredObjects"></param>
+            <param name="nextCyclicRefId"></param>
+            <param name="typeOfValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Filters.CompositePropertyFilter">
+            <summary>
+            Composite property filter
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Filters.CompositePropertyFilter.#ctor(Cosmos.Logging.Exceptions.Filters.IExceptionPropertyFilter[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Filters.CompositePropertyFilter.ShouldBeFiltered(System.Exception,System.String,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Filters.IgnorePropertyByNameFilter">
+            <summary>
+            Filter property by name (only). 
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Filters.IgnorePropertyByNameFilter.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cosmos.Logging.Exceptions.Filters.IgnorePropertyByNameFilter"/> class.
+            </summary>
+            <param name="propertiesToIgnore">The properties to ignore.</param>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Filters.IgnorePropertyByNameFilter.ShouldBeFiltered(System.Exception,System.String,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Exceptions.Filters.IExceptionPropertyFilter">
+            <summary>
+            Interface used for filtering exception properties.
+            Filtering process is global, each property of every exception
+            will go through a configured exception property filter.
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Exceptions.Filters.IExceptionPropertyFilter.ShouldBeFiltered(System.Exception,System.String,System.Object)">
+            <summary>
+            Should this property by filtered, no not.
+            </summary>
+            <param name="exception"></param>
+            <param name="propertyName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.ExceptionsIntegrationExtensions">
+            <summary>
+            Extensions for exceptions integration
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ExceptionsIntegrationExtensions.AddExceptionsIntegration(Cosmos.Logging.Core.ILogServiceCollection,System.Action{Cosmos.Logging.Exceptions.Configurations.ExceptionOptions},System.Action{Microsoft.Extensions.Configuration.IConfiguration,Cosmos.Logging.Exceptions.Configurations.ExceptionConfiguration})">
+            <summary>
+            Add exception integration for Cosmos Logging
+            </summary>
+            <param name="service"></param>
+            <param name="exceptionOptionAct"></param>
+            <param name="configAction"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.IExceptionDestructuringAccessor">
+            <summary>
+            Interface for exception destructuring accessor
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.IExceptionDestructuringAccessor.Get">
+            <summary>
+            Get an instance of <see cref="T:Cosmos.Logging.Exceptions.Core.ExceptionDestructuringProcessor"/>
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Cosmos.Logging.ExtraSupports.ContextData">
             <summary>
@@ -9971,7 +10504,7 @@
             Gets configuration root
             </summary>
         </member>
-        <member name="M:Cosmos.Logging.LoggingConfiguration.SetEnricher(Cosmos.Logging.Core.Enrichers.ILogEventEnricher)">
+        <member name="M:Cosmos.Logging.LoggingConfiguration.SetEnricher(Cosmos.Optionals.Maybe{Cosmos.Logging.Core.Enrichers.ILogEventEnricher})">
             <summary>
             Set enricher
             </summary>

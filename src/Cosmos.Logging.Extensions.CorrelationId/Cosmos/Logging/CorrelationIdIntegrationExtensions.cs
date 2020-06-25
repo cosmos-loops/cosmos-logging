@@ -1,9 +1,8 @@
 using System;
+using Cosmos.Extensions.Dependency;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Extensions.CorrelationId;
 using Cosmos.Logging.Trace;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Cosmos.Logging {
     /// <summary>
@@ -20,7 +19,7 @@ namespace Cosmos.Logging {
             if (service is null)
                 throw new ArgumentNullException(nameof(service));
 
-            service.AddDependency(s => s.TryAdd(ServiceDescriptor.Scoped<ILogTraceIdGenerator, CorrelationIdGenerator>()));
+            service.AddDependency(s => s.TryAddScoped<ILogTraceIdGenerator, CorrelationIdGenerator>());
             ExpectedTraceIdGeneratorName.Value = nameof(CorrelationIdGenerator);
 
             return service;
