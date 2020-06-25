@@ -12,11 +12,11 @@ namespace Cosmos.Logging {
         /// To global
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="settingsAct"></param>
+        /// <param name="settingsConfigure"></param>
         /// <returns></returns>
-        public static ILogServiceCollection ToGlobal(this ILogServiceCollection services, Action<LoggingOptions> settingsAct) {
+        public static ILogServiceCollection ToGlobal(this ILogServiceCollection services, Action<LoggingOptions> settingsConfigure) {
             var settings = new LoggingOptions();
-            settingsAct?.Invoke(settings);
+            settingsConfigure?.Invoke(settings);
             return ToGlobal(services, settings);
         }
 
@@ -24,13 +24,13 @@ namespace Cosmos.Logging {
         /// To global
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="settingsAct"></param>
+        /// <param name="settingsConfigure"></param>
         /// <typeparam name="TLoggingSettings"></typeparam>
         /// <returns></returns>
-        public static ILogServiceCollection ToGlobal<TLoggingSettings>(this ILogServiceCollection services, Action<TLoggingSettings> settingsAct)
+        public static ILogServiceCollection ToGlobal<TLoggingSettings>(this ILogServiceCollection services, Action<TLoggingSettings> settingsConfigure)
             where TLoggingSettings : LoggingOptions, new() {
             var settings = new TLoggingSettings();
-            settingsAct?.Invoke(settings);
+            settingsConfigure?.Invoke(settings);
             return ToGlobal(services, settings);
         }
 
@@ -43,8 +43,8 @@ namespace Cosmos.Logging {
         /// <returns></returns>
         public static ILogServiceCollection ToGlobal<TLoggingSettings>(this ILogServiceCollection services, TLoggingSettings settings)
             where TLoggingSettings : LoggingOptions, new() {
-            if (services is ZkWebLogServiceCollection collection) {
-                collection.ReplaceSettings(settings);
+            if (services is ZkWebLogServiceCollection loggingServices) {
+                loggingServices.ReplaceSettings(settings);
             }
 
             return services;

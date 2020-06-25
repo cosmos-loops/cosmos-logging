@@ -20,30 +20,40 @@ namespace Cosmos.Logging {
         /// Register Cosmos Logging to ZKWeb IOC
         /// </summary>
         /// <param name="ioc"></param>
-        /// <param name="config"></param>
+        /// <param name="serviceConfigure"></param>
         /// <returns></returns>
-        public static IContainer RegisterCosmosLogging(this IContainer ioc, Action<ILogServiceCollection> config) {
-            var serviceImpl = new ZkWebLogServiceCollection();
+        public static IContainer RegisterCosmosLogging(this IContainer ioc, Action<ILogServiceCollection> serviceConfigure) {
 
-            config?.Invoke(serviceImpl);
+            var loggingServices = new ZkWebLogServiceCollection();
+
+            loggingServices.RegisterCoreComponents(serviceConfigure);
 
             ioc.Register<ILoggingServiceProvider, ZKWebLoggingServiceProvider>(ReuseType.Singleton);
             ioc.Register<IPropertyFactoryAccessor, ShortcutPropertyFactoryAccessor>();
 
-            serviceImpl.BuildConfiguration();
-            serviceImpl.ActiveSinkSettings();
-            serviceImpl.ActiveOriginConfiguration();
-
-            ioc.RegisterFromServiceCollection(serviceImpl.ExposeServices());
+            ioc.RegisterFromServiceCollection(loggingServices.OriginalServices);
             ioc.RegisterTraceIdGenerator();
-            ioc.RegisterInstance(Options.Create((LoggingOptions) serviceImpl.ExposeLogSettings()), ReuseType.Singleton);
-            ioc.RegisterInstance(serviceImpl.ExposeLoggingConfiguration(), ReuseType.Singleton);
+            ioc.RegisterInstance(Options.Create((LoggingOptions) loggingServices.ExposeLogSettings()), ReuseType.Singleton);
+            ioc.RegisterInstance(loggingServices.ExposeLoggingConfiguration(), ReuseType.Singleton);
 
             StaticServiceResolver.SetResolver(ioc.Resolve<ILoggingServiceProvider>());
 
-            serviceImpl.ActiveLogEventEnrichers();
+            loggingServices.ActiveLogEventEnrichers();
 
             return ioc;
+        }
+
+        private static void RegisterCoreComponents(this ZkWebLogServiceCollection loggingServices, Action<ILogServiceCollection> serviceConfigure) {
+
+            using (loggingServices) {
+
+                serviceConfigure?.Invoke(loggingServices);
+
+                loggingServices.BuildConfiguration();
+                loggingServices.ActiveSinkSettings();
+                loggingServices.ActiveOriginConfiguration();
+            }
+
         }
 
         private static void RegisterTraceIdGenerator(this IContainer ioc) {

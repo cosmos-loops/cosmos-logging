@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cosmos.Extensions.Dependency;
+using Cosmos.Extensions.Dependency.Core;
 using Cosmos.Logging.Configurations;
 using Cosmos.Logging.Core;
 using Cosmos.Logging.Core.Enrichers;
@@ -12,10 +14,10 @@ namespace Cosmos.Logging.RunsOn.ZKWeb.Core {
     /// <summary>
     /// ZKWeb log service collection
     /// </summary>
-    public class ZkWebLogServiceCollection : ILogServiceCollection {
+    public class ZkWebLogServiceCollection : ILogServiceCollection, IDisposable {
         private LoggingConfigurationBuilder _configurationBuilder;
         private readonly bool _configurationBuilderLockedStatus;
-        private readonly IServiceCollection _serviceCollection;
+        private readonly MicrosoftProxyRegister _services;
 
         // ReSharper disable once InconsistentNaming
         private LoggingConfiguration _loggingConfiguration { get; set; }
@@ -30,7 +32,7 @@ namespace Cosmos.Logging.RunsOn.ZKWeb.Core {
         internal ZkWebLogServiceCollection() {
             _configurationBuilder = new LoggingConfigurationBuilder();
             _configurationBuilderLockedStatus = false;
-            _serviceCollection = new ServiceCollection();
+            _services = new MicrosoftProxyRegister(new ServiceCollection());
             _settings = new LoggingOptions();
             _sinkSettings = new Dictionary<string, ILoggingSinkOptions>();
             _additionalEnricherProviders = new List<Func<ILogEventEnricher>>();
@@ -44,9 +46,6 @@ namespace Cosmos.Logging.RunsOn.ZKWeb.Core {
 
         /// <inheritdoc />
         public bool BeGivenConfigurationRoot { get; }
-
-        /// <inheritdoc />
-        public IServiceCollection ExposeServices() => _serviceCollection;
 
         /// <inheritdoc />
         public ILoggingOptions ExposeLogSettings() => _settings;
@@ -63,8 +62,8 @@ namespace Cosmos.Logging.RunsOn.ZKWeb.Core {
         }
 
         /// <inheritdoc />
-        public ILogServiceCollection AddDependency(Action<IServiceCollection> dependencyAction) {
-            dependencyAction?.Invoke(_serviceCollection);
+        public ILogServiceCollection AddDependency(Action<DependencyProxyRegister> dependencyAction) {
+            dependencyAction?.Invoke(_services);
             return this;
         }
 
@@ -155,8 +154,16 @@ namespace Cosmos.Logging.RunsOn.ZKWeb.Core {
 
         internal void ActiveLogEventEnrichers() {
             foreach (var provider in _additionalEnricherProviders) {
-                _loggingConfiguration.SetEnricher(provider.Invoke().Maybe());
+                _loggingConfiguration.SetEnricher(provider.Invoke().ToMaybe());
             }
         }
+        
+        /// <summary>
+        /// Gets original services
+        /// </summary>
+        public IServiceCollection OriginalServices => _services.RawServices;
+
+        /// <inheritdoc />
+        public void Dispose() => _services.Dispose();
     }
 }

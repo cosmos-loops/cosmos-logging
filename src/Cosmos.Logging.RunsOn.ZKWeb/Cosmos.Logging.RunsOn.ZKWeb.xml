@@ -14,7 +14,7 @@
             To global
             </summary>
             <param name="services"></param>
-            <param name="settingsAct"></param>
+            <param name="settingsConfigure"></param>
             <returns></returns>
         </member>
         <member name="M:Cosmos.Logging.GlobalOptionsExtensions.ToGlobal``1(Cosmos.Logging.Core.ILogServiceCollection,System.Action{``0})">
@@ -22,7 +22,7 @@
             To global
             </summary>
             <param name="services"></param>
-            <param name="settingsAct"></param>
+            <param name="settingsConfigure"></param>
             <typeparam name="TLoggingSettings"></typeparam>
             <returns></returns>
         </member>
@@ -33,6 +33,19 @@
             <param name="services"></param>
             <param name="settings"></param>
             <typeparam name="TLoggingSettings"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.ZKWebIocExtensions">
+            <summary>
+            Extensions for ZKWeb IOC 
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.ZKWebIocExtensions.RegisterCosmosLogging(ZKWebStandard.Ioc.IContainer,System.Action{Cosmos.Logging.Core.ILogServiceCollection})">
+            <summary>
+            Register Cosmos Logging to ZKWeb IOC
+            </summary>
+            <param name="ioc"></param>
+            <param name="serviceConfigure"></param>
             <returns></returns>
         </member>
         <member name="T:Cosmos.Logging.LOGGER">
@@ -327,9 +340,6 @@
         <member name="P:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.BeGivenConfigurationRoot">
             <inheritdoc />
         </member>
-        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.ExposeServices">
-            <inheritdoc />
-        </member>
         <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.ExposeLogSettings">
             <inheritdoc />
         </member>
@@ -342,7 +352,7 @@
             </summary>
             <param name="newSettings"></param>
         </member>
-        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.AddDependency(System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.AddDependency(System.Action{Cosmos.Extensions.Dependency.Core.DependencyProxyRegister})">
             <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.AddEnricher(System.Func{Cosmos.Logging.Core.Enrichers.ILogEventEnricher})">
@@ -361,6 +371,14 @@
             <inheritdoc />
         </member>
         <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.PreheatMessageTemplates(System.Action{Cosmos.Logging.MessageTemplates.MessageTemplateCachePreheater})">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.OriginalServices">
+            <summary>
+            Gets original services
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.RunsOn.ZKWeb.Core.ZkWebLogServiceCollection.Dispose">
             <inheritdoc />
         </member>
         <member name="T:Cosmos.Logging.RunsOn.ZKWeb.RendersLib.ZKWebHelloWorldRenderer">
@@ -502,19 +520,6 @@
         </member>
         <member name="M:Cosmos.Logging.RunsOn.ZKWeb.ZKWebSimpleLogger.#ctor(System.Type,Cosmos.Logging.Events.LogEventLevel,System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Core.Payloads.ILogPayloadSender)">
             <inheritdoc />
-        </member>
-        <member name="T:Cosmos.Logging.ZKWebIocExtensions">
-            <summary>
-            Extensions for ZKWeb IOC 
-            </summary>
-        </member>
-        <member name="M:Cosmos.Logging.ZKWebIocExtensions.RegisterCosmosLogging(ZKWebStandard.Ioc.IContainer,System.Action{Cosmos.Logging.Core.ILogServiceCollection})">
-            <summary>
-            Register Cosmos Logging to ZKWeb IOC
-            </summary>
-            <param name="ioc"></param>
-            <param name="config"></param>
-            <returns></returns>
         </member>
     </members>
 </doc>
