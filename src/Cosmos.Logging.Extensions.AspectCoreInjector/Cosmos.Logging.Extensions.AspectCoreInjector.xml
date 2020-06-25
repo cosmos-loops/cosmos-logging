@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Extensions.AspectCoreInjector</name>
+    </assembly>
+    <members>
+        <member name="T:Cosmos.Logging.AspectCoreRegisterExtensions">
+            <summary>
+            Extensions for AspectCore register
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.AspectCoreRegisterExtensions.RegisterCosmosLogging(AspectCore.DependencyInjection.IServiceContext,Microsoft.Extensions.Configuration.IConfigurationRoot)">
+            <summary>
+            Register Cosmos.Logging for NCC AspectCore
+            </summary>
+            <param name="services"></param>
+            <param name="root"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cosmos.Logging.AspectCoreRegisterExtensions.Done(Cosmos.Logging.Core.ILogServiceCollection)">
+            <summary>
+            Done
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cosmos.Logging.TraceIdGeneratorExtensions">
+            <summary>
+            Extensions for trace id generator
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.TraceIdGeneratorExtensions.RegisterSystemTraceIdGenerator(Cosmos.Logging.Core.ILogServiceCollection)">
+            <summary>
+            Register System TraceId generator for NCC AspectCore
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogger">
+            <summary>
+            ASP.NET Core Logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogger.#ctor(System.Type,Cosmos.Logging.Events.LogEventLevel,System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,Cosmos.Logging.Core.Payloads.ILogPayloadSender)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogger.ToFuture(System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogger.ToSimple">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreFutureLogger">
+            <summary>
+            AspectCore Future Logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreFutureLogger.#ctor(Cosmos.Logging.ILogger,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreSimpleLogger">
+            <summary>
+            AspectCore simple Logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreSimpleLogger.#ctor(System.Type,Cosmos.Logging.Events.LogEventLevel,System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Core.Payloads.ILogPayloadSender)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider">
+            <summary>
+            AspectCore Logging Service Provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.#ctor(AspectCore.DependencyInjection.IServiceResolver,Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider"/>
+            </summary>
+            <param name="provider"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger(System.String,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger(System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger(System.String,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger(System.String,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger(System.Type,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger(System.Type,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger``1(Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger``1(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger``1(Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetLogger``1(Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetSimpleLogger(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetSimpleLogger``1">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger(System.String,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger(System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger(System.String,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger(System.String,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger(System.Type,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger(System.Type,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger(System.Type,Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger``1(Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger``1(System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger``1(Cosmos.Logging.Events.LogEventLevel,Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreLogServiceProvider.GetFutureLogger``1(Cosmos.Logging.Events.LogEventLevel,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Configurations.RenderingConfiguration,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection">
+            <summary>
+            Logging service collection for NCC AspectCore Framework
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.BeGivenConfigurationBuilder">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.BeGivenConfigurationRoot">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.ExposeLogSettings">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.ExposeLoggingConfiguration">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.ReplaceSettings(Cosmos.Logging.Configurations.ILoggingOptions)">
+            <summary>
+            Replace settings
+            </summary>
+            <param name="newSettings"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.AddDependency(System.Action{Cosmos.Extensions.Dependency.Core.DependencyProxyRegister})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.AddEnricher(System.Func{Cosmos.Logging.Core.Enrichers.ILogEventEnricher})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.AddSinkSettings``2(``0,System.Action{Microsoft.Extensions.Configuration.IConfiguration,``1})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.AddExtraSinkSettings``2(``0,System.Action{Microsoft.Extensions.Configuration.IConfiguration,``1,Cosmos.Logging.LoggingConfiguration})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.AddOriginalConfigAction(System.Action{Microsoft.Extensions.Configuration.IConfiguration})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.ModifyConfigurationBuilder(System.Action{Cosmos.Logging.Configurations.LoggingConfigurationBuilder})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.PreheatMessageTemplates(System.Action{Cosmos.Logging.MessageTemplates.MessageTemplateCachePreheater})">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.OriginalServices">
+            <summary>
+            Gets original services
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.AspectCoreInjector.AspectCoreServiceCollection.Dispose">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
