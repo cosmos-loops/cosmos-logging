@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Extensions.Host</name>
+    </assembly>
+    <members>
+        <member name="T:Cosmos.Logging.Extensions.Host.HostingLogger">
+            <summary>
+            ASP.NET Core Logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Host.HostingLogger.#ctor(System.Type,Cosmos.Logging.Events.LogEventLevel,System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration,Cosmos.Logging.Core.Payloads.ILogPayloadSender,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.Host.HostingLogger.HttpContext">
+            <summary>
+            Gets HttpContext
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Host.HostingLogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Host.HostingLogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Host.HostingLogger.ToFuture(System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Host.HostingLogger.ToSimple">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Host.HostingFutureLogger">
+            <summary>
+            Host Future Logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Host.HostingFutureLogger.#ctor(Cosmos.Logging.ILogger,System.String,System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Host.HostingSimpleLogger">
+            <summary>
+            Host simple Logger
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Host.HostingSimpleLogger.#ctor(System.Type,Cosmos.Logging.Events.LogEventLevel,System.String,System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Core.Payloads.ILogPayloadSender)">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.Host.HostingLoggingServiceProvider">
+            <summary>
+            Hosting logging service provider
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Host.HostingLoggingServiceProvider.#ctor(System.IServiceProvider,Cosmos.Logging.LoggingConfiguration,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceProvider"/>
+            </summary>
+            <param name="provider"></param>
+            <param name="loggingConfiguration"></param>
+            <param name="httpContextAccessor"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.Host.HostingLoggingServiceProvider.GetLoggerCore(System.Type,System.String,System.Nullable{Cosmos.Logging.Events.LogEventLevel},System.Func{System.String,Cosmos.Logging.Events.LogEventLevel,System.Boolean},Cosmos.Logging.Events.LogEventSendMode,Cosmos.Logging.Configurations.RenderingConfiguration)">
+            <summary>
+            Get logger core
+            </summary>
+            <param name="sourceType"></param>
+            <param name="categoryName"></param>
+            <param name="level"></param>
+            <param name="filter"></param>
+            <param name="mode"></param>
+            <param name="renderingOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.ApplicationBuilderExtensions">
+            <summary>
+            Application builder extensions
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.ApplicationBuilderExtensions.UseCosmosLogging(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Use cosmos localization
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.Hosting.GenericHostExtensions">
+            <summary>
+            Extensions for Microsoft generic host 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Hosting.GenericHostExtensions.AddCosmosLogging(Microsoft.Extensions.Hosting.IHostBuilder,System.Action{Cosmos.Logging.Core.ILogServiceCollection})">
+            <summary>
+            Add Cosmos Logging
+            </summary>
+            <param name="builder"></param>
+            <param name="serviceConfigure"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

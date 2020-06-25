@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cosmos.Logging.Extensions.DependencyInjection</name>
+    </assembly>
+    <members>
+        <member name="T:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection">
+            <summary>
+            Standard log service collection
+            </summary>
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.BeGivenConfigurationBuilder">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.BeGivenConfigurationRoot">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.ExposeLogSettings">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.ExposeLoggingConfiguration">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.ReplaceSettings(Cosmos.Logging.Configurations.ILoggingOptions)">
+            <summary>
+            Replace settings
+            </summary>
+            <param name="newSettings"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.AddDependency(System.Action{Cosmos.Extensions.Dependency.Core.DependencyProxyRegister})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.AddEnricher(System.Func{Cosmos.Logging.Core.Enrichers.ILogEventEnricher})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.AddSinkSettings``2(``0,System.Action{Microsoft.Extensions.Configuration.IConfiguration,``1})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.AddExtraSinkSettings``2(``0,System.Action{Microsoft.Extensions.Configuration.IConfiguration,``1,Cosmos.Logging.LoggingConfiguration})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.AddOriginalConfigAction(System.Action{Microsoft.Extensions.Configuration.IConfiguration})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.ModifyConfigurationBuilder(System.Action{Cosmos.Logging.Configurations.LoggingConfigurationBuilder})">
+            <inheritdoc />
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.PreheatMessageTemplates(System.Action{Cosmos.Logging.MessageTemplates.MessageTemplateCachePreheater})">
+            <inheritdoc />
+        </member>
+        <member name="P:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.OriginalServices">
+            <summary>
+            Gets original services
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceCollection.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceProvider">
+            <summary>
+            Standard logging
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceProvider.#ctor(System.IServiceProvider,Cosmos.Logging.LoggingConfiguration)">
+            <summary>
+            Create a new instance of <see cref="T:Cosmos.Logging.Extensions.DependencyInjection.StandardLogServiceProvider"/>
+            </summary>
+            <param name="provider"></param>
+            <param name="loggingConfiguration"></param>
+        </member>
+        <member name="T:Cosmos.Logging.Extensions.DependencyInjection.StandardSecInitializingCallback">
+            <summary>
+            Second initializing callback for Microsoft DI
+            </summary>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardSecInitializingCallback.AppendAction(System.Action)">
+            <summary>
+            Append action
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="M:Cosmos.Logging.Extensions.DependencyInjection.StandardSecInitializingCallback.Invoke">
+            <summary>
+            Invoke
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions">
+            <summary>
+            Extensions for Service collection
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddCosmosLogging(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationRoot)">
+            <summary>
+            Add Cosmos.Logging
+            </summary>
+            <param name="services"></param>
+            <param name="root"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.Done(Cosmos.Logging.Core.ILogServiceCollection)">
+            <summary>
+            Done
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.TraceIdGeneratorExtensions">
+            <summary>
+            Extensions for trace id generator
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.TraceIdGeneratorExtensions.RegisterSystemTraceIdGenerator(Cosmos.Logging.Core.ILogServiceCollection)">
+            <summary>
+            Register System TraceId generator for Microsoft DI
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Microsoft.Extensions.Logging.LoggingBuilderExtensions">
+            <summary>
+            Extensions for logging builder
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.LoggingBuilderExtensions.AddCosmosLogging(Microsoft.Extensions.Logging.ILoggingBuilder,System.Action{Cosmos.Logging.Core.ILogServiceCollection})">
+            <summary>
+            Add Cosmos Logging
+            </summary>
+            <param name="builder"></param>
+            <param name="servicesConfigure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.LoggingBuilderExtensions.AddCosmosLogging(Microsoft.Extensions.Logging.ILoggingBuilder,Microsoft.Extensions.Configuration.IConfigurationRoot,System.Action{Cosmos.Logging.Core.ILogServiceCollection})">
+            <summary>
+            Add Cosmos Logging
+            </summary>
+            <param name="builder"></param>
+            <param name="root"></param>
+            <param name="servicesConfigure"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+    </members>
+</doc>
